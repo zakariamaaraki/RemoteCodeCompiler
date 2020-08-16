@@ -7,5 +7,5 @@ then
   exit 2
 fi
 ulimit -s 100
-timeout --signal=SIGTERM 1 java test
+timeout --signal=SIGTERM 2 java test < input.txt
 exit $?

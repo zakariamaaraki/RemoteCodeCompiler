@@ -44,16 +44,14 @@ public class CompilerController {
 		
 		LocalDateTime date = LocalDateTime.now();
 		
-		createEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit);
+		createEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
 		logger.info("entrypoint.sh file has been created");
 		
 		saveUploadedFiles(sourceCode, "utility/main.java");
 		saveUploadedFiles(output, "utility/" + output.getOriginalFilename());
-		logger.info("source code file has been uploaded");
-		
-		File resultFile = new File("utility/main.java");
-		File outputFile  = new File("utility/" + output.getOriginalFilename());
-		logger.info("expected output has been uploaded");
+		if(inputFile != null)
+			saveUploadedFiles(inputFile, "utility/" + inputFile.getOriginalFilename());
+		logger.info("Files have been uploaded");
 		
 		logger.info("Building the docker image");
 		String[] dockerCommand = new String[] {"docker", "image", "build", "utility", "-t", "remotecompiler"};
@@ -113,8 +111,10 @@ public class CompilerController {
 		String result = builder.toString();
 		
 		// delete files
-		resultFile.delete();
-		outputFile.delete();
+		new File("utility/main.java").delete();
+		new File("utility/" + output.getOriginalFilename()).delete();
+		if(inputFile != null)
+			new File("utility/" + inputFile.getOriginalFilename()).delete();
 		logger.info("files have been deleted");
 		
 		String statusResponse = "";
@@ -151,7 +151,10 @@ public class CompilerController {
 	}
 	
 	// create entrypoint.sh file
-	private void createEntrypointFile(String fileName, int timeLimit, int memoryLimit) {
+	private void createEntrypointFile(String fileName, int timeLimit, int memoryLimit, MultipartFile inputFile) {
+		String executionCommand = inputFile == null
+				? "timeout --signal=SIGTERM " + timeLimit + " java " + fileName.substring(0,fileName.length() - 5) + "\n"
+				: "timeout --signal=SIGTERM " + timeLimit + " java " + fileName.substring(0,fileName.length() - 5) + " < " + inputFile.getOriginalFilename() + "\n";
 		String content = "#!/usr/bin/env bash\n" +
 				"mv main.java " + fileName+ "\n" +
 				"javac " + fileName + "\n" +
@@ -161,7 +164,7 @@ public class CompilerController {
 				"  exit 2\n" +
 				"fi\n" +
 				"ulimit -s " + memoryLimit + "\n" +
-				"timeout --signal=SIGTERM " + timeLimit + " java " + fileName.substring(0,fileName.length() - 5) + "\n" +
+				 executionCommand +
 				"exit $?\n";
 		OutputStream os = null;
 		try {
