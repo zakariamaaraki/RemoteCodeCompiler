@@ -57,14 +57,17 @@ public class CompilerController {
 		String[] dockerCommand = new String[] {"docker", "image", "build", "utility", "-t", "remotecompiler"};
 		ProcessBuilder probuilder = new ProcessBuilder(dockerCommand);
 		Process process = probuilder.start();
-		process.waitFor();
-		logger.info("docker image has been built");
+		int status = process.waitFor();
+		if(status == 0)
+			logger.info("Docker image has been built");
+		else
+			logger.info("Error while building image");
 		
 		logger.info("Running the container");
 		dockerCommand = new String[] {"docker", "run", "-p", "8888:8888", "--rm", "remotecompiler"};
 		probuilder = new ProcessBuilder(dockerCommand);
 		process = probuilder.start();
-		int status = process.waitFor();
+		status = process.waitFor();
 		logger.info("End of the execution of the container");
 		
 		BufferedReader outputReader = new BufferedReader(new InputStreamReader(output.getInputStream()));
