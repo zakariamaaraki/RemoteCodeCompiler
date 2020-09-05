@@ -5,7 +5,7 @@ This service execute your code remotely using docker containers to separate the 
 
 ## Prerequisites
 
-All do you need to run this project is to have a docker engine running on your machine.
+To run this project you need a docker engine running on your machine.
 
 
 ## Getting Started
