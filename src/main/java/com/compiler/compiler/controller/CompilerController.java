@@ -16,17 +16,31 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 enum Langage {
+	Python,
 	C,
 	Cpp,
 	Java
 }
-
 
 @RestController
 @RequestMapping("/compiler")
 public class CompilerController {
 	
 	Logger logger = LogManager.getLogger(CompilerController.class);
+	
+	// C Python
+	@RequestMapping(
+			value = "python",
+			method = RequestMethod.POST
+	)
+	public ResponseEntity<Object> compile_python(@RequestPart(value = "output", required = true) MultipartFile output,
+	                                        @RequestPart(value = "sourceCode", required = true) MultipartFile sourceCode,
+	                                        @RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
+	                                        @RequestParam(value = "timeLimit", required = true) int timeLimit,
+	                                        @RequestParam(value = "memoryLimit", required = true) int memoryLimit
+	) throws Exception {
+		return compiler(output, sourceCode, inputFile, timeLimit, memoryLimit, Langage.Python);
+	}
 	
 	// C Compiler
 	@RequestMapping(
@@ -77,6 +91,30 @@ public class CompilerController {
 		byte[] bytes = file.getBytes();
 		Path path = Paths.get(name);
 		Files.write(path, bytes);
+	}
+	
+	// create Python entrypoint.sh file
+	private void createPythonEntrypointFile(String fileName, int timeLimit, int memoryLimit, MultipartFile inputFile) {
+		String executionCommand = inputFile == null
+				? "timeout --signal=SIGTERM " + timeLimit + " python3 main.py" + "\n"
+				: "timeout --signal=SIGTERM " + timeLimit + " python3 main.py" + " < " + inputFile.getOriginalFilename() + "\n";
+		String content = "#!/usr/bin/env bash\n" +
+				"ulimit -s " + memoryLimit + "\n" +
+				executionCommand +
+				"exit $?\n";
+		OutputStream os = null;
+		try {
+			os = new FileOutputStream(new File("utility_py/entrypoint.sh"));
+			os.write(content.getBytes(), 0, content.length());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				os.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	// create Java entrypoint.sh file
@@ -189,6 +227,9 @@ public class CompilerController {
 		} else if(langage == Langage.Cpp) {
 			folder += "_cpp";
 			file += ".cpp";
+		} else {
+			folder += "_py";
+			file += ".py";
 		}
 		
 		if(memoryLimit < 0 || memoryLimit > 1000)
@@ -209,6 +250,8 @@ public class CompilerController {
 			createCEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
 		} else if(langage == Langage.Cpp) {
 			createCppEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
+		} else {
+			createPythonEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
 		}
 		
 		logger.info("entrypoint.sh file has been created");
