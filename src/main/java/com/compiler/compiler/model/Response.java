@@ -6,19 +6,15 @@ public class Response {
 	
 	private String output;
 	private String expectedOutput;
-	private int time;
-	private int memory;
 	private String status;
 	private boolean result;
 	private LocalDateTime date;
 	
 	public Response() {}
 	
-	public Response(String output, String expectedOutput, int time, int memory, String status, boolean result, LocalDateTime date) {
+	public Response(String output, String expectedOutput, String status, boolean result, LocalDateTime date) {
 		this.output = output;
 		this.expectedOutput = expectedOutput;
-		this.time = time;
-		this.memory = memory;
 		this.status = status;
 		this.result = result;
 		this.date = date;
@@ -38,22 +34,6 @@ public class Response {
 	
 	public void setExpectedOutput(String expectedOutput) {
 		this.expectedOutput = expectedOutput;
-	}
-	
-	public int getTime() {
-		return time;
-	}
-	
-	public void setTime(int time) {
-		this.time = time;
-	}
-	
-	public int getMemory() {
-		return memory;
-	}
-	
-	public void setMemory(int memory) {
-		this.memory = memory;
 	}
 	
 	public String getStatus() {
