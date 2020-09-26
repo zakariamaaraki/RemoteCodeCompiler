@@ -35,6 +35,12 @@ you have four controllers one for Java, one for C, one for C ++ and another for 
 Here is an example of the request body :
 ![Alt text](./requestBody.png?raw=true "Request Body")
 
+- **output** : the expected output.
+- **sourceCode** : your source code in java, c, c++ or python.
+- **timeLimit** : the time limit in seconds that your code must not exceed during its execution.
+- **memoryLimit** : the memory limit in Mb that your code must not exceed during its execution.
+- **inputFile** : inputs written in separate lines.
+
 ## Author
 
 - **Zakaria Maaraki** - _Initial work_ - [BrolyCode](https://github.com/BrolyCode)
