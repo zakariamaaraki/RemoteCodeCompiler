@@ -25,6 +25,16 @@ Now your server is listening on the port 8080
 
 ## How It Works
 
+you have four controllers one for Java, one for C, one for C ++ and another for Python. The call to these controllers is done through POST requests to the following urls :
+
+- localhost:8080/compiler/**java**
+- localhost:8080/compiler/**c**
+- localhost:8080/compiler/**cpp**
+- localhost:8080/compiler/**python**
+
+Here is an example of the request body :
+![Alt text](./requestBody.png?raw=true "Request Body")
+
 ## Author
 
 - **Zakaria Maaraki** - _Initial work_ - [BrolyCode](https://github.com/BrolyCode)
