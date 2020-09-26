@@ -28,7 +28,7 @@ public class CompilerController {
 	
 	Logger logger = LogManager.getLogger(CompilerController.class);
 	
-	// C Python
+	// Python Compiler
 	@RequestMapping(
 			value = "python",
 			method = RequestMethod.POST
