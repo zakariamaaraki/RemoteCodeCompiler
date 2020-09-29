@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### utility ###
+./utility/entrypoint.sh
+./utility_c/entrypoint.sh
+./utility_cpp/entrypoint.sh
+./utility_py/entrypoint.sh
