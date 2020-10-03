@@ -39,9 +39,9 @@ Here is an example of the request body :
 
 - **output** : the expected output.
 - **sourceCode** : your source code in java, c, c++ or python.
-- **timeLimit** : the time limit in seconds that your code must not exceed during its execution.
-- **memoryLimit** : the memory limit in Mb that your code must not exceed during its execution.
-- **inputFile** : inputs written in separate lines.
+- **timeLimit** : the time limit in seconds that your code must not exceed during its execution (must be between 0 and 15s).
+- **memoryLimit** : the memory limit in Mb that your code must not exceed during its execution (must be between 0 and 1000Mb).
+- **inputFile** : inputs written in separate lines (optional).
 
 ## Author
 
