@@ -12,13 +12,13 @@ To run this project you need a docker engine running on your machine.
 Build docker image by typing the following command :
 
 ```
-docker image build . -t compilertest
+docker image build . -t compiler
 ```
 
 Run the container by typing the following command
 
 ```
-docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -t compilertest
+docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -t compiler
 ```
 
 Now your server is listening on the port 8080
@@ -27,7 +27,7 @@ Now your server is listening on the port 8080
 
 ![Alt text](./compiler.png?raw=true "Compiler")
 
-you have four controllers one for Java, one for C, one for C ++ and another for Python. The call to these controllers is done through POST requests to the following urls :
+You have four controllers one for Java, one for C, one for C ++ and another for Python. The call to these controllers is done through POST requests to the following urls :
 
 - localhost:8080/compiler/**java**
 - localhost:8080/compiler/**c**
