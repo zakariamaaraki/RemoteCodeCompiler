@@ -244,15 +244,7 @@ public class CompilerController {
 		
 		LocalDateTime date = LocalDateTime.now();
 		
-		if(langage == Langage.Java) {
-			createJavaEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
-		} else if(langage == Langage.C) {
-			createCEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
-		} else if(langage == Langage.Cpp) {
-			createCppEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
-		} else {
-			createPythonEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
-		}
+		createEntrypointFile(sourceCode, inputFile, timeLimit, memoryLimit, langage);
 		
 		logger.info("entrypoint.sh file has been created");
 		
@@ -285,9 +277,30 @@ public class CompilerController {
 		StringBuilder outputBuilder = new StringBuilder();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		StringBuilder builder = new StringBuilder();
+		
+		boolean ans = runCode(outputReader, outputBuilder, reader, builder);
+		
+		String result = builder.toString();
+		
+		// delete files
+		deleteFile(folder, file);
+		new File(folder + "/" + output.getOriginalFilename()).delete();
+		if(inputFile != null)
+			new File(folder + "/" + inputFile.getOriginalFilename()).delete();
+		logger.info("files have been deleted");
+		
+		String statusResponse = statusResponse(status, ans);
+		
+		logger.info("Status response is " + statusResponse);
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(new Response(builder.toString(), outputBuilder.toString(), statusResponse, ans, date));
+	}
+	
+	private boolean runCode(BufferedReader outputReader, StringBuilder outputBuilder, BufferedReader reader, StringBuilder builder) throws IOException {
 		String line = null;
 		String outputLine = null;
-		
 		boolean ans = true;
 		
 		while ( (line = reader.readLine()) != null && (outputLine = outputReader.readLine()) != null) {
@@ -321,17 +334,15 @@ public class CompilerController {
 			outputBuilder.append(outputLine);
 			outputBuilder.append(System.getProperty("line.separator"));
 		}
-		
-		String result = builder.toString();
-		
-		// delete files
+		return ans;
+	}
+	
+	private void deleteFile(String folder, String file) {
 		new File(folder + "/" + file).delete();
-		new File(folder + "/" + output.getOriginalFilename()).delete();
-		if(inputFile != null)
-			new File(folder + "/" + inputFile.getOriginalFilename()).delete();
-		logger.info("files have been deleted");
-		
-		String statusResponse = "";
+	}
+	
+	private String statusResponse(int status, boolean ans) {
+		String statusResponse;
 		if(status == 0) {
 			if(ans)
 				statusResponse = "Accepted";
@@ -346,12 +357,19 @@ public class CompilerController {
 			statusResponse = "Out Of Memory";
 		else
 			statusResponse = "Time Limit Exceeded";
-		
-		logger.info("Status response is " + statusResponse);
-		
-		return ResponseEntity
-				.status(HttpStatus.OK)
-				.body(new Response(builder.toString(), outputBuilder.toString(), statusResponse, ans, date));
+		return statusResponse;
+	}
+	
+	private void createEntrypointFile(MultipartFile sourceCode, MultipartFile inputFile, int timeLimit, int memoryLimit, Langage langage) {
+		if(langage == Langage.Java) {
+			createJavaEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
+		} else if(langage == Langage.C) {
+			createCEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
+		} else if(langage == Langage.Cpp) {
+			createCppEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
+		} else {
+			createPythonEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
+		}
 	}
 	
 	
