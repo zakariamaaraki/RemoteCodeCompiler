@@ -252,7 +252,7 @@ public class CompilerController {
 		saveUploadedFiles(output, folder + "/" + output.getOriginalFilename());
 		if(inputFile != null)
 			saveUploadedFiles(inputFile, folder + "/" + inputFile.getOriginalFilename());
-		logger.info("Files have been uploaded");
+		logger.info("Files has been uploaded");
 		
 		String imageName = "compile" + new Date().getTime();
 		
@@ -287,7 +287,7 @@ public class CompilerController {
 		new File(folder + "/" + output.getOriginalFilename()).delete();
 		if(inputFile != null)
 			new File(folder + "/" + inputFile.getOriginalFilename()).delete();
-		logger.info("files have been deleted");
+		logger.info("files has been deleted");
 		
 		String statusResponse = statusResponse(status, ans);
 		
