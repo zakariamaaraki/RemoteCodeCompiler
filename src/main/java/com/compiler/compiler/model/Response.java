@@ -7,16 +7,14 @@ public class Response {
 	private String output;
 	private String expectedOutput;
 	private String status;
-	private boolean result;
 	private LocalDateTime date;
 	
 	public Response() {}
 	
-	public Response(String output, String expectedOutput, String status, boolean result, LocalDateTime date) {
+	public Response(String output, String expectedOutput, String status, LocalDateTime date) {
 		this.output = output;
 		this.expectedOutput = expectedOutput;
 		this.status = status;
-		this.result = result;
 		this.date = date;
 	}
 	
@@ -42,14 +40,6 @@ public class Response {
 	
 	public void setStatus(String status) {
 		this.status = status;
-	}
-	
-	public boolean isResult() {
-		return result;
-	}
-	
-	public void setResult(boolean result) {
-		this.result = result;
 	}
 	
 	public LocalDateTime getDate() {

@@ -1,6 +1,7 @@
 package com.compiler.compiler.controller;
 
 import com.compiler.compiler.model.Response;
+import com.compiler.compiler.model.Result;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -33,13 +34,13 @@ public class CompilerController {
 			value = "python",
 			method = RequestMethod.POST
 	)
-	public ResponseEntity<Object> compile_python(@RequestPart(value = "output", required = true) MultipartFile output,
+	public ResponseEntity<Object> compile_python(@RequestPart(value = "outputFile", required = true) MultipartFile outputFile,
 	                                        @RequestPart(value = "sourceCode", required = true) MultipartFile sourceCode,
 	                                        @RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
 	                                        @RequestParam(value = "timeLimit", required = true) int timeLimit,
 	                                        @RequestParam(value = "memoryLimit", required = true) int memoryLimit
 	) throws Exception {
-		return compiler(output, sourceCode, inputFile, timeLimit, memoryLimit, Langage.Python);
+		return compiler(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Langage.Python);
 	}
 	
 	// C Compiler
@@ -47,13 +48,13 @@ public class CompilerController {
 			value = "c",
 			method = RequestMethod.POST
 	)
-	public ResponseEntity<Object> compile_c(@RequestPart(value = "output", required = true) MultipartFile output,
+	public ResponseEntity<Object> compile_c(@RequestPart(value = "outputFile", required = true) MultipartFile outputFile,
 	                                      @RequestPart(value = "sourceCode", required = true) MultipartFile sourceCode,
 	                                      @RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
 	                                      @RequestParam(value = "timeLimit", required = true) int timeLimit,
 	                                      @RequestParam(value = "memoryLimit", required = true) int memoryLimit
 	) throws Exception {
-		return compiler(output, sourceCode, inputFile, timeLimit, memoryLimit, Langage.C);
+		return compiler(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Langage.C);
 	}
 	
 	// C++ Compiler
@@ -61,13 +62,13 @@ public class CompilerController {
 			value = "cpp",
 			method = RequestMethod.POST
 	)
-	public ResponseEntity<Object> compile_cpp(@RequestPart(value = "output", required = true) MultipartFile output,
+	public ResponseEntity<Object> compile_cpp(@RequestPart(value = "outputFile", required = true) MultipartFile outputFile,
 	                                        @RequestPart(value = "sourceCode", required = true) MultipartFile sourceCode,
 	                                        @RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
 	                                        @RequestParam(value = "timeLimit", required = true) int timeLimit,
 	                                        @RequestParam(value = "memoryLimit", required = true) int memoryLimit
 	) throws Exception {
-		return compiler(output, sourceCode, inputFile, timeLimit, memoryLimit, Langage.Cpp);
+		return compiler(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Langage.Cpp);
 	}
 	
 	// Java Compiler
@@ -75,13 +76,13 @@ public class CompilerController {
 			value = "java",
 			method = RequestMethod.POST
 	)
-	public ResponseEntity<Object> compile_java(@RequestPart(value = "output", required = true) MultipartFile output,
+	public ResponseEntity<Object> compile_java(@RequestPart(value = "outputFile", required = true) MultipartFile outputFile,
 	                                      @RequestPart(value = "sourceCode", required = true) MultipartFile sourceCode,
 	                                      @RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
 	                                      @RequestParam(value = "timeLimit", required = true) int timeLimit,
 	                                      @RequestParam(value = "memoryLimit", required = true) int memoryLimit
 	) throws Exception {
-		return compiler(output, sourceCode, inputFile, timeLimit, memoryLimit, Langage.Java);
+		return compiler(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Langage.Java);
 	}
 	
 	// save file
@@ -210,7 +211,7 @@ public class CompilerController {
 	
 	// Compile method
 	private ResponseEntity<Object> compiler(
-			MultipartFile output,
+			MultipartFile outputFile,
 			MultipartFile sourceCode,
 			MultipartFile inputFile,
 			int timeLimit,
@@ -249,56 +250,65 @@ public class CompilerController {
 		logger.info("entrypoint.sh file has been created");
 		
 		saveUploadedFiles(sourceCode, folder + "/" + file);
-		saveUploadedFiles(output, folder + "/" + output.getOriginalFilename());
+		saveUploadedFiles(outputFile, folder + "/" + outputFile.getOriginalFilename());
 		if(inputFile != null)
 			saveUploadedFiles(inputFile, folder + "/" + inputFile.getOriginalFilename());
 		logger.info("Files has been uploaded");
 		
 		String imageName = "compile" + new Date().getTime();
 		
-		logger.info("Building the docker image");
+		Result result = runCode(folder, imageName, outputFile);
+		
+		String statusResponse = result.getVerdict();
+		logger.info("Status response is " + statusResponse);
+		
+		// delete files
+		deleteFile(folder, file);
+		deleteFile(folder,outputFile.getOriginalFilename());
+		deleteFile(folder,inputFile.getOriginalFilename());
+		
+		
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(new Response(result.getOutput(), result.getExpectedOutput(), statusResponse, date));
+	}
+	
+	private int buildImage(String folder, String imageName) throws InterruptedException, IOException {
 		String[] dockerCommand = new String[] {"docker", "image", "build", folder, "-t", imageName};
-		ProcessBuilder probuilder = new ProcessBuilder(dockerCommand);
-		Process process = probuilder.start();
-		int status = process.waitFor();
+		ProcessBuilder processbuilder = new ProcessBuilder(dockerCommand);
+		Process process = processbuilder.start();
+		return process.waitFor();
+	}
+	
+	private Result runCode(String folder, String imageName, MultipartFile outputFile) throws InterruptedException, IOException {
+		logger.info("Building the docker image");
+		int status = buildImage(folder, imageName);
 		if(status == 0)
 			logger.info("Docker image has been built");
 		else
 			logger.info("Error while building image");
 		
 		logger.info("Running the container");
-		dockerCommand = new String[] {"docker", "run", "--rm", imageName};
-		probuilder = new ProcessBuilder(dockerCommand);
-		process = probuilder.start();
+		String[] dockerCommand = new String[] {"docker", "run", "--rm", imageName};
+		ProcessBuilder processbuilder = new ProcessBuilder(dockerCommand);
+		Process process = processbuilder.start();
 		status = process.waitFor();
 		logger.info("End of the execution of the container");
 		
-		BufferedReader outputReader = new BufferedReader(new InputStreamReader(output.getInputStream()));
+		BufferedReader outputReader = new BufferedReader(new InputStreamReader(outputFile.getInputStream()));
 		StringBuilder outputBuilder = new StringBuilder();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		StringBuilder builder = new StringBuilder();
 		
-		boolean ans = runCode(outputReader, outputBuilder, reader, builder);
+		boolean result = checkCode(outputReader, outputBuilder, reader, builder);
+		String statusResponse = statusResponse(status, result);
 		
-		String result = builder.toString();
+		return new Result(statusResponse, builder.toString(), outputBuilder.toString());
 		
-		// delete files
-		deleteFile(folder, file);
-		new File(folder + "/" + output.getOriginalFilename()).delete();
-		if(inputFile != null)
-			new File(folder + "/" + inputFile.getOriginalFilename()).delete();
-		logger.info("files has been deleted");
-		
-		String statusResponse = statusResponse(status, ans);
-		
-		logger.info("Status response is " + statusResponse);
-		
-		return ResponseEntity
-				.status(HttpStatus.OK)
-				.body(new Response(builder.toString(), outputBuilder.toString(), statusResponse, ans, date));
 	}
 	
-	private boolean runCode(BufferedReader outputReader, StringBuilder outputBuilder, BufferedReader reader, StringBuilder builder) throws IOException {
+	private boolean checkCode(BufferedReader outputReader, StringBuilder outputBuilder, BufferedReader reader, StringBuilder builder) throws IOException {
 		String line = null;
 		String outputLine = null;
 		boolean ans = true;
@@ -337,8 +347,14 @@ public class CompilerController {
 		return ans;
 	}
 	
-	private void deleteFile(String folder, String file) {
-		new File(folder + "/" + file).delete();
+	private boolean deleteFile(String folder, String file) {
+		if(folder != null && file != null) {
+			String fileName = folder + "/" + file;
+			new File(fileName).delete();
+			logger.info("file " + fileName + " has been deleted");
+			return true;
+		}
+		return false;
 	}
 	
 	private String statusResponse(int status, boolean ans) {
