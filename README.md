@@ -45,4 +45,4 @@ Here is an example of the request body :
 
 ## Author
 
-- **Zakaria Maaraki** - _Initial work_ - [BrolyCode](https://github.com/BrolyCode)
+- **Zakaria Maaraki** - _Initial work_ - [zakariamaaraki](https://github.com/zakariamaaraki)
