@@ -27,21 +27,16 @@ Now your server is listening on the port 8080
 
 ![Alt text](./compiler.png?raw=true "Compiler")
 
-You have four controllers one for Java, one for C, one for C ++ and another for Python. The call to these controllers is done through POST requests to the following urls :
+There is four controllers one for Java, one for C, one for C ++ and another for Python. The call to these controllers is done through POST requests to the following urls :
 
 - localhost:8080/compiler/**java**
 - localhost:8080/compiler/**c**
 - localhost:8080/compiler/**cpp**
 - localhost:8080/compiler/**python**
 
-Here is an example of the request body :
-![Alt text](./requestBody.png?raw=true "Request Body")
+For the documentation visit the swagger page at the following url : http://localhost:8080/swagger-ui.html
 
-- **output** : the expected output.
-- **sourceCode** : your source code in java, c, c++ or python.
-- **timeLimit** : the time limit in seconds that your code must not exceed during its execution (must be between 0 and 15s).
-- **memoryLimit** : the memory limit in Mb that your code must not exceed during its execution (must be between 0 and 1000Mb).
-- **inputFile** : inputs written in separate lines (optional).
+![Alt text](./swagger.png?raw=true "Swagger")
 
 ## Author
 
