@@ -8,9 +8,9 @@
 		<version>2.3.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.compiler</groupId>
+	<groupId>com.cp</groupId>
 	<artifactId>compiler</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1</version>
 	<name>compiler</name>
 	<description>online compiler</description>
 
@@ -29,6 +29,11 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.4</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
 		<dependency>

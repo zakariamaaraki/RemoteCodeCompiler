@@ -1,4 +1,4 @@
-package com.compiler.compiler.controller;
+package com.cp.compiler.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.event.annotation.BeforeTestClass;
