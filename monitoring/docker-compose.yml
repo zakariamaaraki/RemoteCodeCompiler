@@ -1,0 +1,34 @@
+version: "3"
+services:
+
+  grafana:
+    ports:
+      - "3000:3000"
+    volumes:
+      - /var/lib/grafana
+    image: grafana/grafana
+
+  prometheus:
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    image: prom/prometheus
+
+  compiler:
+    ports:
+      - "8080:8082"
+    container_name: compiler
+    build: ../
+    restart: on-failure
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  portainer:
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    image: portainer/portainer
