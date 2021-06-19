@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class CompilerApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void GivenJavaProgramShouldReturnAccepted() {
+	
 	}
 
 }

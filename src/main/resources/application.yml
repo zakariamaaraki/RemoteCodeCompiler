@@ -2,7 +2,11 @@ server:
   port: 8082
 
 management:
+  metrics:
+    export:
+      prometheus:
+        enabled: true
   endpoints:
     web:
       exposure:
-        include: health, info, metrics
+        include: health, info, metrics, prometheus

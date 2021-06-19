@@ -37,3 +37,9 @@ build/
 ./utility_c/entrypoint.sh
 ./utility_cpp/entrypoint.sh
 ./utility_py/entrypoint.sh
+
+
+mvnw
+mvnw.cmd
+.directory
+.mvn

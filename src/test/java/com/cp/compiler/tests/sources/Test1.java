@@ -1,5 +1,3 @@
-package com.cp.compiler.tests.inputs;
-
 public class Test1 {
 	
 	public static void main(String[] args) {

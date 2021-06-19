@@ -1,5 +1,6 @@
 package com.cp.compiler.controller;
 
+import com.cp.compiler.exceptions.DockerBuildException;
 import com.cp.compiler.model.Response;
 import com.cp.compiler.model.Result;
 import io.swagger.annotations.ApiOperation;
@@ -170,7 +171,21 @@ public class CompilerController {
 		
 		String imageName = "compile" + new Date().getTime();
 		
-		Result result = runCode(folder, imageName, outputFile);
+		Result result;
+		
+		try {
+			result = runCode(folder, imageName, outputFile);
+		} catch(DockerBuildException exception) {
+			
+			// delete files
+			deleteFile(folder, file);
+			deleteFile(folder,outputFile.getOriginalFilename());
+			if(inputFile != null)
+				deleteFile(folder,inputFile.getOriginalFilename());
+			
+			throw exception;
+		}
+		
 		
 		String statusResponse = result.getVerdict();
 		logger.info("Status response is " + statusResponse);
@@ -178,9 +193,8 @@ public class CompilerController {
 		// delete files
 		deleteFile(folder, file);
 		deleteFile(folder,outputFile.getOriginalFilename());
-		deleteFile(folder,inputFile.getOriginalFilename());
-		
-		
+		if(inputFile != null)
+			deleteFile(folder,inputFile.getOriginalFilename());
 		
 		return ResponseEntity
 				.status(HttpStatus.OK)
@@ -195,12 +209,15 @@ public class CompilerController {
 	}
 	
 	private Result runCode(String folder, String imageName, MultipartFile outputFile) throws InterruptedException, IOException {
+		
 		logger.info("Building the docker image");
 		int status = buildImage(folder, imageName);
+		
 		if(status == 0)
 			logger.info("Docker image has been built");
-		else
-			logger.info("Error while building image");
+		else {
+			throw new DockerBuildException("Error while building image");
+		}
 		
 		logger.info("Running the container");
 		String[] dockerCommand = new String[] {"docker", "run", "--rm", imageName};
@@ -271,6 +288,7 @@ public class CompilerController {
 	}
 	
 	private String statusResponse(int status, boolean ans) {
+		
 		String statusResponse;
 		if(status == 0) {
 			if(ans)
