@@ -1,6 +1,6 @@
 # Build stage
 
-FROM maven AS BUILD_STAGE
+FROM maven:3.6.0 AS BUILD_STAGE
 WORKDIR /compiler
 COPY . .
 RUN ["mvn", "clean", "install", "-Dmaven.test.skip=true"]
