@@ -27,7 +27,7 @@ Now your server is listening on the port 8080
 
 ![Alt text](./compiler.png?raw=true "Compiler")
 
-There is four controllers one for Java, one for C, one for C ++ and another for Python. The call to these controllers is done through POST requests to the following urls :
+There is four endpoints, one for Java, one for C, one for C ++ and another for Python. The call is done through POST requests to the following urls :
 
 - localhost:8080/compiler/**java**
 - localhost:8080/compiler/**c**
