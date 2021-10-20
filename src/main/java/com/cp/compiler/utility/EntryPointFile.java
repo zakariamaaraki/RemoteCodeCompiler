@@ -18,18 +18,26 @@ public class EntryPointFile {
 	private static final String C_COMMAND = "gcc";
 	private static final String JAVA_COMMAND = "javac";
 	
+	private static final String PYTHON_DIRECTORY = "utility_py";
+	private static final String JAVA_DIRECTORY = "utility";
+	private static final String C_DIRECTORY = "utility_c";
+	private static final String CPP_DIRECTORY = "utility_cpp";
+	
 	// create Python entrypoint.sh file
 	@SneakyThrows
 	public static void createPythonEntrypointFile(String fileName, int timeLimit, int memoryLimit, MultipartFile inputFile) {
+		
 		String executionCommand = inputFile == null
 				? "timeout --signal=SIGTERM " + timeLimit + "s " + PYTHON_COMMAND + " main.py" + "\n"
 				: "timeout --signal=SIGTERM " + timeLimit + "s " + PYTHON_COMMAND + " main.py" + " < " + inputFile.getOriginalFilename() + "\n";
+		
 		String content = "#!/usr/bin/env bash\n" +
 				"ulimit -s " + memoryLimit + "\n" +
 				executionCommand +
 				"exit $?\n";
+		
 		OutputStream os = null;
-		os = new FileOutputStream(new File("utility_py/entrypoint.sh"));
+		os = new FileOutputStream(new File(PYTHON_DIRECTORY + "/entrypoint.sh"));
 		os.write(content.getBytes(), 0, content.length());
 		os.close();
 	}
@@ -37,9 +45,11 @@ public class EntryPointFile {
 	// create Java entrypoint.sh file
 	@SneakyThrows
 	public static void createJavaEntrypointFile(String fileName, int timeLimit, int memoryLimit, MultipartFile inputFile) {
+		
 		String executionCommand = inputFile == null
 				? "timeout --signal=SIGTERM " + timeLimit + " java " + fileName.substring(0,fileName.length() - 5) + "\n"
 				: "timeout --signal=SIGTERM " + timeLimit + " java " + fileName.substring(0,fileName.length() - 5) + " < " + inputFile.getOriginalFilename() + "\n";
+		
 		String content = "#!/usr/bin/env bash\n" +
 				"mv main.java " + fileName+ "\n" +
 				JAVA_COMMAND + " " + fileName + "\n" +
@@ -51,8 +61,9 @@ public class EntryPointFile {
 				"ulimit -s " + memoryLimit + "\n" +
 				executionCommand +
 				"exit $?\n";
+		
 		OutputStream os = null;
-		os = new FileOutputStream(new File("utility/entrypoint.sh"));
+		os = new FileOutputStream(new File(JAVA_DIRECTORY + "/entrypoint.sh"));
 		os.write(content.getBytes(), 0, content.length());
 		os.close();
 	}
@@ -60,9 +71,11 @@ public class EntryPointFile {
 	// create C entrypoint.sh file
 	@SneakyThrows
 	public static void createCEntrypointFile(String fileName, int timeLimit, int memoryLimit, MultipartFile inputFile) {
+		
 		String executionCommand = inputFile == null
 				? "timeout --signal=SIGTERM " + timeLimit + " ./exec " + "\n"
 				: "timeout --signal=SIGTERM " + timeLimit + " ./exec " + " < " + inputFile.getOriginalFilename() + "\n";
+		
 		String content = "#!/usr/bin/env bash\n" +
 				C_COMMAND + " main.c" + " -o exec" + "\n" +
 				"ret=$?\n" +
@@ -73,8 +86,9 @@ public class EntryPointFile {
 				"ulimit -s " + memoryLimit + "\n" +
 				executionCommand +
 				"exit $?\n";
+		
 		OutputStream os = null;
-		os = new FileOutputStream(new File("utility_c/entrypoint.sh"));
+		os = new FileOutputStream(new File( C_DIRECTORY + "/entrypoint.sh"));
 		os.write(content.getBytes(), 0, content.length());
 		os.close();
 	}
@@ -82,9 +96,11 @@ public class EntryPointFile {
 	// create CPP entrypoint.sh file
 	@SneakyThrows
 	public static void createCppEntrypointFile(String fileName, int timeLimit, int memoryLimit, MultipartFile inputFile) {
+		
 		String executionCommand = inputFile == null
 				? "timeout --signal=SIGTERM " + timeLimit + " ./exec " + "\n"
 				: "timeout --signal=SIGTERM " + timeLimit + " ./exec " + " < " + inputFile.getOriginalFilename() + "\n";
+		
 		String content = "#!/usr/bin/env bash\n" +
 				CPP_COMMAND + " main.cpp" + " -o exec" + "\n" +
 				"ret=$?\n" +
@@ -95,8 +111,9 @@ public class EntryPointFile {
 				"ulimit -s " + memoryLimit + "\n" +
 				executionCommand +
 				"exit $?\n";
+		
 		OutputStream os = null;
-		os = new FileOutputStream(new File("utility_cpp/entrypoint.sh"));
+		os = new FileOutputStream(new File(CPP_DIRECTORY + "/entrypoint.sh"));
 		os.write(content.getBytes(), 0, content.length());
 		os.close();
 	}
