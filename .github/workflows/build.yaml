@@ -38,7 +38,6 @@ jobs:
           java-version: 11
       - run: mvn -B verify -P coverage --no-transfer-progress
 
-      - uses: codecov/codecov-action@v1
-        with:
-          file: ./**/target/site/jacoco/jacoco.xml
-          name: codecov
+      - name: jacoco-badge-generator
+        uses: cicirello/jacoco-badge-generator@v2.4.1
+
