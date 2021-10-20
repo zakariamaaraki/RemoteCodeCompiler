@@ -38,6 +38,15 @@ For the documentation visit the swagger page at the following url : http://local
 
 ![Alt text](./swagger.png?raw=true "Swagger")
 
+### How the docker image is generated
+
+We generate an entrypoint.sh file depending on the informations given by the user (time limit, memory limit, programming language, and also the inputs).
+
+![Alt text](./image_generation.png?raw=true "Docker image Generation")
+
+### Metrics
+Check out exposed prometheus metrics using the following url : http://localhost:8080/actuator/prometheus
+
 ## Author
 
 - **Zakaria Maaraki** - _Initial work_ - [zakariamaaraki](https://github.com/zakariamaaraki)
