@@ -5,6 +5,7 @@ import com.cp.compiler.exceptions.DockerBuildException;
 import com.cp.compiler.model.Response;
 import com.cp.compiler.model.Result;
 import com.cp.compiler.utility.FilesUtil;
+import com.cp.compiler.utility.StatusUtil;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
 import lombok.extern.slf4j.Slf4j;
@@ -164,11 +165,11 @@ public class CompilerServiceImpl implements CompilerService{
 				StringBuilder builder = new StringBuilder();
 				
 				boolean result = compareResult(outputReader, outputBuilder, reader, builder);
-				String statusResponse = statusResponse(status.get(), result);
+				String statusResponse = StatusUtil.statusResponse(status.get(), result);
 				return new Result(statusResponse, builder.toString(), outputBuilder.toString());
 			} catch (Exception e) {
 				log.error("Error : ", e);
-				return new Result(statusResponse(1, false), "", "");
+				return new Result(StatusUtil.statusResponse(1, false), "", "");
 			}
 			
 		});
@@ -211,26 +212,6 @@ public class CompilerServiceImpl implements CompilerService{
 			outputBuilder.append(System.getProperty("line.separator"));
 		}
 		return ans;
-	}
-	
-	private String statusResponse(int status, boolean ans) {
-		
-		String statusResponse;
-		if(status == 0) {
-			if(ans)
-				statusResponse = "Accepted";
-			else
-				statusResponse = "Wrong Answer";
-		}
-		else if(status == 2)
-			statusResponse = "Compilation Error";
-		else if(status == 1)
-			statusResponse = "Runtime Error";
-		else if(status == 139)
-			statusResponse = "Out Of Memory";
-		else
-			statusResponse = "Time Limit Exceeded";
-		return statusResponse;
 	}
 	
 	private void createEntrypointFile(MultipartFile sourceCode, MultipartFile inputFile, int timeLimit, int memoryLimit, Languages languages) {
