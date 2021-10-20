@@ -41,3 +41,5 @@ jobs:
       
       - name: jacoco-badge-generator
         uses: cicirello/jacoco-badge-generator@v2.4.1
+        with:
+          generate-coverage-badge: true
