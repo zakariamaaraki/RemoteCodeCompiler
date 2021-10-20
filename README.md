@@ -38,6 +38,9 @@ For the documentation visit the swagger page at the following url : http://local
 
 ![Alt text](./swagger.png?raw=true "Swagger")
 
+### Metrics
+Check out exposed prometheus metrics using the following url : http://localhost:8080/actuator/prometheus
+
 ## Author
 
 - **Zakaria Maaraki** - _Initial work_ - [zakariamaaraki](https://github.com/zakariamaaraki)
