@@ -27,7 +27,7 @@ jobs:
       - name: Maven Verify
         run: mvn -B clean verify
         
-  coverage:
+  test-coverage:
     needs: build
     runs-on: ubuntu-latest
 
