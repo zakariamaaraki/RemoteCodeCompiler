@@ -22,8 +22,8 @@ public class EntryPointFile {
 	@SneakyThrows
 	public static void createPythonEntrypointFile(String fileName, int timeLimit, int memoryLimit, MultipartFile inputFile) {
 		String executionCommand = inputFile == null
-				? "timeout --signal=SIGTERM " + timeLimit + " " + PYTHON_COMMAND + " main.py" + "\n"
-				: "timeout --signal=SIGTERM " + timeLimit + " " + PYTHON_COMMAND + " main.py" + " < " + inputFile.getOriginalFilename() + "\n";
+				? "timeout --signal=SIGTERM " + timeLimit + "s " + PYTHON_COMMAND + " main.py" + "\n"
+				: "timeout --signal=SIGTERM " + timeLimit + "s " + PYTHON_COMMAND + " main.py" + " < " + inputFile.getOriginalFilename() + "\n";
 		String content = "#!/usr/bin/env bash\n" +
 				"ulimit -s " + memoryLimit + "\n" +
 				executionCommand +
