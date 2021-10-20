@@ -1,3 +1,5 @@
+![git workflow](https://github.com/zakariamaaraki/RemoteCodeCompiler/actions/workflows/build.yaml/badge.svg)
+
 # Remote Code Compiler
 
 An online code compiler for Java, C, C++ and Python for competitive programming and coding interviews.
