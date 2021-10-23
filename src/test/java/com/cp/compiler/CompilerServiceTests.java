@@ -31,6 +31,10 @@ public class CompilerServiceTests {
 	
 	private static final String ACCEPTED_VERDICT = "Accepted";
 	private static final String WRONG_ANSWER_VERDICT = "Wrong Answer";
+	private static final String TIME_LIMIT_EXCEEDED_VERDICT = "Time Limit Exceeded";
+	private static final String RUNTIME_ERROR = "Runtime Error";
+	private static final String OUT_OF_MEMORY_ERROR = "Out Of Memory";
+	private static final String COMPILATION_ERROR = "Compilation Error";
 	
 	@Test
 	public void WhenTimeLimitGreaterThan15ShouldReturnBadRequest() throws Exception {
@@ -156,7 +160,7 @@ public class CompilerServiceTests {
 	}
 	
 	@Test
-	public void WhenItsAWrongAnswerCompileMethodShouldReturnWrongAnswerVerdictVerdict() throws Exception {
+	public void WhenItsAWrongAnswerCompileMethodShouldReturnWrongAnswerVerdict() throws Exception {
 		// Given
 		Mockito.when(containService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
@@ -180,4 +184,109 @@ public class CompilerServiceTests {
 		// Then
 		Assertions.assertEquals(WRONG_ANSWER_VERDICT, response.getStatus());
 	}
+	
+	@Test
+	public void WhenTheExecutionTimeExceedTheLimitCompileMethodShouldReturnTimeLimitExceededVerdict() throws Exception {
+		// Given
+		Mockito.when(containService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+				.thenReturn(0);
+		
+		Result result = new Result(TIME_LIMIT_EXCEEDED_VERDICT, "", "");
+		
+		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
+				.thenReturn(result);
+		
+		// MultipartFIle
+		MockMultipartFile file = new MockMultipartFile(
+				"file",
+				"hello.txt",
+				MediaType.TEXT_PLAIN_VALUE,
+				"Hello, World!".getBytes()
+		);
+		
+		// When
+		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
+		Response response = (Response) responseEntity.getBody();
+		// Then
+		Assertions.assertEquals(TIME_LIMIT_EXCEEDED_VERDICT, response.getStatus());
+	}
+	
+	@Test
+	public void WhenThereIsARuntimeErrorCompileMethodShouldReturnRunTimeErrorVerdict() throws Exception {
+		// Given
+		Mockito.when(containService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+				.thenReturn(0);
+		
+		Result result = new Result(RUNTIME_ERROR, "", "");
+		
+		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
+				.thenReturn(result);
+		
+		// MultipartFIle
+		MockMultipartFile file = new MockMultipartFile(
+				"file",
+				"hello.txt",
+				MediaType.TEXT_PLAIN_VALUE,
+				"Hello, World!".getBytes()
+		);
+		
+		// When
+		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
+		Response response = (Response) responseEntity.getBody();
+		// Then
+		Assertions.assertEquals(RUNTIME_ERROR, response.getStatus());
+	}
+	
+	@Test
+	public void WhenMemoryLimitExceededCompileMethodShouldReturnOutOfMemoryErrorVerdict() throws Exception {
+		// Given
+		Mockito.when(containService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+				.thenReturn(0);
+		
+		Result result = new Result(OUT_OF_MEMORY_ERROR, "", "");
+		
+		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
+				.thenReturn(result);
+		
+		// MultipartFIle
+		MockMultipartFile file = new MockMultipartFile(
+				"file",
+				"hello.txt",
+				MediaType.TEXT_PLAIN_VALUE,
+				"Hello, World!".getBytes()
+		);
+		
+		// When
+		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
+		Response response = (Response) responseEntity.getBody();
+		// Then
+		Assertions.assertEquals(OUT_OF_MEMORY_ERROR, response.getStatus());
+	}
+	
+	@Test
+	public void WhenItIsACompilationErrorCompileMethodShouldReturnCompilationErrorVerdict() throws Exception {
+		// Given
+		Mockito.when(containService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+				.thenReturn(0);
+		
+		Result result = new Result(COMPILATION_ERROR, "", "");
+		
+		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
+				.thenReturn(result);
+		
+		// MultipartFIle
+		MockMultipartFile file = new MockMultipartFile(
+				"file",
+				"hello.txt",
+				MediaType.TEXT_PLAIN_VALUE,
+				"Hello, World!".getBytes()
+		);
+		
+		// When
+		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
+		Response response = (Response) responseEntity.getBody();
+		// Then
+		Assertions.assertEquals(COMPILATION_ERROR, response.getStatus());
+	}
+	
 }
