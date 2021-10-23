@@ -39,6 +39,7 @@ public class CompilerServiceImpl implements CompilerService {
 		
 		String folder = "utility";
 		String file = "main";
+		
 		if(languages == Languages.C) {
 			folder += "_c";
 			file += ".c";
@@ -65,7 +66,7 @@ public class CompilerServiceImpl implements CompilerService {
 		String imageName = "compile";
 		LocalDateTime date = LocalDateTime.now();
 		
-		// Build one docker image at a time (per programming language)
+		// Build one docker image at time (per programming language)
 		synchronized (this){
 			
 			createEntrypointFile(sourceCode, inputFile, timeLimit, memoryLimit, languages);
