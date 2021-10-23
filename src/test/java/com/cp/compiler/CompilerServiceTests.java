@@ -32,9 +32,9 @@ public class CompilerServiceTests {
 	private static final String ACCEPTED_VERDICT = "Accepted";
 	private static final String WRONG_ANSWER_VERDICT = "Wrong Answer";
 	private static final String TIME_LIMIT_EXCEEDED_VERDICT = "Time Limit Exceeded";
-	private static final String RUNTIME_ERROR = "Runtime Error";
-	private static final String OUT_OF_MEMORY_ERROR = "Out Of Memory";
-	private static final String COMPILATION_ERROR = "Compilation Error";
+	private static final String RUNTIME_ERROR_VERDICT = "Runtime Error";
+	private static final String OUT_OF_MEMORY_ERROR_VERDICT = "Out Of Memory";
+	private static final String COMPILATION_ERROR_VERDICT = "Compilation Error";
 	
 	@Test
 	public void WhenTimeLimitGreaterThan15ShouldReturnBadRequest() throws Exception {
@@ -217,7 +217,7 @@ public class CompilerServiceTests {
 		Mockito.when(containService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
-		Result result = new Result(RUNTIME_ERROR, "", "");
+		Result result = new Result(RUNTIME_ERROR_VERDICT, "", "");
 		
 		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
@@ -234,7 +234,7 @@ public class CompilerServiceTests {
 		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
 		Response response = (Response) responseEntity.getBody();
 		// Then
-		Assertions.assertEquals(RUNTIME_ERROR, response.getStatus());
+		Assertions.assertEquals(RUNTIME_ERROR_VERDICT, response.getStatus());
 	}
 	
 	@Test
@@ -243,7 +243,7 @@ public class CompilerServiceTests {
 		Mockito.when(containService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
-		Result result = new Result(OUT_OF_MEMORY_ERROR, "", "");
+		Result result = new Result(OUT_OF_MEMORY_ERROR_VERDICT, "", "");
 		
 		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
@@ -260,7 +260,7 @@ public class CompilerServiceTests {
 		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
 		Response response = (Response) responseEntity.getBody();
 		// Then
-		Assertions.assertEquals(OUT_OF_MEMORY_ERROR, response.getStatus());
+		Assertions.assertEquals(OUT_OF_MEMORY_ERROR_VERDICT, response.getStatus());
 	}
 	
 	@Test
@@ -269,7 +269,7 @@ public class CompilerServiceTests {
 		Mockito.when(containService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
-		Result result = new Result(COMPILATION_ERROR, "", "");
+		Result result = new Result(COMPILATION_ERROR_VERDICT, "", "");
 		
 		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
@@ -286,7 +286,7 @@ public class CompilerServiceTests {
 		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
 		Response response = (Response) responseEntity.getBody();
 		// Then
-		Assertions.assertEquals(COMPILATION_ERROR, response.getStatus());
+		Assertions.assertEquals(COMPILATION_ERROR_VERDICT, response.getStatus());
 	}
 	
 }
