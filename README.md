@@ -27,7 +27,7 @@ Now your server is listening on the port 8080
 
 ## How It Works
 
-![Alt text](./compiler.png?raw=true "Compiler")
+![Alt text](images/compiler.png?raw=true "Compiler")
 
 There is four endpoints, one for Java, one for C, one for C ++ and another for Python. The call is done through POST requests to the following urls :
 
@@ -38,13 +38,13 @@ There is four endpoints, one for Java, one for C, one for C ++ and another for P
 
 For the documentation visit the swagger page at the following url : http://localhost:8080/swagger-ui.html
 
-![Alt text](./swagger.png?raw=true "Swagger")
+![Alt text](images/swagger.png?raw=true "Swagger")
 
 ### How the docker image is generated
 
 We generate an entrypoint.sh file depending on the informations given by the user (time limit, memory limit, programming language, and also the inputs).
 
-![Alt text](./image_generation.png?raw=true "Docker image Generation")
+![Alt text](images/image_generation.png?raw=true "Docker image Generation")
 
 ### Metrics
 Check out exposed prometheus metrics using the following url : http://localhost:8080/actuator/prometheus
