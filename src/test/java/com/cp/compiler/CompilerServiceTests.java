@@ -155,6 +155,7 @@ public class CompilerServiceTests {
 		// When
 		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
 		Response response = (Response) responseEntity.getBody();
+		
 		// Then
 		Assertions.assertEquals(ACCEPTED_VERDICT, response.getStatus());
 	}
@@ -181,6 +182,7 @@ public class CompilerServiceTests {
 		// When
 		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
 		Response response = (Response) responseEntity.getBody();
+		
 		// Then
 		Assertions.assertEquals(WRONG_ANSWER_VERDICT, response.getStatus());
 	}
@@ -207,6 +209,7 @@ public class CompilerServiceTests {
 		// When
 		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
 		Response response = (Response) responseEntity.getBody();
+		
 		// Then
 		Assertions.assertEquals(TIME_LIMIT_EXCEEDED_VERDICT, response.getStatus());
 	}
@@ -233,6 +236,7 @@ public class CompilerServiceTests {
 		// When
 		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
 		Response response = (Response) responseEntity.getBody();
+		
 		// Then
 		Assertions.assertEquals(RUNTIME_ERROR_VERDICT, response.getStatus());
 	}
@@ -259,6 +263,7 @@ public class CompilerServiceTests {
 		// When
 		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
 		Response response = (Response) responseEntity.getBody();
+		
 		// Then
 		Assertions.assertEquals(OUT_OF_MEMORY_ERROR_VERDICT, response.getStatus());
 	}
@@ -285,6 +290,7 @@ public class CompilerServiceTests {
 		// When
 		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
 		Response response = (Response) responseEntity.getBody();
+		
 		// Then
 		Assertions.assertEquals(COMPILATION_ERROR_VERDICT, response.getStatus());
 	}

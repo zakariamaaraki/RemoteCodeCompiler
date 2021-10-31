@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.cp.compiler.utility.EntryPointFile.*;
@@ -63,7 +63,9 @@ public class CompilerServiceImpl implements CompilerService {
 					.badRequest()
 					.body("Error timeLimit must be between 0 Sec and 15 Sec");
 		
-		String imageName = "compile";
+		// Unique image name
+		String imageName = UUID.randomUUID().toString();
+		
 		LocalDateTime date = LocalDateTime.now();
 		
 		// Build one docker image at time (per programming language)
@@ -78,8 +80,6 @@ public class CompilerServiceImpl implements CompilerService {
 			if(inputFile != null)
 				FilesUtil.saveUploadedFiles(inputFile, folder + "/" + inputFile.getOriginalFilename());
 			log.info("Files have been uploaded");
-			
-			imageName += new Date().getTime();
 			
 			try {
 				log.info("Building the docker image");
@@ -101,9 +101,7 @@ public class CompilerServiceImpl implements CompilerService {
 			}
 		}
 		
-		Result result;
-		
-		result = containService.runCode(folder, imageName, outputFile);
+		Result result = containService.runCode(folder, imageName, outputFile);
 		
 		String statusResponse = result.getVerdict();
 		log.info("Status response is " + statusResponse);
