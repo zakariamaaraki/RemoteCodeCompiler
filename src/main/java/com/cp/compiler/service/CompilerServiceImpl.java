@@ -28,14 +28,8 @@ public class CompilerServiceImpl implements CompilerService {
 	
 	// Compile method
 	@Override
-	public ResponseEntity<Object> compile(
-			MultipartFile outputFile,
-			MultipartFile sourceCode,
-			MultipartFile inputFile,
-			int timeLimit,
-			int memoryLimit,
-			Languages languages
-	) throws Exception {
+	public ResponseEntity<Object> compile(MultipartFile outputFile, MultipartFile sourceCode, MultipartFile inputFile,
+			int timeLimit, int memoryLimit, Languages languages) throws Exception {
 		
 		String folder = "utility";
 		String file = "main";

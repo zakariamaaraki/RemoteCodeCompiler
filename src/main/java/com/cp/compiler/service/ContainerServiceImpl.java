@@ -14,7 +14,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @Service
@@ -107,7 +106,6 @@ public class ContainerServiceImpl implements ContainService {
 	
 	private String readOutput(BufferedReader reader) throws IOException {
 		String line;
-		String outputLine = null;
 		StringBuilder builder = new StringBuilder();
 		
 		while ( (line = reader.readLine()) != null) {
