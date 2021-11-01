@@ -19,16 +19,13 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class ContainerServiceImpl implements ContainService {
 	
-	@Autowired
-	private MeterRegistry meterRegistry;
-	
-	private Timer buildTimer;
-	private Timer runTimer;
-	
 	// in millis
 	private static final long TIME_OUT = 20000;
-	
 	private static final int TIME_LIMIT_STATUS_CODE = 127;
+	@Autowired
+	private MeterRegistry meterRegistry;
+	private Timer buildTimer;
+	private Timer runTimer;
 	
 	@PostConstruct
 	public void init() {
@@ -40,7 +37,7 @@ public class ContainerServiceImpl implements ContainService {
 	public int buildImage(String folder, String imageName) {
 		return buildTimer.record(() -> {
 			try {
-				String[] dockerCommand = new String[] {"docker", "image", "build", folder, "-t", imageName};
+				String[] dockerCommand = new String[]{"docker", "image", "build", folder, "-t", imageName};
 				ProcessBuilder processbuilder = new ProcessBuilder(dockerCommand);
 				Process process = processbuilder.start();
 				return process.waitFor();
@@ -64,7 +61,7 @@ public class ContainerServiceImpl implements ContainService {
 				String expectedOutput = readOutput(expectedOutputReader);
 				
 				log.info("Running the container");
-				String[] dockerCommand = new String[] {"docker", "run", "--rm", imageName};
+				String[] dockerCommand = new String[]{"docker", "run", "--rm", imageName};
 				ProcessBuilder processbuilder = new ProcessBuilder(dockerCommand);
 				Process process = processbuilder.start();
 				
@@ -72,16 +69,14 @@ public class ContainerServiceImpl implements ContainService {
 				process.waitFor(TIME_OUT, TimeUnit.MILLISECONDS);
 				
 				// Check if the container process is alive, if it's so then destroy it and return a time limit exceeded status
-				if(process.isAlive()) {
+				if (process.isAlive()) {
 					status = TIME_LIMIT_STATUS_CODE;
 					log.info("The container exceed the 20 sec allowed for its execution");
 					process.destroy();
 					log.info("The container has been destroyed");
 					
-					/**
-					 * Can't get the output from the container (because it did not finish it's execution),
-					 * so we assume that the comparison between the output and the excepted output return false
-					 */
+					/* Can't get the output from the container (because it did not finish it's execution),
+					   so we assume that the comparison between the output and the excepted output return false */
 					String statusResponse = StatusUtil.statusResponse(status, false);
 					return new Result(statusResponse, "No available output", expectedOutput);
 				} else {
@@ -99,7 +94,7 @@ public class ContainerServiceImpl implements ContainService {
 				log.error("Error : ", e);
 				return new Result(StatusUtil.statusResponse(1, false), "A server side error has occurred", "");
 			}
-
+			
 			
 		});
 	}
@@ -108,7 +103,7 @@ public class ContainerServiceImpl implements ContainService {
 		String line;
 		StringBuilder builder = new StringBuilder();
 		
-		while ( (line = reader.readLine()) != null) {
+		while ((line = reader.readLine()) != null) {
 			builder.append(line);
 			builder.append(System.getProperty("line.separator"));
 		}

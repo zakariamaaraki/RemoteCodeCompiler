@@ -6,12 +6,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface CompilerService {
 	
-	public ResponseEntity<Object> compile(
-			MultipartFile outputFile,
-			MultipartFile sourceCode,
-			MultipartFile inputFile,
-			int timeLimit,
-			int memoryLimit,
-			Languages languages
-	) throws Exception;
+	ResponseEntity<Object> compile(MultipartFile outputFile, MultipartFile sourceCode, MultipartFile inputFile,
+	                               int timeLimit, int memoryLimit, Languages languages) throws Exception;
 }

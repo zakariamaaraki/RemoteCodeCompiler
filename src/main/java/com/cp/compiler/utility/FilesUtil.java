@@ -12,7 +12,8 @@ import java.nio.file.Paths;
 @Slf4j
 public class FilesUtil {
 	
-	private FilesUtil() {}
+	private FilesUtil() {
+	}
 	
 	// save file
 	public static void saveUploadedFiles(MultipartFile file, String name) throws IOException {
@@ -25,7 +26,7 @@ public class FilesUtil {
 	
 	// delete file
 	public static boolean deleteFile(String folder, String file) {
-		if(folder != null && file != null) {
+		if (folder != null && file != null) {
 			String fileName = folder + "/" + file;
 			new File(fileName).delete();
 			log.info("file " + fileName + " has been deleted");

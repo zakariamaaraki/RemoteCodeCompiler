@@ -29,5 +29,5 @@ EXPOSE 8082
 ENTRYPOINT ["./entrypoint.sh"]
 
 
-# Build image by typing the following command : "docker image build . -t compilertest"  
-# Run the container by typing the following command : "docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -t compilertest"
+# Build image by typing the following command : "docker image build . -t onlinecompiler"
+# Run the container by typing the following command : "docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -t onlinecompiler"

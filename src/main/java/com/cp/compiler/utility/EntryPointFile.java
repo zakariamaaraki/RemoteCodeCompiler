@@ -11,17 +11,16 @@ import java.io.OutputStream;
 @Slf4j
 public class EntryPointFile {
 	
-	private EntryPointFile() {}
-	
 	private static final String PYTHON_COMMAND = "python3";
 	private static final String CPP_COMMAND = "g++";
 	private static final String C_COMMAND = "gcc";
 	private static final String JAVA_COMMAND = "javac";
-	
 	private static final String PYTHON_DIRECTORY = "utility_py";
 	private static final String JAVA_DIRECTORY = "utility";
 	private static final String C_DIRECTORY = "utility_c";
 	private static final String CPP_DIRECTORY = "utility_cpp";
+	private EntryPointFile() {
+	}
 	
 	// create Python entrypoint.sh file
 	@SneakyThrows
@@ -47,11 +46,11 @@ public class EntryPointFile {
 	public static void createJavaEntrypointFile(String fileName, int timeLimit, int memoryLimit, MultipartFile inputFile) {
 		
 		String executionCommand = inputFile == null
-				? "timeout --signal=SIGTERM " + timeLimit + " java " + fileName.substring(0,fileName.length() - 5) + "\n"
-				: "timeout --signal=SIGTERM " + timeLimit + " java " + fileName.substring(0,fileName.length() - 5) + " < " + inputFile.getOriginalFilename() + "\n";
+				? "timeout --signal=SIGTERM " + timeLimit + " java " + fileName.substring(0, fileName.length() - 5) + "\n"
+				: "timeout --signal=SIGTERM " + timeLimit + " java " + fileName.substring(0, fileName.length() - 5) + " < " + inputFile.getOriginalFilename() + "\n";
 		
 		String content = "#!/usr/bin/env bash\n" +
-				"mv main.java " + fileName+ "\n" +
+				"mv main.java " + fileName + "\n" +
 				JAVA_COMMAND + " " + fileName + "\n" +
 				"ret=$?\n" +
 				"if [ $ret -ne 0 ]\n" +
@@ -88,7 +87,7 @@ public class EntryPointFile {
 				"exit $?\n";
 		
 		OutputStream os = null;
-		os = new FileOutputStream(new File( C_DIRECTORY + "/entrypoint.sh"));
+		os = new FileOutputStream(new File(C_DIRECTORY + "/entrypoint.sh"));
 		os.write(content.getBytes(), 0, content.length());
 		os.close();
 	}
@@ -117,5 +116,5 @@ public class EntryPointFile {
 		os.write(content.getBytes(), 0, content.length());
 		os.close();
 	}
-
+	
 }

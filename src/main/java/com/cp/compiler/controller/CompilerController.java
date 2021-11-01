@@ -5,19 +5,17 @@ import com.cp.compiler.model.Response;
 import com.cp.compiler.service.CompilerService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-
-
 @RestController
+@AllArgsConstructor
 @RequestMapping("/compiler")
 public class CompilerController {
 	
-	@Autowired
-	CompilerService compiler;
+	private CompilerService compiler;
 	
 	// Python Compiler
 	@RequestMapping(

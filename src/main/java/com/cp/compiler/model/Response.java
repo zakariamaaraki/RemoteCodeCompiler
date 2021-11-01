@@ -23,5 +23,5 @@ public class Response {
 	
 	@ApiModelProperty(notes = "The date of the execution")
 	private LocalDateTime date;
-
+	
 }
