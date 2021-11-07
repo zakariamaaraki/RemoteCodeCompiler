@@ -99,6 +99,24 @@ public class ContainerServiceImpl implements ContainService {
 		});
 	}
 	
+	@Override
+	public String getRunningContainers() throws IOException {
+		String[] dockerCommand = new String[]{"docker", "ps"};
+		ProcessBuilder processbuilder = new ProcessBuilder(dockerCommand);
+		Process process = processbuilder.start();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		return readOutput(reader);
+	}
+	
+	@Override
+	public String getImages() throws IOException {
+		String[] dockerCommand = new String[]{"docker", "images"};
+		ProcessBuilder processbuilder = new ProcessBuilder(dockerCommand);
+		Process process = processbuilder.start();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		return readOutput(reader);
+	}
+	
 	private String readOutput(BufferedReader reader) throws IOException {
 		String line;
 		StringBuilder builder = new StringBuilder();
