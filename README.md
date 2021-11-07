@@ -54,7 +54,13 @@ It is also possible to visualize information about the images and docker contain
 
 #### Example of an Output
 
+##### Docker Containers 
+
 ![Docker info response](images/docker-info-response.png?raw=true "Docker info Swagger")
+
+##### Docker Images 
+
+![Docker images info](images/docker-images-info.png?raw=true "Docker images info Swagger")
 
 ### How the docker image is generated
 
