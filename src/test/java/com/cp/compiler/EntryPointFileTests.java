@@ -19,7 +19,7 @@ public class EntryPointFileTests {
 	@Test
 	public void shouldCreatePythonEntryPointFile() {
 		// When
-		EntryPointFile.createPythonEntrypointFile("test.py", 10, 5, null);
+		EntryPointFile.createPythonEntrypointFile(10, 5, null);
 		
 		// Then
 		Assertions.assertTrue(Files.exists(Path.of(PYTHON_DIRECTORY + "/entrypoint.sh")));
@@ -39,7 +39,7 @@ public class EntryPointFileTests {
 	@Test
 	public void shouldCreateCEntryPointFile() {
 		// When
-		EntryPointFile.createCEntrypointFile("test.c", 8, 500, null);
+		EntryPointFile.createCEntrypointFile(8, 500, null);
 		
 		// Then
 		Assertions.assertTrue(Files.exists(Path.of(C_DIRECTORY + "/entrypoint.sh")));
@@ -49,7 +49,7 @@ public class EntryPointFileTests {
 	@Test
 	public void shouldCreateCPPEntryPointFile() {
 		// When
-		EntryPointFile.createCppEntrypointFile("test.cpp", 11, 400, null);
+		EntryPointFile.createCppEntrypointFile(11, 400, null);
 		
 		// Then
 		Assertions.assertTrue(Files.exists(Path.of(CPP_DIRECTORY + "/entrypoint.sh")));

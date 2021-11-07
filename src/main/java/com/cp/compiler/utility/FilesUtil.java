@@ -15,7 +15,12 @@ public class FilesUtil {
 	private FilesUtil() {
 	}
 	
-	// save file
+	/**
+	 *
+	 * @param file the file that we want to save locally
+	 * @param name the path where the file will be saved
+	 * @throws IOException
+	 */
 	public static void saveUploadedFiles(MultipartFile file, String name) throws IOException {
 		if (file.isEmpty())
 			return;
@@ -24,7 +29,12 @@ public class FilesUtil {
 		Files.write(path, bytes);
 	}
 	
-	// delete file
+	/**
+	 *
+	 * @param folder the folder where the file exists
+	 * @param file the filename that we want to delete
+	 * @return
+	 */
 	public static boolean deleteFile(String folder, String file) {
 		if (folder != null && file != null) {
 			String fileName = folder + "/" + file;

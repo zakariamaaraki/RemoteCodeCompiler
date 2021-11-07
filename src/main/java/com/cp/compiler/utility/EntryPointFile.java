@@ -22,9 +22,14 @@ public class EntryPointFile {
 	private EntryPointFile() {
 	}
 	
-	// create Python entrypoint.sh file
+	/**
+	 *
+	 * @param timeLimit the expected time limit that execution must not exceed
+	 * @param memoryLimit the expected memory limit
+	 * @param inputFile the input file that contains input data (can be null)
+	 */
 	@SneakyThrows
-	public static void createPythonEntrypointFile(String fileName, int timeLimit, int memoryLimit, MultipartFile inputFile) {
+	public static void createPythonEntrypointFile(int timeLimit, int memoryLimit, MultipartFile inputFile) {
 		
 		String executionCommand = inputFile == null
 				? "timeout --signal=SIGTERM " + timeLimit + "s " + PYTHON_COMMAND + " main.py" + "\n"
@@ -41,7 +46,13 @@ public class EntryPointFile {
 		os.close();
 	}
 	
-	// create Java entrypoint.sh file
+	/**
+	 *
+	 * @param fileName the source code file name (in java a class public must have the same name as the file name)
+	 * @param timeLimit the expected time limit that execution must not exceed
+	 * @param memoryLimit the expected memory limit
+	 * @param inputFile the input file that contains input data (can be null)
+	 */
 	@SneakyThrows
 	public static void createJavaEntrypointFile(String fileName, int timeLimit, int memoryLimit, MultipartFile inputFile) {
 		
@@ -67,9 +78,14 @@ public class EntryPointFile {
 		os.close();
 	}
 	
-	// create C entrypoint.sh file
+	/**
+	 *
+	 * @param timeLimit the expected time limit that execution must not exceed
+	 * @param memoryLimit the expected memory limit
+	 * @param inputFile the input file that contains input data (can be null)
+	 */
 	@SneakyThrows
-	public static void createCEntrypointFile(String fileName, int timeLimit, int memoryLimit, MultipartFile inputFile) {
+	public static void createCEntrypointFile(int timeLimit, int memoryLimit, MultipartFile inputFile) {
 		
 		String executionCommand = inputFile == null
 				? "timeout --signal=SIGTERM " + timeLimit + " ./exec " + "\n"
@@ -92,9 +108,14 @@ public class EntryPointFile {
 		os.close();
 	}
 	
-	// create CPP entrypoint.sh file
+	/**
+	 *
+	 * @param timeLimit the expected time limit that execution must not exceed
+	 * @param memoryLimit the expected memory limit
+	 * @param inputFile the input file that contains input data (can be null)
+	 */
 	@SneakyThrows
-	public static void createCppEntrypointFile(String fileName, int timeLimit, int memoryLimit, MultipartFile inputFile) {
+	public static void createCppEntrypointFile(int timeLimit, int memoryLimit, MultipartFile inputFile) {
 		
 		String executionCommand = inputFile == null
 				? "timeout --signal=SIGTERM " + timeLimit + " ./exec " + "\n"

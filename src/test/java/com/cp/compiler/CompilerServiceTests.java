@@ -110,7 +110,7 @@ public class CompilerServiceTests {
 		
 		Result result = new Result(ACCEPTED_VERDICT, "", "");
 		
-		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
 		
 		// MultipartFIle
@@ -138,7 +138,7 @@ public class CompilerServiceTests {
 		
 		Result result = new Result(ACCEPTED_VERDICT, "", "");
 		
-		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
 		
 		// MultipartFIle
@@ -165,7 +165,7 @@ public class CompilerServiceTests {
 		
 		Result result = new Result(WRONG_ANSWER_VERDICT, "", "");
 		
-		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
 		
 		// MultipartFIle
@@ -192,7 +192,7 @@ public class CompilerServiceTests {
 		
 		Result result = new Result(TIME_LIMIT_EXCEEDED_VERDICT, "", "");
 		
-		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
 		
 		// MultipartFIle
@@ -219,7 +219,7 @@ public class CompilerServiceTests {
 		
 		Result result = new Result(RUNTIME_ERROR_VERDICT, "", "");
 		
-		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
 		
 		// MultipartFIle
@@ -246,7 +246,7 @@ public class CompilerServiceTests {
 		
 		Result result = new Result(OUT_OF_MEMORY_ERROR_VERDICT, "", "");
 		
-		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
 		
 		// MultipartFIle
@@ -273,7 +273,7 @@ public class CompilerServiceTests {
 		
 		Result result = new Result(COMPILATION_ERROR_VERDICT, "", "");
 		
-		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
 		
 		// MultipartFIle

@@ -10,6 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * Compiler Controller Class, this class exposes 4 endpoints for (Java, C, CPP, and Python)
+ * @author Zakaria Maaraki
+ */
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/compiler")

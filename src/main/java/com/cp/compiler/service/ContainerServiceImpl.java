@@ -15,6 +15,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This class provides Docker utilities that are used by the compiler
+ * @author Zakaria Maaraki
+ */
+
 @Slf4j
 @Service
 public class ContainerServiceImpl implements ContainService {
@@ -33,6 +38,9 @@ public class ContainerServiceImpl implements ContainService {
 		runTimer = meterRegistry.timer("compiler", "container", "run");
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int buildImage(String folder, String imageName) {
 		return buildTimer.record(() -> {
@@ -49,8 +57,11 @@ public class ContainerServiceImpl implements ContainService {
 		});
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public Result runCode(String folder, String imageName, MultipartFile outputFile) {
+	public Result runCode(String imageName, MultipartFile outputFile) {
 		
 		return runTimer.record(() -> {
 			
@@ -99,6 +110,9 @@ public class ContainerServiceImpl implements ContainService {
 		});
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String getRunningContainers() throws IOException {
 		String[] dockerCommand = new String[]{"docker", "ps"};
@@ -108,6 +122,9 @@ public class ContainerServiceImpl implements ContainService {
 		return readOutput(reader);
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String getImages() throws IOException {
 		String[] dockerCommand = new String[]{"docker", "images"};

@@ -18,6 +18,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.cp.compiler.utility.EntryPointFile.*;
 
+/**
+ * Compiler Service Class, this class provides compilation utilities for several programing languages
+ * @author Zakaria Maaraki
+ */
+
 @Slf4j
 @Service
 @AllArgsConstructor
@@ -25,7 +30,9 @@ public class CompilerServiceImpl implements CompilerService {
 	
 	private ContainService containService;
 	
-	// Compile method
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ResponseEntity<Object> compile(MultipartFile outputFile, MultipartFile sourceCode, MultipartFile inputFile,
 	                                      int timeLimit, int memoryLimit, Languages languages) throws Exception {
@@ -94,7 +101,7 @@ public class CompilerServiceImpl implements CompilerService {
 			}
 		}
 		
-		Result result = containService.runCode(folder, imageName, outputFile);
+		Result result = containService.runCode(imageName, outputFile);
 		
 		String statusResponse = result.getVerdict();
 		log.info("Status response is " + statusResponse);
@@ -108,11 +115,11 @@ public class CompilerServiceImpl implements CompilerService {
 		if (languages == Languages.Java) {
 			createJavaEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
 		} else if (languages == Languages.C) {
-			createCEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
+			createCEntrypointFile(timeLimit, memoryLimit, inputFile);
 		} else if (languages == Languages.Cpp) {
-			createCppEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
+			createCppEntrypointFile(timeLimit, memoryLimit, inputFile);
 		} else {
-			createPythonEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
+			createPythonEntrypointFile(timeLimit, memoryLimit, inputFile);
 		}
 	}
 }
