@@ -23,8 +23,9 @@ Run the container by typing the following command
 docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -t compiler
 ```
 
-Now your server is listening on the port 8080
+Now your server is listening on the port 8080.
 
+### Portainer
 It might be a good idea if you run a **Portainer** instance and bind it to the same volume, in order to have a total view of created images and running containers.
 
 ```shell
