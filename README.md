@@ -32,6 +32,20 @@ It might be a good idea if you run a **Portainer** instance and mount it to the 
 docker container run -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
 ```
 
+### On K8s
+Use the provided helm chart to deploy the project on k8s
+
+```shell
+helm install compiler ./k8s/helm_charts/compiler_chart
+
+kubectl get all  // display all resources
+```
+
+Note if you are running k8s using Minikube :
+* you can reuse the Docker daemon from Minikube with eval ***$(minikube docker-env)***.
+* set image pull policy to **Never** in the values.yml file.
+
+
 ## How It Works
 
 ![Architecture](images/compiler.png?raw=true "Compiler")
