@@ -5,7 +5,6 @@ import com.cp.compiler.model.Languages;
 import com.cp.compiler.model.Response;
 import com.cp.compiler.model.Result;
 import com.cp.compiler.utility.FilesUtil;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +32,7 @@ public class CompilerServiceImpl implements CompilerService {
 	@Autowired
 	private ContainService containService;
 	
-	@Value("${compiler.docker.image.delete:false}")
+	@Value("${compiler.docker.image.delete:true}")
 	private boolean deleteDockerImage;
 	
 	/**

@@ -4,7 +4,7 @@ server:
 compiler:
   docker:
     image:
-      delete: true # delete the docker image at the end of the execution of the container, by default it's set to false.
+      delete: ${DELETE_DOCKER_IMAGE} # delete the docker image at the end of the execution of the container, by default it's set to true.
 
 spring:
   application:
