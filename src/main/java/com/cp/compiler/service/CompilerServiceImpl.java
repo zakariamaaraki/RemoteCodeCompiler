@@ -30,7 +30,7 @@ import static com.cp.compiler.utility.EntryPointFile.*;
 public class CompilerServiceImpl implements CompilerService {
 	
 	@Autowired
-	private ContainService containService;
+	private ContainerService containerService;
 	
 	@Value("${compiler.docker.image.delete:true}")
 	private boolean deleteDockerImage;
@@ -89,13 +89,12 @@ public class CompilerServiceImpl implements CompilerService {
 			try {
 				log.info(imageName + " Building the docker image");
 				
-				// variable used in lambda function should be atomic
-				AtomicInteger status = new AtomicInteger(containService.buildImage(folder, imageName));
+				AtomicInteger status = new AtomicInteger(containerService.buildImage(folder, imageName));
 				
 				if (status.get() == 0)
 					log.info( imageName + " Docker image has been built");
 				else {
-					throw new DockerBuildException(imageName + " Error while building image");
+					throw new DockerBuildException(imageName + " Error while building docker image");
 				}
 			} finally {
 				// delete files
@@ -106,11 +105,11 @@ public class CompilerServiceImpl implements CompilerService {
 			}
 		}
 		
-		Result result = containService.runCode(imageName, outputFile);
+		Result result = containerService.runCode(imageName, outputFile);
 		
 		if (deleteDockerImage) {
 			try {
-				containService.deleteImage(imageName);
+				containerService.deleteImage(imageName);
 				log.info("Image " + imageName + " has been deleted");
 			} catch (IOException e) {
 				log.warn("Error, can't delete image " + imageName + " : ", e);

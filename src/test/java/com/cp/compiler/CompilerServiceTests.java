@@ -5,7 +5,7 @@ import com.cp.compiler.model.Languages;
 import com.cp.compiler.model.Response;
 import com.cp.compiler.model.Result;
 import com.cp.compiler.service.CompilerService;
-import com.cp.compiler.service.ContainService;
+import com.cp.compiler.service.ContainerService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -29,7 +29,7 @@ public class CompilerServiceTests {
 	private static final String OUT_OF_MEMORY_ERROR_VERDICT = "Out Of Memory";
 	private static final String COMPILATION_ERROR_VERDICT = "Compilation Error";
 	@MockBean
-	private ContainService containService;
+	private ContainerService containerService;
 	@Autowired
 	private CompilerService compilerService;
 	
@@ -84,7 +84,7 @@ public class CompilerServiceTests {
 	@Test
 	public void WhenImageBuildFailedShouldThrowDockerBuildException() {
 		// Given
-		Mockito.when(containService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenThrow(new DockerBuildException("Error Building image"));
 		
 		// MultipartFIle
@@ -105,12 +105,12 @@ public class CompilerServiceTests {
 	@Test
 	public void WhenImageBuildSucceedShouldReturnAResult() throws Exception {
 		// Given
-		Mockito.when(containService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
 		Result result = new Result(ACCEPTED_VERDICT, "", "");
 		
-		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
 		
 		// MultipartFIle
@@ -133,12 +133,12 @@ public class CompilerServiceTests {
 	@Test
 	public void WhenItsACorrectAnswerCompileMethodShouldReturnAcceptedVerdict() throws Exception {
 		// Given
-		Mockito.when(containService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
 		Result result = new Result(ACCEPTED_VERDICT, "", "");
 		
-		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
 		
 		// MultipartFIle
@@ -160,12 +160,12 @@ public class CompilerServiceTests {
 	@Test
 	public void WhenItsAWrongAnswerCompileMethodShouldReturnWrongAnswerVerdict() throws Exception {
 		// Given
-		Mockito.when(containService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
 		Result result = new Result(WRONG_ANSWER_VERDICT, "", "");
 		
-		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
 		
 		// MultipartFIle
@@ -187,12 +187,12 @@ public class CompilerServiceTests {
 	@Test
 	public void WhenTheExecutionTimeExceedTheLimitCompileMethodShouldReturnTimeLimitExceededVerdict() throws Exception {
 		// Given
-		Mockito.when(containService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
 		Result result = new Result(TIME_LIMIT_EXCEEDED_VERDICT, "", "");
 		
-		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
 		
 		// MultipartFIle
@@ -214,12 +214,12 @@ public class CompilerServiceTests {
 	@Test
 	public void WhenThereIsARuntimeErrorCompileMethodShouldReturnRunTimeErrorVerdict() throws Exception {
 		// Given
-		Mockito.when(containService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
 		Result result = new Result(RUNTIME_ERROR_VERDICT, "", "");
 		
-		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
 		
 		// MultipartFIle
@@ -241,12 +241,12 @@ public class CompilerServiceTests {
 	@Test
 	public void WhenMemoryLimitExceededCompileMethodShouldReturnOutOfMemoryErrorVerdict() throws Exception {
 		// Given
-		Mockito.when(containService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
 		Result result = new Result(OUT_OF_MEMORY_ERROR_VERDICT, "", "");
 		
-		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
 		
 		// MultipartFIle
@@ -268,12 +268,12 @@ public class CompilerServiceTests {
 	@Test
 	public void WhenItIsACompilationErrorCompileMethodShouldReturnCompilationErrorVerdict() throws Exception {
 		// Given
-		Mockito.when(containService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
 		Result result = new Result(COMPILATION_ERROR_VERDICT, "", "");
 		
-		Mockito.when(containService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
+		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
 		
 		// MultipartFIle

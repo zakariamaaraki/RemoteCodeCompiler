@@ -1,7 +1,7 @@
 package com.cp.compiler.controller;
 
 import com.cp.compiler.model.Response;
-import com.cp.compiler.service.ContainService;
+import com.cp.compiler.service.ContainerService;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import java.io.IOException;
 @RequestMapping("/docker")
 public class ContainersInfoController {
 	
-	private ContainService containService;
+	private ContainerService containerService;
 	
 	// List of Running containers
 	@RequestMapping(
@@ -33,7 +33,7 @@ public class ContainersInfoController {
 	)
 	public ResponseEntity<String> getRunningContainers() {
 		try {
-			return ResponseEntity.ok().body(containService.getRunningContainers());
+			return ResponseEntity.ok().body(containerService.getRunningContainers());
 		} catch (IOException e) {
 			return ResponseEntity.status(500).body("The server is currently unable to obtain this information");
 		}
@@ -51,7 +51,7 @@ public class ContainersInfoController {
 	)
 	public ResponseEntity<String> getImages() {
 		try {
-			return ResponseEntity.ok().body(containService.getImages());
+			return ResponseEntity.ok().body(containerService.getImages());
 		} catch (IOException e) {
 			return ResponseEntity.status(500).body("The server is currently unable to obtain this information");
 		}

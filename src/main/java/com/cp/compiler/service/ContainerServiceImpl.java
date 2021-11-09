@@ -1,6 +1,7 @@
 package com.cp.compiler.service;
 
 import com.cp.compiler.model.Result;
+import com.cp.compiler.utility.CmdUtil;
 import com.cp.compiler.utility.StatusUtil;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
@@ -22,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
-public class ContainerServiceImpl implements ContainService {
+public class ContainerServiceImpl implements ContainerService {
 	
 	// in millis
 	private static final long TIME_OUT = 20000;
@@ -69,7 +70,7 @@ public class ContainerServiceImpl implements ContainService {
 				int status = 0;
 				
 				BufferedReader expectedOutputReader = new BufferedReader(new InputStreamReader(outputFile.getInputStream()));
-				String expectedOutput = readOutput(expectedOutputReader);
+				String expectedOutput = CmdUtil.readOutput(expectedOutputReader);
 				
 				log.info("Running the container");
 				String[] dockerCommand = new String[]{"docker", "run", "--rm", imageName};
@@ -95,7 +96,7 @@ public class ContainerServiceImpl implements ContainService {
 					log.info("End of the execution of the container");
 					
 					BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-					String containerOutput = readOutput(reader);
+					String containerOutput = CmdUtil.readOutput(reader);
 					
 					boolean result = compareResult(containerOutput, expectedOutput);
 					String statusResponse = StatusUtil.statusResponse(status, result);
@@ -114,7 +115,7 @@ public class ContainerServiceImpl implements ContainService {
 	 */
 	@Override
 	public String getRunningContainers() throws IOException {
-		return runCmd("docker", "ps");
+		return CmdUtil.runCmd("docker", "ps");
 	}
 	
 	/**
@@ -122,35 +123,15 @@ public class ContainerServiceImpl implements ContainService {
 	 */
 	@Override
 	public String getImages() throws IOException {
-		return runCmd("docker", "images");
+		return CmdUtil.runCmd("docker", "images");
 	}
 	
 	@Override
 	public String deleteImage(String imageName) throws IOException {
-		return runCmd("docker", "rmi", "-f", imageName);
+		return CmdUtil.runCmd("docker", "rmi", "-f", imageName);
 	}
 	
-	private String runCmd(String... params) throws IOException {
-		String[] dockerCommand = params;
-		ProcessBuilder processbuilder = new ProcessBuilder(dockerCommand);
-		Process process = processbuilder.start();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-		return readOutput(reader);
-	}
-	
-	private String readOutput(BufferedReader reader) throws IOException {
-		String line;
-		StringBuilder builder = new StringBuilder();
-		
-		while ((line = reader.readLine()) != null) {
-			builder.append(line);
-			builder.append(System.getProperty("line.separator"));
-		}
-		
-		return builder.toString();
-	}
-	
-	private boolean compareResult(String containerOutput, String expectedOutput) {
+	private static boolean compareResult(String containerOutput, String expectedOutput) {
 		return containerOutput.trim().equals(expectedOutput.trim());
 	}
 }
