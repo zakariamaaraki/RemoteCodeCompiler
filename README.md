@@ -33,11 +33,13 @@ docker container run -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock p
 ```
 
 ### On K8s
-Use the provided helm chart to deploy the project on k8s
+You can use the provided helm chart to deploy the project on k8s
 
 ```shell
 helm install compiler ./k8s/helm_charts/compiler_chart
+```
 
+```shell
 kubectl get all  // display all resources
 ```
 
