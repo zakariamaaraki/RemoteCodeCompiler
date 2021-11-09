@@ -22,7 +22,7 @@ Run the container by typing the following command
 ```shell
 sudo docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -e DELETE_DOCKER_IMAGE=true -t compiler
 ```
-The value of the env variable **DELETE_DOCKER_IMAGE** is by default equals to true, and that means that the each docker image is deleted after the execution of the container. \
+The value of the env variable **DELETE_DOCKER_IMAGE** is by default equals to true, and that means that the each docker image is deleted after the execution of the container. 
 
 ### Portainer
 It might be a good idea if you run a **Portainer** instance and mount it to the same volume, in order to have a total view of created images and running containers.
