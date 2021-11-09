@@ -1,6 +1,15 @@
 server:
   port: 8082
 
+compiler:
+  docker:
+    image:
+      delete: true # delete the docker image at the end of the execution of the container, by default it's set to false.
+
+spring:
+  application:
+    name: remote-code-compiler
+
 management:
   metrics:
     export:

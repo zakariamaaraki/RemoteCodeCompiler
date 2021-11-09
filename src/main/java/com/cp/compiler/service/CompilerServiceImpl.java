@@ -7,11 +7,14 @@ import com.cp.compiler.model.Result;
 import com.cp.compiler.utility.FilesUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -25,10 +28,13 @@ import static com.cp.compiler.utility.EntryPointFile.*;
 
 @Slf4j
 @Service
-@AllArgsConstructor
 public class CompilerServiceImpl implements CompilerService {
 	
+	@Autowired
 	private ContainService containService;
+	
+	@Value("${compiler.docker.image.delete:false}")
+	private boolean deleteDockerImage;
 	
 	/**
 	 * {@inheritDoc}
@@ -36,6 +42,9 @@ public class CompilerServiceImpl implements CompilerService {
 	@Override
 	public ResponseEntity<Object> compile(MultipartFile outputFile, MultipartFile sourceCode, MultipartFile inputFile,
 	                                      int timeLimit, int memoryLimit, Languages languages) throws Exception {
+		
+		// Unique image name
+		String imageName = UUID.randomUUID().toString();
 		
 		String folder = "utility";
 		String file = "main";
@@ -56,41 +65,38 @@ public class CompilerServiceImpl implements CompilerService {
 		if (memoryLimit < 0 || memoryLimit > 1000)
 			return ResponseEntity
 					.badRequest()
-					.body("Error memoryLimit must be between 0Mb and 1000Mb");
+					.body(imageName + " Error memoryLimit must be between 0Mb and 1000Mb");
 		
 		if (timeLimit < 0 || timeLimit > 15)
 			return ResponseEntity
 					.badRequest()
-					.body("Error timeLimit must be between 0 Sec and 15 Sec");
-		
-		// Unique image name
-		String imageName = UUID.randomUUID().toString();
+					.body(imageName + " Error timeLimit must be between 0 Sec and 15 Sec");
 		
 		LocalDateTime date = LocalDateTime.now();
 		
-		// Build one docker image at time (per programming language)
+		// Build one docker image at time
 		synchronized (this) {
 			
 			createEntrypointFile(sourceCode, inputFile, timeLimit, memoryLimit, languages);
 			
-			log.info("entrypoint.sh file has been created");
+			log.info(imageName + " entrypoint.sh file has been created");
 			
 			FilesUtil.saveUploadedFiles(sourceCode, folder + "/" + file);
 			FilesUtil.saveUploadedFiles(outputFile, folder + "/" + outputFile.getOriginalFilename());
 			if (inputFile != null)
 				FilesUtil.saveUploadedFiles(inputFile, folder + "/" + inputFile.getOriginalFilename());
-			log.info("Files have been uploaded");
+			log.info(imageName + " Files have been uploaded");
 			
 			try {
-				log.info("Building the docker image");
+				log.info(imageName + " Building the docker image");
 				
 				// variable used in lambda function should be atomic
 				AtomicInteger status = new AtomicInteger(containService.buildImage(folder, imageName));
 				
 				if (status.get() == 0)
-					log.info("Docker image has been built");
+					log.info( imageName + " Docker image has been built");
 				else {
-					throw new DockerBuildException("Error while building image");
+					throw new DockerBuildException(imageName + " Error while building image");
 				}
 			} finally {
 				// delete files
@@ -103,8 +109,17 @@ public class CompilerServiceImpl implements CompilerService {
 		
 		Result result = containService.runCode(imageName, outputFile);
 		
+		if (deleteDockerImage) {
+			try {
+				containService.deleteImage(imageName);
+				log.info("Image " + imageName + " has been deleted");
+			} catch (IOException e) {
+				log.warn("Error, can't delete image " + imageName + " : ", e);
+			}
+		}
+		
 		String statusResponse = result.getVerdict();
-		log.info("Status response is " + statusResponse);
+		log.info(imageName + " Status response is " + statusResponse);
 		
 		return ResponseEntity
 				.status(HttpStatus.OK)

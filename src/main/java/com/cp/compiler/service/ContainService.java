@@ -37,4 +37,12 @@ public interface ContainService {
 	 */
 	String getImages() throws IOException;
 	
+	/**
+	 *
+	 * @param imageName
+	 * @return a string displaying the removed docker image
+	 * @throws IOException
+	 */
+	String deleteImage(String imageName) throws IOException;
+	
 }

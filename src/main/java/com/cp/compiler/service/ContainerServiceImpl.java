@@ -109,17 +109,12 @@ public class ContainerServiceImpl implements ContainService {
 			
 		});
 	}
-	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public String getRunningContainers() throws IOException {
-		String[] dockerCommand = new String[]{"docker", "ps"};
-		ProcessBuilder processbuilder = new ProcessBuilder(dockerCommand);
-		Process process = processbuilder.start();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-		return readOutput(reader);
+		return runCmd("docker", "ps");
 	}
 	
 	/**
@@ -127,7 +122,16 @@ public class ContainerServiceImpl implements ContainService {
 	 */
 	@Override
 	public String getImages() throws IOException {
-		String[] dockerCommand = new String[]{"docker", "images"};
+		return runCmd("docker", "images");
+	}
+	
+	@Override
+	public String deleteImage(String imageName) throws IOException {
+		return runCmd("docker", "rmi", "-f", imageName);
+	}
+	
+	private String runCmd(String... params) throws IOException {
+		String[] dockerCommand = params;
 		ProcessBuilder processbuilder = new ProcessBuilder(dockerCommand);
 		Process process = processbuilder.start();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
