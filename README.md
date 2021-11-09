@@ -42,7 +42,7 @@ kubectl get all  // display all resources
 ```
 
 Note if you are running k8s using Minikube :
-* you can reuse the Docker daemon from Minikube by running this command : **eval $(minikube docker-env)***.
+* you can reuse the Docker daemon from Minikube by running this command : **eval $(minikube docker-env)**.
 * set image pull policy to **Never** in the values.yml file.
 
 
