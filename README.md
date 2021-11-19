@@ -78,6 +78,7 @@ It is also possible to visualize information about the images and docker contain
 ![Docker images info](images/docker-images-info.png?raw=true "Docker images info Swagger")
 
 ##### Docker Stats (Memory and CPU usage)
+
 ![Docker stats](images/docker-all-stats.png?raw=true "Docker stats")
 
 
