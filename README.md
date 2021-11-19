@@ -65,7 +65,7 @@ For the documentation visit the swagger page at the following url : http://local
 ### Visualize Docker images and containers info
 It is also possible to visualize information about the images and docker containers that are currently running using these endpoints 
 
-![Docker info](images/swagger-docker-info.png?raw=true "Docker info Swagger")
+![Docker info](images/swagger-docker-infos.png?raw=true "Docker info Swagger")
 
 #### Example of an Output
 
@@ -76,6 +76,10 @@ It is also possible to visualize information about the images and docker contain
 ##### Docker Images 
 
 ![Docker images info](images/docker-images-info.png?raw=true "Docker images info Swagger")
+
+##### Docker Stats (Memory and CPU usage)
+![Docker stats](images/docker-all-stats.png?raw=true "Docker stats")
+
 
 ### How the docker image is generated
 

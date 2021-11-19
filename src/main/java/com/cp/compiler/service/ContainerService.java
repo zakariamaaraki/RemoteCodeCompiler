@@ -39,6 +39,20 @@ public interface ContainerService {
 	
 	/**
 	 *
+	 * @return a String displaying stats about running containers (Mem Usage, Mem Limit, CPU)
+	 * @throws IOException
+	 */
+	String getContainersStats() throws IOException;
+	
+	/**
+	 *
+	 * @return a String displaying stats about all containers (Mem Usage, Mem Limit, CPU)
+	 * @throws IOException
+	 */
+	String getAllContainersStats() throws IOException;
+	
+	/**
+	 *
 	 * @param imageName
 	 * @return a string displaying the removed docker image
 	 * @throws IOException

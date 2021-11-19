@@ -22,7 +22,16 @@ public class CompilerController {
 	
 	private CompilerService compiler;
 	
-	// Python Compiler
+	/**
+	 * Python Compiler Controller
+	 * @param outputFile Expected output
+	 * @param sourceCode Python source code
+	 * @param inputFile Input data (optional)
+	 * @param timeLimit Time limit of the execution, must be between 0 and 15 sec
+	 * @param memoryLimit Memory limit of the execution, must be between 0 and 1000 MB
+	 * @return The verdict of the execution (Accepted, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded, Compilation Error, RunTime Error)
+	 * @throws Exception
+	 */
 	@RequestMapping(
 			value = "python",
 			method = RequestMethod.POST
@@ -42,7 +51,16 @@ public class CompilerController {
 		return compiler.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Languages.Python);
 	}
 	
-	// C Compiler
+	/**
+	 * C Compiler Controller
+	 * @param outputFile Expected output
+	 * @param sourceCode C source code
+	 * @param inputFile Input data (optional)
+	 * @param timeLimit Time limit of the execution, must be between 0 and 15 sec
+	 * @param memoryLimit Memory limit of the execution, must be between 0 and 1000 MB
+	 * @return The verdict of the execution (Accepted, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded, Compilation Error, RunTime Error)
+	 * @throws Exception
+	 */
 	@RequestMapping(
 			value = "c",
 			method = RequestMethod.POST
@@ -62,7 +80,16 @@ public class CompilerController {
 		return compiler.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Languages.C);
 	}
 	
-	// C++ Compiler
+	/**
+	 * C++ Compiler Controller
+	 * @param outputFile Expected output
+	 * @param sourceCode C++ source code
+	 * @param inputFile Input data (optional)
+	 * @param timeLimit Time limit of the execution, must be between 0 and 15 sec
+	 * @param memoryLimit Memory limit of the execution, must be between 0 and 1000 MB
+	 * @return The verdict of the execution (Accepted, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded, Compilation Error, RunTime Error)
+	 * @throws Exception
+	 */
 	@RequestMapping(
 			value = "cpp",
 			method = RequestMethod.POST
@@ -82,7 +109,16 @@ public class CompilerController {
 		return compiler.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Languages.Cpp);
 	}
 	
-	// Java Compiler
+	/**
+	 * Java Compiler Controller
+	 * @param outputFile Expected output
+	 * @param sourceCode Java source code
+	 * @param inputFile Input data (optional)
+	 * @param timeLimit Time limit of the execution, must be between 0 and 15 sec
+	 * @param memoryLimit Memory limit of the execution, must be between 0 and 1000 MB
+	 * @return The verdict of the execution (Accepted, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded, Compilation Error, RunTime Error)
+	 * @throws Exception
+	 */
 	@RequestMapping(
 			value = "java",
 			method = RequestMethod.POST

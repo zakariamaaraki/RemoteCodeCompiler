@@ -118,6 +118,16 @@ public class ContainerServiceImpl implements ContainerService {
 		return CmdUtil.runCmd("docker", "ps");
 	}
 	
+	@Override
+	public String getContainersStats() throws IOException {
+		return CmdUtil.runCmd("docker", "stats", "--no-stream");
+	}
+	
+	@Override
+	public String getAllContainersStats() throws IOException {
+		return CmdUtil.runCmd("docker", "stats", "--no-stream", "--all");
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
