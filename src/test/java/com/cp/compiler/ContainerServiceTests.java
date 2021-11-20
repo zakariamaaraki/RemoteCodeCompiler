@@ -7,14 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.util.ReflectionTestUtils;
 
+/**
+ * The type Container service tests.
+ */
 @SpringBootTest
-public class ContainerServiceTests {
+class ContainerServiceTests {
 	
 	@Autowired
-	ContainerService containerService;
+	private ContainerService containerService;
 	
+	/**
+	 * When compare expected output and container output should trim both strings.
+	 */
 	@Test
-	public void whenCompareExpectedOutputAndContainerOutputShouldTrimBothStrings() {
+	void whenCompareExpectedOutputAndContainerOutputShouldTrimBothStrings() {
 		// Given
 		String expectedOutput = "abcd";
 		String containerOutput = " abcd  ";

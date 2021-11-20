@@ -4,7 +4,10 @@ import com.cp.compiler.utility.StatusUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class StatusUtilTests {
+/**
+ * The type Status util tests.
+ */
+class StatusUtilTests {
 	
 	private static final String ACCEPTED_VERDICT = "Accepted";
 	private static final String WRONG_ANSWER_VERDICT = "Wrong Answer";
@@ -13,8 +16,11 @@ public class StatusUtilTests {
 	private static final String OUT_OF_MEMORY_ERROR_VERDICT = "Out Of Memory";
 	private static final String COMPILATION_ERROR_VERDICT = "Compilation Error";
 	
+	/**
+	 * Should return accepted.
+	 */
 	@Test
-	public void shouldReturnAccepted() {
+	void shouldReturnAccepted() {
 		// When
 		String status = StatusUtil.statusResponse(0, true);
 		
@@ -22,8 +28,11 @@ public class StatusUtilTests {
 		Assertions.assertEquals(ACCEPTED_VERDICT, status);
 	}
 	
+	/**
+	 * Should return wrong answer.
+	 */
 	@Test
-	public void shouldReturnWrongAnswer() {
+	void shouldReturnWrongAnswer() {
 		// When
 		String status = StatusUtil.statusResponse(0, false);
 		
@@ -31,8 +40,11 @@ public class StatusUtilTests {
 		Assertions.assertEquals(WRONG_ANSWER_VERDICT, status);
 	}
 	
+	/**
+	 * Should return run time error.
+	 */
 	@Test
-	public void shouldReturnRunTimeError() {
+	void shouldReturnRunTimeError() {
 		// When
 		String status = StatusUtil.statusResponse(1, false);
 		
@@ -40,8 +52,11 @@ public class StatusUtilTests {
 		Assertions.assertEquals(RUNTIME_ERROR_VERDICT, status);
 	}
 	
+	/**
+	 * Should return compilation error.
+	 */
 	@Test
-	public void shouldReturnCompilationError() {
+	void shouldReturnCompilationError() {
 		// When
 		String status = StatusUtil.statusResponse(2, false);
 		
@@ -49,8 +64,11 @@ public class StatusUtilTests {
 		Assertions.assertEquals(COMPILATION_ERROR_VERDICT, status);
 	}
 	
+	/**
+	 * Should return out of memory.
+	 */
 	@Test
-	public void shouldReturnOutOfMemory() {
+	void shouldReturnOutOfMemory() {
 		// WHen
 		String status = StatusUtil.statusResponse(139, false);
 		
@@ -58,8 +76,11 @@ public class StatusUtilTests {
 		Assertions.assertEquals(OUT_OF_MEMORY_ERROR_VERDICT, status);
 	}
 	
+	/**
+	 * Should return time limit exceeded.
+	 */
 	@Test
-	public void shouldReturnTimeLimitExceeded() {
+	void shouldReturnTimeLimitExceeded() {
 		// WHen
 		String status = StatusUtil.statusResponse(257, false);
 		

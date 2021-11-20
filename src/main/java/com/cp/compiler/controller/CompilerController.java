@@ -41,14 +41,14 @@ public class CompilerController {
 			notes = "Provide outputFile, inputFile (not required), source code, time limit and memory limit",
 			response = Response.class
 	)
-	public ResponseEntity<Object> compile_python(
+	public ResponseEntity<Object> compilePython(
 			@ApiParam(value = "The expected output") @RequestPart(value = "outputFile", required = true) MultipartFile outputFile,
 			@ApiParam(value = "Your source code") @RequestPart(value = "sourceCode", required = true) MultipartFile sourceCode,
 			@ApiParam(value = "This one is not required, it's just the inputs") @RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
 			@ApiParam(value = "The time limit that the execution must not exceed") @RequestParam(value = "timeLimit", required = true) int timeLimit,
 			@ApiParam(value = "The memory limit that the running program must not exceed") @RequestParam(value = "memoryLimit", required = true) int memoryLimit
 	) throws Exception {
-		return compiler.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Languages.Python);
+		return compiler.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Languages.PYTHON);
 	}
 	
 	/**
@@ -70,7 +70,7 @@ public class CompilerController {
 			notes = "Provide outputFile, inputFile (not required), source code, time limit and memory limit",
 			response = Response.class
 	)
-	public ResponseEntity<Object> compile_c(
+	public ResponseEntity<Object> compileC(
 			@ApiParam(value = "The expected output") @RequestPart(value = "outputFile", required = true) MultipartFile outputFile,
 			@ApiParam(value = "Your source code") @RequestPart(value = "sourceCode", required = true) MultipartFile sourceCode,
 			@ApiParam(value = "This one is not required, it's just the inputs") @RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
@@ -99,14 +99,14 @@ public class CompilerController {
 			notes = "Provide outputFile, inputFile (not required), source code, time limit and memory limit",
 			response = Response.class
 	)
-	public ResponseEntity<Object> compile_cpp(
+	public ResponseEntity<Object> compileCpp(
 			@ApiParam(value = "The expected output") @RequestPart(value = "outputFile", required = true) MultipartFile outputFile,
 			@ApiParam(value = "Your source code") @RequestPart(value = "sourceCode", required = true) MultipartFile sourceCode,
 			@ApiParam(value = "This one is not required, it's just the inputs") @RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
 			@ApiParam(value = "The time limit that the execution must not exceed") @RequestParam(value = "timeLimit", required = true) int timeLimit,
 			@ApiParam(value = "The memory limit that the running program must not exceed") @RequestParam(value = "memoryLimit", required = true) int memoryLimit
 	) throws Exception {
-		return compiler.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Languages.Cpp);
+		return compiler.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Languages.CPP);
 	}
 	
 	/**
@@ -128,14 +128,14 @@ public class CompilerController {
 			notes = "Provide outputFile, inputFile (not required), source code, time limit and memory limit",
 			response = Response.class
 	)
-	public ResponseEntity<Object> compile_java(
+	public ResponseEntity<Object> compileJava(
 			@ApiParam(value = "The expected output") @RequestPart(value = "outputFile", required = true) MultipartFile outputFile,
 			@ApiParam(value = "Your source code") @RequestPart(value = "sourceCode", required = true) MultipartFile sourceCode,
 			@ApiParam(value = "This one is not required, it's just the inputs") @RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
 			@ApiParam(value = "The time limit that the execution must not exceed") @RequestParam(value = "timeLimit", required = true) int timeLimit,
 			@ApiParam(value = "The memory limit that the running program must not exceed") @RequestParam(value = "memoryLimit", required = true) int memoryLimit
 	) throws Exception {
-		return compiler.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Languages.Java);
+		return compiler.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Languages.JAVA);
 	}
 	
 }

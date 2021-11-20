@@ -8,7 +8,10 @@ import org.junit.jupiter.api.Test;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class EntryPointFileTests {
+/**
+ * The type Entry point file tests.
+ */
+class EntryPointFileTests {
 	
 	private static final String PYTHON_DIRECTORY = "utility_py";
 	private static final String JAVA_DIRECTORY = "utility";
@@ -16,8 +19,11 @@ public class EntryPointFileTests {
 	private static final String CPP_DIRECTORY = "utility_cpp";
 	
 	
+	/**
+	 * Should create python entry point file.
+	 */
 	@Test
-	public void shouldCreatePythonEntryPointFile() {
+	void shouldCreatePythonEntryPointFile() {
 		// When
 		EntryPointFile.createPythonEntrypointFile(10, 5, null);
 		
@@ -26,8 +32,11 @@ public class EntryPointFileTests {
 		FilesUtil.deleteFile(PYTHON_DIRECTORY, "entrypoint.sh");
 	}
 	
+	/**
+	 * Should create java entry point file.
+	 */
 	@Test
-	public void shouldCreateJavaEntryPointFile() {
+	void shouldCreateJavaEntryPointFile() {
 		// When
 		EntryPointFile.createJavaEntrypointFile("test.java", 9, 4, null);
 		
@@ -36,8 +45,11 @@ public class EntryPointFileTests {
 		FilesUtil.deleteFile(JAVA_DIRECTORY, "entrypoint.sh");
 	}
 	
+	/**
+	 * Should create c entry point file.
+	 */
 	@Test
-	public void shouldCreateCEntryPointFile() {
+	void shouldCreateCEntryPointFile() {
 		// When
 		EntryPointFile.createCEntrypointFile(8, 500, null);
 		
@@ -46,8 +58,11 @@ public class EntryPointFileTests {
 		FilesUtil.deleteFile(C_DIRECTORY, "entrypoint.sh");
 	}
 	
+	/**
+	 * Should create cpp entry point file.
+	 */
 	@Test
-	public void shouldCreateCPPEntryPointFile() {
+	void shouldCreateCPPEntryPointFile() {
 		// When
 		EntryPointFile.createCppEntrypointFile(11, 400, null);
 		

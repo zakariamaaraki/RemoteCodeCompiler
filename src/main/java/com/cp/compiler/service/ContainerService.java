@@ -26,36 +26,36 @@ public interface ContainerService {
 	/**
 	 *
 	 * @return a string displaying information about running containers
-	 * @throws IOException
+	 * @throws IOException an exception
 	 */
 	String getRunningContainers() throws IOException;
 	
 	/**
 	 *
 	 * @return a string displaying information about docker images
-	 * @throws IOException
+	 * @throws IOException an exception
 	 */
 	String getImages() throws IOException;
 	
 	/**
 	 *
 	 * @return a String displaying stats about running containers (Mem Usage, Mem Limit, CPU)
-	 * @throws IOException
+	 * @throws IOException an exception
 	 */
 	String getContainersStats() throws IOException;
 	
 	/**
 	 *
 	 * @return a String displaying stats about all containers (Mem Usage, Mem Limit, CPU)
-	 * @throws IOException
+	 * @throws IOException an exception
 	 */
 	String getAllContainersStats() throws IOException;
 	
 	/**
 	 *
-	 * @param imageName
+	 * @param imageName docker image name
 	 * @return a string displaying the removed docker image
-	 * @throws IOException
+	 * @throws IOException an exception
 	 */
 	String deleteImage(String imageName) throws IOException;
 	

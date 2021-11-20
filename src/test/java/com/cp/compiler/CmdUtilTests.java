@@ -8,10 +8,18 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class CmdUtilTests {
+/**
+ * The type Cmd util tests.
+ */
+class CmdUtilTests {
 	
+	/**
+	 * Should execute a command and return output.
+	 *
+	 * @throws IOException the io exception
+	 */
 	@Test
-	public void shouldExecuteACommandAndReturnOutput() throws IOException {
+	void shouldExecuteACommandAndReturnOutput() throws IOException {
 		// Given
 		String[] cmd = new String[] {"echo", "test"};
 		
@@ -22,8 +30,13 @@ public class CmdUtilTests {
 		Assertions.assertEquals("test\n", output);
 	}
 	
+	/**
+	 * When read output method is called should return the correct output.
+	 *
+	 * @throws IOException the io exception
+	 */
 	@Test
-	public void whenReadOutputMethodIsCalledShouldReturnTheCorrectOutput() throws IOException {
+	void whenReadOutputMethodIsCalledShouldReturnTheCorrectOutput() throws IOException {
 		// Given
 		BufferedReader bufferedReader = new BufferedReader(new FileReader("src/test/resources/outputs/Test1.txt"));
 		

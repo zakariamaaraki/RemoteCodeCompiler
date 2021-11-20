@@ -18,12 +18,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
+/**
+ * The type Compiler controller tests.
+ */
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
-public class CompilerControllerTests {
+class CompilerControllerTests {
 	
 	@InjectMocks
-	CompilerController compilerController;
+	private CompilerController compilerController;
 	@Mock
 	private CompilerService compilerService;
 	@Mock
@@ -31,23 +34,33 @@ public class CompilerControllerTests {
 	@Mock
 	private MultipartFile sourceCode;
 	
+	/**
+	 * When compiling java code should return a response object in the body.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
-	public void whenCompilingJavaCodeShouldReturnAResponseObjectInTheBody() throws Exception {
+	void whenCompilingJavaCodeShouldReturnAResponseObjectInTheBody() throws Exception {
 		// Given
-		Mockito.when(compilerService.compile(outputFile, sourceCode, null, 10, 500, Languages.Java))
+		Mockito.when(compilerService.compile(outputFile, sourceCode, null, 10, 500, Languages.JAVA))
 				.thenReturn(ResponseEntity
 						.status(HttpStatus.OK)
 						.body(new Response("test output", "test expected output", "Accepted", LocalDateTime.now())));
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerController.compile_java(outputFile, sourceCode, null, 10, 500);
+		ResponseEntity<Object> responseEntity = compilerController.compileJava(outputFile, sourceCode, null, 10, 500);
 		
 		// Then
 		Assertions.assertThat(responseEntity.getBody() instanceof Response);
 	}
 	
+	/**
+	 * When compiling c code should return a response object in the body.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
-	public void whenCompilingCCodeShouldReturnAResponseObjectInTheBody() throws Exception {
+	void whenCompilingCCodeShouldReturnAResponseObjectInTheBody() throws Exception {
 		// Given
 		Mockito.when(compilerService.compile(outputFile, sourceCode, null, 10, 500, Languages.C))
 				.thenReturn(ResponseEntity
@@ -55,37 +68,47 @@ public class CompilerControllerTests {
 						.body(new Response("test output", "test expected output", "Accepted", LocalDateTime.now())));
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerController.compile_c(outputFile, sourceCode, null, 10, 500);
+		ResponseEntity<Object> responseEntity = compilerController.compileC(outputFile, sourceCode, null, 10, 500);
 		
 		// Then
 		Assertions.assertThat(responseEntity.getBody() instanceof Response);
 	}
 	
+	/**
+	 * When compiling cpp code should return a response object in the body.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
-	public void whenCompilingCppCodeShouldReturnAResponseObjectInTheBody() throws Exception {
+	void whenCompilingCppCodeShouldReturnAResponseObjectInTheBody() throws Exception {
 		// Given
-		Mockito.when(compilerService.compile(outputFile, sourceCode, null, 10, 500, Languages.Cpp))
+		Mockito.when(compilerService.compile(outputFile, sourceCode, null, 10, 500, Languages.CPP))
 				.thenReturn(ResponseEntity
 						.status(HttpStatus.OK)
 						.body(new Response("test output", "test expected output", "Accepted", LocalDateTime.now())));
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerController.compile_cpp(outputFile, sourceCode, null, 10, 500);
+		ResponseEntity<Object> responseEntity = compilerController.compileCpp(outputFile, sourceCode, null, 10, 500);
 		
 		// Then
 		Assertions.assertThat(responseEntity.getBody() instanceof Response);
 	}
 	
+	/**
+	 * When compiling python code should return a response object in the body.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
-	public void whenCompilingPythonCodeShouldReturnAResponseObjectInTheBody() throws Exception {
+	void whenCompilingPythonCodeShouldReturnAResponseObjectInTheBody() throws Exception {
 		// Given
-		Mockito.when(compilerService.compile(outputFile, sourceCode, null, 10, 500, Languages.Python))
+		Mockito.when(compilerService.compile(outputFile, sourceCode, null, 10, 500, Languages.PYTHON))
 				.thenReturn(ResponseEntity
 						.status(HttpStatus.OK)
 						.body(new Response("test output", "test expected output", "Accepted", LocalDateTime.now())));
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerController.compile_python(outputFile, sourceCode, null, 10, 500);
+		ResponseEntity<Object> responseEntity = compilerController.compilePython(outputFile, sourceCode, null, 10, 500);
 		
 		// Then
 		Assertions.assertThat(responseEntity.getBody() instanceof Response);

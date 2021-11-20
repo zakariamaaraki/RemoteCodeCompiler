@@ -1,5 +1,6 @@
 package com.cp.compiler.service;
 
+import com.cp.compiler.exceptions.CompilerServerException;
 import com.cp.compiler.exceptions.DockerBuildException;
 import com.cp.compiler.model.Languages;
 import com.cp.compiler.model.Response;
@@ -40,7 +41,7 @@ public class CompilerServiceImpl implements CompilerService {
 	 */
 	@Override
 	public ResponseEntity<Object> compile(MultipartFile outputFile, MultipartFile sourceCode, MultipartFile inputFile,
-	                                      int timeLimit, int memoryLimit, Languages languages) throws Exception {
+	                                      int timeLimit, int memoryLimit, Languages languages) throws CompilerServerException {
 		
 		// Unique image name
 		String imageName = UUID.randomUUID().toString();
@@ -51,9 +52,9 @@ public class CompilerServiceImpl implements CompilerService {
 		if (languages == Languages.C) {
 			folder += "_c";
 			file += ".c";
-		} else if (languages == Languages.Java) {
+		} else if (languages == Languages.JAVA) {
 			file += ".java";
-		} else if (languages == Languages.Cpp) {
+		} else if (languages == Languages.CPP) {
 			folder += "_cpp";
 			file += ".cpp";
 		} else {
@@ -80,10 +81,15 @@ public class CompilerServiceImpl implements CompilerService {
 			
 			log.info(imageName + " entrypoint.sh file has been created");
 			
-			FilesUtil.saveUploadedFiles(sourceCode, folder + "/" + file);
-			FilesUtil.saveUploadedFiles(outputFile, folder + "/" + outputFile.getOriginalFilename());
-			if (inputFile != null)
-				FilesUtil.saveUploadedFiles(inputFile, folder + "/" + inputFile.getOriginalFilename());
+			try {
+				FilesUtil.saveUploadedFiles(sourceCode, folder + "/" + file);
+				FilesUtil.saveUploadedFiles(outputFile, folder + "/" + outputFile.getOriginalFilename());
+				if (inputFile != null)
+					FilesUtil.saveUploadedFiles(inputFile, folder + "/" + inputFile.getOriginalFilename());
+			} catch (IOException e) {
+				throw new CompilerServerException(e.getMessage());
+			}
+			
 			log.info(imageName + " Files have been uploaded");
 			
 			try {
@@ -125,11 +131,11 @@ public class CompilerServiceImpl implements CompilerService {
 	}
 	
 	private void createEntrypointFile(MultipartFile sourceCode, MultipartFile inputFile, int timeLimit, int memoryLimit, Languages languages) {
-		if (languages == Languages.Java) {
+		if (languages == Languages.JAVA) {
 			createJavaEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
 		} else if (languages == Languages.C) {
 			createCEntrypointFile(timeLimit, memoryLimit, inputFile);
-		} else if (languages == Languages.Cpp) {
+		} else if (languages == Languages.CPP) {
 			createCppEntrypointFile(timeLimit, memoryLimit, inputFile);
 		} else {
 			createPythonEntrypointFile(timeLimit, memoryLimit, inputFile);

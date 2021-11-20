@@ -5,12 +5,15 @@ import com.cp.compiler.service.ContainerService;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
 /**
  * Docker Info Rest Controller
+ *
  * @author Zakaria Maaraki
  */
 
@@ -20,9 +23,9 @@ import java.io.IOException;
 public class ContainersInfoController {
 	
 	private ContainerService containerService;
+	private static final String ERROR_SERVICE_MESSAGE = "The server is currently unable to obtain this information";
 	
 	/**
-	 *
 	 * @return running containers
 	 */
 	@RequestMapping(
@@ -38,13 +41,12 @@ public class ContainersInfoController {
 		try {
 			return ResponseEntity.ok().body(containerService.getRunningContainers());
 		} catch (IOException e) {
-			return ResponseEntity.status(500).body("The server is currently unable to obtain this information");
+			return ResponseEntity.status(500).body(ERROR_SERVICE_MESSAGE);
 		}
 	}
 	
 	
 	/**
-	 *
 	 * @return docker images
 	 */
 	@RequestMapping(
@@ -60,13 +62,12 @@ public class ContainersInfoController {
 		try {
 			return ResponseEntity.ok().body(containerService.getImages());
 		} catch (IOException e) {
-			return ResponseEntity.status(500).body("The server is currently unable to obtain this information");
+			return ResponseEntity.status(500).body(ERROR_SERVICE_MESSAGE);
 		}
 	}
 	
 	
 	/**
-	 *
 	 * @return stats about running containers
 	 */
 	@RequestMapping(
@@ -82,13 +83,12 @@ public class ContainersInfoController {
 		try {
 			return ResponseEntity.ok().body(containerService.getContainersStats());
 		} catch (IOException e) {
-			return ResponseEntity.status(500).body("The server is currently unable to obtain this information");
+			return ResponseEntity.status(500).body(ERROR_SERVICE_MESSAGE);
 		}
 	}
 	
 	
 	/**
-	 *
 	 * @return stats about all containers
 	 */
 	@RequestMapping(
@@ -104,7 +104,7 @@ public class ContainersInfoController {
 		try {
 			return ResponseEntity.ok().body(containerService.getAllContainersStats());
 		} catch (IOException e) {
-			return ResponseEntity.status(500).body("The server is currently unable to obtain this information");
+			return ResponseEntity.status(500).body(ERROR_SERVICE_MESSAGE);
 		}
 	}
 }

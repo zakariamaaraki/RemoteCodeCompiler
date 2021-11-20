@@ -18,8 +18,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 
+/**
+ * The type Compiler service tests.
+ */
 @SpringBootTest
-public class CompilerServiceTests {
+class CompilerServiceTests {
 	
 	private static final int BAD_REQUEST = 400;
 	private static final String ACCEPTED_VERDICT = "Accepted";
@@ -33,56 +36,79 @@ public class CompilerServiceTests {
 	@Autowired
 	private CompilerService compilerService;
 	
+	/**
+	 * When time limit greater than 15 should return bad request.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
-	public void WhenTimeLimitGreaterThan15ShouldReturnBadRequest() throws Exception {
+	void WhenTimeLimitGreaterThan15ShouldReturnBadRequest() throws Exception {
 		// Given
 		int timeLimit = 16;
 		
 		// When
-		ResponseEntity responseEntity = compilerService.compile(null, null, null, timeLimit, 500, Languages.Java);
+		ResponseEntity responseEntity = compilerService.compile(null, null, null, timeLimit, 500, Languages.JAVA);
 		
 		// Then
 		Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
 	}
 	
+	/**
+	 * When time limit less than 0 should return bad request.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
-	public void WhenTimeLimitLessThan0ShouldReturnBadRequest() throws Exception {
+	void WhenTimeLimitLessThan0ShouldReturnBadRequest() throws Exception {
 		// Given
 		int timeLimit = -1;
 		
 		// When
-		ResponseEntity responseEntity = compilerService.compile(null, null, null, timeLimit, 500, Languages.Java);
+		ResponseEntity responseEntity = compilerService.compile(null, null, null, timeLimit, 500, Languages.JAVA);
 		
 		// Then
 		Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
 	}
 	
+	/**
+	 * When memory limit greater than 1000 should return bad request.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
-	public void WhenMemoryLimitGreaterThan1000ShouldReturnBadRequest() throws Exception {
+	void WhenMemoryLimitGreaterThan1000ShouldReturnBadRequest() throws Exception {
 		// Given
 		int memoryLimit = 1001;
 		
 		// When
-		ResponseEntity responseEntity = compilerService.compile(null, null, null, 0, memoryLimit, Languages.Java);
+		ResponseEntity responseEntity = compilerService.compile(null, null, null, 0, memoryLimit, Languages.JAVA);
 		
 		// Then
 		Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
 	}
 	
+	/**
+	 * When memory limit less than 0 should return bad request.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
-	public void WhenMemoryLimitLessThan0ShouldReturnBadRequest() throws Exception {
+	void WhenMemoryLimitLessThan0ShouldReturnBadRequest() throws Exception {
 		// Given
 		int memoryLimit = -1;
 		
 		// When
-		ResponseEntity responseEntity = compilerService.compile(null, null, null, 0, memoryLimit, Languages.Java);
+		ResponseEntity responseEntity = compilerService.compile(null, null, null, 0, memoryLimit, Languages.JAVA);
 		
 		// Then
 		Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
 	}
 	
+	/**
+	 * When image build failed should throw docker build exception.
+	 */
 	@Test
-	public void WhenImageBuildFailedShouldThrowDockerBuildException() {
+	void WhenImageBuildFailedShouldThrowDockerBuildException() {
 		// Given
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenThrow(new DockerBuildException("Error Building image"));
@@ -98,12 +124,17 @@ public class CompilerServiceTests {
 		// Then
 		Assertions.assertThrows(DockerBuildException.class, () -> {
 			// When
-			compilerService.compile(file, file, null, 10, 100, Languages.Java);
+			compilerService.compile(file, file, null, 10, 100, Languages.JAVA);
 		});
 	}
 	
+	/**
+	 * When image build succeed should return a result.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
-	public void WhenImageBuildSucceedShouldReturnAResult() throws Exception {
+	void WhenImageBuildSucceedShouldReturnAResult() throws Exception {
 		// Given
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
@@ -122,7 +153,7 @@ public class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.JAVA);
 		
 		// Then
 		Assertions.assertEquals(ResponseEntity
@@ -130,8 +161,13 @@ public class CompilerServiceTests {
 				.body(new Response(result.getOutput(), result.getExpectedOutput(), result.getVerdict(), null)).getStatusCode(), responseEntity.getStatusCode());
 	}
 	
+	/**
+	 * When its a correct answer compile method should return accepted verdict.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
-	public void WhenItsACorrectAnswerCompileMethodShouldReturnAcceptedVerdict() throws Exception {
+	void WhenItsACorrectAnswerCompileMethodShouldReturnAcceptedVerdict() throws Exception {
 		// Given
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
@@ -150,15 +186,20 @@ public class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.JAVA);
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
 		Assertions.assertEquals(ACCEPTED_VERDICT, response.getStatus());
 	}
 	
+	/**
+	 * When its a wrong answer compile method should return wrong answer verdict.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
-	public void WhenItsAWrongAnswerCompileMethodShouldReturnWrongAnswerVerdict() throws Exception {
+	void WhenItsAWrongAnswerCompileMethodShouldReturnWrongAnswerVerdict() throws Exception {
 		// Given
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
@@ -177,15 +218,20 @@ public class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.JAVA);
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
 		Assertions.assertEquals(WRONG_ANSWER_VERDICT, response.getStatus());
 	}
 	
+	/**
+	 * When the execution time exceed the limit compile method should return time limit exceeded verdict.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
-	public void WhenTheExecutionTimeExceedTheLimitCompileMethodShouldReturnTimeLimitExceededVerdict() throws Exception {
+	void WhenTheExecutionTimeExceedTheLimitCompileMethodShouldReturnTimeLimitExceededVerdict() throws Exception {
 		// Given
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
@@ -204,15 +250,20 @@ public class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.JAVA);
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
 		Assertions.assertEquals(TIME_LIMIT_EXCEEDED_VERDICT, response.getStatus());
 	}
 	
+	/**
+	 * When there is a runtime error compile method should return run time error verdict.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
-	public void WhenThereIsARuntimeErrorCompileMethodShouldReturnRunTimeErrorVerdict() throws Exception {
+	void WhenThereIsARuntimeErrorCompileMethodShouldReturnRunTimeErrorVerdict() throws Exception {
 		// Given
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
@@ -231,15 +282,20 @@ public class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.JAVA);
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
 		Assertions.assertEquals(RUNTIME_ERROR_VERDICT, response.getStatus());
 	}
 	
+	/**
+	 * When memory limit exceeded compile method should return out of memory error verdict.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
-	public void WhenMemoryLimitExceededCompileMethodShouldReturnOutOfMemoryErrorVerdict() throws Exception {
+	void WhenMemoryLimitExceededCompileMethodShouldReturnOutOfMemoryErrorVerdict() throws Exception {
 		// Given
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
@@ -258,15 +314,20 @@ public class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.JAVA);
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
 		Assertions.assertEquals(OUT_OF_MEMORY_ERROR_VERDICT, response.getStatus());
 	}
 	
+	/**
+	 * When it is a compilation error compile method should return compilation error verdict.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
-	public void WhenItIsACompilationErrorCompileMethodShouldReturnCompilationErrorVerdict() throws Exception {
+	void WhenItIsACompilationErrorCompileMethodShouldReturnCompilationErrorVerdict() throws Exception {
 		// Given
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
@@ -285,7 +346,7 @@ public class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.Java);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.JAVA);
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();

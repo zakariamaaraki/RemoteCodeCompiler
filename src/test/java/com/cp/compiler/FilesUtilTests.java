@@ -14,14 +14,25 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * The type Files util tests.
+ */
 @ExtendWith(SpringExtension.class)
-public class FilesUtilTests {
+class FilesUtilTests {
 	
+	/**
+	 * The Temp dir.
+	 */
 	@TempDir
 	Path tempDir;
 	
+	/**
+	 * Should delete file.
+	 *
+	 * @throws IOException the io exception
+	 */
 	@Test
-	public void shouldDeleteFile() throws IOException {
+	void shouldDeleteFile() throws IOException {
 		// Given
 		Path path = tempDir.resolve("test.txt");
 		Files.write(path, "test".getBytes());
@@ -33,8 +44,13 @@ public class FilesUtilTests {
 		Assertions.assertFalse(Files.exists(path));
 	}
 	
+	/**
+	 * Should return true after file deletion.
+	 *
+	 * @throws IOException the io exception
+	 */
 	@Test
-	public void shouldReturnTrueAfterFileDeletion() throws IOException {
+	void shouldReturnTrueAfterFileDeletion() throws IOException {
 		// Given
 		Path path = tempDir.resolve("test.txt");
 		Files.write(path, "test".getBytes());
@@ -46,8 +62,13 @@ public class FilesUtilTests {
 		Assertions.assertTrue(isDeleted);
 	}
 	
+	/**
+	 * Should return false if file is null.
+	 *
+	 * @throws IOException the io exception
+	 */
 	@Test
-	public void shouldReturnFalseIfFileIsNull() throws IOException {
+	void shouldReturnFalseIfFileIsNull() throws IOException {
 		// Given
 		Path path = tempDir.resolve("test.txt");
 		Files.write(path, "test".getBytes());
@@ -59,8 +80,13 @@ public class FilesUtilTests {
 		Assertions.assertFalse(isDeleted);
 	}
 	
+	/**
+	 * Should return false if folder is null.
+	 *
+	 * @throws IOException the io exception
+	 */
 	@Test
-	public void shouldReturnFalseIfFolderIsNull() throws IOException {
+	void shouldReturnFalseIfFolderIsNull() throws IOException {
 		// Given
 		Path path = tempDir.resolve("test.txt");
 		Files.write(path, "test".getBytes());
@@ -72,8 +98,13 @@ public class FilesUtilTests {
 		Assertions.assertFalse(isDeleted);
 	}
 	
+	/**
+	 * Should save file.
+	 *
+	 * @throws IOException the io exception
+	 */
 	@Test
-	public void shouldSaveFile() throws IOException {
+	void shouldSaveFile() throws IOException {
 		// Given
 		Path path = tempDir.resolve("test.txt");
 		Files.write(path, "test".getBytes());
