@@ -60,8 +60,8 @@ class JavaE2ETests {
 	@Test
 	void shouldReturnTimeLimitExceededVerdict() throws Exception {
 		// Given
-		File sourceCodeFile = new File("src/test/resources/sources/java/Test2.py");
-		MultipartFile sourceCode = new MockMultipartFile("Test2.py", "Test2.py", null ,new FileInputStream(sourceCodeFile));
+		File sourceCodeFile = new File("src/test/resources/sources/java/Test2.java");
+		MultipartFile sourceCode = new MockMultipartFile("Test2.java", "Test2.java", null ,new FileInputStream(sourceCodeFile));
 		
 		File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
 		MultipartFile expectedOutput = new MockMultipartFile("Test1.txt", "Test1.txt", null, new FileInputStream(expectedOutputFile));
@@ -82,8 +82,8 @@ class JavaE2ETests {
 	@Test
 	void shouldReturnCompilationErrorVerdict() throws Exception {
 		// Given
-		File sourceCodeFile = new File("src/test/resources/sources/java/Test3.py");
-		MultipartFile sourceCode = new MockMultipartFile("Test3.py", "Test3.py", null ,new FileInputStream(sourceCodeFile));
+		File sourceCodeFile = new File("src/test/resources/sources/java/Test3.java");
+		MultipartFile sourceCode = new MockMultipartFile("Test3.java", "Test3.java", null ,new FileInputStream(sourceCodeFile));
 		
 		File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
 		MultipartFile expectedOutput = new MockMultipartFile("Test1.txt", "Test1.txt", null, new FileInputStream(expectedOutputFile));
@@ -104,8 +104,8 @@ class JavaE2ETests {
 	@Test
 	void shouldReturnWrongAnswerVerdict() throws Exception {
 		// Given
-		File sourceCodeFile = new File("src/test/resources/sources/java/Test4.py");
-		MultipartFile sourceCode = new MockMultipartFile("Test4.py", "Test4.py", null ,new FileInputStream(sourceCodeFile));
+		File sourceCodeFile = new File("src/test/resources/sources/java/Test4.java");
+		MultipartFile sourceCode = new MockMultipartFile("Test4.java", "Test4.java", null ,new FileInputStream(sourceCodeFile));
 		
 		File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
 		MultipartFile expectedOutput = new MockMultipartFile("Test1.txt", "Test1.txt", null, new FileInputStream(expectedOutputFile));
@@ -126,8 +126,8 @@ class JavaE2ETests {
 	@Test
 	void shouldReturnOutOfMemoryVerdict() throws Exception {
 		// Given
-		File sourceCodeFile = new File("src/test/resources/sources/java/Test5.py");
-		MultipartFile sourceCode = new MockMultipartFile("Test5.py", "Test5.py", null ,new FileInputStream(sourceCodeFile));
+		File sourceCodeFile = new File("src/test/resources/sources/java/Test5.java");
+		MultipartFile sourceCode = new MockMultipartFile("Test5.java", "Test5.java", null ,new FileInputStream(sourceCodeFile));
 		
 		File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
 		MultipartFile expectedOutput = new MockMultipartFile("Test1.txt", "Test1.txt", null, new FileInputStream(expectedOutputFile));
@@ -148,8 +148,8 @@ class JavaE2ETests {
 	@Test
 	void shouldReturnRuntimeErrorVerdict() throws Exception {
 		// Given
-		File sourceCodeFile = new File("src/test/resources/sources/java/Test6.py");
-		MultipartFile sourceCode = new MockMultipartFile("Test6.py", "Test6.py", null ,new FileInputStream(sourceCodeFile));
+		File sourceCodeFile = new File("src/test/resources/sources/java/Test6.java");
+		MultipartFile sourceCode = new MockMultipartFile("Test6.java", "Test6.java", null ,new FileInputStream(sourceCodeFile));
 		
 		File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
 		MultipartFile expectedOutput = new MockMultipartFile("Test1.txt", "Test1.txt", null, new FileInputStream(expectedOutputFile));

@@ -123,7 +123,7 @@ class PythonE2ETests {
 	void shouldReturnRuntimeErrorVerdict() throws Exception {
 		// Given
 		File sourceCodeFile = new File("src/test/resources/sources/python/Test6.py");
-		MultipartFile sourceCode = new MockMultipartFile("Test6.python", "Test6.python", null ,new FileInputStream(sourceCodeFile));
+		MultipartFile sourceCode = new MockMultipartFile("Test6.py", "Test6.py", null ,new FileInputStream(sourceCodeFile));
 		
 		File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
 		MultipartFile expectedOutput = new MockMultipartFile("Test1.txt", "Test1.txt", null, new FileInputStream(expectedOutputFile));
