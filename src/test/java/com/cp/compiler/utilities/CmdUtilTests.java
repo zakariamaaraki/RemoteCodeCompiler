@@ -1,4 +1,4 @@
-package com.cp.compiler;
+package com.cp.compiler.utilities;
 
 import com.cp.compiler.utility.CmdUtil;
 import org.junit.jupiter.api.Assertions;

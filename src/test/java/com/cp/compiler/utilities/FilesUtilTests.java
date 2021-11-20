@@ -1,4 +1,4 @@
-package com.cp.compiler;
+package com.cp.compiler.utilities;
 
 import com.cp.compiler.utility.FilesUtil;
 import org.junit.jupiter.api.Assertions;

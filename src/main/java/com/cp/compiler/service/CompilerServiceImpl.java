@@ -132,6 +132,7 @@ public class CompilerServiceImpl implements CompilerService {
 	
 	private void createEntrypointFile(MultipartFile sourceCode, MultipartFile inputFile, int timeLimit, int memoryLimit, Languages languages) {
 		if (languages == Languages.JAVA) {
+			// The name of the class should be equals to the name of the file
 			createJavaEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
 		} else if (languages == Languages.C) {
 			createCEntrypointFile(timeLimit, memoryLimit, inputFile);

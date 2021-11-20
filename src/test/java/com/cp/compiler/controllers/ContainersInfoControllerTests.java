@@ -1,4 +1,4 @@
-package com.cp.compiler;
+package com.cp.compiler.controllers;
 
 import com.cp.compiler.controller.ContainersInfoController;
 import com.cp.compiler.service.ContainerService;
