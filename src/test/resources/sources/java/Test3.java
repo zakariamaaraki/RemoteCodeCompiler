@@ -6,7 +6,7 @@ public class Test3 {
 		i = 0;
 		
 		while (i < 10) {
-			System.out.print(i++);
+			System.out.println(i++);
 		}
 	}
 	

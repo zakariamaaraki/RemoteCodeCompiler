@@ -14,17 +14,13 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileInputStream;
 
-/**
- * Java e2e tests.
- */
 @SpringBootTest
-class JavaE2ETests {
+class PythonE2ETests {
 	
 	@Autowired
 	private CompilerController compilerController;
 	private static final String ACCEPTED_VERDICT = "Accepted";
 	private static final String TIME_LIMIT_EXCEEDED_VERDICT = "Time Limit Exceeded";
-	private static final String COMPILATION_ERROR_VERDICT = "Compilation Error";
 	private static final String WRONG_ANSWER_VERDICT = "Wrong Answer";
 	private static final String OUT_OF_MEMORY_VERDICT = "Out Of Memory";
 	private static final String RUNTIME_ERROR_VERDICT = "Runtime Error";
@@ -34,19 +30,19 @@ class JavaE2ETests {
 	 *
 	 * @throws Exception the exception
 	 */
-	@DisplayName("Java Accepted Verdict")
+	@DisplayName("Python Accepted Verdict")
 	@Test
 	void shouldReturnAcceptedVerdict() throws Exception {
 		// Given
-		File sourceCodeFile = new File("src/test/resources/sources/java/Test1.java");
-		MultipartFile sourceCode = new MockMultipartFile("Test1.java", "Test1.java", null ,new FileInputStream(sourceCodeFile));
+		File sourceCodeFile = new File("src/test/resources/sources/python/Test1.py");
+		MultipartFile sourceCode = new MockMultipartFile("Test1.py", "Test1.py", null ,new FileInputStream(sourceCodeFile));
 		
 		File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
 		MultipartFile expectedOutput = new MockMultipartFile("Test1.txt", "Test1.txt", null, new FileInputStream(expectedOutputFile));
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput, sourceCode, null, 10, 500);
-	
+		ResponseEntity<Object> responseEntity = compilerController.compilePython(expectedOutput, sourceCode, null, 10, 500);
+		
 		// Then
 		Assertions.assertEquals(ACCEPTED_VERDICT, ((Response)responseEntity.getBody()).getStatus());
 	}
@@ -56,43 +52,21 @@ class JavaE2ETests {
 	 *
 	 * @throws Exception the exception
 	 */
-	@DisplayName("Java Time Limit Exceeded")
+	@DisplayName("Python Time Limit Exceeded")
 	@Test
 	void shouldReturnTimeLimitExceededVerdict() throws Exception {
 		// Given
-		File sourceCodeFile = new File("src/test/resources/sources/java/Test2.py");
+		File sourceCodeFile = new File("src/test/resources/sources/python/Test2.py");
 		MultipartFile sourceCode = new MockMultipartFile("Test2.py", "Test2.py", null ,new FileInputStream(sourceCodeFile));
 		
 		File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
 		MultipartFile expectedOutput = new MockMultipartFile("Test1.txt", "Test1.txt", null, new FileInputStream(expectedOutputFile));
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput, sourceCode, null, 10, 500);
+		ResponseEntity<Object> responseEntity = compilerController.compilePython(expectedOutput, sourceCode, null, 10, 500);
 		
 		// Then
 		Assertions.assertEquals(TIME_LIMIT_EXCEEDED_VERDICT, ((Response)responseEntity.getBody()).getStatus());
-	}
-	
-	/**
-	 * Should return compilation error verdict.
-	 *
-	 * @throws Exception the exception
-	 */
-	@DisplayName("Java Compilation Error")
-	@Test
-	void shouldReturnCompilationErrorVerdict() throws Exception {
-		// Given
-		File sourceCodeFile = new File("src/test/resources/sources/java/Test3.py");
-		MultipartFile sourceCode = new MockMultipartFile("Test3.py", "Test3.py", null ,new FileInputStream(sourceCodeFile));
-		
-		File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
-		MultipartFile expectedOutput = new MockMultipartFile("Test1.txt", "Test1.txt", null, new FileInputStream(expectedOutputFile));
-		
-		// When
-		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput, sourceCode, null, 10, 500);
-		
-		// Then
-		Assertions.assertEquals(COMPILATION_ERROR_VERDICT, ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 	/**
@@ -100,18 +74,18 @@ class JavaE2ETests {
 	 *
 	 * @throws Exception the exception
 	 */
-	@DisplayName("Java Wrong Answer")
+	@DisplayName("Python Wrong Answer")
 	@Test
 	void shouldReturnWrongAnswerVerdict() throws Exception {
 		// Given
-		File sourceCodeFile = new File("src/test/resources/sources/java/Test4.py");
+		File sourceCodeFile = new File("src/test/resources/sources/python/Test4.py");
 		MultipartFile sourceCode = new MockMultipartFile("Test4.py", "Test4.py", null ,new FileInputStream(sourceCodeFile));
 		
 		File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
 		MultipartFile expectedOutput = new MockMultipartFile("Test1.txt", "Test1.txt", null, new FileInputStream(expectedOutputFile));
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput, sourceCode, null, 10, 500);
+		ResponseEntity<Object> responseEntity = compilerController.compilePython(expectedOutput, sourceCode, null, 10, 500);
 		
 		// Then
 		Assertions.assertEquals(WRONG_ANSWER_VERDICT, ((Response)responseEntity.getBody()).getStatus());
@@ -122,18 +96,18 @@ class JavaE2ETests {
 	 *
 	 * @throws Exception the exception
 	 */
-	@DisplayName("Java Out Of Memory Error")
+	@DisplayName("Python Out Of Memory Error")
 	@Test
 	void shouldReturnOutOfMemoryVerdict() throws Exception {
 		// Given
-		File sourceCodeFile = new File("src/test/resources/sources/java/Test5.py");
+		File sourceCodeFile = new File("src/test/resources/sources/python/Test5.py");
 		MultipartFile sourceCode = new MockMultipartFile("Test5.py", "Test5.py", null ,new FileInputStream(sourceCodeFile));
 		
 		File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
 		MultipartFile expectedOutput = new MockMultipartFile("Test1.txt", "Test1.txt", null, new FileInputStream(expectedOutputFile));
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput, sourceCode, null, 10, 1);
+		ResponseEntity<Object> responseEntity = compilerController.compilePython(expectedOutput, sourceCode, null, 10, 1);
 		
 		// Then
 		Assertions.assertEquals(OUT_OF_MEMORY_VERDICT, ((Response)responseEntity.getBody()).getStatus());
@@ -144,22 +118,21 @@ class JavaE2ETests {
 	 *
 	 * @throws Exception the exception
 	 */
-	@DisplayName("Java Runtime Error")
+	@DisplayName("Python Runtime Error")
 	@Test
 	void shouldReturnRuntimeErrorVerdict() throws Exception {
 		// Given
-		File sourceCodeFile = new File("src/test/resources/sources/java/Test6.py");
-		MultipartFile sourceCode = new MockMultipartFile("Test6.py", "Test6.py", null ,new FileInputStream(sourceCodeFile));
+		File sourceCodeFile = new File("src/test/resources/sources/python/Test6.py");
+		MultipartFile sourceCode = new MockMultipartFile("Test6.python", "Test6.python", null ,new FileInputStream(sourceCodeFile));
 		
 		File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
 		MultipartFile expectedOutput = new MockMultipartFile("Test1.txt", "Test1.txt", null, new FileInputStream(expectedOutputFile));
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput, sourceCode, null, 10, 500);
+		ResponseEntity<Object> responseEntity = compilerController.compilePython(expectedOutput, sourceCode, null, 10, 500);
 		
 		// Then
 		Assertions.assertEquals(RUNTIME_ERROR_VERDICT, ((Response)responseEntity.getBody()).getStatus());
 	}
 	
-
 }

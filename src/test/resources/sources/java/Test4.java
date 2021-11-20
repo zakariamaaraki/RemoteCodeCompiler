@@ -5,7 +5,7 @@ public class Test4 {
 		int i = 2;
 		
 		while (i < 10) {
-			System.out.print(i++);
+			System.out.println(i++);
 		}
 	}
 	

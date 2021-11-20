@@ -44,6 +44,6 @@ class CmdUtilTests {
 		String output = CmdUtil.readOutput(bufferedReader);
 		
 		// Then
-		Assertions.assertEquals("0123456789\n", output);
+		Assertions.assertEquals("0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n", output);
 	}
 }
