@@ -2,7 +2,7 @@
 
 int main(int argc, char** argv) {
 
-    int a = 5;
+    int a = 119;
     int b = 0;
 
     printf("%d", a / b);
