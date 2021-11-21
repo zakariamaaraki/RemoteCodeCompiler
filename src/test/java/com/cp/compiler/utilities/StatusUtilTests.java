@@ -82,7 +82,7 @@ class StatusUtilTests {
 	@Test
 	void shouldReturnTimeLimitExceeded() {
 		// WHen
-		String status = StatusUtil.statusResponse(257, false);
+		String status = StatusUtil.statusResponse(124, false);
 		
 		// Then
 		Assertions.assertEquals(TIME_LIMIT_EXCEEDED_VERDICT, status);

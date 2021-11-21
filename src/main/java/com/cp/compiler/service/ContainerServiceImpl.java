@@ -27,7 +27,7 @@ public class ContainerServiceImpl implements ContainerService {
 	
 	// in millis
 	private static final long TIME_OUT = 20000;
-	private static final int TIME_LIMIT_STATUS_CODE = 127;
+	private static final int TIME_LIMIT_STATUS_CODE = 124;
 	@Autowired
 	private MeterRegistry meterRegistry;
 	private Timer buildTimer;

@@ -24,17 +24,13 @@ public class StatusUtil {
 				else
 					return "Wrong Answer";
 			
-			case 1:
-				return "Runtime Error";
+			case 2: return "Compilation Error";
 			
-			case 2:
-				return "Compilation Error";
+			case 139: return "Out Of Memory";
 			
-			case 139:
-				return "Out Of Memory";
+			case 124: return "Time Limit Exceeded";
 			
-			default:
-				return "Time Limit Exceeded";
+			default: return "Runtime Error";
 		}
 	}
 }
