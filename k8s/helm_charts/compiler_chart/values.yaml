@@ -10,24 +10,24 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-imagePullSecrets: []
+imagePullSecrets: [ ]
 nameOverride: ""
 fullnameOverride: ""
 
-podAnnotations: {}
+podAnnotations: { }
 
 podSecurityContext:
-  {}
-  # fsGroup: 2000
+  { }
+# fsGroup: 2000
 
 securityContext:
-  {}
+  { }
   # capabilities:
   #   drop:
   #   - ALL
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
-  # runAsUser: 1000
+# runAsUser: 1000
 
 service:
   type: NodePort
@@ -37,21 +37,21 @@ ingress:
   enabled: false
   className: ""
   annotations:
-    {}
+    { }
     # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  # kubernetes.io/tls-acme: "true"
   hosts:
     - host: compiler
       paths:
         - path: /
           pathType: ImplementationSpecific
-  tls: []
+  tls: [ ]
   #  - secretName: compiler-tls
   #    hosts:
   #      - compiler
 
 resources:
-  {}
+  { }
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -61,7 +61,7 @@ resources:
   #   memory: 128Mi
   # requests:
   #   cpu: 100m
-  #   memory: 128Mi
+#   memory: 128Mi
 
 autoscaling:
   enabled: true
@@ -70,8 +70,8 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-nodeSelector: {}
+nodeSelector: { }
 
-tolerations: []
+tolerations: [ ]
 
-affinity: {}
+affinity: { }

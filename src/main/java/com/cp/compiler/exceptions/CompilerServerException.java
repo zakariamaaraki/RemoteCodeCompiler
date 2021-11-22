@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 public class CompilerServerException extends Exception {
-	
-	public CompilerServerException(String message) {
-		super(message);
-	}
+
+  public CompilerServerException(String message) {
+    super(message);
+  }
 }

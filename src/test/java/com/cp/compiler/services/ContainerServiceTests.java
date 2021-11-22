@@ -12,23 +12,23 @@ import org.springframework.test.util.ReflectionTestUtils;
  */
 @SpringBootTest
 class ContainerServiceTests {
-	
-	@Autowired
-	private ContainerService containerService;
-	
-	/**
-	 * When compare expected output and container output should trim both strings.
-	 */
-	@Test
-	void whenCompareExpectedOutputAndContainerOutputShouldTrimBothStrings() {
-		// Given
-		String expectedOutput = "abcd";
-		String containerOutput = " abcd  ";
-		
-		// When
-		boolean compareResult = ReflectionTestUtils.invokeMethod(containerService, "compareResult", expectedOutput, containerOutput);
-		
-		// Then
-		Assertions.assertEquals(true, compareResult);
-	}
+
+  @Autowired
+  private ContainerService containerService;
+
+  /**
+   * When compare expected output and container output should trim both strings.
+   */
+  @Test
+  void whenCompareExpectedOutputAndContainerOutputShouldTrimBothStrings() {
+    // Given
+    String expectedOutput = "abcd";
+    String containerOutput = " abcd  ";
+
+    // When
+    boolean compareResult = ReflectionTestUtils.invokeMethod(containerService, "compareResult", expectedOutput, containerOutput);
+
+    // Then
+    Assertions.assertEquals(true, compareResult);
+  }
 }

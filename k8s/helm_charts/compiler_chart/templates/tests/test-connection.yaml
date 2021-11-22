@@ -3,13 +3,13 @@ kind: Pod
 metadata:
   name: "{{ include "compiler.fullname" . }}-test-connection"
   labels:
-    {{- include "compiler.labels" . | nindent 4 }}
+    { { - include "compiler.labels" . | nindent 4 } }
   annotations:
     "helm.sh/hook": test
 spec:
   containers:
     - name: wget
       image: busybox
-      command: ['wget']
-      args: ['{{ include "compiler.fullname" . }}:{{ .Values.service.port }}']
+      command: [ 'wget' ]
+      args: [ '{{ include "compiler.fullname" . }}:{{ .Values.service.port }}' ]
   restartPolicy: Never
