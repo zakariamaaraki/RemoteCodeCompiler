@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Python Script" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1ok07klWneaRIvqRQ6CVXQssob5" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/resources/outputs" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources/outputs" />
+      <recent name="$PROJECT_DIR$/src/test/resources/sources/cpp" />
+      <recent name="$PROJECT_DIR$/src/test/resources/sources/c" />
+      <recent name="$PROJECT_DIR$/src/test/resources/sources/python" />
+      <recent name="$PROJECT_DIR$/src/test/resources/sources/java" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources/outputs/physEdOnline" />
+      <recent name="$PROJECT_DIR$/src/test/resources/outputs" />
+      <recent name="$PROJECT_DIR$/src/test/resources/outputs/watermelon" />
+      <recent name="$PROJECT_DIR$/src/test/resources/inputs/watermelon" />
+      <recent name="$PROJECT_DIR$/src/test/resources/sources/java" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.cp.compiler" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="docker ps" />
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.com.cp.compiler in compiler">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JavaE2ETests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.e2e.problems.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.e2e" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.e2e.JavaE2ETests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JavaE2ETests.shouldReturnAcceptedVerdict" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.e2e.problems.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.e2e" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.e2e.JavaE2ETests" />
+      <option name="METHOD_NAME" value="shouldReturnAcceptedVerdict" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WatermelonTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.e2e.problems.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.e2e.problems" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.e2e.problems.WatermelonTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WatermelonTests.watermelonShouldReturnAcceptedVerdict" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.e2e.problems.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.e2e.problems" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.e2e.problems.WatermelonTests" />
+      <option name="METHOD_NAME" value="watermelonShouldReturnAcceptedVerdict" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.cp.compiler in compiler" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.e2e.problems.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompilerApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="compiler" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cp.compiler.CompilerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompilerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="compiler" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.compiler.compiler.CompilerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.WatermelonTests.watermelonShouldReturnAcceptedVerdict" />
+        <item itemvalue="JUnit.WatermelonTests" />
+        <item itemvalue="JUnit.com.cp.compiler in compiler" />
+        <item itemvalue="JUnit.JavaE2ETests" />
+        <item itemvalue="JUnit.JavaE2ETests.shouldReturnAcceptedVerdict" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpringBeansView">
+    <option name="showFilesets" value="false" />
+    <option name="showImplicitBeans" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="" />
+      <created>1613815117050</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1613815117050</updated>
+      <workItem from="1613815119019" duration="3805000" />
+      <workItem from="1614630911891" duration="8000" />
+      <workItem from="1614671116633" duration="965000" />
+      <workItem from="1615582552599" duration="18063000" />
+      <workItem from="1616279805921" duration="1341000" />
+      <workItem from="1616567167829" duration="651000" />
+      <workItem from="1617919622244" duration="590000" />
+      <workItem from="1618163953989" duration="1427000" />
+      <workItem from="1619306697726" duration="1328000" />
+      <workItem from="1619819914101" duration="2066000" />
+      <workItem from="1620516747130" duration="920000" />
+      <workItem from="1620942429907" duration="1360000" />
+      <workItem from="1621554961929" duration="1245000" />
+      <workItem from="1622405410310" duration="213000" />
+      <workItem from="1623089562918" duration="6112000" />
+      <workItem from="1624118992057" duration="1243000" />
+      <workItem from="1624120401825" duration="3382000" />
+      <workItem from="1624200630586" duration="6327000" />
+      <workItem from="1624469927431" duration="300000" />
+      <workItem from="1624552044147" duration="594000" />
+      <workItem from="1624834187883" duration="596000" />
+      <workItem from="1626811031016" duration="596000" />
+      <workItem from="1627413164838" duration="706000" />
+      <workItem from="1627771184167" duration="598000" />
+      <workItem from="1628832649231" duration="10000" />
+      <workItem from="1634383654390" duration="4734000" />
+      <workItem from="1634589440464" duration="36970000" />
+      <workItem from="1635539582540" duration="598000" />
+      <workItem from="1635678818186" duration="22328000" />
+      <workItem from="1635941850212" duration="2047000" />
+      <workItem from="1636302536306" duration="2282000" />
+      <workItem from="1636305155322" duration="6289000" />
+      <workItem from="1636384084484" duration="10655000" />
+      <workItem from="1636490077562" duration="40524000" />
+      <workItem from="1637792349419" duration="6461000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.py" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/compiler$EntryPointFileTests.ic" NAME="EntryPointFileTests Coverage Results" MODIFIED="1634703821144" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.cp.compiler.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/compiler$CompilerControllerTests.ic" NAME="CompilerControllerTests Coverage Results" MODIFIED="1634729527286" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.cp.compiler.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/compiler$FilesUtilTests.ic" NAME="FilesUtilTests Coverage Results" MODIFIED="1634702441688" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.cp.compiler.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/compiler$ContainersInfoControllerTests.ic" NAME="ContainersInfoControllerTests Coverage Results" MODIFIED="1637369788985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.cp.compiler.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/compiler$CompilerServiceTests.ic" NAME="CompilerServiceTests Coverage Results" MODIFIED="1635005106570" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.cp.compiler.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/compiler$com_cp_compiler_in_compiler.ic" NAME="com.cp.compiler in compiler Coverage Results" MODIFIED="1637408203739" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.cp.compiler.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/compiler$StatusUtilTests.ic" NAME="StatusUtilTests Coverage Results" MODIFIED="1634705292619" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.cp.compiler.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/compiler$ContainerServiceTests.ic" NAME="ContainerServiceTests Coverage Results" MODIFIED="1635725615887" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.cp.compiler.*</FILTER>
+    </SUITE>
+  </component>
+</project>
