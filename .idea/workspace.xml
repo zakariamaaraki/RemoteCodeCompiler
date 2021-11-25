@@ -5,10 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/AmShZWinsABetTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/inputs/amShZWinsABet/amShZWinsABet-1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/inputs/amShZWinsABet/amShZWinsABet-2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/inputs/amShZWinsABet/amShZWinsABet-3.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/outputs/amShZWinsABet/amShZWinsABet-1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/outputs/amShZWinsABet/amShZWinsABet-2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/outputs/amShZWinsABet/amShZWinsABet-3.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/problems/AmShZWinsABet.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/service/CompilerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/service/CompilerService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/service/CompilerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/service/CompilerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/service/ContainerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/service/ContainerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utility/FilesUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utility/FilesUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,17 +89,6 @@
     </option>
   </component>
   <component name="RunManager" selected="JUnit.com.cp.compiler in compiler">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="JavaE2ETests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
@@ -238,6 +236,7 @@
       <workItem from="1636384084484" duration="10655000" />
       <workItem from="1636490077562" duration="40524000" />
       <workItem from="1637792349419" duration="6461000" />
+      <workItem from="1637852302641" duration="665000" />
     </task>
     <servers />
   </component>

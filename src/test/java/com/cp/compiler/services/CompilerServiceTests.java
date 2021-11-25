@@ -42,9 +42,9 @@ class CompilerServiceTests {
 	 * @throws Exception the exception
 	 */
 	@Test
-	void WhenTimeLimitGreaterThan15ShouldReturnBadRequest() throws Exception {
+	void WhenTimeLimitGreaterThanMaxExecutionTimeShouldReturnBadRequest() throws Exception {
 		// Given
-		int timeLimit = 16;
+		int timeLimit = compilerService.getMaxExecutionTime() + 1;
 		
 		// When
 		ResponseEntity responseEntity = compilerService.compile(null, null, null, timeLimit, 500, Language.JAVA);
@@ -59,9 +59,9 @@ class CompilerServiceTests {
 	 * @throws Exception the exception
 	 */
 	@Test
-	void WhenTimeLimitLessThan0ShouldReturnBadRequest() throws Exception {
+	void WhenTimeLimitLessThanMinExecutionTimeShouldReturnBadRequest() throws Exception {
 		// Given
-		int timeLimit = -1;
+		int timeLimit = compilerService.getMinExecutionTime() - 1;
 		
 		// When
 		ResponseEntity responseEntity = compilerService.compile(null, null, null, timeLimit, 500, Language.JAVA);
@@ -76,9 +76,9 @@ class CompilerServiceTests {
 	 * @throws Exception the exception
 	 */
 	@Test
-	void WhenMemoryLimitGreaterThan1000ShouldReturnBadRequest() throws Exception {
+	void WhenMemoryLimitGreaterThanMaxExecutionMemoryShouldReturnBadRequest() throws Exception {
 		// Given
-		int memoryLimit = 1001;
+		int memoryLimit = compilerService.getMaxExecutionMemory() + 1;
 		
 		// When
 		ResponseEntity responseEntity = compilerService.compile(null, null, null, 0, memoryLimit, Language.JAVA);
@@ -93,9 +93,9 @@ class CompilerServiceTests {
 	 * @throws Exception the exception
 	 */
 	@Test
-	void WhenMemoryLimitLessThan0ShouldReturnBadRequest() throws Exception {
+	void WhenMemoryLimitLessThanMinExecutionMemoryShouldReturnBadRequest() throws Exception {
 		// Given
-		int memoryLimit = -1;
+		int memoryLimit = compilerService.getMinExecutionMemory() - 1;
 		
 		// When
 		ResponseEntity responseEntity = compilerService.compile(null, null, null, 0, memoryLimit, Language.JAVA);

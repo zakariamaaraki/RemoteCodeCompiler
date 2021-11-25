@@ -6,6 +6,7 @@ import com.cp.compiler.model.Language;
 import com.cp.compiler.model.Response;
 import com.cp.compiler.model.Result;
 import com.cp.compiler.utility.FilesUtil;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,8 +34,26 @@ public class CompilerServiceImpl implements CompilerService {
 	@Autowired
 	private ContainerService containerService;
 	
+	@Getter
 	@Value("${compiler.docker.image.delete:true}")
 	private boolean deleteDockerImage;
+	
+	@Getter
+	@Value("${compiler.execution-memory.max:10000}")
+	private int maxExecutionMemory;
+	
+	@Getter
+	@Value("${compiler.execution-memory.min:0}")
+	private int minExecutionMemory;
+	
+	@Getter
+	@Value("${compiler.execution-time.max:15}")
+	private int maxExecutionTime;
+	
+	@Getter
+	@Value("${compiler.execution-time.min:0}")
+	private int minExecutionTime;
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -45,19 +64,19 @@ public class CompilerServiceImpl implements CompilerService {
 		// Unique image name
 		String imageName = UUID.randomUUID().toString();
 		
-		if (memoryLimit < 0 || memoryLimit > 1000) {
-			log.info(imageName + "Error memoryLimit must be between 0Mb and 1000Mb, provided : {}", memoryLimit);
+		if (memoryLimit < minExecutionMemory || memoryLimit > maxExecutionMemory) {
+			log.info(imageName + " Error memoryLimit must be between {}Mb and {}Mb, provided : {}", minExecutionMemory, maxExecutionMemory, memoryLimit);
 			return ResponseEntity
 					.badRequest()
-					.body("Error memoryLimit must be between 0Mb and 1000Mb, provided : " + memoryLimit);
+					.body("Error memoryLimit must be between " + minExecutionMemory + "Mb and " + maxExecutionMemory + "Mb, provided : " + memoryLimit);
 		}
 		
 		
-		if (timeLimit < 0 || timeLimit > 15) {
-			log.info("Error timeLimit must be between 0 Sec and 15 Sec, provided : " + memoryLimit);
+		if (timeLimit < minExecutionTime || timeLimit > maxExecutionTime) {
+			log.info(imageName + " Error timeLimit must be between {} Sec and {} Sec, provided : {}", minExecutionTime, maxExecutionTime, timeLimit);
 			return ResponseEntity
 					.badRequest()
-					.body("Error timeLimit must be between 0 Sec and 15 Sec, provided : " + memoryLimit);
+					.body("Error timeLimit must be between " + minExecutionTime + " Sec and " + maxExecutionTime + " Sec, provided : " + timeLimit);
 		}
 		
 		String folder = language.getFolder();

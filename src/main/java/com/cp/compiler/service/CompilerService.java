@@ -20,4 +20,12 @@ public interface CompilerService {
 	 */
 	ResponseEntity<Object> compile(MultipartFile outputFile, MultipartFile sourceCode, MultipartFile inputFile,
 	                               int timeLimit, int memoryLimit, Language language) throws CompilerServerException;
+	
+	int getMaxExecutionMemory();
+	
+	int getMinExecutionMemory();
+	
+	int getMaxExecutionTime();
+	
+	int getMinExecutionTime();
 }
