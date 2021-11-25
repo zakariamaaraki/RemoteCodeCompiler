@@ -1,7 +1,7 @@
 package com.cp.compiler.controllers;
 
 import com.cp.compiler.controller.CompilerController;
-import com.cp.compiler.model.Languages;
+import com.cp.compiler.model.Language;
 import com.cp.compiler.model.Response;
 import com.cp.compiler.service.CompilerService;
 import org.assertj.core.api.Assertions;
@@ -42,7 +42,7 @@ class CompilerControllerTests {
 	@Test
 	void whenCompilingJavaCodeShouldReturnAResponseObjectInTheBody() throws Exception {
 		// Given
-		Mockito.when(compilerService.compile(outputFile, sourceCode, null, 10, 500, Languages.JAVA))
+		Mockito.when(compilerService.compile(outputFile, sourceCode, null, 10, 500, Language.JAVA))
 				.thenReturn(ResponseEntity
 						.status(HttpStatus.OK)
 						.body(new Response("test output", "test expected output", "Accepted", LocalDateTime.now())));
@@ -62,7 +62,7 @@ class CompilerControllerTests {
 	@Test
 	void whenCompilingCCodeShouldReturnAResponseObjectInTheBody() throws Exception {
 		// Given
-		Mockito.when(compilerService.compile(outputFile, sourceCode, null, 10, 500, Languages.C))
+		Mockito.when(compilerService.compile(outputFile, sourceCode, null, 10, 500, Language.C))
 				.thenReturn(ResponseEntity
 						.status(HttpStatus.OK)
 						.body(new Response("test output", "test expected output", "Accepted", LocalDateTime.now())));
@@ -82,7 +82,7 @@ class CompilerControllerTests {
 	@Test
 	void whenCompilingCppCodeShouldReturnAResponseObjectInTheBody() throws Exception {
 		// Given
-		Mockito.when(compilerService.compile(outputFile, sourceCode, null, 10, 500, Languages.CPP))
+		Mockito.when(compilerService.compile(outputFile, sourceCode, null, 10, 500, Language.CPP))
 				.thenReturn(ResponseEntity
 						.status(HttpStatus.OK)
 						.body(new Response("test output", "test expected output", "Accepted", LocalDateTime.now())));
@@ -102,7 +102,7 @@ class CompilerControllerTests {
 	@Test
 	void whenCompilingPythonCodeShouldReturnAResponseObjectInTheBody() throws Exception {
 		// Given
-		Mockito.when(compilerService.compile(outputFile, sourceCode, null, 10, 500, Languages.PYTHON))
+		Mockito.when(compilerService.compile(outputFile, sourceCode, null, 10, 500, Language.PYTHON))
 				.thenReturn(ResponseEntity
 						.status(HttpStatus.OK)
 						.body(new Response("test output", "test expected output", "Accepted", LocalDateTime.now())));

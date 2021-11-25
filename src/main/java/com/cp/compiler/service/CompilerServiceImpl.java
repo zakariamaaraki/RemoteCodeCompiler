@@ -2,7 +2,7 @@ package com.cp.compiler.service;
 
 import com.cp.compiler.exceptions.CompilerServerException;
 import com.cp.compiler.exceptions.DockerBuildException;
-import com.cp.compiler.model.Languages;
+import com.cp.compiler.model.Language;
 import com.cp.compiler.model.Response;
 import com.cp.compiler.model.Result;
 import com.cp.compiler.utility.FilesUtil;
@@ -35,32 +35,18 @@ public class CompilerServiceImpl implements CompilerService {
 	
 	@Value("${compiler.docker.image.delete:true}")
 	private boolean deleteDockerImage;
-	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public ResponseEntity<Object> compile(MultipartFile outputFile, MultipartFile sourceCode, MultipartFile inputFile,
-	                                      int timeLimit, int memoryLimit, Languages languages) throws CompilerServerException {
+	                                      int timeLimit, int memoryLimit, Language language) throws CompilerServerException {
 		
 		// Unique image name
 		String imageName = UUID.randomUUID().toString();
 		
-		String folder = "utility";
-		String file = "main";
-		
-		if (languages == Languages.C) {
-			folder += "_c";
-			file += ".c";
-		} else if (languages == Languages.JAVA) {
-			file += ".java";
-		} else if (languages == Languages.CPP) {
-			folder += "_cpp";
-			file += ".cpp";
-		} else {
-			folder += "_py";
-			file += ".py";
-		}
+		String folder = language.getFolder();
+		String file = language.getFile();
 		
 		if (memoryLimit < 0 || memoryLimit > 1000)
 			return ResponseEntity
@@ -77,7 +63,7 @@ public class CompilerServiceImpl implements CompilerService {
 		// Build one docker image at time
 		synchronized (this) {
 			
-			createEntrypointFile(sourceCode, inputFile, timeLimit, memoryLimit, languages);
+			createEntrypointFile(sourceCode, inputFile, timeLimit, memoryLimit, language);
 			
 			log.info(imageName + " entrypoint.sh file has been created");
 			
@@ -130,13 +116,14 @@ public class CompilerServiceImpl implements CompilerService {
 				.body(new Response(result.getOutput(), result.getExpectedOutput(), statusResponse, date));
 	}
 	
-	private void createEntrypointFile(MultipartFile sourceCode, MultipartFile inputFile, int timeLimit, int memoryLimit, Languages languages) {
-		if (languages == Languages.JAVA) {
+	private void createEntrypointFile(MultipartFile sourceCode, MultipartFile inputFile, int timeLimit, int memoryLimit,
+	                                  Language language) {
+		if (language == Language.JAVA) {
 			// The name of the class should be equals to the name of the file
 			createJavaEntrypointFile(sourceCode.getOriginalFilename(), timeLimit, memoryLimit, inputFile);
-		} else if (languages == Languages.C) {
+		} else if (language == Language.C) {
 			createCEntrypointFile(timeLimit, memoryLimit, inputFile);
-		} else if (languages == Languages.CPP) {
+		} else if (language == Language.CPP) {
 			createCppEntrypointFile(timeLimit, memoryLimit, inputFile);
 		} else {
 			createPythonEntrypointFile(timeLimit, memoryLimit, inputFile);

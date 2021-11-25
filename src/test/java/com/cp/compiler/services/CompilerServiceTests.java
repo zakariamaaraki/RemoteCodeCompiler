@@ -1,7 +1,7 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.exceptions.DockerBuildException;
-import com.cp.compiler.model.Languages;
+import com.cp.compiler.model.Language;
 import com.cp.compiler.model.Response;
 import com.cp.compiler.model.Result;
 import com.cp.compiler.service.CompilerService;
@@ -47,7 +47,7 @@ class CompilerServiceTests {
 		int timeLimit = 16;
 		
 		// When
-		ResponseEntity responseEntity = compilerService.compile(null, null, null, timeLimit, 500, Languages.JAVA);
+		ResponseEntity responseEntity = compilerService.compile(null, null, null, timeLimit, 500, Language.JAVA);
 		
 		// Then
 		Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
@@ -64,7 +64,7 @@ class CompilerServiceTests {
 		int timeLimit = -1;
 		
 		// When
-		ResponseEntity responseEntity = compilerService.compile(null, null, null, timeLimit, 500, Languages.JAVA);
+		ResponseEntity responseEntity = compilerService.compile(null, null, null, timeLimit, 500, Language.JAVA);
 		
 		// Then
 		Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
@@ -81,7 +81,7 @@ class CompilerServiceTests {
 		int memoryLimit = 1001;
 		
 		// When
-		ResponseEntity responseEntity = compilerService.compile(null, null, null, 0, memoryLimit, Languages.JAVA);
+		ResponseEntity responseEntity = compilerService.compile(null, null, null, 0, memoryLimit, Language.JAVA);
 		
 		// Then
 		Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
@@ -98,7 +98,7 @@ class CompilerServiceTests {
 		int memoryLimit = -1;
 		
 		// When
-		ResponseEntity responseEntity = compilerService.compile(null, null, null, 0, memoryLimit, Languages.JAVA);
+		ResponseEntity responseEntity = compilerService.compile(null, null, null, 0, memoryLimit, Language.JAVA);
 		
 		// Then
 		Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
@@ -124,7 +124,7 @@ class CompilerServiceTests {
 		// Then
 		Assertions.assertThrows(DockerBuildException.class, () -> {
 			// When
-			compilerService.compile(file, file, null, 10, 100, Languages.JAVA);
+			compilerService.compile(file, file, null, 10, 100, Language.JAVA);
 		});
 	}
 	
@@ -153,7 +153,7 @@ class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.JAVA);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Language.JAVA);
 		
 		// Then
 		Assertions.assertEquals(ResponseEntity
@@ -186,7 +186,7 @@ class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.JAVA);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Language.JAVA);
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
@@ -218,7 +218,7 @@ class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.JAVA);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Language.JAVA);
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
@@ -250,7 +250,7 @@ class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.JAVA);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Language.JAVA);
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
@@ -282,7 +282,7 @@ class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.JAVA);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Language.JAVA);
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
@@ -314,7 +314,7 @@ class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.JAVA);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Language.JAVA);
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
@@ -346,7 +346,7 @@ class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Languages.JAVA);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Language.JAVA);
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();

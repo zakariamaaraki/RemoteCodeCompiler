@@ -1,5 +1,6 @@
 package com.cp.compiler.utility;
 
+import com.cp.compiler.model.Language;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,14 +12,6 @@ import java.io.OutputStream;
 @Slf4j
 public class EntryPointFile {
 	
-	private static final String PYTHON_COMMAND = "python3";
-	private static final String CPP_COMMAND = "g++";
-	private static final String C_COMMAND = "gcc";
-	private static final String JAVA_COMMAND = "javac";
-	private static final String PYTHON_DIRECTORY = "utility_py";
-	private static final String JAVA_DIRECTORY = "utility";
-	private static final String C_DIRECTORY = "utility_c";
-	private static final String CPP_DIRECTORY = "utility_cpp";
 	private EntryPointFile() {
 	}
 	
@@ -32,8 +25,8 @@ public class EntryPointFile {
 	public static void createPythonEntrypointFile(int timeLimit, int memoryLimit, MultipartFile inputFile) {
 		
 		String executionCommand = inputFile == null
-				? "timeout --signal=SIGTERM " + timeLimit + "s " + PYTHON_COMMAND + " main.py" + "\n"
-				: "timeout --signal=SIGTERM " + timeLimit + "s " + PYTHON_COMMAND + " main.py" + " < " + inputFile.getOriginalFilename() + "\n";
+				? "timeout --signal=SIGTERM " + timeLimit + "s " + Language.PYTHON.getCommand() + " main.py" + "\n"
+				: "timeout --signal=SIGTERM " + timeLimit + "s " + Language.PYTHON.getCommand() + " main.py" + " < " + inputFile.getOriginalFilename() + "\n";
 		
 		String content = "#!/usr/bin/env bash\n" +
 				"ulimit -s " + memoryLimit + "\n" +
@@ -41,7 +34,7 @@ public class EntryPointFile {
 				"exit $?\n";
 		
 		OutputStream os = null;
-		os = new FileOutputStream(new File(PYTHON_DIRECTORY + "/entrypoint.sh"));
+		os = new FileOutputStream(new File(Language.PYTHON.getFolder() + "/entrypoint.sh"));
 		os.write(content.getBytes(), 0, content.length());
 		os.close();
 	}
@@ -62,7 +55,7 @@ public class EntryPointFile {
 		
 		String content = "#!/usr/bin/env bash\n" +
 				"mv main.java " + fileName + "\n" +
-				JAVA_COMMAND + " " + fileName + "\n" +
+				Language.JAVA.getCommand() + " " + fileName + "\n" +
 				"ret=$?\n" +
 				"if [ $ret -ne 0 ]\n" +
 				"then\n" +
@@ -73,7 +66,7 @@ public class EntryPointFile {
 				"exit $?\n";
 		
 		OutputStream os = null;
-		os = new FileOutputStream(new File(JAVA_DIRECTORY + "/entrypoint.sh"));
+		os = new FileOutputStream(new File(Language.JAVA.getFolder() + "/entrypoint.sh"));
 		os.write(content.getBytes(), 0, content.length());
 		os.close();
 	}
@@ -92,7 +85,7 @@ public class EntryPointFile {
 				: "timeout --signal=SIGTERM " + timeLimit + " ./exec " + " < " + inputFile.getOriginalFilename() + "\n";
 		
 		String content = "#!/usr/bin/env bash\n" +
-				C_COMMAND + " main.c" + " -o exec" + "\n" +
+				Language.C.getCommand() + " main.c" + " -o exec" + "\n" +
 				"ret=$?\n" +
 				"if [ $ret -ne 0 ]\n" +
 				"then\n" +
@@ -103,7 +96,7 @@ public class EntryPointFile {
 				"exit $?\n";
 		
 		OutputStream os = null;
-		os = new FileOutputStream(new File(C_DIRECTORY + "/entrypoint.sh"));
+		os = new FileOutputStream(new File(Language.C.getFolder() + "/entrypoint.sh"));
 		os.write(content.getBytes(), 0, content.length());
 		os.close();
 	}
@@ -122,7 +115,7 @@ public class EntryPointFile {
 				: "timeout --signal=SIGTERM " + timeLimit + " ./exec " + " < " + inputFile.getOriginalFilename() + "\n";
 		
 		String content = "#!/usr/bin/env bash\n" +
-				CPP_COMMAND + " main.cpp" + " -o exec" + "\n" +
+				Language.CPP.getCommand() + " main.cpp" + " -o exec" + "\n" +
 				"ret=$?\n" +
 				"if [ $ret -ne 0 ]\n" +
 				"then\n" +
@@ -133,7 +126,7 @@ public class EntryPointFile {
 				"exit $?\n";
 		
 		OutputStream os = null;
-		os = new FileOutputStream(new File(CPP_DIRECTORY + "/entrypoint.sh"));
+		os = new FileOutputStream(new File(Language.CPP.getFolder() + "/entrypoint.sh"));
 		os.write(content.getBytes(), 0, content.length());
 		os.close();
 	}

@@ -5,6 +5,7 @@ import com.cp.compiler.service.ContainerService;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,10 +29,7 @@ public class ContainersInfoController {
 	/**
 	 * @return running containers
 	 */
-	@RequestMapping(
-			value = "containers",
-			method = RequestMethod.GET
-	)
+	@GetMapping("/containers")
 	@ApiOperation(
 			value = "Containers Info",
 			notes = "Display list of running containers",
@@ -49,10 +47,7 @@ public class ContainersInfoController {
 	/**
 	 * @return docker images
 	 */
-	@RequestMapping(
-			value = "images",
-			method = RequestMethod.GET
-	)
+	@GetMapping("/images")
 	@ApiOperation(
 			value = "Images Info",
 			notes = "Display list of images",
@@ -70,10 +65,7 @@ public class ContainersInfoController {
 	/**
 	 * @return stats about running containers
 	 */
-	@RequestMapping(
-			value = "stats",
-			method = RequestMethod.GET
-	)
+	@GetMapping("/stats")
 	@ApiOperation(
 			value = "Docker Stats Memory and CPU Usage",
 			notes = "Display Stats about running containers (Memory and CPU usage)",
@@ -91,10 +83,7 @@ public class ContainersInfoController {
 	/**
 	 * @return stats about all containers
 	 */
-	@RequestMapping(
-			value = "stats/all",
-			method = RequestMethod.GET
-	)
+	@GetMapping("stats/all")
 	@ApiOperation(
 			value = "Docker Stats Memory and CPU Usage for all containers",
 			notes = "Display Stats about all containers (Memory and CPU usage)",

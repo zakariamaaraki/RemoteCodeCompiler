@@ -1,5 +1,6 @@
 package com.cp.compiler.utilities;
 
+import com.cp.compiler.model.Language;
 import com.cp.compiler.utility.EntryPointFile;
 import com.cp.compiler.utility.FilesUtil;
 import org.junit.jupiter.api.Assertions;
@@ -13,12 +14,6 @@ import java.nio.file.Path;
  */
 class EntryPointFileTests {
 	
-	private static final String PYTHON_DIRECTORY = "utility_py";
-	private static final String JAVA_DIRECTORY = "utility";
-	private static final String C_DIRECTORY = "utility_c";
-	private static final String CPP_DIRECTORY = "utility_cpp";
-	
-	
 	/**
 	 * Should create python entry point file.
 	 */
@@ -28,8 +23,8 @@ class EntryPointFileTests {
 		EntryPointFile.createPythonEntrypointFile(10, 5, null);
 		
 		// Then
-		Assertions.assertTrue(Files.exists(Path.of(PYTHON_DIRECTORY + "/entrypoint.sh")));
-		FilesUtil.deleteFile(PYTHON_DIRECTORY, "entrypoint.sh");
+		Assertions.assertTrue(Files.exists(Path.of(Language.PYTHON.getFolder() + "/entrypoint.sh")));
+		FilesUtil.deleteFile(Language.PYTHON.getFolder(), "entrypoint.sh");
 	}
 	
 	/**
@@ -41,8 +36,8 @@ class EntryPointFileTests {
 		EntryPointFile.createJavaEntrypointFile("test.java", 9, 4, null);
 		
 		// Then
-		Assertions.assertTrue(Files.exists(Path.of(JAVA_DIRECTORY + "/entrypoint.sh")));
-		FilesUtil.deleteFile(JAVA_DIRECTORY, "entrypoint.sh");
+		Assertions.assertTrue(Files.exists(Path.of(Language.JAVA.getFolder()+ "/entrypoint.sh")));
+		FilesUtil.deleteFile(Language.JAVA.getFolder(), "entrypoint.sh");
 	}
 	
 	/**
@@ -54,8 +49,8 @@ class EntryPointFileTests {
 		EntryPointFile.createCEntrypointFile(8, 500, null);
 		
 		// Then
-		Assertions.assertTrue(Files.exists(Path.of(C_DIRECTORY + "/entrypoint.sh")));
-		FilesUtil.deleteFile(C_DIRECTORY, "entrypoint.sh");
+		Assertions.assertTrue(Files.exists(Path.of(Language.C.getFolder() + "/entrypoint.sh")));
+		FilesUtil.deleteFile(Language.C.getFolder(), "entrypoint.sh");
 	}
 	
 	/**
@@ -67,7 +62,7 @@ class EntryPointFileTests {
 		EntryPointFile.createCppEntrypointFile(11, 400, null);
 		
 		// Then
-		Assertions.assertTrue(Files.exists(Path.of(CPP_DIRECTORY + "/entrypoint.sh")));
-		FilesUtil.deleteFile(CPP_DIRECTORY, "entrypoint.sh");
+		Assertions.assertTrue(Files.exists(Path.of(Language.CPP.getFolder() + "/entrypoint.sh")));
+		FilesUtil.deleteFile(Language.CPP.getFolder(), "entrypoint.sh");
 	}
 }
