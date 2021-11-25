@@ -72,7 +72,7 @@ public class ContainerServiceImpl implements ContainerService {
 				BufferedReader expectedOutputReader = new BufferedReader(new InputStreamReader(outputFile.getInputStream()));
 				String expectedOutput = CmdUtil.readOutput(expectedOutputReader);
 				
-				log.info("Running the container");
+				log.info(imageName + " Running the container");
 				String[] dockerCommand = new String[]{"docker", "run", "--rm", imageName};
 				ProcessBuilder processbuilder = new ProcessBuilder(dockerCommand);
 				Process process = processbuilder.start();
@@ -83,9 +83,9 @@ public class ContainerServiceImpl implements ContainerService {
 				// Check if the container process is alive, if it's so then destroy it and return a time limit exceeded status
 				if (process.isAlive()) {
 					status = TIME_LIMIT_STATUS_CODE;
-					log.info("The container exceed the 20 sec allowed for its execution");
+					log.info(imageName + " The container exceed the 20 sec allowed for its execution");
 					process.destroy();
-					log.info("The container has been destroyed");
+					log.info(imageName + " The container has been destroyed");
 					
 					/* Can't get the output from the container (because it did not finish it's execution),
 					   so we assume that the comparison between the output and the excepted output return false */
@@ -93,7 +93,7 @@ public class ContainerServiceImpl implements ContainerService {
 					return new Result(statusResponse, "No available output", expectedOutput);
 				} else {
 					status = process.exitValue();
-					log.info("End of the execution of the container");
+					log.info(imageName + " End of the execution of the container");
 					
 					BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 					String containerOutput = CmdUtil.readOutput(reader);

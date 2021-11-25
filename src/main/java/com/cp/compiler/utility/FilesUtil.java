@@ -39,7 +39,6 @@ public class FilesUtil {
 		if (folder != null && file != null) {
 			String fileName = folder + "/" + file;
 			new File(fileName).delete();
-			log.info("file " + fileName + " has been deleted");
 			return true;
 		}
 		return false;

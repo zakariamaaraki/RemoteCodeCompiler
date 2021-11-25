@@ -45,18 +45,23 @@ public class CompilerServiceImpl implements CompilerService {
 		// Unique image name
 		String imageName = UUID.randomUUID().toString();
 		
+		if (memoryLimit < 0 || memoryLimit > 1000) {
+			log.info(imageName + "Error memoryLimit must be between 0Mb and 1000Mb, provided : {}", memoryLimit);
+			return ResponseEntity
+					.badRequest()
+					.body("Error memoryLimit must be between 0Mb and 1000Mb, provided : " + memoryLimit);
+		}
+		
+		
+		if (timeLimit < 0 || timeLimit > 15) {
+			log.info("Error timeLimit must be between 0 Sec and 15 Sec, provided : " + memoryLimit);
+			return ResponseEntity
+					.badRequest()
+					.body("Error timeLimit must be between 0 Sec and 15 Sec, provided : " + memoryLimit);
+		}
+		
 		String folder = language.getFolder();
 		String file = language.getFile();
-		
-		if (memoryLimit < 0 || memoryLimit > 1000)
-			return ResponseEntity
-					.badRequest()
-					.body(imageName + " Error memoryLimit must be between 0Mb and 1000Mb");
-		
-		if (timeLimit < 0 || timeLimit > 15)
-			return ResponseEntity
-					.badRequest()
-					.body(imageName + " Error timeLimit must be between 0 Sec and 15 Sec");
 		
 		LocalDateTime date = LocalDateTime.now();
 		
@@ -72,17 +77,14 @@ public class CompilerServiceImpl implements CompilerService {
 				FilesUtil.saveUploadedFiles(outputFile, folder + "/" + outputFile.getOriginalFilename());
 				if (inputFile != null)
 					FilesUtil.saveUploadedFiles(inputFile, folder + "/" + inputFile.getOriginalFilename());
+				log.info(imageName + " Files have been uploaded");
 			} catch (IOException e) {
-				throw new CompilerServerException(e.getMessage());
+				throw new CompilerServerException(imageName + " " + e.getMessage());
 			}
-			
-			log.info(imageName + " Files have been uploaded");
 			
 			try {
 				log.info(imageName + " Building the docker image");
-				
 				AtomicInteger status = new AtomicInteger(containerService.buildImage(folder, imageName));
-				
 				if (status.get() == 0)
 					log.info( imageName + " Docker image has been built");
 				else {
@@ -94,6 +96,7 @@ public class CompilerServiceImpl implements CompilerService {
 				FilesUtil.deleteFile(folder, outputFile.getOriginalFilename());
 				if (inputFile != null)
 					FilesUtil.deleteFile(folder, inputFile.getOriginalFilename());
+				log.info(imageName + " Files have been deleted");
 			}
 		}
 		
@@ -104,7 +107,7 @@ public class CompilerServiceImpl implements CompilerService {
 				containerService.deleteImage(imageName);
 				log.info("Image " + imageName + " has been deleted");
 			} catch (IOException e) {
-				log.warn("Error, can't delete image " + imageName + " : ", e);
+				log.warn("Error, can't delete image {} : {}", imageName, e);
 			}
 		}
 		
