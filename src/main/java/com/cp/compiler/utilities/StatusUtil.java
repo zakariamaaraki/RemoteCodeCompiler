@@ -22,17 +22,17 @@ public class StatusUtil {
 			case 0:
 				// Is it the excepted output ?
 				if (ans)
-					return Verdict.ACCEPTED.getVerdict();
+					return Verdict.ACCEPTED.getValue();
 				else
-					return Verdict.WRONG_ANSWER.getVerdict();
+					return Verdict.WRONG_ANSWER.getValue();
 			
-			case 2: return Verdict.COMPILATION_ERROR.getVerdict();
+			case 2: return Verdict.COMPILATION_ERROR.getValue();
 			
-			case 139: return Verdict.OUT_OF_MEMORY.getVerdict();
+			case 139: return Verdict.OUT_OF_MEMORY.getValue();
 			
-			case 124: return Verdict.TIME_LIMIT_EXCEEDED.getVerdict();
+			case 124: return Verdict.TIME_LIMIT_EXCEEDED.getValue();
 			
-			default: return Verdict.RUNTIME_ERROR.getVerdict();
+			default: return Verdict.RUNTIME_ERROR.getValue();
 		}
 	}
 }

@@ -6,7 +6,6 @@ import com.cp.compiler.utilities.StatusUtil;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,13 +24,16 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class ContainerServiceImpl implements ContainerService {
 	
-	// in millis
-	private static final long TIME_OUT = 20000;
+	private static final long TIME_OUT = 20000; // in ms
 	private static final int TIME_LIMIT_STATUS_CODE = 124;
-	@Autowired
-	private MeterRegistry meterRegistry;
+	
+	private final MeterRegistry meterRegistry;
 	private Timer buildTimer;
 	private Timer runTimer;
+	
+	public ContainerServiceImpl(MeterRegistry meterRegistry) {
+		this.meterRegistry = meterRegistry;
+	}
 	
 	@PostConstruct
 	public void init() {
@@ -51,7 +53,7 @@ public class ContainerServiceImpl implements ContainerService {
 				Process process = processbuilder.start();
 				return process.waitFor();
 			} catch (Exception e) {
-				log.error("Error : ", e);
+				log.error("Error during the build process : ", e);
 				// Error during the build
 				return 1;
 			}

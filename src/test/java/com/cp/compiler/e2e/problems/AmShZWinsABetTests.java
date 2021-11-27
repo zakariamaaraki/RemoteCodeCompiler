@@ -38,7 +38,7 @@ public class AmShZWinsABetTests {
 		ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput, sourceCode, inputs, 3, 2000);
 		
 		// Then
-		Assertions.assertEquals(Verdict.ACCEPTED.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 	@DisplayName("AmShZ Wins a Bet Problem test case 2")
@@ -58,7 +58,7 @@ public class AmShZWinsABetTests {
 		ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput, sourceCode, inputs, 3, 2000);
 		
 		// Then
-		Assertions.assertEquals(Verdict.ACCEPTED.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 	@DisplayName("AmShZ Wins a Bet Problem test case 3")
@@ -78,6 +78,6 @@ public class AmShZWinsABetTests {
 		ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput, sourceCode, inputs, 3, 2000);
 		
 		// Then
-		Assertions.assertEquals(Verdict.ACCEPTED.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
 	}
 }

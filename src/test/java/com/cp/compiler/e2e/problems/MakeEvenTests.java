@@ -38,6 +38,6 @@ public class MakeEvenTests {
 		ResponseEntity<Object> responseEntity = compilerController.compilePython(expectedOutput, sourceCode, inputs, 3, 500);
 		
 		// Then
-		Assertions.assertEquals(Verdict.ACCEPTED.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
 	}
 }

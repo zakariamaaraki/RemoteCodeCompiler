@@ -8,7 +8,6 @@ import com.cp.compiler.models.Result;
 import com.cp.compiler.utilities.FilesUtil;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +30,7 @@ import static com.cp.compiler.utilities.EntryPointFile.*;
 @Service
 public class CompilerServiceImpl implements CompilerService {
 	
-	@Autowired
-	private ContainerService containerService;
+	private final ContainerService containerService;
 	
 	@Getter
 	@Value("${compiler.docker.image.delete:true}")
@@ -53,6 +51,10 @@ public class CompilerServiceImpl implements CompilerService {
 	@Getter
 	@Value("${compiler.execution-time.min:0}")
 	private int minExecutionTime;
+	
+	public CompilerServiceImpl(ContainerService containerService) {
+		this.containerService = containerService;
+	}
 	
 	/**
 	 * {@inheritDoc}

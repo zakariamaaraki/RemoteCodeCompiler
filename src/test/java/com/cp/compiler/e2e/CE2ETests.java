@@ -40,7 +40,7 @@ public class CE2ETests {
 		ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput, sourceCode, null, 10, 500);
 		
 		// Then
-		Assertions.assertEquals(Verdict.ACCEPTED.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 	/**
@@ -62,7 +62,7 @@ public class CE2ETests {
 		ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput, sourceCode, null, 10, 500);
 		
 		// Then
-		Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getValue(), ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 	/**
@@ -84,7 +84,7 @@ public class CE2ETests {
 		ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput, sourceCode, null, 10, 500);
 		
 		// Then
-		Assertions.assertEquals(Verdict.COMPILATION_ERROR.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.COMPILATION_ERROR.getValue(), ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 	/**
@@ -106,7 +106,7 @@ public class CE2ETests {
 		ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput, sourceCode, null, 10, 500);
 		
 		// Then
-		Assertions.assertEquals(Verdict.WRONG_ANSWER.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.WRONG_ANSWER.getValue(), ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 	/**
@@ -128,7 +128,7 @@ public class CE2ETests {
 		ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput, sourceCode, null, 10, 1);
 		
 		// Then
-		Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getValue(), ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 	/**
@@ -150,7 +150,7 @@ public class CE2ETests {
 		ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput, sourceCode, null, 10, 500);
 		
 		// Then
-		Assertions.assertEquals(Verdict.RUNTIME_ERROR.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.RUNTIME_ERROR.getValue(), ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 }

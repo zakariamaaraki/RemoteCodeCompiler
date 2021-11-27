@@ -14,5 +14,5 @@ public enum Verdict {
 	RUNTIME_ERROR("Runtime Error");
 	
 	@Getter
-	String verdict;
+	String value;
 }

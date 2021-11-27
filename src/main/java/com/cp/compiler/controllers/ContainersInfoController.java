@@ -3,7 +3,6 @@ package com.cp.compiler.controllers;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.services.ContainerService;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,12 +17,16 @@ import java.io.IOException;
  */
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/docker")
 public class ContainersInfoController {
 	
-	private ContainerService containerService;
+	private final ContainerService containerService;
+	
 	private static final String ERROR_SERVICE_MESSAGE = "The server is currently unable to obtain this information";
+	
+	public ContainersInfoController(ContainerService containerService) {
+		this.containerService = containerService;
+	}
 	
 	/**
 	 * @return running containers

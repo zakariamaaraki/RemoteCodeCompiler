@@ -17,7 +17,7 @@ class StatusUtilTests {
 		String status = StatusUtil.statusResponse(0, true);
 		
 		// Then
-		Assertions.assertEquals(Verdict.ACCEPTED.getVerdict(), status);
+		Assertions.assertEquals(Verdict.ACCEPTED.getValue(), status);
 	}
 	
 	/**
@@ -29,7 +29,7 @@ class StatusUtilTests {
 		String status = StatusUtil.statusResponse(0, false);
 		
 		// Then
-		Assertions.assertEquals(Verdict.WRONG_ANSWER.getVerdict(), status);
+		Assertions.assertEquals(Verdict.WRONG_ANSWER.getValue(), status);
 	}
 	
 	/**
@@ -41,7 +41,7 @@ class StatusUtilTests {
 		String status = StatusUtil.statusResponse(1, false);
 		
 		// Then
-		Assertions.assertEquals(Verdict.RUNTIME_ERROR.getVerdict(), status);
+		Assertions.assertEquals(Verdict.RUNTIME_ERROR.getValue(), status);
 	}
 	
 	/**
@@ -53,7 +53,7 @@ class StatusUtilTests {
 		String status = StatusUtil.statusResponse(2, false);
 		
 		// Then
-		Assertions.assertEquals(Verdict.COMPILATION_ERROR.getVerdict(), status);
+		Assertions.assertEquals(Verdict.COMPILATION_ERROR.getValue(), status);
 	}
 	
 	/**
@@ -65,7 +65,7 @@ class StatusUtilTests {
 		String status = StatusUtil.statusResponse(139, false);
 		
 		// Then
-		Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getVerdict(), status);
+		Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getValue(), status);
 	}
 	
 	/**
@@ -77,6 +77,6 @@ class StatusUtilTests {
 		String status = StatusUtil.statusResponse(124, false);
 		
 		// Then
-		Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getVerdict(), status);
+		Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getValue(), status);
 	}
 }

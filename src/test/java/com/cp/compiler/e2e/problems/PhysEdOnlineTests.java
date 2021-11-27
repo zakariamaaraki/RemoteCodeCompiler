@@ -40,7 +40,7 @@ public class PhysEdOnlineTests {
 		ResponseEntity<Object> responseEntity = compilerController.compileCpp(expectedOutput, sourceCode, inputs, 3, 500);
 		
 		// Then
-		Assertions.assertEquals(Verdict.ACCEPTED.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 	@DisplayName("Phys Ed Online Problem test case 2")
@@ -60,7 +60,7 @@ public class PhysEdOnlineTests {
 		ResponseEntity<Object> responseEntity = compilerController.compileCpp(expectedOutput, sourceCode, inputs, 3, 500);
 		
 		// Then
-		Assertions.assertEquals(Verdict.ACCEPTED.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
 	}
 
 

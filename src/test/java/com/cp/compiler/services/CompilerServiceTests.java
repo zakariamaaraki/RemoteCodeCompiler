@@ -133,7 +133,7 @@ class CompilerServiceTests {
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
-		Result result = new Result(Verdict.ACCEPTED.getVerdict(), "", "");
+		Result result = new Result(Verdict.ACCEPTED.getValue(), "", "");
 		
 		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
@@ -166,7 +166,7 @@ class CompilerServiceTests {
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
-		Result result = new Result(Verdict.ACCEPTED.getVerdict(), "", "");
+		Result result = new Result(Verdict.ACCEPTED.getValue(), "", "");
 		
 		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
@@ -184,7 +184,7 @@ class CompilerServiceTests {
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
-		Assertions.assertEquals(Verdict.ACCEPTED.getVerdict(), response.getStatus());
+		Assertions.assertEquals(Verdict.ACCEPTED.getValue(), response.getStatus());
 	}
 	
 	/**
@@ -198,7 +198,7 @@ class CompilerServiceTests {
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
-		Result result = new Result(Verdict.WRONG_ANSWER.getVerdict(), "", "");
+		Result result = new Result(Verdict.WRONG_ANSWER.getValue(), "", "");
 		
 		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
@@ -216,7 +216,7 @@ class CompilerServiceTests {
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
-		Assertions.assertEquals(Verdict.WRONG_ANSWER.getVerdict(), response.getStatus());
+		Assertions.assertEquals(Verdict.WRONG_ANSWER.getValue(), response.getStatus());
 	}
 	
 	/**
@@ -230,7 +230,7 @@ class CompilerServiceTests {
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
-		Result result = new Result(Verdict.TIME_LIMIT_EXCEEDED.getVerdict(), "", "");
+		Result result = new Result(Verdict.TIME_LIMIT_EXCEEDED.getValue(), "", "");
 		
 		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
@@ -248,7 +248,7 @@ class CompilerServiceTests {
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
-		Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getVerdict(), response.getStatus());
+		Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getValue(), response.getStatus());
 	}
 	
 	/**
@@ -262,7 +262,7 @@ class CompilerServiceTests {
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
-		Result result = new Result(Verdict.RUNTIME_ERROR.getVerdict(), "", "");
+		Result result = new Result(Verdict.RUNTIME_ERROR.getValue(), "", "");
 		
 		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
@@ -280,7 +280,7 @@ class CompilerServiceTests {
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
-		Assertions.assertEquals(Verdict.RUNTIME_ERROR.getVerdict(), response.getStatus());
+		Assertions.assertEquals(Verdict.RUNTIME_ERROR.getValue(), response.getStatus());
 	}
 	
 	/**
@@ -294,7 +294,7 @@ class CompilerServiceTests {
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
-		Result result = new Result(Verdict.OUT_OF_MEMORY.getVerdict(), "", "");
+		Result result = new Result(Verdict.OUT_OF_MEMORY.getValue(), "", "");
 		
 		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
@@ -312,7 +312,7 @@ class CompilerServiceTests {
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
-		Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getVerdict(), response.getStatus());
+		Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getValue(), response.getStatus());
 	}
 	
 	/**
@@ -326,7 +326,7 @@ class CompilerServiceTests {
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
-		Result result = new Result(Verdict.COMPILATION_ERROR.getVerdict(), "", "");
+		Result result = new Result(Verdict.COMPILATION_ERROR.getValue(), "", "");
 		
 		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
@@ -344,7 +344,7 @@ class CompilerServiceTests {
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
-		Assertions.assertEquals(Verdict.COMPILATION_ERROR.getVerdict(), response.getStatus());
+		Assertions.assertEquals(Verdict.COMPILATION_ERROR.getValue(), response.getStatus());
 	}
 	
 }

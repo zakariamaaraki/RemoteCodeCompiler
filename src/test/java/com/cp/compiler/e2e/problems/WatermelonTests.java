@@ -40,7 +40,7 @@ class WatermelonTests {
 		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput, sourceCode, inputs, 3, 500);
 		
 		// Then
-		Assertions.assertEquals(Verdict.ACCEPTED.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 	@DisplayName("Watermelon Problem test case 2")
@@ -60,7 +60,7 @@ class WatermelonTests {
 		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput, sourceCode, inputs, 3, 500);
 		
 		// Then
-		Assertions.assertEquals(Verdict.ACCEPTED.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 	@DisplayName("Watermelon Problem test case 3")
@@ -80,6 +80,6 @@ class WatermelonTests {
 		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput, sourceCode, inputs, 3, 500);
 		
 		// Then
-		Assertions.assertEquals(Verdict.ACCEPTED.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
 	}
 }
