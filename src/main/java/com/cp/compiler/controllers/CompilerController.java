@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/compiler")
 public class CompilerController {
 	
-	private final CompilerService compiler;
+	private CompilerService compiler;
 	
 	public CompilerController(CompilerService compiler) {
 		this.compiler = compiler;

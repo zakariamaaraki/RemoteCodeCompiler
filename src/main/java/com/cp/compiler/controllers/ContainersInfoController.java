@@ -20,7 +20,7 @@ import java.io.IOException;
 @RequestMapping("/docker")
 public class ContainersInfoController {
 	
-	private final ContainerService containerService;
+	private ContainerService containerService;
 	
 	private static final String ERROR_SERVICE_MESSAGE = "The server is currently unable to obtain this information";
 	

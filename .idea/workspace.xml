@@ -8,24 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/CompilerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/CompilerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/ContainersInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/ContainersInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Response.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Result.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Verdict.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Verdict.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utilities/EntryPointFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utilities/EntryPointFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utilities/FilesUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utilities/FilesUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utilities/StatusUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utilities/StatusUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CE2ETests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CppE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CppE2ETests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/JavaE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/JavaE2ETests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/PythonE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/PythonE2ETests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/AmShZWinsABetTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/AmShZWinsABetTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/MakeEvenTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/MakeEvenTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/PhysEdOnlineTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/PhysEdOnlineTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/WatermelonTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/WatermelonTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utilities/StatusUtilTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utilities/StatusUtilTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -257,7 +239,7 @@
       <workItem from="1636384084484" duration="10655000" />
       <workItem from="1636490077562" duration="40524000" />
       <workItem from="1637792349419" duration="6461000" />
-      <workItem from="1637852302641" duration="11859000" />
+      <workItem from="1637852302641" duration="13354000" />
     </task>
     <servers />
   </component>
