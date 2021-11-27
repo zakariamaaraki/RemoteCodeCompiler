@@ -1,6 +1,6 @@
-package com.cp.compiler.utility;
+package com.cp.compiler.utilities;
 
-import com.cp.compiler.model.Language;
+import com.cp.compiler.models.Language;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;

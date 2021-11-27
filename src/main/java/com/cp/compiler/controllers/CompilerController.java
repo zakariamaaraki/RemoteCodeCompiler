@@ -1,8 +1,8 @@
-package com.cp.compiler.controller;
+package com.cp.compiler.controllers;
 
-import com.cp.compiler.model.Language;
-import com.cp.compiler.model.Response;
-import com.cp.compiler.service.CompilerService;
+import com.cp.compiler.models.Language;
+import com.cp.compiler.models.Response;
+import com.cp.compiler.services.CompilerService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;

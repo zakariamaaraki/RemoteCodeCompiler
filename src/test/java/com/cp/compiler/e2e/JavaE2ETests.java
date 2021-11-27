@@ -1,7 +1,8 @@
 package com.cp.compiler.e2e;
 
-import com.cp.compiler.controller.CompilerController;
-import com.cp.compiler.model.Response;
+import com.cp.compiler.controllers.CompilerController;
+import com.cp.compiler.models.Response;
+import com.cp.compiler.models.Verdict;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,12 +23,6 @@ class JavaE2ETests {
 	
 	@Autowired
 	private CompilerController compilerController;
-	private static final String ACCEPTED_VERDICT = "Accepted";
-	private static final String TIME_LIMIT_EXCEEDED_VERDICT = "Time Limit Exceeded";
-	private static final String COMPILATION_ERROR_VERDICT = "Compilation Error";
-	private static final String WRONG_ANSWER_VERDICT = "Wrong Answer";
-	private static final String OUT_OF_MEMORY_VERDICT = "Out Of Memory";
-	private static final String RUNTIME_ERROR_VERDICT = "Runtime Error";
 	
 	/**
 	 * Should return accepted verdict.
@@ -48,7 +43,7 @@ class JavaE2ETests {
 		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput, sourceCode, null, 10, 500);
 	
 		// Then
-		Assertions.assertEquals(ACCEPTED_VERDICT, ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.ACCEPTED.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 	/**
@@ -70,7 +65,7 @@ class JavaE2ETests {
 		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput, sourceCode, null, 10, 500);
 		
 		// Then
-		Assertions.assertEquals(TIME_LIMIT_EXCEEDED_VERDICT, ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 	/**
@@ -92,7 +87,7 @@ class JavaE2ETests {
 		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput, sourceCode, null, 5, 500);
 		
 		// Then
-		Assertions.assertEquals(TIME_LIMIT_EXCEEDED_VERDICT, ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 	/**
@@ -114,7 +109,7 @@ class JavaE2ETests {
 		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput, sourceCode, null, 10, 500);
 		
 		// Then
-		Assertions.assertEquals(COMPILATION_ERROR_VERDICT, ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.COMPILATION_ERROR.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 	/**
@@ -136,7 +131,7 @@ class JavaE2ETests {
 		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput, sourceCode, null, 10, 500);
 		
 		// Then
-		Assertions.assertEquals(WRONG_ANSWER_VERDICT, ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.WRONG_ANSWER.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 	/**
@@ -158,7 +153,7 @@ class JavaE2ETests {
 		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput, sourceCode, null, 10, 1);
 		
 		// Then
-		Assertions.assertEquals(OUT_OF_MEMORY_VERDICT, ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 	/**
@@ -180,7 +175,7 @@ class JavaE2ETests {
 		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput, sourceCode, null, 10, 500);
 		
 		// Then
-		Assertions.assertEquals(RUNTIME_ERROR_VERDICT, ((Response)responseEntity.getBody()).getStatus());
+		Assertions.assertEquals(Verdict.RUNTIME_ERROR.getVerdict(), ((Response)responseEntity.getBody()).getStatus());
 	}
 	
 

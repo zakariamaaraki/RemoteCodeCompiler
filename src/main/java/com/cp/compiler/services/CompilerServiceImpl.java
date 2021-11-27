@@ -1,11 +1,11 @@
-package com.cp.compiler.service;
+package com.cp.compiler.services;
 
 import com.cp.compiler.exceptions.CompilerServerException;
 import com.cp.compiler.exceptions.DockerBuildException;
-import com.cp.compiler.model.Language;
-import com.cp.compiler.model.Response;
-import com.cp.compiler.model.Result;
-import com.cp.compiler.utility.FilesUtil;
+import com.cp.compiler.models.Language;
+import com.cp.compiler.models.Response;
+import com.cp.compiler.models.Result;
+import com.cp.compiler.utilities.FilesUtil;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.cp.compiler.utility.EntryPointFile.*;
+import static com.cp.compiler.utilities.EntryPointFile.*;
 
 /**
  * Compiler Service Class, this class provides compilation utilities for several programing languages

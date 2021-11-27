@@ -1,11 +1,10 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.exceptions.DockerBuildException;
-import com.cp.compiler.model.Language;
-import com.cp.compiler.model.Response;
-import com.cp.compiler.model.Result;
-import com.cp.compiler.service.CompilerService;
-import com.cp.compiler.service.ContainerService;
+import com.cp.compiler.models.Language;
+import com.cp.compiler.models.Response;
+import com.cp.compiler.models.Result;
+import com.cp.compiler.models.Verdict;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -25,12 +24,7 @@ import org.springframework.mock.web.MockMultipartFile;
 class CompilerServiceTests {
 	
 	private static final int BAD_REQUEST = 400;
-	private static final String ACCEPTED_VERDICT = "Accepted";
-	private static final String WRONG_ANSWER_VERDICT = "Wrong Answer";
-	private static final String TIME_LIMIT_EXCEEDED_VERDICT = "Time Limit Exceeded";
-	private static final String RUNTIME_ERROR_VERDICT = "Runtime Error";
-	private static final String OUT_OF_MEMORY_ERROR_VERDICT = "Out Of Memory";
-	private static final String COMPILATION_ERROR_VERDICT = "Compilation Error";
+	
 	@MockBean
 	private ContainerService containerService;
 	@Autowired
@@ -139,7 +133,7 @@ class CompilerServiceTests {
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
-		Result result = new Result(ACCEPTED_VERDICT, "", "");
+		Result result = new Result(Verdict.ACCEPTED.getVerdict(), "", "");
 		
 		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
@@ -172,7 +166,7 @@ class CompilerServiceTests {
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
-		Result result = new Result(ACCEPTED_VERDICT, "", "");
+		Result result = new Result(Verdict.ACCEPTED.getVerdict(), "", "");
 		
 		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
@@ -190,7 +184,7 @@ class CompilerServiceTests {
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
-		Assertions.assertEquals(ACCEPTED_VERDICT, response.getStatus());
+		Assertions.assertEquals(Verdict.ACCEPTED.getVerdict(), response.getStatus());
 	}
 	
 	/**
@@ -204,7 +198,7 @@ class CompilerServiceTests {
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
-		Result result = new Result(WRONG_ANSWER_VERDICT, "", "");
+		Result result = new Result(Verdict.WRONG_ANSWER.getVerdict(), "", "");
 		
 		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
@@ -222,7 +216,7 @@ class CompilerServiceTests {
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
-		Assertions.assertEquals(WRONG_ANSWER_VERDICT, response.getStatus());
+		Assertions.assertEquals(Verdict.WRONG_ANSWER.getVerdict(), response.getStatus());
 	}
 	
 	/**
@@ -236,7 +230,7 @@ class CompilerServiceTests {
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
-		Result result = new Result(TIME_LIMIT_EXCEEDED_VERDICT, "", "");
+		Result result = new Result(Verdict.TIME_LIMIT_EXCEEDED.getVerdict(), "", "");
 		
 		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
@@ -254,7 +248,7 @@ class CompilerServiceTests {
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
-		Assertions.assertEquals(TIME_LIMIT_EXCEEDED_VERDICT, response.getStatus());
+		Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getVerdict(), response.getStatus());
 	}
 	
 	/**
@@ -268,7 +262,7 @@ class CompilerServiceTests {
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
-		Result result = new Result(RUNTIME_ERROR_VERDICT, "", "");
+		Result result = new Result(Verdict.RUNTIME_ERROR.getVerdict(), "", "");
 		
 		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
@@ -286,7 +280,7 @@ class CompilerServiceTests {
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
-		Assertions.assertEquals(RUNTIME_ERROR_VERDICT, response.getStatus());
+		Assertions.assertEquals(Verdict.RUNTIME_ERROR.getVerdict(), response.getStatus());
 	}
 	
 	/**
@@ -300,7 +294,7 @@ class CompilerServiceTests {
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
-		Result result = new Result(OUT_OF_MEMORY_ERROR_VERDICT, "", "");
+		Result result = new Result(Verdict.OUT_OF_MEMORY.getVerdict(), "", "");
 		
 		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
@@ -318,7 +312,7 @@ class CompilerServiceTests {
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
-		Assertions.assertEquals(OUT_OF_MEMORY_ERROR_VERDICT, response.getStatus());
+		Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getVerdict(), response.getStatus());
 	}
 	
 	/**
@@ -332,7 +326,7 @@ class CompilerServiceTests {
 		Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(0);
 		
-		Result result = new Result(COMPILATION_ERROR_VERDICT, "", "");
+		Result result = new Result(Verdict.COMPILATION_ERROR.getVerdict(), "", "");
 		
 		Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
 				.thenReturn(result);
@@ -350,7 +344,7 @@ class CompilerServiceTests {
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
-		Assertions.assertEquals(COMPILATION_ERROR_VERDICT, response.getStatus());
+		Assertions.assertEquals(Verdict.COMPILATION_ERROR.getVerdict(), response.getStatus());
 	}
 	
 }

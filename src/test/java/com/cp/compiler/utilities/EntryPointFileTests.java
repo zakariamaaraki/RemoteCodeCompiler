@@ -1,8 +1,6 @@
 package com.cp.compiler.utilities;
 
-import com.cp.compiler.model.Language;
-import com.cp.compiler.utility.EntryPointFile;
-import com.cp.compiler.utility.FilesUtil;
+import com.cp.compiler.models.Language;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

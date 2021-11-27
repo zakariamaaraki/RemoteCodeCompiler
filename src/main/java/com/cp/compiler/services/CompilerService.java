@@ -1,7 +1,7 @@
-package com.cp.compiler.service;
+package com.cp.compiler.services;
 
 import com.cp.compiler.exceptions.CompilerServerException;
-import com.cp.compiler.model.Language;
+import com.cp.compiler.models.Language;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 

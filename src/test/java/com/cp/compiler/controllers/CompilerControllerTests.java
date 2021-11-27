@@ -1,9 +1,8 @@
 package com.cp.compiler.controllers;
 
-import com.cp.compiler.controller.CompilerController;
-import com.cp.compiler.model.Language;
-import com.cp.compiler.model.Response;
-import com.cp.compiler.service.CompilerService;
+import com.cp.compiler.models.Language;
+import com.cp.compiler.models.Response;
+import com.cp.compiler.services.CompilerService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

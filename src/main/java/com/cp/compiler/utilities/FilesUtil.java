@@ -1,4 +1,4 @@
-package com.cp.compiler.utility;
+package com.cp.compiler.utilities;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;

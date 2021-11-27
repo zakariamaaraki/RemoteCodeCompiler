@@ -1,4 +1,6 @@
-package com.cp.compiler.utility;
+package com.cp.compiler.utilities;
+
+import com.cp.compiler.models.Verdict;
 
 public class StatusUtil {
 	
@@ -20,17 +22,17 @@ public class StatusUtil {
 			case 0:
 				// Is it the excepted output ?
 				if (ans)
-					return "Accepted";
+					return Verdict.ACCEPTED.getVerdict();
 				else
-					return "Wrong Answer";
+					return Verdict.WRONG_ANSWER.getVerdict();
 			
-			case 2: return "Compilation Error";
+			case 2: return Verdict.COMPILATION_ERROR.getVerdict();
 			
-			case 139: return "Out Of Memory";
+			case 139: return Verdict.OUT_OF_MEMORY.getVerdict();
 			
-			case 124: return "Time Limit Exceeded";
+			case 124: return Verdict.TIME_LIMIT_EXCEEDED.getVerdict();
 			
-			default: return "Runtime Error";
+			default: return Verdict.RUNTIME_ERROR.getVerdict();
 		}
 	}
 }

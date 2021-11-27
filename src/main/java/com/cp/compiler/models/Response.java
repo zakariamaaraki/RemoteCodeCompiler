@@ -1,4 +1,4 @@
-package com.cp.compiler.model;
+package com.cp.compiler.models;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

@@ -1,13 +1,12 @@
-package com.cp.compiler.controller;
+package com.cp.compiler.controllers;
 
-import com.cp.compiler.model.Response;
-import com.cp.compiler.service.ContainerService;
+import com.cp.compiler.models.Response;
+import com.cp.compiler.services.ContainerService;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;

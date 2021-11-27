@@ -1,6 +1,6 @@
-package com.cp.compiler.service;
+package com.cp.compiler.services;
 
-import com.cp.compiler.model.Result;
+import com.cp.compiler.models.Result;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;

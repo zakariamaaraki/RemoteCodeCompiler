@@ -1,7 +1,6 @@
 package com.cp.compiler.controllers;
 
-import com.cp.compiler.controller.ContainersInfoController;
-import com.cp.compiler.service.ContainerService;
+import com.cp.compiler.services.ContainerService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
