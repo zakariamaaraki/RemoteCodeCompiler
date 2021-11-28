@@ -9,6 +9,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * The type Files util.
+ *
+ * @author Zakaria Maaraki
+ */
 @Slf4j
 public class FilesUtil {
 	
@@ -16,6 +21,7 @@ public class FilesUtil {
 	}
 	
 	/**
+	 * Save uploaded files.
 	 *
 	 * @param file the file that we want to save locally
 	 * @param name the path where the file will be saved
@@ -30,9 +36,10 @@ public class FilesUtil {
 	}
 	
 	/**
+	 * Delete file boolean.
 	 *
 	 * @param folder the folder where the file exists
-	 * @param file the filename that we want to delete
+	 * @param file   the filename that we want to delete
 	 * @return boolean the file is deleted or not
 	 */
 	public static boolean deleteFile(String folder, String file) {

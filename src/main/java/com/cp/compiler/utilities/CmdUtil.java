@@ -4,10 +4,22 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * The type Cmd util.
+ *
+ * @author Zakaria Maaraki
+ */
 public class CmdUtil {
 	
 	private CmdUtil() {}
 	
+	/**
+	 * Run cmd string.
+	 *
+	 * @param params the params
+	 * @return the string
+	 * @throws IOException the io exception
+	 */
 	public static String runCmd(String... params) throws IOException {
 		String[] dockerCommand = params;
 		ProcessBuilder processbuilder = new ProcessBuilder(dockerCommand);
@@ -16,6 +28,13 @@ public class CmdUtil {
 		return readOutput(reader);
 	}
 	
+	/**
+	 * Read output string.
+	 *
+	 * @param reader the reader
+	 * @return the string
+	 * @throws IOException the io exception
+	 */
 	public static String readOutput(BufferedReader reader) throws IOException {
 		String line;
 		StringBuilder builder = new StringBuilder();

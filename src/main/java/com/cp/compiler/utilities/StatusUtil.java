@@ -2,15 +2,21 @@ package com.cp.compiler.utilities;
 
 import com.cp.compiler.models.Verdict;
 
+/**
+ * The type Status util.
+ *
+ * @author Zakaria Maaraki
+ */
 public class StatusUtil {
 	
 	private StatusUtil() {
 	}
 	
 	/**
+	 * Status response string.
 	 *
 	 * @param status an integer that represents the status returned by the docker container
-	 * @param ans if the status code is 0, then this boolean must be equal to true or false to specify if Response is Accepted, or it's a Wrong answer
+	 * @param ans    if the status code is 0, then this boolean must be equal to true or false to specify if Response is Accepted, or it's a Wrong answer
 	 * @return return a String representing the status response
 	 */
 	public static String statusResponse(int status, boolean ans) {

@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * This class provides Docker utilities that are used by the compiler
+ *
  * @author Zakaria Maaraki
  */
 

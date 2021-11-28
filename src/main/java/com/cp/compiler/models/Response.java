@@ -7,6 +7,11 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * The type Response.
+ *
+ * @author Zakaria Maaraki
+ */
 @Data
 @AllArgsConstructor
 @ApiModel(description = "The returned response")

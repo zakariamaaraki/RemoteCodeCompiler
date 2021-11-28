@@ -15,7 +15,6 @@ import java.io.IOException;
  *
  * @author Zakaria Maaraki
  */
-
 @RestController
 @RequestMapping("/docker")
 public class ContainersInfoController {
@@ -24,11 +23,18 @@ public class ContainersInfoController {
 	
 	private static final String ERROR_SERVICE_MESSAGE = "The server is currently unable to obtain this information";
 	
+	/**
+	 * Instantiates a new Containers info controller.
+	 *
+	 * @param containerService the container service
+	 */
 	public ContainersInfoController(ContainerService containerService) {
 		this.containerService = containerService;
 	}
 	
 	/**
+	 * Gets running containers.
+	 *
 	 * @return running containers
 	 */
 	@GetMapping("/containers")
@@ -47,6 +53,8 @@ public class ContainersInfoController {
 	
 	
 	/**
+	 * Gets images.
+	 *
 	 * @return docker images
 	 */
 	@GetMapping("/images")
@@ -65,6 +73,8 @@ public class ContainersInfoController {
 	
 	
 	/**
+	 * Gets running containers stats.
+	 *
 	 * @return stats about running containers
 	 */
 	@GetMapping("/stats")
@@ -83,6 +93,8 @@ public class ContainersInfoController {
 	
 	
 	/**
+	 * Gets all containers stats.
+	 *
 	 * @return stats about all containers
 	 */
 	@GetMapping("stats/all")

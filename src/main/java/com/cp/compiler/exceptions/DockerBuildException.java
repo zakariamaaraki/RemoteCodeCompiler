@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Docker Build Exception Class
+ *
  * @author Zakaria Maaraki
  */
 

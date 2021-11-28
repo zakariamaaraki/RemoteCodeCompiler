@@ -9,6 +9,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
+/**
+ * The type Entry point file.
+ *
+ * @author Zakaria Maaraki
+ */
 @Slf4j
 public class EntryPointFile {
 	
@@ -19,10 +24,11 @@ public class EntryPointFile {
 	}
 	
 	/**
+	 * Create python entrypoint file.
 	 *
-	 * @param timeLimit the expected time limit that execution must not exceed
+	 * @param timeLimit   the expected time limit that execution must not exceed
 	 * @param memoryLimit the expected memory limit
-	 * @param inputFile the input file that contains input data (can be null)
+	 * @param inputFile   the input file that contains input data (can be null)
 	 */
 	@SneakyThrows
 	public static void createPythonEntrypointFile(int timeLimit, int memoryLimit, MultipartFile inputFile) {
@@ -42,11 +48,12 @@ public class EntryPointFile {
 	}
 	
 	/**
+	 * Create java entrypoint file.
 	 *
-	 * @param fileName the source code file name (in java a class public must have the same name as the file name)
-	 * @param timeLimit the expected time limit that execution must not exceed
+	 * @param fileName    the source code file name (in java a class public must have the same name as the file name)
+	 * @param timeLimit   the expected time limit that execution must not exceed
 	 * @param memoryLimit the expected memory limit
-	 * @param inputFile the input file that contains input data (can be null)
+	 * @param inputFile   the input file that contains input data (can be null)
 	 */
 	@SneakyThrows
 	public static void createJavaEntrypointFile(String fileName, int timeLimit, int memoryLimit, MultipartFile inputFile) {
@@ -73,10 +80,11 @@ public class EntryPointFile {
 	}
 	
 	/**
+	 * Create c entrypoint file.
 	 *
-	 * @param timeLimit the expected time limit that execution must not exceed
+	 * @param timeLimit   the expected time limit that execution must not exceed
 	 * @param memoryLimit the expected memory limit
-	 * @param inputFile the input file that contains input data (can be null)
+	 * @param inputFile   the input file that contains input data (can be null)
 	 */
 	@SneakyThrows
 	public static void createCEntrypointFile(int timeLimit, int memoryLimit, MultipartFile inputFile) {
@@ -102,10 +110,11 @@ public class EntryPointFile {
 	}
 	
 	/**
+	 * Create cpp entrypoint file.
 	 *
-	 * @param timeLimit the expected time limit that execution must not exceed
+	 * @param timeLimit   the expected time limit that execution must not exceed
 	 * @param memoryLimit the expected memory limit
-	 * @param inputFile the input file that contains input data (can be null)
+	 * @param inputFile   the input file that contains input data (can be null)
 	 */
 	@SneakyThrows
 	public static void createCppEntrypointFile(int timeLimit, int memoryLimit, MultipartFile inputFile) {

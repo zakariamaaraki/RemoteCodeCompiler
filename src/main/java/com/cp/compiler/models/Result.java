@@ -5,6 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+/**
+ * The type Result.
+ *
+ * @author Zakaria Maaraki
+ */
 @Data
 @AllArgsConstructor
 @ApiModel(description = "The result of the execution")
