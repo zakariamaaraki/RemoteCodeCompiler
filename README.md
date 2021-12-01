@@ -72,7 +72,7 @@ For the documentation visit the swagger page at the following url : http://local
 * Time Limit Exceeded
 * Memory Limit Exceeded
 
-### Example of an Execution
+### Examples of Executions
 
 ```json
 {
@@ -80,6 +80,33 @@ For the documentation visit the swagger page at the following url : http://local
     "expectedOutput": "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
     "status": "Wrong Answer",
     "date": [2021,12,2 ,22,10,24,311828000]
+}
+```
+
+```json
+{
+    "output": "",
+    "expectedOutput": "test compiler\n",
+    "status": "Compilation Error",
+    "date": [2021,12,1 ,22,10,24,311828000]
+}
+```
+
+```json
+{
+    "output": "",
+    "expectedOutput": "test\ntest\ntest\n",
+    "status": "Time Limit Exceeded",
+    "date": [2021,12,3 ,22,10,24,311828000]
+}
+```
+
+```json
+{
+    "output": "abc\n",
+    "expectedOutput": "abc\n",
+    "status": "Accepted",
+    "date": [2021,12,4 ,22,10,24,311828000]
 }
 ```
 
