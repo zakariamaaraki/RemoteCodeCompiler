@@ -43,10 +43,6 @@ You can use the provided helm chart to deploy the project on k8s
 helm install compiler ./k8s/helm_charts/compiler_chart
 ```
 
-```shell
-kubectl get all  // display all resources
-```
-
 Note if you are running k8s using Minikube :
 * you can reuse the Docker daemon from Minikube by running this command : **eval $(minikube docker-env)**.
 * set image pull policy to **Never** in the values.yml file.
