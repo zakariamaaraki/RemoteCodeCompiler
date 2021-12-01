@@ -15,6 +15,14 @@ compiler:
 spring:
   application:
     name: remote-code-compiler
+  kafka:
+    topics:
+      input-topic: ${KAFKA_INPUT_TOPIC:kafka.topic.input}
+      output-topic: ${KAFKA_OUTPUT_TOPIC:kafka.topic.output}
+
+    streams:
+      application-id: ${KAFKA_CONSUMER_GROUP_ID:compilerID}
+    bootstrap-servers: ${KAFKA_HOSTS:localhost:29092}
 
 management:
   metrics:

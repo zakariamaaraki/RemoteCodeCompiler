@@ -30,6 +30,6 @@ public class CompilerApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		log.info("Env variables set to DELETE_DOCKER_IMAGE={}", deleteDockerImage);
+		log.info("DELETE_DOCKER_IMAGE set to : {}", deleteDockerImage);
 	}
 }

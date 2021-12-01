@@ -91,7 +91,16 @@ We generate an entrypoint.sh file depending on the information given by the user
 
 ![Alt text](images/image_generation.png?raw=true "Docker image Generation")
 
+## Kafka Mode
+You can use the compiler with an event driven architecture.
+To enable kafka mode you can pass to the container the following env variables :
+* **ENABLE_KAFKA_MODE=true**
+* **KAFKA_INPUT_TOPIC**
+* **KAFKA_OUTPUT_TOPIC**
+* **KAFKA_CONSUMER_GROUP_ID**
+* **KAFKA_HOSTS** : list of brokers
 
+![remote code compiler kafka mode](images/compiler-kafka-mode.png?raw=true "Compiler Kafka Mode")
 
 ### Metrics
 Check out exposed prometheus metrics using the following url : http://localhost:8080/actuator/prometheus
