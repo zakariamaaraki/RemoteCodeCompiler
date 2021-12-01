@@ -1,5 +1,6 @@
 package com.cp.compiler.streams.transformers;
 
+import com.cp.compiler.exceptions.CompilerServerException;
 import com.cp.compiler.mappers.JsonMapper;
 import com.cp.compiler.models.Request;
 import com.cp.compiler.models.Response;
@@ -8,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.streams.kstream.ValueTransformer;
 import org.apache.kafka.streams.processor.ProcessorContext;
 import org.springframework.http.ResponseEntity;
+
+import java.io.IOException;
 
 /**
  * The type Compiler transformer.
@@ -36,14 +39,9 @@ public class CompilerTransformer implements ValueTransformer<String, String> {
 	@Override
 	public String transform(String jsonRequest) {
 		try {
-			Request request = JsonMapper.toRequest(jsonRequest);
-			ResponseEntity<Object> responseEntity = compilerService.compile(request.getExpectedOutput(),
-					request.getSourceCode(), request.getInput(), request.getTimeLimit(), request.getMemoryLimit(),
-					request.getLanguage());
-			Object body = responseEntity.getBody();
-			return body instanceof Response ? JsonMapper.toJson((Response) body) : null;
-		} catch(Exception exception) {
-			log.error("Error : ", exception);
+			return JsonMapper.transform(jsonRequest, compilerService);
+		} catch (Exception e) {
+			log.error("Error : ", e);
 			return null;
 		}
 	}

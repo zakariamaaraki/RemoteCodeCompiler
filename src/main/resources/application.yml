@@ -15,14 +15,25 @@ compiler:
 spring:
   application:
     name: remote-code-compiler
+
+  # Apache Kafka
   kafka:
     topics:
       input-topic: ${KAFKA_INPUT_TOPIC:kafka.topic.input}
       output-topic: ${KAFKA_OUTPUT_TOPIC:kafka.topic.output}
-
     streams:
       application-id: ${KAFKA_CONSUMER_GROUP_ID:compilerID}
     bootstrap-servers: ${KAFKA_HOSTS:localhost:29092}
+
+  # Rabbit MQ
+  rabbitmq:
+    queues:
+      input: ${RABBIT_QUEUE_INPUT:rabbit.queue.input}
+      output: ${RABBIT_QUEUE_OUTPUT:rabbit.queue.output}
+    password: ${RABBIT_PASSWORD:guest}
+    username: ${RABBIT_USERNAME:guest}
+    addresses: ${RABBIT_HOSTS:localhost:5672}
+
 
 management:
   metrics:

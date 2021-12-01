@@ -90,6 +90,13 @@
 			<artifactId>spring-kafka</artifactId>
 		</dependency>
 
+		<!-- AMQP -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+			<version>2.2.2.RELEASE</version>
+		</dependency>
+
 		<!-- Tests -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
