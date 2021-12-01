@@ -96,10 +96,10 @@ We generate an entrypoint.sh file depending on the information given by the user
 ## Kafka Mode
 You can use the compiler with an event driven architecture.
 To enable kafka mode you can pass to the container the following env variables :
-* **ENABLE_KAFKA_MODE=true**
-* **KAFKA_INPUT_TOPIC**
-* **KAFKA_OUTPUT_TOPIC**
-* **KAFKA_CONSUMER_GROUP_ID**
+* **ENABLE_KAFKA_MODE** : true or false
+* **KAFKA_INPUT_TOPIC** : input topic json request
+* **KAFKA_OUTPUT_TOPIC** : output topic json response
+* **KAFKA_CONSUMER_GROUP_ID** : consumer group
 * **KAFKA_HOSTS** : list of brokers
 
 ```shell
