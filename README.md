@@ -72,6 +72,17 @@ For the documentation visit the swagger page at the following url : http://local
 * Time Limit Exceeded
 * Memory Limit Exceeded
 
+### Example of an Execution
+
+```json
+{
+    "output": "0\n1\n2\n3\n",
+    "expectedOutput": "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
+    "status": "Wrong Answer",
+    "date": [2021,12,2 ,22,10,24,311828000]
+}
+```
+
 ### Visualize Docker images and containers info
 It is also possible to visualize information about the images and docker containers that are currently running using these endpoints 
 
