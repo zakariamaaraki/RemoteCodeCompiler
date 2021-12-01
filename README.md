@@ -67,6 +67,15 @@ For the documentation visit the swagger page at the following url : http://local
 
 ![Compilers endpoints](images/swagger.png?raw=true "Swagger")
 
+### Verdicts
+
+* Accepted
+* Wrong Answer
+* Compilation Error
+* Runtime Error
+* Time Limit Exceeded
+* Memory Limit Exceeded
+
 ### Visualize Docker images and containers info
 It is also possible to visualize information about the images and docker containers that are currently running using these endpoints 
 
