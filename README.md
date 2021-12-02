@@ -13,6 +13,7 @@ Supports **Rest Calls**, **Apache Kafka** and **Rabbit MQ Messages**.
 
 ```json
 {
+    "input": "9",
     "expectedOutput": "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
     "sourceCode": "public class Test1 {\npublic static void main(String[] args) {\nint i = 0;\nwhile (i < 10) {\nSystem.out.println(i++);\n}}}",
     "language": "JAVA",
