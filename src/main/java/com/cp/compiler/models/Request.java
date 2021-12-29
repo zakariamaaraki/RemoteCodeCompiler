@@ -1,9 +1,7 @@
 package com.cp.compiler.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.mock.web.MockMultipartFile;
 
@@ -50,5 +48,25 @@ public class Request {
 		}
 		File input = new File(language.getFolder() + "/input.txt");
 		return new MockMultipartFile("input.txt", "input.txt", null ,new ByteArrayInputStream(this.input.getBytes()));
+	}
+	
+	@SneakyThrows
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		} else if (!(o instanceof Request)) {
+			return false;
+		}
+		Request request = (Request) o;
+
+		if (request.input != this.input && ((this.input != null && !this.input.equals("")) || (request.input != null && !request.input.equals("")))) {
+			return false;
+		}
+		
+		return this.language.equals(request.language)
+				&& this.expectedOutput.equals(request.expectedOutput)
+				&& this.memoryLimit == request.memoryLimit
+				&& this.timeLimit == request.timeLimit
+				&& this.sourceCode.equals(this.sourceCode);
 	}
 }
