@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Request.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +78,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.JsonMapperTests">
+  <component name="RunManager" selected="JUnit.TopologyTests">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -179,11 +178,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TopologyTests" />
         <item itemvalue="JUnit.JsonMapperTests" />
         <item itemvalue="JUnit.JsonMapperTests.shouldTransformResponseObjectToJsonResponse" />
         <item itemvalue="JUnit.JsonMapperTests.shouldTransformRequestObjectToRequestJson" />
         <item itemvalue="JUnit.TopologyTests.shouldReadAnEventCompileTheSourceCode" />
-        <item itemvalue="JUnit.TopologyTests" />
       </list>
     </recent_temporary>
   </component>
@@ -235,7 +234,7 @@
       <workItem from="1636490077562" duration="40524000" />
       <workItem from="1637792349419" duration="6461000" />
       <workItem from="1637852302641" duration="60534000" />
-      <workItem from="1640779192216" duration="592000" />
+      <workItem from="1640779192216" duration="2895000" />
     </task>
     <servers />
   </component>
