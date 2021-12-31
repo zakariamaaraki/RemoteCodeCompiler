@@ -51,6 +51,12 @@ public class KafkaStreamsTopologyConfig {
 		
 		builder.stream(inputTopic, Consumed.with(stringSerde, stringSerde))
 				.transformValues((ValueTransformerSupplier) () -> new CompilerTransformer(compilerService))
+				.mapValues((v) -> {
+					if (v == null) {
+						return "Error from the server";
+					}
+					return v;
+				})
 				.to(outputTopic, Produced.with(stringSerde, stringSerde));
 		
 		return builder.build();

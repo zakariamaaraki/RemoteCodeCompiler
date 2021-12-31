@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/streams/KafkaStreamsTopologyConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/streams/KafkaStreamsTopologyConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,14 +80,16 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TopologyTests">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.JsonMapperTests.shouldTransformAndCompileRequestAndReturnAJsonResponse">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -101,6 +105,22 @@
       <option name="PACKAGE_NAME" value="com.cp.compiler.mappers" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.mappers.JsonMapperTests" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JsonMapperTests.shouldTransformAndCompileRequestAndReturnAJsonResponse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.mappers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.mappers" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.mappers.JsonMapperTests" />
+      <option name="METHOD_NAME" value="shouldTransformAndCompileRequestAndReturnAJsonResponse" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -152,16 +172,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TopologyTests.shouldReadAnEventCompileTheSourceCode" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <option name="PACKAGE_NAME" value="com.cp.compiler.kafka" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.kafka.TopologyTests" />
-      <option name="METHOD_NAME" value="shouldReadAnEventCompileTheSourceCode" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="CompilerApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="compiler" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.cp.compiler.CompilerApplication" />
@@ -178,11 +188,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TopologyTests" />
+        <item itemvalue="JUnit.JsonMapperTests.shouldTransformAndCompileRequestAndReturnAJsonResponse" />
         <item itemvalue="JUnit.JsonMapperTests" />
+        <item itemvalue="JUnit.TopologyTests" />
         <item itemvalue="JUnit.JsonMapperTests.shouldTransformResponseObjectToJsonResponse" />
         <item itemvalue="JUnit.JsonMapperTests.shouldTransformRequestObjectToRequestJson" />
-        <item itemvalue="JUnit.TopologyTests.shouldReadAnEventCompileTheSourceCode" />
       </list>
     </recent_temporary>
   </component>
@@ -234,7 +244,8 @@
       <workItem from="1636490077562" duration="40524000" />
       <workItem from="1637792349419" duration="6461000" />
       <workItem from="1637852302641" duration="60534000" />
-      <workItem from="1640779192216" duration="2895000" />
+      <workItem from="1640779192216" duration="11467000" />
+      <workItem from="1640868659156" duration="3501000" />
     </task>
     <servers />
   </component>
@@ -261,7 +272,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java</url>
-          <line>12</line>
+          <line>27</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
