@@ -3,6 +3,7 @@ package com.cp.compiler.services;
 import com.cp.compiler.exceptions.CompilerServerException;
 import com.cp.compiler.exceptions.DockerBuildException;
 import com.cp.compiler.models.Language;
+import com.cp.compiler.models.Request;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.models.Result;
 import com.cp.compiler.utilities.FilesUtil;
@@ -55,6 +56,15 @@ public class CompilerServiceImpl implements CompilerService {
 	
 	public CompilerServiceImpl(ContainerService containerService) {
 		this.containerService = containerService;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public ResponseEntity<Object> compile(Request request) throws CompilerServerException, IOException {
+		return compile(request.getExpectedOutput(), request.getSourceCode(), request.getInput(),
+				request.getTimeLimit(), request.getMemoryLimit(), request.getLanguage());
 	}
 	
 	/**

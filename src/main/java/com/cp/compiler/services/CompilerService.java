@@ -2,8 +2,11 @@ package com.cp.compiler.services;
 
 import com.cp.compiler.exceptions.CompilerServerException;
 import com.cp.compiler.models.Language;
+import com.cp.compiler.models.Request;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
  * The interface Compiler service.
@@ -11,6 +14,16 @@ import org.springframework.web.multipart.MultipartFile;
  * @author: Zakaria Maaraki
  */
 public interface CompilerService {
+	
+	/**
+	 * Compile
+	 *
+	 * @param request object
+	 * @return a ResponseEntity containing the result of the execution
+	 * @throws CompilerServerException error from the server
+	 * @throws IOException
+	 */
+	ResponseEntity<Object> compile(Request request) throws CompilerServerException, IOException;
 	
 	/**
 	 * Compile response entity.

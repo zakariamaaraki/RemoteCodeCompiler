@@ -2,6 +2,7 @@ package com.cp.compiler.controllers;
 
 import com.cp.compiler.exceptions.CompilerServerException;
 import com.cp.compiler.models.Language;
+import com.cp.compiler.models.Request;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.services.CompilerService;
 import io.swagger.annotations.ApiOperation;
@@ -9,6 +10,8 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
  * Compiler Controller Class, this class exposes 4 endpoints for (Java, C, CPP, and Python)
@@ -24,6 +27,24 @@ public class CompilerController {
 	
 	public CompilerController(CompilerService compiler) {
 		this.compiler = compiler;
+	}
+	
+	/**
+	 * Take as a parameter a json object
+	 *
+	 * @param request object
+	 * @return The verdict of the execution (Accepted, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded, Compilation Error, RunTime Error)
+	 * @throws CompilerServerException The compiler exception
+	 */
+	@PostMapping("/json")
+	@ApiOperation(
+			value = "json",
+			notes = "Provide outputFile, inputFile (not required), source code, time limit and memory limit",
+			response = Response.class
+	)
+	public ResponseEntity<Object> compilePython(@ApiParam(value = "request") @RequestBody Request request)
+			throws CompilerServerException, IOException {
+		return compiler.compile(request);
 	}
 	
 	/**
