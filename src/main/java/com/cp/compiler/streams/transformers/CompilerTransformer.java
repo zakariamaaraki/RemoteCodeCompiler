@@ -8,9 +8,6 @@ import com.cp.compiler.services.CompilerService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.streams.kstream.ValueTransformer;
 import org.apache.kafka.streams.processor.ProcessorContext;
-import org.springframework.http.ResponseEntity;
-
-import java.io.IOException;
 
 /**
  * The type Compiler transformer.
