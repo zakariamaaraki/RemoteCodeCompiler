@@ -145,6 +145,9 @@ public class ContainerServiceImpl implements ContainerService {
 	}
 	
 	private static boolean compareResult(String containerOutput, String expectedOutput) {
-		return containerOutput.trim().equals(expectedOutput.trim());
+		return containerOutput
+				.trim()
+				.replaceAll("/n","")
+				.equals(expectedOutput.trim().replaceAll("/n", ""));
 	}
 }
