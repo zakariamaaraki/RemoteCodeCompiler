@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.rocksdb:rocksdbjni:5.18.3">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/rocksdb/rocksdbjni/5.18.3/rocksdbjni-5.18.3.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/rocksdb/rocksdbjni/5.18.3/rocksdbjni-5.18.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/rocksdb/rocksdbjni/5.18.3/rocksdbjni-5.18.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

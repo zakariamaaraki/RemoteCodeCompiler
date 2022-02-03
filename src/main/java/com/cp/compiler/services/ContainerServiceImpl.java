@@ -144,10 +144,12 @@ public class ContainerServiceImpl implements ContainerService {
 		return CmdUtil.runCmd("docker", "rmi", "-f", imageName);
 	}
 	
+	// The checker remove \n and extra spaces
 	private static boolean compareResult(String containerOutput, String expectedOutput) {
 		return containerOutput
 				.trim()
+				.replaceAll("\\s+", " ")
 				.replaceAll("/n","")
-				.equals(expectedOutput.trim().replaceAll("/n", ""));
+				.equals(expectedOutput.trim().replaceAll("\\s+", " ").replaceAll("/n", ""));
 	}
 }
