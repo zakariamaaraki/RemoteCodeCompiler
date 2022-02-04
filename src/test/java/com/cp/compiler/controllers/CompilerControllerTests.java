@@ -1,6 +1,7 @@
 package com.cp.compiler.controllers;
 
 import com.cp.compiler.models.Language;
+import com.cp.compiler.models.Request;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.services.CompilerService;
 import org.assertj.core.api.Assertions;
@@ -32,6 +33,28 @@ class CompilerControllerTests {
 	private MultipartFile outputFile;
 	@Mock
 	private MultipartFile sourceCode;
+	
+	/**
+	 * When compiling code using json request should return a response object in the body.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	void whenCompilingCodeUsingJsonRequestShouldReturnAResponseObjectInTheBody() throws Exception {
+		// Given
+		Request request = new Request("input_test", "expected_output_test", "source_code_test", Language.JAVA, 10, 512);
+		
+		Mockito.when(compilerService.compile(request))
+				.thenReturn(ResponseEntity
+						.status(HttpStatus.OK)
+						.body(new Response("test output", "test expected output", "Accepted", LocalDateTime.now())));
+		
+		// When
+		ResponseEntity<Object> responseEntity = compilerController.compile(request);
+		
+		// Then
+		Assertions.assertThat(responseEntity.getBody() instanceof Response);
+	}
 	
 	/**
 	 * When compiling java code should return a response object in the body.

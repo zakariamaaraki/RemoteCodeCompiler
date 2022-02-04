@@ -42,7 +42,7 @@ public class CompilerController {
 			notes = "Provide outputFile, inputFile (not required), source code, time limit and memory limit",
 			response = Response.class
 	)
-	public ResponseEntity<Object> compilePython(@ApiParam(value = "request") @RequestBody Request request)
+	public ResponseEntity<Object> compile(@ApiParam(value = "request") @RequestBody Request request)
 			throws CompilerServerException, IOException {
 		return compiler.compile(request);
 	}
