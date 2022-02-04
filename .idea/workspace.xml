@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/CompilerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/CompilerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/controllers/CompilerControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/controllers/CompilerControllerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/streams/KafkaStreamsTopologyConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/streams/KafkaStreamsTopologyConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +47,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../CP" />
@@ -79,7 +81,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CompilerControllerTests.whenCompilingCodeUsingJsonRequestShouldReturnAResponseObjectInTheBody (1)">
+  <component name="RunManager" selected="JUnit.TopologyTests.ifInputMessageIsNotAValidRequestShouldPublishNullValueToOutputTopic">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -111,81 +113,80 @@
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="CompilerControllerTests.whenCompilingCodeUsingJsonRequestShouldReturnAResponseObjectInTheBody (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RabbitmqTests.validateRabbitTemplate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.controllers.*" />
+          <option name="PATTERN" value="com.cp.compiler.amqp.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.controllers" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.controllers.CompilerControllerTests" />
-      <option name="METHOD_NAME" value="whenCompilingCodeUsingJsonRequestShouldReturnAResponseObjectInTheBody" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.amqp" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.amqp.RabbitmqTests" />
+      <option name="METHOD_NAME" value="validateRabbitTemplate" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CompilerControllerTests.whenCompilingCodeUsingJsonRequestShouldReturnAResponseObjectInTheBody" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RabbitmqTests.verifyConverter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.controllers.*" />
+          <option name="PATTERN" value="com.cp.compiler.amqp.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.controllers" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.controllers.CompilerControllerTests" />
-      <option name="METHOD_NAME" value="whenCompilingCodeUsingJsonRequestShouldReturnAResponseObjectInTheBody(com.cp.compiler.models.Request)" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.amqp" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.amqp.RabbitmqTests" />
+      <option name="METHOD_NAME" value="verifyConverter" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ContainerServiceTests.whenCompareExpectedOutputAndContainerOutputShouldRemoveExtraSpacesInBothStrings" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TopologyTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
+          <option name="PATTERN" value="com.cp.compiler.kafka.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.ContainerServiceTests" />
-      <option name="METHOD_NAME" value="whenCompareExpectedOutputAndContainerOutputShouldRemoveExtraSpacesInBothStrings" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.kafka" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.kafka.TopologyTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TopologyTests.ifInputMessageIsNotAValidRequestShouldPublishNullValueToOutputTopic" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.kafka.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.kafka" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.kafka.TopologyTests" />
+      <option name="METHOD_NAME" value="ifInputMessageIsNotAValidRequestShouldPublishNullValueToOutputTopic" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ContainerServiceTests.whenCompareExpectedOutputAndContainerOutputShouldRemoveNewLineCharInBothStrings" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TopologyTests.shouldConsumeMessageFromInputTopicAndProduceMessageToOutputTopic" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
+          <option name="PATTERN" value="com.cp.compiler.kafka.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.ContainerServiceTests" />
-      <option name="METHOD_NAME" value="whenCompareExpectedOutputAndContainerOutputShouldRemoveNewLineCharInBothStrings" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ContainerServiceTests.whenCompareExpectedOutputAndContainerOutputShouldTrimBothStrings" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.ContainerServiceTests" />
-      <option name="METHOD_NAME" value="whenCompareExpectedOutputAndContainerOutputShouldTrimBothStrings" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.kafka" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.kafka.TopologyTests" />
+      <option name="METHOD_NAME" value="shouldConsumeMessageFromInputTopicAndProduceMessageToOutputTopic" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -332,11 +333,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CompilerControllerTests.whenCompilingCodeUsingJsonRequestShouldReturnAResponseObjectInTheBody (1)" />
-        <item itemvalue="JUnit.CompilerControllerTests.whenCompilingCodeUsingJsonRequestShouldReturnAResponseObjectInTheBody" />
-        <item itemvalue="JUnit.ContainerServiceTests.whenCompareExpectedOutputAndContainerOutputShouldRemoveNewLineCharInBothStrings" />
-        <item itemvalue="JUnit.ContainerServiceTests.whenCompareExpectedOutputAndContainerOutputShouldRemoveExtraSpacesInBothStrings" />
-        <item itemvalue="JUnit.ContainerServiceTests.whenCompareExpectedOutputAndContainerOutputShouldTrimBothStrings" />
+        <item itemvalue="JUnit.TopologyTests.ifInputMessageIsNotAValidRequestShouldPublishNullValueToOutputTopic" />
+        <item itemvalue="JUnit.RabbitmqTests.verifyConverter" />
+        <item itemvalue="JUnit.RabbitmqTests.validateRabbitTemplate" />
+        <item itemvalue="JUnit.TopologyTests.shouldConsumeMessageFromInputTopicAndProduceMessageToOutputTopic" />
+        <item itemvalue="JUnit.TopologyTests" />
       </list>
     </recent_temporary>
   </component>
@@ -393,7 +394,7 @@
       <workItem from="1641903021092" duration="667000" />
       <workItem from="1642108814314" duration="675000" />
       <workItem from="1643027687325" duration="9580000" />
-      <workItem from="1643846168993" duration="3690000" />
+      <workItem from="1643846168993" duration="10241000" />
     </task>
     <servers />
   </component>

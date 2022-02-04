@@ -31,12 +31,6 @@ public class KafkaStreamsTopologyConfig {
 	private final Serde<String> stringSerde = Serdes.String();
 	
 	/**
-	 * The Compiler service.
-	 */
-	@Autowired
-	private CompilerService compilerService;
-	
-	/**
 	 * Topology topology.
 	 *
 	 * @param inputTopic  the input topic
@@ -47,16 +41,11 @@ public class KafkaStreamsTopologyConfig {
 	@Bean
 	public Topology topology(@Value("${spring.kafka.topics.input-topic}") String inputTopic,
 	                         @Value("${spring.kafka.topics.output-topic}") String outputTopic,
-	                         @Autowired StreamsBuilder builder) {
+	                         @Autowired StreamsBuilder builder,
+	                         @Autowired CompilerService compilerService) {
 		
 		builder.stream(inputTopic, Consumed.with(stringSerde, stringSerde))
 				.transformValues((ValueTransformerSupplier) () -> new CompilerTransformer(compilerService))
-				.mapValues((v) -> {
-					if (v == null) {
-						return "Error from the server";
-					}
-					return v;
-				})
 				.to(outputTopic, Produced.with(stringSerde, stringSerde));
 		
 		return builder.build();
