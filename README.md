@@ -77,7 +77,7 @@ Note if you are running k8s using Minikube :
 
 ![Architecture](images/compiler.png?raw=true "Compiler")
 
-There is 5 endpoints. The call is done through POST requests to the following urls :
+There are 5 endpoints. The call is done through POST requests to the following urls :
 
 - localhost:8080/compiler/**java**
 - localhost:8080/compiler/**c**
