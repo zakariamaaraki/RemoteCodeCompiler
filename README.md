@@ -91,7 +91,7 @@ For the documentation visit the swagger page at the following url : http://local
 
 ## Kafka Mode
 You can use the compiler with an event driven architecture.
-To enable kafka mode you can pass to the container the following env variables :
+To enable kafka mode you must pass to the container the following env variables :
 * **ENABLE_KAFKA_MODE** : True or False
 * **KAFKA_INPUT_TOPIC** : Input topic, json request
 * **KAFKA_OUTPUT_TOPIC** : Output topic, json response
@@ -105,7 +105,7 @@ sudo docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.s
 ![remote code compiler kafka mode](images/kafka-streams.png?raw=true "Compiler Kafka Mode")
 
 ## Rabbit MQ Mode
-To enable Rabbit MQ mode you can pass to the container the following env variables :
+To enable Rabbit MQ mode you must pass to the container the following env variables :
 * **ENABLE_RABBITMQ_MODE** : True or False
 * **RABBIT_QUEUE_INPUT** : Input queue, json request
 * **RABBIT_QUEUE_OUTPUT** : Output queue, json response
