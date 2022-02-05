@@ -192,35 +192,6 @@ We generate an entrypoint.sh file depending on the information given by the user
 
 ![Alt text](images/image_generation.png?raw=true "Docker image Generation")
 
-## Kafka Mode
-You can use the compiler with an event driven architecture.
-To enable kafka mode you can pass to the container the following env variables :
-* **ENABLE_KAFKA_MODE** : True or False
-* **KAFKA_INPUT_TOPIC** : Input topic, json request
-* **KAFKA_OUTPUT_TOPIC** : Output topic, json response
-* **KAFKA_CONSUMER_GROUP_ID** : Consumer group
-* **KAFKA_HOSTS** : List of brokers
-
-```shell
-sudo docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -e DELETE_DOCKER_IMAGE=true -e EXECUTION_MEMORY_MAX=10000 -e EXECUTION_MEMORY_MIN=0 -e EXECUTION_TIME_MAX=15 -e EXECUTION_TIME_MIN=0 -e ENABLE_KAFKA_MODE=true -e KAFKA_INPUT_TOPIC=topic.input -e KAFKA_OUTPUT_TOPIC=topic.output -e KAFKA_CONSUMER_GROUP_ID=compilerId -e KAFKA_HOSTS=ip_broker1,ip_broker2,ip_broker3 -t compiler
-```
-
-![remote code compiler kafka mode](images/kafka-streams.png?raw=true "Compiler Kafka Mode")
-
-## Rabbit MQ Mode
-To enable Rabbit MQ mode you can pass to the container the following env variables :
-* **ENABLE_RABBITMQ_MODE** : True or False
-* **RABBIT_QUEUE_INPUT** : Input queue, json request
-* **RABBIT_QUEUE_OUTPUT** : Output queue, json response
-* **RABBIT_USERNAME** : Rabbit MQ username  
-* **RABBIT_PASSWORD** : Rabbit MQ password
-* **RABBIT_HOSTS** : List of brokers
-
-```shell
-sudo docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -e DELETE_DOCKER_IMAGE=true -e EXECUTION_MEMORY_MAX=10000 -e EXECUTION_MEMORY_MIN=0 -e EXECUTION_TIME_MAX=15 -e EXECUTION_TIME_MIN=0 -e ENABLE_RABBITMQ_MODE=true -e RABBIT_QUEUE_INPUT=queue.input -e RABBIT_QUEUE_OUTPUT=queue.output -e RABBIT_USERNAME=guest -e RABBIT_PASSWORD=guest -e RABBIT_HOSTS=ip_broker1,ip_broker2,ip_broker3 -t compiler
-```
-
-![remote code compiler rabbitMq mode](images/rabbitMq.png?raw=true "Compiler rabbitMq Mode")
 
 ### Metrics
 Check out exposed prometheus metrics using the following url : http://localhost:8080/actuator/prometheus
