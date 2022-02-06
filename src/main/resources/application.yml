@@ -23,7 +23,18 @@ spring:
       output-topic: ${KAFKA_OUTPUT_TOPIC:kafka.topic.output}
     streams:
       application-id: ${KAFKA_CONSUMER_GROUP_ID:compilerID}
+      security:
+        protocol: SASL_SSL
+      properties:
+        sasl:
+          mechanism: PLAIN
+          jaas:
+            config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${CLUSTER_API_KEY}" password="${CLUSTER_API_SECRET}";
     bootstrap-servers: ${KAFKA_HOSTS:localhost:29092}
+    jaas:
+      enabled: true
+
+
 
   # Rabbit MQ
   rabbitmq:
