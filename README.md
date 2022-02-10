@@ -14,7 +14,7 @@ Supports **Rest Calls**, **Apache Kafka** and **Rabbit MQ Messages**.
 ```json
 {
     "input": "9",
-    "expectedOutput": "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
+    "expectedOutput": "0 1 2 3 4 5 6 7 8 9",
     "sourceCode": "public class Test1 {\npublic static void main(String[] args) {\nint i = 0;\nwhile (i < 10) {\nSystem.out.println(i++);\n}}}",
     "language": "JAVA",
     "timeLimit": 15,
@@ -26,8 +26,8 @@ Supports **Rest Calls**, **Apache Kafka** and **Rabbit MQ Messages**.
 
 ```json
 {
-    "output": "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
-    "expectedOutput": "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
+    "output": "0 1 2 3 4 5 6 7 8 9",
+    "expectedOutput": "0 1 2 3 4 5 6 7 8 9",
     "status": "Accepted",
     "date": [2021,12,1,22,10,24,311828000]
 }
@@ -89,6 +89,15 @@ For the documentation visit the swagger page at the following url : http://local
 
 ![Compilers endpoints](images/swagger.png?raw=true "Swagger")
 
+### Verdicts
+
+* Accepted
+* Wrong Answer
+* Compilation Error
+* Runtime Error
+* Time Limit Exceeded
+* Memory Limit Exceeded
+
 ## Kafka Mode
 You can use the compiler with an event driven architecture.
 To enable kafka mode you must pass to the container the following env variables :
@@ -123,21 +132,13 @@ sudo docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.s
 
 ![remote code compiler rabbitMq mode](images/rabbitMq.png?raw=true "Compiler rabbitMq Mode")
 
-### Verdicts
-
-* Accepted
-* Wrong Answer
-* Compilation Error
-* Runtime Error
-* Time Limit Exceeded
-* Memory Limit Exceeded
 
 ### Examples of Executions
 
 ```json
 {
-    "output": "0\n1\n2\n3\n",
-    "expectedOutput": "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
+    "output": "0 1 2 3",
+    "expectedOutput": "0 1 2 3 4 5 6 7 8 9",
     "status": "Wrong Answer",
     "date": [2021,12,2 ,22,10,24,311828000]
 }
@@ -146,7 +147,7 @@ sudo docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.s
 ```json
 {
     "output": "",
-    "expectedOutput": "test compiler\n",
+    "expectedOutput": "test compiler",
     "status": "Compilation Error",
     "date": [2021,12,1 ,22,10,24,311828000]
 }
@@ -155,7 +156,7 @@ sudo docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.s
 ```json
 {
     "output": "",
-    "expectedOutput": "test\ntest\ntest\n",
+    "expectedOutput": "test test test",
     "status": "Time Limit Exceeded",
     "date": [2021,12,3 ,22,10,24,311828000]
 }
@@ -163,8 +164,8 @@ sudo docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.s
 
 ```json
 {
-    "output": "abc\n",
-    "expectedOutput": "abc\n",
+    "output": "abc",
+    "expectedOutput": "abc",
     "status": "Accepted",
     "date": [2021,12,4 ,22,10,24,311828000]
 }
