@@ -37,18 +37,20 @@ public class Request {
 	
 	public MultipartFile getSourceCode() throws IOException {
 		File sourceCodeFile = new File(language.getFolder() + "/" + language.getFile());
-		return new MockMultipartFile(language.getFile(),
-									 language.getFile(),
-									 null,
-									 new ByteArrayInputStream(this.sourceCode.getBytes()));
+		return new MockMultipartFile(
+				language.getFile(),
+				language.getFile(),
+				null,
+				new ByteArrayInputStream(this.sourceCode.getBytes()));
 	}
 	
 	public MultipartFile getExpectedOutput() throws IOException {
 		File expectedOutput = new File(language.getFolder() + "/expectedOutput.txt");
-		return new MockMultipartFile("expectedOutput.txt",
-									 "expectedOutput.txt",
-									 null,
-									 new ByteArrayInputStream(this.expectedOutput.getBytes()));
+		return new MockMultipartFile(
+				"expectedOutput.txt",
+				"expectedOutput.txt",
+				null,
+				new ByteArrayInputStream(this.expectedOutput.getBytes()));
 	}
 	
 	public MultipartFile getInput() throws IOException {
@@ -56,10 +58,11 @@ public class Request {
 			return null;
 		}
 		File input = new File(language.getFolder() + "/input.txt");
-		return new MockMultipartFile("input.txt",
-									 "input.txt",
-									 null,
-									 new ByteArrayInputStream(this.input.getBytes()));
+		return new MockMultipartFile(
+				"input.txt",
+				"input.txt",
+				null,
+				new ByteArrayInputStream(this.input.getBytes()));
 	}
 	
 	@SneakyThrows
