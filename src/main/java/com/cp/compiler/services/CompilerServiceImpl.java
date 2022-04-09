@@ -63,33 +63,51 @@ public class CompilerServiceImpl implements CompilerService {
 	 */
 	@Override
 	public ResponseEntity<Object> compile(Request request) throws CompilerServerException, IOException {
-		return compile(request.getExpectedOutput(), request.getSourceCode(), request.getInput(),
-				request.getTimeLimit(), request.getMemoryLimit(), request.getLanguage());
+		return compile(request.getExpectedOutput(),
+				       request.getSourceCode(),
+				       request.getInput(),
+				       request.getTimeLimit(),
+				       request.getMemoryLimit(),
+				       request.getLanguage());
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ResponseEntity<Object> compile(MultipartFile outputFile, MultipartFile sourceCode, MultipartFile inputFile,
-	                                      int timeLimit, int memoryLimit, Language language) throws CompilerServerException {
+	public ResponseEntity<Object> compile(MultipartFile outputFile,
+	                                      MultipartFile sourceCode,
+	                                      MultipartFile inputFile,
+	                                      int timeLimit,
+	                                      int memoryLimit,
+	                                      Language language) throws CompilerServerException {
 		
 		// Unique image name
 		String imageName = UUID.randomUUID().toString();
 		
 		if (memoryLimit < minExecutionMemory || memoryLimit > maxExecutionMemory) {
-			log.info(imageName + " Error memoryLimit must be between {}Mb and {}Mb, provided : {}", minExecutionMemory, maxExecutionMemory, memoryLimit);
+			log.info(imageName + " Error memoryLimit must be between {}Mb and {}Mb, provided : {}",
+					 minExecutionMemory,
+					 maxExecutionMemory,
+					 memoryLimit);
+			
 			return ResponseEntity
 					.badRequest()
-					.body("Error memoryLimit must be between " + minExecutionMemory + "Mb and " + maxExecutionMemory + "Mb, provided : " + memoryLimit);
+					.body("Error memoryLimit must be between "
+							+ minExecutionMemory + "Mb and " + maxExecutionMemory + "Mb, provided : " + memoryLimit);
 		}
 		
 		
 		if (timeLimit < minExecutionTime || timeLimit > maxExecutionTime) {
-			log.info(imageName + " Error timeLimit must be between {} Sec and {} Sec, provided : {}", minExecutionTime, maxExecutionTime, timeLimit);
+			log.info(imageName + " Error timeLimit must be between {} Sec and {} Sec, provided : {}",
+					 minExecutionTime,
+					 maxExecutionTime,
+					 timeLimit);
+			
 			return ResponseEntity
 					.badRequest()
-					.body("Error timeLimit must be between " + minExecutionTime + " Sec and " + maxExecutionTime + " Sec, provided : " + timeLimit);
+					.body("Error timeLimit must be between "
+							+ minExecutionTime + " Sec and " + maxExecutionTime + " Sec, provided : " + timeLimit);
 		}
 		
 		String folder = language.getFolder();
@@ -151,7 +169,10 @@ public class CompilerServiceImpl implements CompilerService {
 				.body(new Response(result.getOutput(), result.getExpectedOutput(), statusResponse, date));
 	}
 	
-	private void createEntrypointFile(MultipartFile sourceCode, MultipartFile inputFile, int timeLimit, int memoryLimit,
+	private void createEntrypointFile(MultipartFile sourceCode,
+	                                  MultipartFile inputFile,
+	                                  int timeLimit,
+	                                  int memoryLimit,
 	                                  Language language) {
 		if (language == Language.JAVA) {
 			// The name of the class should be equals to the name of the file

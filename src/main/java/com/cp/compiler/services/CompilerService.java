@@ -37,8 +37,12 @@ public interface CompilerService {
 	 * @return a ResponseEntity containing the result of the execution
 	 * @throws CompilerServerException error from the server
 	 */
-	ResponseEntity<Object> compile(MultipartFile outputFile, MultipartFile sourceCode, MultipartFile inputFile,
-	                               int timeLimit, int memoryLimit, Language language) throws CompilerServerException;
+	ResponseEntity<Object> compile(MultipartFile outputFile,
+	                               MultipartFile sourceCode,
+	                               MultipartFile inputFile,
+	                               int timeLimit,
+	                               int memoryLimit,
+	                               Language language) throws CompilerServerException;
 	
 	/**
 	 * Gets max execution memory.

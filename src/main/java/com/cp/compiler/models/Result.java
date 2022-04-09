@@ -15,7 +15,8 @@ import lombok.Data;
 @ApiModel(description = "The result of the execution")
 public class Result {
 	
-	@ApiModelProperty(notes = "The value can be one of these : Accepted, Wrong Answer, Compilation Error, Runtime Error, Out Of Memory, Time Limit Exceeded")
+	@ApiModelProperty(notes = "The value can be one of these : Accepted, Wrong Answer, " +
+			"Compilation Error, Runtime Error, Out Of Memory, Time Limit Exceeded")
 	private String verdict;
 	
 	@ApiModelProperty(notes = "The output of the program during the execution")

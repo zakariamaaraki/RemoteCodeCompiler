@@ -37,7 +37,8 @@ class CmdUtilTests {
 	@Test
 	void whenReadOutputMethodIsCalledShouldReturnTheCorrectOutput() throws IOException {
 		// Given
-		BufferedReader bufferedReader = new BufferedReader(new FileReader("src/test/resources/outputs/Test1.txt"));
+		BufferedReader bufferedReader = new BufferedReader(
+				new FileReader("src/test/resources/outputs/Test1.txt"));
 		
 		// When
 		String output = CmdUtil.readOutput(bufferedReader);

@@ -28,7 +28,8 @@ public class JsonMapper {
 		return objectMapper.readValue(jsonValue, Request.class);
 	}
 	
-	public static String transform(String jsonRequest, CompilerService compilerService) throws IOException, CompilerServerException {
+	public static String transform(String jsonRequest,
+	                               CompilerService compilerService) throws IOException, CompilerServerException {
 		Request request = JsonMapper.toRequest(jsonRequest);
 		ResponseEntity<Object> responseEntity = compilerService.compile(request.getExpectedOutput(),
 				request.getSourceCode(), request.getInput(), request.getTimeLimit(), request.getMemoryLimit(),

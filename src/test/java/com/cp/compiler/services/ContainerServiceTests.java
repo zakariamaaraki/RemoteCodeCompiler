@@ -25,7 +25,10 @@ public class ContainerServiceTests {
 		String containerOutput = " abcd ";
 		
 		// When
-		boolean compareResult = ReflectionTestUtils.invokeMethod(containerService, "compareResult", expectedOutput, containerOutput);
+		boolean compareResult = ReflectionTestUtils.invokeMethod(containerService,
+																 "compareResult",
+																 expectedOutput,
+																 containerOutput);
 		
 		// Then
 		Assertions.assertEquals(true, compareResult);
@@ -41,7 +44,10 @@ public class ContainerServiceTests {
 		String containerOutput = " abcd  c ";
 		
 		// When
-		boolean compareResult = ReflectionTestUtils.invokeMethod(containerService, "compareResult", expectedOutput, containerOutput);
+		boolean compareResult = ReflectionTestUtils.invokeMethod(containerService,
+																 "compareResult",
+																 expectedOutput,
+																 containerOutput);
 		
 		// Then
 		Assertions.assertEquals(true, compareResult);
@@ -57,7 +63,10 @@ public class ContainerServiceTests {
 		String containerOutput = " abcd  c\n";
 		
 		// When
-		boolean compareResult = ReflectionTestUtils.invokeMethod(containerService, "compareResult", expectedOutput, containerOutput);
+		boolean compareResult = ReflectionTestUtils.invokeMethod(containerService,
+																 "compareResult",
+																 expectedOutput,
+																 containerOutput);
 		
 		// Then
 		Assertions.assertEquals(true, compareResult);
