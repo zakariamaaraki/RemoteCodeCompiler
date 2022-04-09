@@ -76,9 +76,9 @@ class CompilerControllerTests {
         // Given
         Mockito.when(compilerService.compile(outputFile,
                                              sourceCode,
-                                            null,
-                                            10,
-                                            500,
+                                             null,
+                                             10,
+                                             500,
                                              Language.JAVA))
                 .thenReturn(ResponseEntity
                         .status(HttpStatus.OK)
