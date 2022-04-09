@@ -16,18 +16,18 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ApiModel(description = "The returned response")
 public class Response {
-	
-	@ApiModelProperty(notes = "The output of the program during the execution")
-	private String output;
-	
-	@ApiModelProperty(notes = "The expected output")
-	private String expectedOutput;
-	
-	@ApiModelProperty(notes = "The value can be one of these : Accepted, Wrong Answer, " +
-			"Compilation Error, Runtime Error, Out Of Memory, Time Limit Exceeded")
-	private String status;
-	
-	@ApiModelProperty(notes = "The date of the execution")
-	private LocalDateTime date;
-	
+    
+    @ApiModelProperty(notes = "The output of the program during the execution")
+    private String output;
+    
+    @ApiModelProperty(notes = "The expected output")
+    private String expectedOutput;
+    
+    @ApiModelProperty(notes = "The value can be one of these : Accepted, Wrong Answer, " +
+            "Compilation Error, Runtime Error, Out Of Memory, Time Limit Exceeded")
+    private String status;
+    
+    @ApiModelProperty(notes = "The date of the execution")
+    private LocalDateTime date;
+    
 }

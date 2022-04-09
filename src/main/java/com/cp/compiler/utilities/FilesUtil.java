@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 /**
  * The type Files util.
@@ -16,37 +17,35 @@ import java.nio.file.Paths;
  */
 @Slf4j
 public class FilesUtil {
-	
-	private FilesUtil() {
-	}
-	
-	/**
-	 * Save uploaded files.
-	 *
-	 * @param file the file that we want to save locally
-	 * @param name the path where the file will be saved
-	 * @throws IOException the exception
-	 */
-	public static void saveUploadedFiles(MultipartFile file, String name) throws IOException {
-		if (file.isEmpty())
-			return;
-		byte[] bytes = file.getBytes();
-		Path path = Paths.get(name);
-		Files.write(path, bytes);
-	}
-	
-	/**
-	 * Delete file boolean.
-	 *
-	 * @param folder the folder where the file exists
-	 * @param file   the filename that we want to delete
-	 * @return boolean the file is deleted or not
-	 */
-	public static boolean deleteFile(String folder, String file) {
-		if (folder != null && file != null) {
-			String filePath = folder + "/" + file;
-			return new File(filePath).delete();
-		}
-		return false;
-	}
+    
+    private FilesUtil() {
+    }
+    
+    /**
+     * Save uploaded files.
+     *
+     * @param file the file that we want to save locally
+     * @param name the path where the file will be saved
+     * @throws IOException the exception
+     */
+    public static void saveUploadedFiles(MultipartFile file, String name) throws IOException {
+        if (file.isEmpty())
+            return;
+        byte[] bytes = file.getBytes();
+        Path path = Paths.get(name);
+        Files.write(path, bytes);
+    }
+    
+    /**
+     * Copy a File from src to dest
+     *
+     * @param src Original path
+     * @param dest Copied path
+     * @throws IOException
+     */
+    public static void copyFile(String src, String dest) throws IOException {
+        Path copied = Paths.get(dest);
+        Path originalPath = Paths.get(src);
+        Files.copy(originalPath, copied, StandardCopyOption.REPLACE_EXISTING);
+    }
 }

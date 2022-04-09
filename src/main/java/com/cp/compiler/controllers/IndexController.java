@@ -10,10 +10,10 @@ import org.springframework.web.servlet.view.RedirectView;
 @RestController
 @RequestMapping("/")
 public class IndexController {
-	
-	@ApiOperation(value = "Redirect to the index page", hidden = true)
-	@GetMapping("/")
-	public RedirectView indexPage(RedirectAttributes attributes) {
-		return new RedirectView("/swagger-ui.html");
-	}
+    
+    @ApiOperation(value = "Redirect to the index page", hidden = true)
+    @GetMapping("/")
+    public RedirectView indexPage(RedirectAttributes attributes) {
+        return new RedirectView("/swagger-ui.html");
+    }
 }

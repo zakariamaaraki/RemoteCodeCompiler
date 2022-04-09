@@ -19,106 +19,106 @@ import java.io.FileInputStream;
 
 @SpringBootTest
 class WatermelonTests {
-	
-	@Autowired
-	private CompilerController compilerController;
-	
-	@DisplayName("Watermelon Problem test case 1")
-	@Test
-	void watermelonTest1ShouldReturnAcceptedVerdict() throws Exception {
-		// Given
-		File sourceCodeFile = new File("src/test/resources/sources/problems/Watermelon.java");
-		MultipartFile sourceCode = new MockMultipartFile("Watermelon.java",
-														 "Watermelon.java",
-														 null,
-														 new FileInputStream(sourceCodeFile));
-		
-		File expectedOutputFile = new File("src/test/resources/outputs/watermelon/Watermelon-1.txt");
-		MultipartFile expectedOutput = new MockMultipartFile("Watermelon-1.txt",
-															 "Watermelon-1.txt",
-															 null,
-															 new FileInputStream(expectedOutputFile));
-		
-		File inputFile = new File("src/test/resources/inputs/watermelon/Watermelon-1.txt");
-		MultipartFile inputs = new MockMultipartFile("Watermelon-1.txt",
-													 "Watermelon-1.txt",
-													 null,
-													 new FileInputStream(inputFile));
-		
-		// When
-		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput,
-																			   sourceCode,
-																			   inputs,
-																			   3,
-																			   500);
-		
-		// Then
-		Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
-	}
-	
-	@DisplayName("Watermelon Problem test case 2")
-	@Test
-	void watermelonTest2ShouldReturnAcceptedVerdict() throws Exception {
-		// Given
-		File sourceCodeFile = new File("src/test/resources/sources/problems/Watermelon.java");
-		MultipartFile sourceCode = new MockMultipartFile("Watermelon.java",
-														 "Watermelon.java",
-														 null,
-														 new FileInputStream(sourceCodeFile));
-		
-		File expectedOutputFile = new File("src/test/resources/outputs/watermelon/Watermelon-2.txt");
-		MultipartFile expectedOutput = new MockMultipartFile("Watermelon-2.txt",
-															 "Watermelon-2.txt",
-															 null,
-															 new FileInputStream(expectedOutputFile));
-		
-		File inputFile = new File("src/test/resources/inputs/watermelon/Watermelon-2.txt");
-		MultipartFile inputs = new MockMultipartFile("Watermelon-2.txt",
-													 "Watermelon-2.txt",
-													 null,
-													 new FileInputStream(inputFile));
-		
-		// When
-		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput,
-																			   sourceCode,
-																			   inputs,
-																			   3,
-																			   500);
-		
-		// Then
-		Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
-	}
-	
-	@DisplayName("Watermelon Problem test case 3")
-	@Test
-	void watermelonTest3ShouldReturnAcceptedVerdict() throws Exception {
-		// Given
-		File sourceCodeFile = new File("src/test/resources/sources/problems/Watermelon.java");
-		MultipartFile sourceCode = new MockMultipartFile("Watermelon.java",
-														 "Watermelon.java",
-														 null,
-														 new FileInputStream(sourceCodeFile));
-		
-		File expectedOutputFile = new File("src/test/resources/outputs/watermelon/Watermelon-3.txt");
-		MultipartFile expectedOutput = new MockMultipartFile("Watermelon-3.txt",
-															 "Watermelon-3.txt",
-															 null,
-															 new FileInputStream(expectedOutputFile));
-		
-		File inputFile = new File("src/test/resources/inputs/watermelon/Watermelon-3.txt");
-		MultipartFile inputs = new MockMultipartFile("Watermelon-3.txt",
-													 "Watermelon-3.txt",
-													 null,
-													 new FileInputStream(inputFile));
-		
-		// When
-		ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput,
-																			   sourceCode,
-																			   inputs,
-																			   3,
-																			   500);
-		
-		// Then
-		Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
-	}
+    
+    @Autowired
+    private CompilerController compilerController;
+    
+    @DisplayName("Watermelon Problem test case 1")
+    @Test
+    void watermelonTest1ShouldReturnAcceptedVerdict() throws Exception {
+        // Given
+        File sourceCodeFile = new File("src/test/resources/sources/problems/Watermelon.java");
+        MultipartFile sourceCode = new MockMultipartFile("Watermelon.java",
+                                                         "Watermelon.java",
+                                                         null,
+                                                         new FileInputStream(sourceCodeFile));
+        
+        File expectedOutputFile = new File("src/test/resources/outputs/watermelon/Watermelon-1.txt");
+        MultipartFile expectedOutput = new MockMultipartFile("Watermelon-1.txt",
+                                                             "Watermelon-1.txt",
+                                                             null,
+                                                             new FileInputStream(expectedOutputFile));
+        
+        File inputFile = new File("src/test/resources/inputs/watermelon/Watermelon-1.txt");
+        MultipartFile inputs = new MockMultipartFile("Watermelon-1.txt",
+                                                     "Watermelon-1.txt",
+                                                     null,
+                                                     new FileInputStream(inputFile));
+        
+        // When
+        ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput,
+                                                                               sourceCode,
+                                                                               inputs,
+                                                                               3,
+                                                                               500);
+        
+        // Then
+        Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
+    }
+    
+    @DisplayName("Watermelon Problem test case 2")
+    @Test
+    void watermelonTest2ShouldReturnAcceptedVerdict() throws Exception {
+        // Given
+        File sourceCodeFile = new File("src/test/resources/sources/problems/Watermelon.java");
+        MultipartFile sourceCode = new MockMultipartFile("Watermelon.java",
+                                                         "Watermelon.java",
+                                                         null,
+                                                         new FileInputStream(sourceCodeFile));
+        
+        File expectedOutputFile = new File("src/test/resources/outputs/watermelon/Watermelon-2.txt");
+        MultipartFile expectedOutput = new MockMultipartFile("Watermelon-2.txt",
+                                                             "Watermelon-2.txt",
+                                                             null,
+                                                             new FileInputStream(expectedOutputFile));
+        
+        File inputFile = new File("src/test/resources/inputs/watermelon/Watermelon-2.txt");
+        MultipartFile inputs = new MockMultipartFile("Watermelon-2.txt",
+                                                     "Watermelon-2.txt",
+                                                     null,
+                                                     new FileInputStream(inputFile));
+        
+        // When
+        ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput,
+                                                                               sourceCode,
+                                                                               inputs,
+                                                                               3,
+                                                                               500);
+        
+        // Then
+        Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
+    }
+    
+    @DisplayName("Watermelon Problem test case 3")
+    @Test
+    void watermelonTest3ShouldReturnAcceptedVerdict() throws Exception {
+        // Given
+        File sourceCodeFile = new File("src/test/resources/sources/problems/Watermelon.java");
+        MultipartFile sourceCode = new MockMultipartFile("Watermelon.java",
+                                                         "Watermelon.java",
+                                                         null,
+                                                         new FileInputStream(sourceCodeFile));
+        
+        File expectedOutputFile = new File("src/test/resources/outputs/watermelon/Watermelon-3.txt");
+        MultipartFile expectedOutput = new MockMultipartFile("Watermelon-3.txt",
+                                                             "Watermelon-3.txt",
+                                                             null,
+                                                             new FileInputStream(expectedOutputFile));
+        
+        File inputFile = new File("src/test/resources/inputs/watermelon/Watermelon-3.txt");
+        MultipartFile inputs = new MockMultipartFile("Watermelon-3.txt",
+                                                     "Watermelon-3.txt",
+                                                     null,
+                                                     new FileInputStream(inputFile));
+        
+        // When
+        ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput,
+                                                                               sourceCode,
+                                                                               inputs,
+                                                                               3,
+                                                                               500);
+        
+        // Then
+        Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
+    }
 }

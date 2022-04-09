@@ -13,35 +13,35 @@ import org.apache.kafka.streams.processor.ProcessorContext;
  */
 @Slf4j
 public class CompilerTransformer implements ValueTransformer<String, String> {
-	
-	private CompilerService compilerService;
-	
-	/**
-	 * Instantiates a new Compiler transformer.
-	 *
-	 * @param compilerService the compiler service
-	 */
-	public CompilerTransformer(CompilerService compilerService) {
-		this.compilerService = compilerService;
-	}
-	
-	@Override
-	public void init(ProcessorContext processorContext) {
-		// empty
-	}
-	
-	@Override
-	public String transform(String jsonRequest) {
-		try {
-			return JsonMapper.transform(jsonRequest, compilerService);
-		} catch (Exception e) {
-			log.error("Error : ", e);
-			return null;
-		}
-	}
-	
-	@Override
-	public void close() {
-		// empty
-	}
+    
+    private CompilerService compilerService;
+    
+    /**
+     * Instantiates a new Compiler transformer.
+     *
+     * @param compilerService the compiler service
+     */
+    public CompilerTransformer(CompilerService compilerService) {
+        this.compilerService = compilerService;
+    }
+    
+    @Override
+    public void init(ProcessorContext processorContext) {
+        // empty
+    }
+    
+    @Override
+    public String transform(String jsonRequest) {
+        try {
+            return JsonMapper.transform(jsonRequest, compilerService);
+        } catch (Exception e) {
+            log.error("Error : ", e);
+            return null;
+        }
+    }
+    
+    @Override
+    public void close() {
+        // empty
+    }
 }

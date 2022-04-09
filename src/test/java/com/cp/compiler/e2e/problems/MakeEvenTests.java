@@ -17,40 +17,40 @@ import java.io.FileInputStream;
 
 @SpringBootTest
 public class MakeEvenTests {
-	
-	@Autowired
-	private CompilerController compilerController;
-	
-	@DisplayName("Make even Problem test case 1")
-	@Test
-	void makeEvenTest1ShouldReturnAcceptedVerdict() throws Exception {
-		// Given
-		File sourceCodeFile = new File("src/test/resources/sources/problems/MakeEven.py");
-		MultipartFile sourceCode = new MockMultipartFile("MakeEven.py",
-														 "MakeEven.py",
-														 null,
-														 new FileInputStream(sourceCodeFile));
-		
-		File expectedOutputFile = new File("src/test/resources/outputs/makeEven/makeEven-1.txt");
-		MultipartFile expectedOutput = new MockMultipartFile("makeEven-1.txt",
-															 "makeEven-1.txt",
-															 null,
-															 new FileInputStream(expectedOutputFile));
-		
-		File inputFile = new File("src/test/resources/inputs/makeEven/makeEven-1.txt");
-		MultipartFile inputs = new MockMultipartFile("makeEven-1.txt",
-													 "makeEven-1.txt",
-													 null,
-													 new FileInputStream(inputFile));
-		
-		// When
-		ResponseEntity<Object> responseEntity = compilerController.compilePython(expectedOutput,
-																				 sourceCode,
-																				 inputs,
-																				 3,
-																				 500);
-		
-		// Then
-		Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
-	}
+    
+    @Autowired
+    private CompilerController compilerController;
+    
+    @DisplayName("Make even Problem test case 1")
+    @Test
+    void makeEvenTest1ShouldReturnAcceptedVerdict() throws Exception {
+        // Given
+        File sourceCodeFile = new File("src/test/resources/sources/problems/MakeEven.py");
+        MultipartFile sourceCode = new MockMultipartFile("MakeEven.py",
+                                                         "MakeEven.py",
+                                                         null,
+                                                         new FileInputStream(sourceCodeFile));
+        
+        File expectedOutputFile = new File("src/test/resources/outputs/makeEven/makeEven-1.txt");
+        MultipartFile expectedOutput = new MockMultipartFile("makeEven-1.txt",
+                                                             "makeEven-1.txt",
+                                                             null,
+                                                             new FileInputStream(expectedOutputFile));
+        
+        File inputFile = new File("src/test/resources/inputs/makeEven/makeEven-1.txt");
+        MultipartFile inputs = new MockMultipartFile("makeEven-1.txt",
+                                                     "makeEven-1.txt",
+                                                     null,
+                                                     new FileInputStream(inputFile));
+        
+        // When
+        ResponseEntity<Object> responseEntity = compilerController.compilePython(expectedOutput,
+                                                                                 sourceCode,
+                                                                                 inputs,
+                                                                                 3,
+                                                                                 500);
+        
+        // Then
+        Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
+    }
 }
