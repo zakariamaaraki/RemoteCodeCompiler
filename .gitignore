@@ -37,6 +37,8 @@ utility_java/entrypoint.sh
 ./utility_cpp/entrypoint.sh
 ./utility_py/entrypoint.sh
 
+### idea ###
+.idea
 
 mvnw
 mvnw.cmd
