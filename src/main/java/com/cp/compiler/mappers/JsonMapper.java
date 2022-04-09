@@ -11,30 +11,30 @@ import org.springframework.http.ResponseEntity;
 import java.io.IOException;
 
 public class JsonMapper {
-	
-	private JsonMapper() {}
-	
-	private static final ObjectMapper objectMapper = new ObjectMapper();
-	
-	static {
-		objectMapper.findAndRegisterModules();
-	}
-	
-	public static String toJson(Response response) throws JsonProcessingException {
-		return objectMapper.writeValueAsString(response);
-	}
-	
-	public static Request toRequest(String jsonValue) throws IOException {
-		return objectMapper.readValue(jsonValue, Request.class);
-	}
-	
-	public static String transform(String jsonRequest,
-	                               CompilerService compilerService) throws IOException, CompilerServerException {
-		Request request = JsonMapper.toRequest(jsonRequest);
-		ResponseEntity<Object> responseEntity = compilerService.compile(request.getExpectedOutput(),
-				request.getSourceCode(), request.getInput(), request.getTimeLimit(), request.getMemoryLimit(),
-				request.getLanguage());
-		Object body = responseEntity.getBody();
-		return body instanceof Response ? JsonMapper.toJson((Response) body) : null;
-	}
+    
+    private JsonMapper() {}
+    
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+    
+    static {
+        objectMapper.findAndRegisterModules();
+    }
+    
+    public static String toJson(Response response) throws JsonProcessingException {
+        return objectMapper.writeValueAsString(response);
+    }
+    
+    public static Request toRequest(String jsonValue) throws IOException {
+        return objectMapper.readValue(jsonValue, Request.class);
+    }
+    
+    public static String transform(String jsonRequest,
+                                   CompilerService compilerService) throws IOException, CompilerServerException {
+        Request request = JsonMapper.toRequest(jsonRequest);
+        ResponseEntity<Object> responseEntity = compilerService.compile(request.getExpectedOutput(),
+                request.getSourceCode(), request.getInput(), request.getTimeLimit(), request.getMemoryLimit(),
+                request.getLanguage());
+        Object body = responseEntity.getBody();
+        return body instanceof Response ? JsonMapper.toJson((Response) body) : null;
+    }
 }
