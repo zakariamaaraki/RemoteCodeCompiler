@@ -51,7 +51,6 @@ public class ContainersInfoController {
 		}
 	}
 	
-	
 	/**
 	 * Gets images.
 	 *
@@ -71,7 +70,6 @@ public class ContainersInfoController {
 		}
 	}
 	
-	
 	/**
 	 * Gets running containers stats.
 	 *
@@ -90,7 +88,6 @@ public class ContainersInfoController {
 			return ResponseEntity.status(500).body(ERROR_SERVICE_MESSAGE);
 		}
 	}
-	
 	
 	/**
 	 * Gets all containers stats.

@@ -141,13 +141,23 @@ public class CE2ETests {
 	void shouldReturnRuntimeErrorVerdict() throws Exception {
 		// Given
 		File sourceCodeFile = new File("src/test/resources/sources/c/Test6.c");
-		MultipartFile sourceCode = new MockMultipartFile("Test6.c", "Test6.c", null ,new FileInputStream(sourceCodeFile));
+		MultipartFile sourceCode = new MockMultipartFile("Test6.c",
+														 "Test6.c",
+														 null,
+														 new FileInputStream(sourceCodeFile));
 		
 		File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
-		MultipartFile expectedOutput = new MockMultipartFile("Test1.txt", "Test1.txt", null, new FileInputStream(expectedOutputFile));
+		MultipartFile expectedOutput = new MockMultipartFile("Test1.txt",
+															 "Test1.txt",
+															 null,
+															 new FileInputStream(expectedOutputFile));
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput, sourceCode, null, 10, 500);
+		ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput,
+																			sourceCode,
+																			null,
+																			10,
+																			500);
 		
 		// Then
 		Assertions.assertEquals(Verdict.RUNTIME_ERROR.getValue(), ((Response)responseEntity.getBody()).getStatus());
