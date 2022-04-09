@@ -65,11 +65,20 @@ public class CompilerController {
 			response = Response.class
 	)
 	public ResponseEntity<Object> compilePython(
-			@ApiParam(value = "The expected output") @RequestPart(value = "outputFile") MultipartFile outputFile,
-			@ApiParam(value = "Your source code") @RequestPart(value = "sourceCode") MultipartFile sourceCode,
-			@ApiParam(value = "This one is not required, it's just the inputs") @RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
-			@ApiParam(value = "The time limit that the execution must not exceed") @RequestParam(value = "timeLimit") int timeLimit,
-			@ApiParam(value = "The memory limit that the running program must not exceed") @RequestParam(value = "memoryLimit") int memoryLimit
+			@ApiParam(value = "The expected output")
+			@RequestPart(value = "outputFile") MultipartFile outputFile,
+			
+			@ApiParam(value = "Your source code")
+			@RequestPart(value = "sourceCode") MultipartFile sourceCode,
+			
+			@ApiParam(value = "This one is not required, it's just the inputs")
+			@RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
+			
+			@ApiParam(value = "The time limit that the execution must not exceed")
+			@RequestParam(value = "timeLimit") int timeLimit,
+			
+			@ApiParam(value = "The memory limit that the running program must not exceed")
+			@RequestParam(value = "memoryLimit") int memoryLimit
 	) throws CompilerServerException {
 		return compiler.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Language.PYTHON);
 	}
@@ -93,11 +102,20 @@ public class CompilerController {
 			response = Response.class
 	)
 	public ResponseEntity<Object> compileC(
-			@ApiParam(value = "The expected output") @RequestPart(value = "outputFile") MultipartFile outputFile,
-			@ApiParam(value = "Your source code") @RequestPart(value = "sourceCode") MultipartFile sourceCode,
-			@ApiParam(value = "This one is not required, it's just the inputs") @RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
-			@ApiParam(value = "The time limit that the execution must not exceed") @RequestParam(value = "timeLimit") int timeLimit,
-			@ApiParam(value = "The memory limit that the running program must not exceed") @RequestParam(value = "memoryLimit") int memoryLimit
+			@ApiParam(value = "The expected output")
+			@RequestPart(value = "outputFile") MultipartFile outputFile,
+			
+			@ApiParam(value = "Your source code")
+			@RequestPart(value = "sourceCode") MultipartFile sourceCode,
+			
+			@ApiParam(value = "This one is not required, it's just the inputs")
+			@RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
+			
+			@ApiParam(value = "The time limit that the execution must not exceed")
+			@RequestParam(value = "timeLimit") int timeLimit,
+			
+			@ApiParam(value = "The memory limit that the running program must not exceed")
+			@RequestParam(value = "memoryLimit") int memoryLimit
 	) throws CompilerServerException {
 		return compiler.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Language.C);
 	}
@@ -121,11 +139,20 @@ public class CompilerController {
 			response = Response.class
 	)
 	public ResponseEntity<Object> compileCpp(
-			@ApiParam(value = "The expected output") @RequestPart(value = "outputFile") MultipartFile outputFile,
-			@ApiParam(value = "Your source code") @RequestPart(value = "sourceCode") MultipartFile sourceCode,
-			@ApiParam(value = "This one is not required, it's just the inputs") @RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
-			@ApiParam(value = "The time limit that the execution must not exceed") @RequestParam(value = "timeLimit") int timeLimit,
-			@ApiParam(value = "The memory limit that the running program must not exceed") @RequestParam(value = "memoryLimit") int memoryLimit
+			@ApiParam(value = "The expected output")
+			@RequestPart(value = "outputFile") MultipartFile outputFile,
+			
+			@ApiParam(value = "Your source code")
+			@RequestPart(value = "sourceCode") MultipartFile sourceCode,
+			
+			@ApiParam(value = "This one is not required, it's just the inputs")
+			@RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
+			
+			@ApiParam(value = "The time limit that the execution must not exceed")
+			@RequestParam(value = "timeLimit") int timeLimit,
+			
+			@ApiParam(value = "The memory limit that the running program must not exceed")
+			@RequestParam(value = "memoryLimit") int memoryLimit
 	) throws CompilerServerException {
 		return compiler.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Language.CPP);
 	}
@@ -149,11 +176,20 @@ public class CompilerController {
 			response = Response.class
 	)
 	public ResponseEntity<Object> compileJava(
-			@ApiParam(value = "The expected output") @RequestPart(value = "outputFile") MultipartFile outputFile,
-			@ApiParam(value = "Your source code") @RequestPart(value = "sourceCode") MultipartFile sourceCode,
-			@ApiParam(value = "This one is not required, it's just the inputs") @RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
-			@ApiParam(value = "The time limit that the execution must not exceed") @RequestParam(value = "timeLimit") int timeLimit,
-			@ApiParam(value = "The memory limit that the running program must not exceed") @RequestParam(value = "memoryLimit") int memoryLimit
+			@ApiParam(value = "The expected output")
+			@RequestPart(value = "outputFile") MultipartFile outputFile,
+			
+			@ApiParam(value = "Your source code")
+			@RequestPart(value = "sourceCode") MultipartFile sourceCode,
+			
+			@ApiParam(value = "This one is not required, it's just the inputs")
+			@RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
+			
+			@ApiParam(value = "The time limit that the execution must not exceed")
+			@RequestParam(value = "timeLimit") int timeLimit,
+			
+			@ApiParam(value = "The memory limit that the running program must not exceed")
+			@RequestParam(value = "memoryLimit") int memoryLimit
 	) throws CompilerServerException {
 		return compiler.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Language.JAVA);
 	}

@@ -44,7 +44,8 @@ public class KafkaStreamsTopologyConfig {
 	                         @Autowired StreamsBuilder builder,
 	                         @Autowired CompilerService compilerService) {
 		
-		builder.stream(inputTopic, Consumed.with(stringSerde, stringSerde))
+		builder.stream(inputTopic,
+					   Consumed.with(stringSerde, stringSerde))
 				.transformValues((ValueTransformerSupplier) () -> new CompilerTransformer(compilerService))
 				.to(outputTopic, Produced.with(stringSerde, stringSerde));
 		

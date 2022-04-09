@@ -35,12 +35,13 @@ public class EntryPointFile {
 		
 		String executionCommand = inputFile == null
 				? TIMEOUT_CMD + timeLimit + "s " + Language.PYTHON.getCommand() + " main.py" + "\n"
-				: TIMEOUT_CMD+ timeLimit + "s " + Language.PYTHON.getCommand() + " main.py" + " < " + inputFile.getOriginalFilename() + "\n";
+				: TIMEOUT_CMD+ timeLimit + "s " + Language.PYTHON.getCommand()
+					+ " main.py" + " < " + inputFile.getOriginalFilename() + "\n";
 		
-		String content = BASH_HEADER +
-				"ulimit -s " + memoryLimit + "\n" +
-				executionCommand +
-				"exit $?\n";
+		String content = BASH_HEADER
+				+ "ulimit -s " + memoryLimit + "\n"
+				+ executionCommand
+				+ "exit $?\n";
 		
 		try(OutputStream os = new FileOutputStream(new File(Language.PYTHON.getFolder() + "/entrypoint.sh"))) {
 			os.write(content.getBytes(), 0, content.length());
@@ -58,21 +59,23 @@ public class EntryPointFile {
 	@SneakyThrows
 	public static void createJavaEntrypointFile(String fileName, int timeLimit, int memoryLimit, MultipartFile inputFile) {
 		
+		final var prefixName = fileName.substring(0, fileName.length() - 5);
 		String executionCommand = inputFile == null
-				? TIMEOUT_CMD + timeLimit + " java " + fileName.substring(0, fileName.length() - 5) + "\n"
-				: TIMEOUT_CMD + timeLimit + " java " + fileName.substring(0, fileName.length() - 5) + " < " + inputFile.getOriginalFilename() + "\n";
+				? TIMEOUT_CMD + timeLimit + " java " + prefixName + "\n"
+				: TIMEOUT_CMD + timeLimit + " java " + prefixName + " < "
+					+ inputFile.getOriginalFilename() + "\n";
 		
 		String content = BASH_HEADER +
-				"mv main.java " + fileName + "\n" +
-				Language.JAVA.getCommand() + " " + fileName + "\n" +
-				"ret=$?\n" +
-				"if [ $ret -ne 0 ]\n" +
-				"then\n" +
-				"  exit 2\n" +
-				"fi\n" +
-				"ulimit -s " + memoryLimit + "\n" +
-				executionCommand +
-				"exit $?\n";
+				"mv main.java " + fileName + "\n"
+				+ Language.JAVA.getCommand() + " " + fileName + "\n"
+				+ "ret=$?\n"
+				+ "if [ $ret -ne 0 ]\n"
+				+ "then\n"
+				+ "  exit 2\n"
+				+ "fi\n"
+				+ "ulimit -s " + memoryLimit + "\n"
+				+ executionCommand
+				+ "exit $?\n";
 		
 		try(OutputStream os = new FileOutputStream(new File(Language.JAVA.getFolder() + "/entrypoint.sh"))) {
 			os.write(content.getBytes(), 0, content.length());
@@ -93,16 +96,16 @@ public class EntryPointFile {
 				? TIMEOUT_CMD + timeLimit + " ./exec " + "\n"
 				: TIMEOUT_CMD + timeLimit + " ./exec " + " < " + inputFile.getOriginalFilename() + "\n";
 		
-		String content = BASH_HEADER +
-				Language.C.getCommand() + " main.c" + " -o exec" + "\n" +
-				"ret=$?\n" +
-				"if [ $ret -ne 0 ]\n" +
-				"then\n" +
-				"  exit 2\n" +
-				"fi\n" +
-				"ulimit -s " + memoryLimit + "\n" +
-				executionCommand +
-				"exit $?\n";
+		String content = BASH_HEADER
+				+ Language.C.getCommand() + " main.c" + " -o exec" + "\n"
+				+ "ret=$?\n"
+				+ "if [ $ret -ne 0 ]\n"
+				+ "then\n"
+				+ "  exit 2\n"
+				+ "fi\n"
+				+ "ulimit -s " + memoryLimit + "\n"
+				+ executionCommand
+				+ "exit $?\n";
 		
 		try(OutputStream os = new FileOutputStream(new File(Language.C.getFolder() + "/entrypoint.sh"))) {
 			os.write(content.getBytes(), 0, content.length());
@@ -123,16 +126,16 @@ public class EntryPointFile {
 				? TIMEOUT_CMD + timeLimit + " ./exec " + "\n"
 				: TIMEOUT_CMD + timeLimit + " ./exec " + " < " + inputFile.getOriginalFilename() + "\n";
 		
-		String content = BASH_HEADER +
-				Language.CPP.getCommand() + " main.cpp" + " -o exec" + "\n" +
-				"ret=$?\n" +
-				"if [ $ret -ne 0 ]\n" +
-				"then\n" +
-				"  exit 2\n" +
-				"fi\n" +
-				"ulimit -s " + memoryLimit + "\n" +
-				executionCommand +
-				"exit $?\n";
+		String content = BASH_HEADER
+				+ Language.CPP.getCommand() + " main.cpp" + " -o exec" + "\n"
+				+ "ret=$?\n"
+				+ "if [ $ret -ne 0 ]\n"
+				+ "then\n"
+				+ "  exit 2\n"
+				+ "fi\n"
+				+ "ulimit -s " + memoryLimit + "\n"
+				+ executionCommand
+				+ "exit $?\n";
 		
 		try(OutputStream os = new FileOutputStream(new File(Language.CPP.getFolder() + "/entrypoint.sh"))) {
 			os.write(content.getBytes(), 0, content.length());

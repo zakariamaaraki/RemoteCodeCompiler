@@ -3,7 +3,7 @@ package com.cp.compiler.kafka;
 import com.cp.compiler.exceptions.CompilerServerException;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.services.CompilerService;
-import com.fasterxml.jackson.core.JsonProcessingException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
@@ -12,7 +12,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
+
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +54,13 @@ public class TopologyTests {
 		streamTest = new TopologyTestDriver(topology, props);
 		
 		// setup test topics
-		inputTopic = streamTest.createInputTopic("kafka.topic.input", stringSerde.serializer(), stringSerde.serializer());
-		outputTopic = streamTest.createOutputTopic("kafka.topic.output", stringSerde.deserializer(), stringSerde.deserializer());
+		inputTopic = streamTest.createInputTopic("kafka.topic.input",
+												 stringSerde.serializer(),
+												 stringSerde.serializer());
+		
+		outputTopic = streamTest.createOutputTopic("kafka.topic.output",
+												   stringSerde.deserializer(),
+												   stringSerde.deserializer());
 	}
 	
 	@AfterEach
@@ -67,12 +72,22 @@ public class TopologyTests {
 	public void shouldConsumeMessageFromInputTopicAndProduceMessageToOutputTopic() throws CompilerServerException {
 
 		// Given
-		String jsonRequest = "{\n\"expectedOutput\": \"0\\n1\\n2\\n3\\n4\\n5\\n6\\n7\\n8\\n9\\n\",\n\"sourceCode\": \"public class Test1 {\\npublic static void main(String[] args) {\\nint i = 0;\\nwhile (i < 10) {\\nSystem.out.println(i++);\\n}}}\",\n\"language\": \"JAVA\",\"timeLimit\": 15,\"memoryLimit\": 500\n}";
+		String jsonRequest = "{\n\"expectedOutput\": \"0\\n1\\n2\\n3\\n4\\n5\\n6\\n7\\n8\\n9\\n\",\n\"sourceCode\": " +
+				"\"public class Test1 {\\npublic static void main(String[] args) {\\nint i = 0;\\nwhile (i < 10) " +
+				"{\\nSystem.out.println(i++);\\n}}}\",\n\"language\": \"JAVA\",\"timeLimit\": 15,\"memoryLimit\": 500\n}";
 		
-		Mockito.when(compilerService.compile(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.anyInt(), Mockito.anyInt(), Mockito.any()))
+		Mockito.when(compilerService.compile(Mockito.any(),
+											 Mockito.any(),
+											 Mockito.any(),
+											 Mockito.anyInt(),
+											 Mockito.anyInt(),
+											 Mockito.any()))
 				.thenReturn(ResponseEntity
 						.status(HttpStatus.OK)
-						.body(new Response("test output", "test expected output", "Accepted", LocalDateTime.now())));
+						.body(new Response("test output",
+										   "test expected output",
+										   "Accepted",
+										   LocalDateTime.now())));
 				
 		// When
 		inputTopic.pipeInput(jsonRequest);

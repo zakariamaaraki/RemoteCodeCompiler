@@ -1,6 +1,5 @@
 package com.cp.compiler.mappers;
 
-import com.cp.compiler.exceptions.CompilerServerException;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Request;
 import com.cp.compiler.models.Response;
@@ -10,13 +9,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;

@@ -41,7 +41,12 @@ class CompilerServiceTests {
 		int timeLimit = compilerService.getMaxExecutionTime() + 1;
 		
 		// When
-		ResponseEntity responseEntity = compilerService.compile(null, null, null, timeLimit, 500, Language.JAVA);
+		ResponseEntity responseEntity = compilerService.compile(null,
+																null,
+																null,
+																timeLimit,
+																500,
+																Language.JAVA);
 		
 		// Then
 		Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
@@ -58,7 +63,12 @@ class CompilerServiceTests {
 		int timeLimit = compilerService.getMinExecutionTime() - 1;
 		
 		// When
-		ResponseEntity responseEntity = compilerService.compile(null, null, null, timeLimit, 500, Language.JAVA);
+		ResponseEntity responseEntity = compilerService.compile(null,
+																null,
+																null,
+																timeLimit,
+																500,
+																Language.JAVA);
 		
 		// Then
 		Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
@@ -75,7 +85,12 @@ class CompilerServiceTests {
 		int memoryLimit = compilerService.getMaxExecutionMemory() + 1;
 		
 		// When
-		ResponseEntity responseEntity = compilerService.compile(null, null, null, 0, memoryLimit, Language.JAVA);
+		ResponseEntity responseEntity = compilerService.compile(null,
+																null,
+																null,
+																0,
+																memoryLimit,
+																Language.JAVA);
 		
 		// Then
 		Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
@@ -92,7 +107,12 @@ class CompilerServiceTests {
 		int memoryLimit = compilerService.getMinExecutionMemory() - 1;
 		
 		// When
-		ResponseEntity responseEntity = compilerService.compile(null, null, null, 0, memoryLimit, Language.JAVA);
+		ResponseEntity responseEntity = compilerService.compile(null,
+																null,
+																null,
+																0,
+																memoryLimit,
+																Language.JAVA);
 		
 		// Then
 		Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
@@ -147,12 +167,22 @@ class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Language.JAVA);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file,
+																		file,
+																		null,
+																		10,
+																		100,
+																		Language.JAVA);
 		
 		// Then
 		Assertions.assertEquals(ResponseEntity
-				.status(HttpStatus.OK)
-				.body(new Response(result.getOutput(), result.getExpectedOutput(), result.getVerdict(), null)).getStatusCode(), responseEntity.getStatusCode());
+									.status(HttpStatus.OK)
+									.body(new Response(result.getOutput(),
+											result.getExpectedOutput(),
+											result.getVerdict(),
+											null))
+									.getStatusCode(),
+								responseEntity.getStatusCode());
 	}
 	
 	/**
@@ -180,7 +210,12 @@ class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Language.JAVA);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file,
+																		file,
+																		null,
+																		10,
+																		100,
+																		Language.JAVA);
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
@@ -212,7 +247,12 @@ class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Language.JAVA);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file,
+																		file,
+																		null,
+																		10,
+																		100,
+																		Language.JAVA);
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
@@ -244,7 +284,12 @@ class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Language.JAVA);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file,
+																		file,
+																		null,
+																		10,
+																		100,
+																		Language.JAVA);
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
@@ -276,7 +321,12 @@ class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Language.JAVA);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file,
+																		file,
+																		null,
+																		10,
+																		100,
+																		Language.JAVA);
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
@@ -308,7 +358,12 @@ class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Language.JAVA);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file,
+																		file,
+																		null,
+																		10,
+																		100,
+																		Language.JAVA);
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();
@@ -340,7 +395,12 @@ class CompilerServiceTests {
 		);
 		
 		// When
-		ResponseEntity<Object> responseEntity = compilerService.compile(file, file, null, 10, 100, Language.JAVA);
+		ResponseEntity<Object> responseEntity = compilerService.compile(file,
+																		file,
+																		null,
+																		10,
+																		100,
+																		Language.JAVA);
 		
 		// Then
 		Response response = (Response) responseEntity.getBody();

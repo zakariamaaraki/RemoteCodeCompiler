@@ -1,9 +1,12 @@
 package com.cp.compiler.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -34,12 +37,18 @@ public class Request {
 	
 	public MultipartFile getSourceCode() throws IOException {
 		File sourceCodeFile = new File(language.getFolder() + "/" + language.getFile());
-		return new MockMultipartFile(language.getFile(), language.getFile(), null , new ByteArrayInputStream(this.sourceCode.getBytes()));
+		return new MockMultipartFile(language.getFile(),
+									 language.getFile(),
+									 null,
+									 new ByteArrayInputStream(this.sourceCode.getBytes()));
 	}
 	
 	public MultipartFile getExpectedOutput() throws IOException {
 		File expectedOutput = new File(language.getFolder() + "/expectedOutput.txt");
-		return new MockMultipartFile("expectedOutput.txt", "expectedOutput.txt", null ,new ByteArrayInputStream(this.expectedOutput.getBytes()));
+		return new MockMultipartFile("expectedOutput.txt",
+									 "expectedOutput.txt",
+									 null,
+									 new ByteArrayInputStream(this.expectedOutput.getBytes()));
 	}
 	
 	public MultipartFile getInput() throws IOException {
@@ -47,7 +56,10 @@ public class Request {
 			return null;
 		}
 		File input = new File(language.getFolder() + "/input.txt");
-		return new MockMultipartFile("input.txt", "input.txt", null ,new ByteArrayInputStream(this.input.getBytes()));
+		return new MockMultipartFile("input.txt",
+									 "input.txt",
+									 null,
+									 new ByteArrayInputStream(this.input.getBytes()));
 	}
 	
 	@SneakyThrows
@@ -57,9 +69,11 @@ public class Request {
 		} else if (!(o instanceof Request)) {
 			return false;
 		}
+		
 		Request request = (Request) o;
-
-		if (request.input != this.input && ((this.input != null && !this.input.equals("")) || (request.input != null && !request.input.equals("")))) {
+		
+		if (request.input != this.input && ((this.input != null && !this.input.equals(""))
+				|| (request.input != null && !request.input.equals("")))) {
 			return false;
 		}
 		

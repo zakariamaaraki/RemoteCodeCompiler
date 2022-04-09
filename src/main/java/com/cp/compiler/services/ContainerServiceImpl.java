@@ -72,7 +72,8 @@ public class ContainerServiceImpl implements ContainerService {
 			try {
 				int status = 0;
 				
-				BufferedReader expectedOutputReader = new BufferedReader(new InputStreamReader(outputFile.getInputStream()));
+				BufferedReader expectedOutputReader =
+						new BufferedReader(new InputStreamReader(outputFile.getInputStream()));
 				String expectedOutput = CmdUtil.readOutput(expectedOutputReader);
 				
 				log.info(imageName + " Running the container");
@@ -83,7 +84,8 @@ public class ContainerServiceImpl implements ContainerService {
 				// Do not let the container exceed the timeout
 				process.waitFor(TIME_OUT, TimeUnit.MILLISECONDS);
 				
-				// Check if the container process is alive, if it's so then destroy it and return a time limit exceeded status
+				// Check if the container process is alive,
+				// if it's so then destroy it and return a time limit exceeded status
 				if (process.isAlive()) {
 					status = TIME_LIMIT_STATUS_CODE;
 					log.info(imageName + " The container exceed the 20 sec allowed for its execution");
@@ -107,12 +109,14 @@ public class ContainerServiceImpl implements ContainerService {
 				}
 			} catch (Exception e) {
 				log.error("Error : ", e);
-				return new Result(StatusUtil.statusResponse(1, false), "A server side error has occurred", "");
+				return new Result(StatusUtil.statusResponse(1, false),
+								  "A server side error has occurred", "");
 			}
 			
 			
 		});
 	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -144,12 +148,14 @@ public class ContainerServiceImpl implements ContainerService {
 		return CmdUtil.runCmd("docker", "rmi", "-f", imageName);
 	}
 	
-	// The checker remove \n and extra spaces
+	// Remove \n and extra spaces
 	private static boolean compareResult(String containerOutput, String expectedOutput) {
 		return containerOutput
 				.trim()
 				.replaceAll("\\s+", " ")
 				.replaceAll("/n","")
-				.equals(expectedOutput.trim().replaceAll("\\s+", " ").replaceAll("/n", ""));
+				.equals(expectedOutput.trim()
+						              .replaceAll("\\s+", " ")
+									  .replaceAll("/n", ""));
 	}
 }
