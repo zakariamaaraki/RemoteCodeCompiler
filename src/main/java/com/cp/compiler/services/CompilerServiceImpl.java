@@ -63,12 +63,13 @@ public class CompilerServiceImpl implements CompilerService {
 	 */
 	@Override
 	public ResponseEntity<Object> compile(Request request) throws CompilerServerException, IOException {
-		return compile(request.getExpectedOutput(),
-				       request.getSourceCode(),
-				       request.getInput(),
-				       request.getTimeLimit(),
-				       request.getMemoryLimit(),
-				       request.getLanguage());
+		return compile(
+				request.getExpectedOutput(),
+				request.getSourceCode(),
+				request.getInput(),
+				request.getTimeLimit(),
+				request.getMemoryLimit(),
+				request.getLanguage());
 	}
 	
 	/**
