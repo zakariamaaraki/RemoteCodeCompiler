@@ -15,5 +15,4 @@ public class DockerBuildException extends RuntimeException {
 	public DockerBuildException(String message) {
 		super(message);
 	}
-	
 }
