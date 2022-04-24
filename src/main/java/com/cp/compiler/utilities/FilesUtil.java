@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 /**
  * The type Files util.
@@ -36,17 +37,15 @@ public class FilesUtil {
     }
     
     /**
-     * Delete file boolean.
+     * Copy a File from src to dest
      *
-     * @param folder the folder where the file exists
-     * @param file   the filename that we want to delete
-     * @return boolean the file is deleted or not
+     * @param src Original path
+     * @param dest Copied path
+     * @throws IOException
      */
-    public static boolean deleteFile(String folder, String file) {
-        if (folder != null && file != null) {
-            String filePath = folder + "/" + file;
-            return new File(filePath).delete();
-        }
-        return false;
+    public static void copyFile(String src, String dest) throws IOException {
+        Path copied = Paths.get(dest);
+        Path originalPath = Paths.get(src);
+        Files.copy(originalPath, copied, StandardCopyOption.REPLACE_EXISTING);
     }
 }

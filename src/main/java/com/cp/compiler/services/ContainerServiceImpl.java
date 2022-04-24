@@ -55,7 +55,6 @@ public class ContainerServiceImpl implements ContainerService {
                 return process.waitFor();
             } catch (Exception e) {
                 log.error("Error during the build process : ", e);
-                // Error during the build
                 return 1;
             }
         });
@@ -70,7 +69,7 @@ public class ContainerServiceImpl implements ContainerService {
         return runTimer.record(() -> {
             
             try {
-                int status = 0;
+                int status;
                 
                 BufferedReader expectedOutputReader =
                         new BufferedReader(new InputStreamReader(outputFile.getInputStream()));
@@ -93,7 +92,7 @@ public class ContainerServiceImpl implements ContainerService {
                     log.info(imageName + " The container has been destroyed");
                     
                     /* Can't get the output from the container (because it did not finish it's execution),
-                       so we assume that the comparison between the output and the excepted output return false */
+                       so we assume that the comparison between the output and the excepted output returns false */
                     String statusResponse = StatusUtil.statusResponse(status, false);
                     return new Result(statusResponse, "No available output", expectedOutput);
                 } else {
@@ -112,8 +111,6 @@ public class ContainerServiceImpl implements ContainerService {
                 return new Result(StatusUtil.statusResponse(1, false),
                                   "A server side error has occurred", "");
             }
-            
-            
         });
     }
     

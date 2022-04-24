@@ -122,7 +122,7 @@ class CompilerServiceTests {
      * When image build failed should throw docker build exception.
      */
     @Test
-    void WhenImageBuildFailedShouldThrowDockerBuildException() {
+    void WhenImageBuildFailShouldThrowDockerBuildException() {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenThrow(new DockerBuildException("Error Building image"));
