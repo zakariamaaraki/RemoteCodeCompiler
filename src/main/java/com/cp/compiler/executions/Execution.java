@@ -36,7 +36,7 @@ public abstract class Execution {
     private int memoryLimit;
     private String imageName;
     /**
-     * The Path.
+     * The Path of the execution directory
      */
     protected String path;
     
@@ -74,7 +74,7 @@ public abstract class Execution {
     }
     
     /**
-     * Sets .
+     * Sets the path of the execution directory
      *
      * @param language the language
      */
