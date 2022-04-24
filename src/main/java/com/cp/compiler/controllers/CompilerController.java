@@ -1,6 +1,8 @@
 package com.cp.compiler.controllers;
 
 import com.cp.compiler.exceptions.CompilerServerException;
+import com.cp.compiler.executions.Execution;
+import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Request;
 import com.cp.compiler.models.Response;
@@ -80,7 +82,13 @@ public class CompilerController {
             @ApiParam(value = "The memory limit that the running program must not exceed")
             @RequestParam(value = "memoryLimit") int memoryLimit
     ) throws CompilerServerException {
-        return compiler.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Language.PYTHON);
+        Execution execution = ExecutionFactory.getExecution(sourceCode,
+                                                            inputFile,
+                                                            outputFile,
+                                                            timeLimit,
+                                                            memoryLimit,
+                                                            Language.PYTHON);
+        return compiler.compile(execution);
     }
     
     /**
@@ -117,7 +125,13 @@ public class CompilerController {
             @ApiParam(value = "The memory limit that the running program must not exceed")
             @RequestParam(value = "memoryLimit") int memoryLimit
     ) throws CompilerServerException {
-        return compiler.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Language.C);
+        Execution execution = ExecutionFactory.getExecution(sourceCode,
+                                                            inputFile,
+                                                            outputFile,
+                                                            timeLimit,
+                                                            memoryLimit,
+                                                            Language.C);
+        return compiler.compile(execution);
     }
     
     /**
@@ -154,7 +168,13 @@ public class CompilerController {
             @ApiParam(value = "The memory limit that the running program must not exceed")
             @RequestParam(value = "memoryLimit") int memoryLimit
     ) throws CompilerServerException {
-        return compiler.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Language.CPP);
+        Execution execution = ExecutionFactory.getExecution(sourceCode,
+                                                            inputFile,
+                                                            outputFile,
+                                                            timeLimit,
+                                                            memoryLimit,
+                                                            Language.CPP);
+        return compiler.compile(execution);
     }
     
     /**
@@ -191,7 +211,13 @@ public class CompilerController {
             @ApiParam(value = "The memory limit that the running program must not exceed")
             @RequestParam(value = "memoryLimit") int memoryLimit
     ) throws CompilerServerException {
-        return compiler.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Language.JAVA);
+        Execution execution = ExecutionFactory.getExecution(sourceCode,
+                                                            inputFile,
+                                                            outputFile,
+                                                            timeLimit,
+                                                            memoryLimit,
+                                                            Language.JAVA);
+        return compiler.compile(execution);
     }
     
 }

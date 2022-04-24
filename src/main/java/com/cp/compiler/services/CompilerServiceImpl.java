@@ -2,12 +2,11 @@ package com.cp.compiler.services;
 
 import com.cp.compiler.exceptions.CompilerServerException;
 import com.cp.compiler.exceptions.DockerBuildException;
-import com.cp.compiler.models.Language;
+import com.cp.compiler.executions.Execution;
+import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.Request;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.models.Result;
-import com.cp.compiler.utilities.EntryPoint;
-import com.cp.compiler.utilities.FilesUtil;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,10 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -28,7 +25,6 @@ import java.util.UUID;
  *
  * @author Zakaria Maaraki
  */
-
 @Slf4j
 @Service
 public class CompilerServiceImpl implements CompilerService {
@@ -64,128 +60,92 @@ public class CompilerServiceImpl implements CompilerService {
      */
     @Override
     public ResponseEntity<Object> compile(Request request) throws CompilerServerException, IOException {
-        return compile(
-                request.getExpectedOutput(),
-                request.getSourceCode(),
-                request.getInput(),
-                request.getTimeLimit(),
-                request.getMemoryLimit(),
-                request.getLanguage());
+        Execution execution = ExecutionFactory.getExecution(request.getExpectedOutput(),
+                                                            request.getSourceCode(),
+                                                            request.getInput(),
+                                                            request.getTimeLimit(),
+                                                            request.getMemoryLimit(),
+                                                            request.getLanguage());
+        return compile(execution);
     }
     
     /**
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity<Object> compile(MultipartFile outputFile,
-                                          MultipartFile sourceCode,
-                                          MultipartFile inputFile,
-                                          int timeLimit,
-                                          int memoryLimit,
-                                          Language language) throws CompilerServerException {
+    public ResponseEntity<Object> compile(Execution execution) throws CompilerServerException {
         
-        // Unique image name
-        String imageName = UUID.randomUUID().toString();
-    
         LocalDateTime date = LocalDateTime.now();
         
-        if (memoryLimit < minExecutionMemory || memoryLimit > maxExecutionMemory) {
-            log.info(imageName + " Error memoryLimit must be between {}Mb and {}Mb, provided : {}",
+        if (execution.getMemoryLimit() < minExecutionMemory || execution.getMemoryLimit() > maxExecutionMemory) {
+            log.info(execution.getImageName() + " Error memoryLimit must be between {}Mb and {}Mb, provided : {}",
                      minExecutionMemory,
                      maxExecutionMemory,
-                     memoryLimit);
+                     execution.getTimeLimit());
             
             return ResponseEntity
                     .badRequest()
                     .body("Error memoryLimit must be between "
-                            + minExecutionMemory + "Mb and " + maxExecutionMemory + "Mb, provided : " + memoryLimit);
+                            + minExecutionMemory + "Mb and " + maxExecutionMemory + "Mb, provided : "
+                            + execution.getMemoryLimit());
         }
         
         
-        if (timeLimit < minExecutionTime || timeLimit > maxExecutionTime) {
-            log.info(imageName + " Error timeLimit must be between {} Sec and {} Sec, provided : {}",
+        if (execution.getTimeLimit() < minExecutionTime || execution.getTimeLimit() > maxExecutionTime) {
+            log.info(execution.getImageName() + " Error timeLimit must be between {} Sec and {} Sec, provided : {}",
                      minExecutionTime,
                      maxExecutionTime,
-                     timeLimit);
+                     execution.getTimeLimit());
             
             return ResponseEntity
                     .badRequest()
                     .body("Error timeLimit must be between "
-                            + minExecutionTime + " Sec and " + maxExecutionTime + " Sec, provided : " + timeLimit);
+                            + minExecutionTime + " Sec and " + maxExecutionTime + " Sec, provided : "
+                            + execution.getTimeLimit());
         }
     
-        builderDockerImage(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, language, imageName);
+        builderDockerImage(execution);
     
-        Result result = containerService.runCode(imageName, outputFile);
+        Result result = containerService.runCode(execution.getImageName(), execution.getExpectedOutputFile());
         
         if (deleteDockerImage) {
             try {
-                containerService.deleteImage(imageName);
-                log.info("Image " + imageName + " has been deleted");
+                containerService.deleteImage(execution.getImageName());
+                log.info("Image " + execution.getImageName() + " has been deleted");
             } catch (Exception e) {
-                log.warn("Error, can't delete image {} : {}", imageName, e);
+                log.warn("Error, can't delete image {} : {}", execution.getImageName(), e);
             }
         }
         
         String statusResponse = result.getVerdict();
-        log.info(imageName + " Status response is " + statusResponse);
+        log.info(execution.getImageName() + " Status response is " + statusResponse);
         
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(new Response(result.getOutput(), result.getExpectedOutput(), statusResponse, date));
     }
     
-    private void builderDockerImage(MultipartFile outputFile,
-                                    MultipartFile sourceCode,
-                                    MultipartFile inputFile,
-                                    int timeLimit,
-                                    int memoryLimit,
-                                    Language language,
-                                    String imageName) throws CompilerServerException {
-        
-        String folder = language.getFolder().concat("/").concat(imageName);
-        String file = language.getFile();
-        
+    private void builderDockerImage(Execution execution) throws CompilerServerException {
         try {
-            // Create directory before saving uploaded files
-            Files.createDirectory(Path.of(folder));
-        
-            EntryPoint.createEntrypointFile(sourceCode, inputFile, timeLimit, memoryLimit, language, folder);
-            log.info(imageName + " entrypoint.sh file has been created");
-        
-            FilesUtil.saveUploadedFiles(sourceCode, folder + "/" + file);
-            FilesUtil.saveUploadedFiles(outputFile, folder + "/" + outputFile.getOriginalFilename());
-            if (inputFile != null) {
-                FilesUtil.saveUploadedFiles(inputFile, folder + "/" + inputFile.getOriginalFilename());
-            }
-            log.info(imageName + " Files have been uploaded");
+            execution.createExecutionDirectory();
         } catch (Exception e) {
-            throw new CompilerServerException(imageName + " " + e.getMessage());
+            throw new CompilerServerException(execution.getImageName() + " " + e.getMessage());
         }
         
         try {
-            // Copy Dockerfile to the current execution folder
-            try {
-                FilesUtil.copyFile(language.getFolder().concat("/Dockerfile"), folder.concat("/Dockerfile"));
-            } catch(Exception e) {
-                throw new DockerBuildException(imageName + " Error while copying the DockerFile from "
-                        + language.getFolder() + " to " + folder);
-            }
-        
-            log.info(imageName + " Building the docker image");
-            int status = containerService.buildImage(folder, imageName);
+            log.info(execution.getImageName() + " Building the docker image");
+            int status = containerService.buildImage(execution.getPath(), execution.getImageName());
             if (status == 0) {
-                log.info(imageName + " Docker image has been built");
+                log.info(execution.getImageName() + " Docker image has been built");
             } else {
-                throw new DockerBuildException(imageName + " Error while building docker image");
+                throw new DockerBuildException(execution.getImageName() + " Error while building docker image");
             }
         } finally {
-            // Delete utility folder
             try {
-                FileSystemUtils.deleteRecursively(Path.of(folder));
-                log.info(imageName + " folder {} has been deleted", folder);
+                execution.deleteExecutionDirectory();
+                log.info(execution.getImageName() + " execution directory has been deleted");
             } catch (IOException e) {
-                log.warn("Error while trying to delete the folder {}, {}", folder, e);
+                log.warn(execution.getImageName() + "Error while trying to delete execution directory, {}", e);
             }
         }
     }

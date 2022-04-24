@@ -1,6 +1,9 @@
 package com.cp.compiler.kafka;
 
 import com.cp.compiler.exceptions.CompilerServerException;
+import com.cp.compiler.executions.Execution;
+import com.cp.compiler.executions.ExecutionFactory;
+import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.services.CompilerService;
 
@@ -76,12 +79,7 @@ public class TopologyTests {
                 "\"public class Test1 {\\npublic static void main(String[] args) {\\nint i = 0;\\nwhile (i < 10) " +
                 "{\\nSystem.out.println(i++);\\n}}}\",\n\"language\": \"JAVA\",\"timeLimit\": 15,\"memoryLimit\": 500\n}";
         
-        Mockito.when(compilerService.compile(Mockito.any(),
-                                             Mockito.any(),
-                                             Mockito.any(),
-                                             Mockito.anyInt(),
-                                             Mockito.anyInt(),
-                                             Mockito.any()))
+        Mockito.when(compilerService.compile((Execution) Mockito.any()))
                 .thenReturn(ResponseEntity
                         .status(HttpStatus.OK)
                         .body(new Response("test output",

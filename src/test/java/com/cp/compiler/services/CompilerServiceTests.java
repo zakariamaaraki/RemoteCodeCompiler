@@ -1,6 +1,8 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.exceptions.DockerBuildException;
+import com.cp.compiler.executions.Execution;
+import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.models.Result;
@@ -39,14 +41,16 @@ class CompilerServiceTests {
     void WhenTimeLimitGreaterThanMaxExecutionTimeShouldReturnBadRequest() throws Exception {
         // Given
         int timeLimit = compilerService.getMaxExecutionTime() + 1;
+    
+        Execution execution = ExecutionFactory.getExecution(null,
+                                                            null,
+                                                            null,
+                                                            timeLimit,
+                                                            100,
+                                                            Language.JAVA);
         
         // When
-        ResponseEntity responseEntity = compilerService.compile(null,
-                                                                null,
-                                                                null,
-                                                                timeLimit,
-                                                                500,
-                                                                Language.JAVA);
+        ResponseEntity responseEntity = compilerService.compile(execution);
         
         // Then
         Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
@@ -61,14 +65,16 @@ class CompilerServiceTests {
     void WhenTimeLimitLessThanMinExecutionTimeShouldReturnBadRequest() throws Exception {
         // Given
         int timeLimit = compilerService.getMinExecutionTime() - 1;
+    
+        Execution execution = ExecutionFactory.getExecution(null,
+                                                            null,
+                                                            null,
+                                                            timeLimit,
+                                                            100,
+                                                            Language.JAVA);
         
         // When
-        ResponseEntity responseEntity = compilerService.compile(null,
-                                                                null,
-                                                                null,
-                                                                timeLimit,
-                                                                500,
-                                                                Language.JAVA);
+        ResponseEntity responseEntity = compilerService.compile(execution);
         
         // Then
         Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
@@ -83,14 +89,16 @@ class CompilerServiceTests {
     void WhenMemoryLimitGreaterThanMaxExecutionMemoryShouldReturnBadRequest() throws Exception {
         // Given
         int memoryLimit = compilerService.getMaxExecutionMemory() + 1;
+    
+        Execution execution = ExecutionFactory.getExecution(null,
+                                                            null,
+                                                            null,
+                                                            10,
+                                                            memoryLimit,
+                                                            Language.JAVA);
         
         // When
-        ResponseEntity responseEntity = compilerService.compile(null,
-                                                                null,
-                                                                null,
-                                                                0,
-                                                                memoryLimit,
-                                                                Language.JAVA);
+        ResponseEntity responseEntity = compilerService.compile(execution);
         
         // Then
         Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
@@ -105,14 +113,16 @@ class CompilerServiceTests {
     void WhenMemoryLimitLessThanMinExecutionMemoryShouldReturnBadRequest() throws Exception {
         // Given
         int memoryLimit = compilerService.getMinExecutionMemory() - 1;
+    
+        Execution execution = ExecutionFactory.getExecution(null,
+                                                            null,
+                                                            null,
+                                                            10,
+                                                            memoryLimit,
+                                                            Language.JAVA);
         
         // When
-        ResponseEntity responseEntity = compilerService.compile(null,
-                                                                null,
-                                                                null,
-                                                                0,
-                                                                memoryLimit,
-                                                                Language.JAVA);
+        ResponseEntity responseEntity = compilerService.compile(execution);
         
         // Then
         Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
@@ -127,18 +137,20 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenThrow(new DockerBuildException("Error Building image"));
         
-        // MultipartFIle
         MockMultipartFile file = new MockMultipartFile(
                 "file",
                 "hello.txt",
                 MediaType.TEXT_PLAIN_VALUE,
                 "Hello, World!".getBytes()
         );
+    
+        Execution execution = ExecutionFactory.getExecution(
+                file, null, file, 10, 100, Language.JAVA);
         
         // Then
         Assertions.assertThrows(DockerBuildException.class, () -> {
             // When
-            compilerService.compile(file, file, null, 10, 100, Language.JAVA);
+            compilerService.compile(execution);
         });
     }
     
@@ -158,7 +170,6 @@ class CompilerServiceTests {
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(result);
         
-        // MultipartFIle
         MockMultipartFile file = new MockMultipartFile(
                 "file",
                 "hello.txt",
@@ -166,13 +177,11 @@ class CompilerServiceTests {
                 "Hello, World!".getBytes()
         );
         
+        Execution execution = ExecutionFactory.getExecution(
+                file, null, file, 10, 100, Language.JAVA);
+        
         // When
-        ResponseEntity<Object> responseEntity = compilerService.compile(file,
-                                                                        file,
-                                                                        null,
-                                                                        10,
-                                                                        100,
-                                                                        Language.JAVA);
+        ResponseEntity<Object> responseEntity = compilerService.compile(execution);
         
         // Then
         Assertions.assertEquals(ResponseEntity
@@ -201,21 +210,18 @@ class CompilerServiceTests {
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(result);
         
-        // MultipartFIle
         MockMultipartFile file = new MockMultipartFile(
                 "file",
                 "hello.txt",
                 MediaType.TEXT_PLAIN_VALUE,
                 "Hello, World!".getBytes()
         );
+    
+        Execution execution = ExecutionFactory.getExecution(
+                file, null, file, 10, 100, Language.JAVA);
         
         // When
-        ResponseEntity<Object> responseEntity = compilerService.compile(file,
-                                                                        file,
-                                                                        null,
-                                                                        10,
-                                                                        100,
-                                                                        Language.JAVA);
+        ResponseEntity<Object> responseEntity = compilerService.compile(execution);
         
         // Then
         Response response = (Response) responseEntity.getBody();
@@ -238,21 +244,18 @@ class CompilerServiceTests {
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(result);
         
-        // MultipartFIle
         MockMultipartFile file = new MockMultipartFile(
                 "file",
                 "hello.txt",
                 MediaType.TEXT_PLAIN_VALUE,
                 "Hello, World!".getBytes()
         );
+    
+        Execution execution = ExecutionFactory.getExecution(
+                file, null, file, 10, 100, Language.JAVA);
         
         // When
-        ResponseEntity<Object> responseEntity = compilerService.compile(file,
-                                                                        file,
-                                                                        null,
-                                                                        10,
-                                                                        100,
-                                                                        Language.JAVA);
+        ResponseEntity<Object> responseEntity = compilerService.compile(execution);
         
         // Then
         Response response = (Response) responseEntity.getBody();
@@ -275,21 +278,18 @@ class CompilerServiceTests {
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(result);
         
-        // MultipartFIle
         MockMultipartFile file = new MockMultipartFile(
                 "file",
                 "hello.txt",
                 MediaType.TEXT_PLAIN_VALUE,
                 "Hello, World!".getBytes()
         );
+    
+        Execution execution = ExecutionFactory.getExecution(
+                file, null, file, 10, 100, Language.JAVA);
         
         // When
-        ResponseEntity<Object> responseEntity = compilerService.compile(file,
-                                                                        file,
-                                                                        null,
-                                                                        10,
-                                                                        100,
-                                                                        Language.JAVA);
+        ResponseEntity<Object> responseEntity = compilerService.compile(execution);
         
         // Then
         Response response = (Response) responseEntity.getBody();
@@ -311,22 +311,19 @@ class CompilerServiceTests {
         
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(result);
-        
-        // MultipartFIle
+
         MockMultipartFile file = new MockMultipartFile(
                 "file",
                 "hello.txt",
                 MediaType.TEXT_PLAIN_VALUE,
                 "Hello, World!".getBytes()
         );
+    
+        Execution execution = ExecutionFactory.getExecution(
+                file, null, file, 10, 100, Language.JAVA);
         
         // When
-        ResponseEntity<Object> responseEntity = compilerService.compile(file,
-                                                                        file,
-                                                                        null,
-                                                                        10,
-                                                                        100,
-                                                                        Language.JAVA);
+        ResponseEntity<Object> responseEntity = compilerService.compile(execution);
         
         // Then
         Response response = (Response) responseEntity.getBody();
@@ -348,22 +345,19 @@ class CompilerServiceTests {
         
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(result);
-        
-        // MultipartFIle
+
         MockMultipartFile file = new MockMultipartFile(
                 "file",
                 "hello.txt",
                 MediaType.TEXT_PLAIN_VALUE,
                 "Hello, World!".getBytes()
         );
+    
+        Execution execution = ExecutionFactory.getExecution(
+                file, null, file, 10, 100, Language.JAVA);
         
         // When
-        ResponseEntity<Object> responseEntity = compilerService.compile(file,
-                                                                        file,
-                                                                        null,
-                                                                        10,
-                                                                        100,
-                                                                        Language.JAVA);
+        ResponseEntity<Object> responseEntity = compilerService.compile(execution);
         
         // Then
         Response response = (Response) responseEntity.getBody();
@@ -386,21 +380,18 @@ class CompilerServiceTests {
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(result);
         
-        // MultipartFIle
         MockMultipartFile file = new MockMultipartFile(
                 "file",
                 "hello.txt",
                 MediaType.TEXT_PLAIN_VALUE,
                 "Hello, World!".getBytes()
         );
+    
+        Execution execution = ExecutionFactory.getExecution(
+                file, null, file, 10, 100, Language.JAVA);
         
         // When
-        ResponseEntity<Object> responseEntity = compilerService.compile(file,
-                                                                        file,
-                                                                        null,
-                                                                        10,
-                                                                        100,
-                                                                        Language.JAVA);
+        ResponseEntity<Object> responseEntity = compilerService.compile(execution);
         
         // Then
         Response response = (Response) responseEntity.getBody();

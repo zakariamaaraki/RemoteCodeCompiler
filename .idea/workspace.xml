@@ -4,15 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="Build multiple Docker image in //">
+    <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="Refactoring entrypointFile creation">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/CExecution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/CPPExecution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/Execution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/ExecutionFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/JavaExecution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/PythonExecution.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/CompilerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/CompilerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/mappers/JsonMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/mappers/JsonMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Language.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Language.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utilities/EntryPointFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utilities/EntryPoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utilities/FilesUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utilities/FilesUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utilities/EntryPoint.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/controllers/CompilerControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/controllers/CompilerControllerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utilities/EntryPointFileTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utilities/EntryPointTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utilities/FilesUtilTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utilities/FilesUtilTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utilities/EntryPointTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utilities/ExecutionTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,9 +34,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Python Script" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -89,8 +98,35 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.FilesUtilTests.shouldCopyFileFromSrcToDest">
-    <configuration name="CompilerServiceTests.WhenImageBuildFailShouldThrowDockerBuildException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.ExecutionTests.deleteExecutionDirectoryShouldDeleteTheDirectory">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompilerControllerTests.whenCompilingCCodeShouldReturnAResponseObjectInTheBody" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.controllers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.controllers" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.controllers.CompilerControllerTests" />
+      <option name="METHOD_NAME" value="whenCompilingCCodeShouldReturnAResponseObjectInTheBody" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompilerServiceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
@@ -100,13 +136,12 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerServiceTests" />
-      <option name="METHOD_NAME" value="WhenImageBuildFailShouldThrowDockerBuildException" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FilesUtilTests.shouldCopyFileFromSrcToDest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ExecutionTests.deleteExecutionDirectoryShouldDeleteTheDirectory" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
@@ -115,14 +150,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.utilities" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utilities.FilesUtilTests" />
-      <option name="METHOD_NAME" value="shouldCopyFileFromSrcToDest" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utilities.ExecutionTests" />
+      <option name="METHOD_NAME" value="deleteExecutionDirectoryShouldDeleteTheDirectory" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FilesUtilTests.shouldSaveFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ExecutionTests.shouldCopyDockerFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
@@ -131,40 +166,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.utilities" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utilities.FilesUtilTests" />
-      <option name="METHOD_NAME" value="shouldSaveFile" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utilities.ExecutionTests" />
+      <option name="METHOD_NAME" value="shouldCopyDockerFile" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RabbitmqTests.verifyConverter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ExecutionTests.shouldCreateAnEntrypointFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.amqp.*" />
+          <option name="PATTERN" value="com.cp.compiler.utilities.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.amqp" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.amqp.RabbitmqTests" />
-      <option name="METHOD_NAME" value="verifyConverter" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TopologyTests.ifInputMessageIsNotAValidRequestShouldPublishNullValueToOutputTopic" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.kafka.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.kafka" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.kafka.TopologyTests" />
-      <option name="METHOD_NAME" value="ifInputMessageIsNotAValidRequestShouldPublishNullValueToOutputTopic" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.utilities" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utilities.ExecutionTests" />
+      <option name="METHOD_NAME" value="shouldCreateAnEntrypointFile" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -186,11 +205,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.FilesUtilTests.shouldCopyFileFromSrcToDest" />
-        <item itemvalue="JUnit.FilesUtilTests.shouldSaveFile" />
-        <item itemvalue="JUnit.CompilerServiceTests.WhenImageBuildFailShouldThrowDockerBuildException" />
-        <item itemvalue="JUnit.TopologyTests.ifInputMessageIsNotAValidRequestShouldPublishNullValueToOutputTopic" />
-        <item itemvalue="JUnit.RabbitmqTests.verifyConverter" />
+        <item itemvalue="JUnit.ExecutionTests.deleteExecutionDirectoryShouldDeleteTheDirectory" />
+        <item itemvalue="JUnit.ExecutionTests.shouldCreateAnEntrypointFile" />
+        <item itemvalue="JUnit.ExecutionTests.shouldCopyDockerFile" />
+        <item itemvalue="JUnit.CompilerControllerTests.whenCompilingCCodeShouldReturnAResponseObjectInTheBody" />
+        <item itemvalue="JUnit.CompilerServiceTests" />
       </list>
     </recent_temporary>
   </component>
@@ -254,8 +273,16 @@
       <workItem from="1650153240219" duration="7009000" />
       <workItem from="1650204906190" duration="8420000" />
       <workItem from="1650710492198" duration="619000" />
-      <workItem from="1650791254933" duration="4813000" />
+      <workItem from="1650791254933" duration="19437000" />
     </task>
+    <task id="LOCAL-00001" summary="Build multiple Docker image in //">
+      <created>1650796386633</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1650796386633</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,7 +306,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Build multiple Docker image in //" />
-    <option name="LAST_COMMIT_MESSAGE" value="Build multiple Docker image in //" />
+    <MESSAGE value="Refactoring entrypointFile creation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring entrypointFile creation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

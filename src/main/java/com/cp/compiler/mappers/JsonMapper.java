@@ -1,6 +1,8 @@
 package com.cp.compiler.mappers;
 
 import com.cp.compiler.exceptions.CompilerServerException;
+import com.cp.compiler.executions.Execution;
+import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.Request;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.services.CompilerService;
@@ -31,9 +33,15 @@ public class JsonMapper {
     public static String transform(String jsonRequest,
                                    CompilerService compilerService) throws IOException, CompilerServerException {
         Request request = JsonMapper.toRequest(jsonRequest);
-        ResponseEntity<Object> responseEntity = compilerService.compile(request.getExpectedOutput(),
-                request.getSourceCode(), request.getInput(), request.getTimeLimit(), request.getMemoryLimit(),
-                request.getLanguage());
+        
+        Execution execution = ExecutionFactory.getExecution(request.getSourceCode(),
+                                                            request.getInput(),
+                                                            request.getExpectedOutput(),
+                                                            request.getTimeLimit(),
+                                                            request.getMemoryLimit(),
+                                                            request.getLanguage());
+        
+        ResponseEntity<Object> responseEntity = compilerService.compile(execution);
         Object body = responseEntity.getBody();
         return body instanceof Response ? JsonMapper.toJson((Response) body) : null;
     }

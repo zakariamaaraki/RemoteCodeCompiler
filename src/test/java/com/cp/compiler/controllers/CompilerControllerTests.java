@@ -1,5 +1,7 @@
 package com.cp.compiler.controllers;
 
+import com.cp.compiler.executions.Execution;
+import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Request;
 import com.cp.compiler.models.Response;
@@ -74,12 +76,7 @@ class CompilerControllerTests {
     @Test
     void whenCompilingJavaCodeShouldReturnAResponseObjectInTheBody() throws Exception {
         // Given
-        Mockito.when(compilerService.compile(outputFile,
-                                             sourceCode,
-                                             null,
-                                             10,
-                                             500,
-                                             Language.JAVA))
+        Mockito.when(compilerService.compile((Execution) Mockito.any()))
                 .thenReturn(ResponseEntity
                         .status(HttpStatus.OK)
                         .body(new Response("test output",
@@ -106,12 +103,7 @@ class CompilerControllerTests {
     @Test
     void whenCompilingCCodeShouldReturnAResponseObjectInTheBody() throws Exception {
         // Given
-        Mockito.when(compilerService.compile(outputFile,
-                                             sourceCode,
-                                             null,
-                                             10,
-                                             500,
-                                             Language.C))
+        Mockito.when(compilerService.compile((Execution) Mockito.any()))
                 .thenReturn(ResponseEntity
                         .status(HttpStatus.OK)
                         .body(new Response("test output",
@@ -138,12 +130,7 @@ class CompilerControllerTests {
     @Test
     void whenCompilingCppCodeShouldReturnAResponseObjectInTheBody() throws Exception {
         // Given
-        Mockito.when(compilerService.compile(outputFile,
-                                             sourceCode,
-                                             null,
-                                             10,
-                                             500,
-                                             Language.CPP))
+        Mockito.when(compilerService.compile((Execution) Mockito.any()))
                 .thenReturn(ResponseEntity
                         .status(HttpStatus.OK)
                         .body(new Response("test output",
@@ -170,12 +157,7 @@ class CompilerControllerTests {
     @Test
     void whenCompilingPythonCodeShouldReturnAResponseObjectInTheBody() throws Exception {
         // Given
-        Mockito.when(compilerService.compile(outputFile,
-                                             sourceCode,
-                                             null,
-                                             10,
-                                             500,
-                                             Language.PYTHON))
+        Mockito.when(compilerService.compile((Execution) Mockito.any()))
                 .thenReturn(ResponseEntity
                         .status(HttpStatus.OK)
                         .body(new Response("test output",
