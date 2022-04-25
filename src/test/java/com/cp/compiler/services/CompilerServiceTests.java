@@ -42,7 +42,7 @@ class CompilerServiceTests {
         // Given
         int timeLimit = compilerService.getMaxExecutionTime() + 1;
     
-        Execution execution = ExecutionFactory.getExecution(null,
+        Execution execution = ExecutionFactory.createExecution(null,
                                                             null,
                                                             null,
                                                             timeLimit,
@@ -66,7 +66,7 @@ class CompilerServiceTests {
         // Given
         int timeLimit = compilerService.getMinExecutionTime() - 1;
     
-        Execution execution = ExecutionFactory.getExecution(null,
+        Execution execution = ExecutionFactory.createExecution(null,
                                                             null,
                                                             null,
                                                             timeLimit,
@@ -90,7 +90,7 @@ class CompilerServiceTests {
         // Given
         int memoryLimit = compilerService.getMaxExecutionMemory() + 1;
     
-        Execution execution = ExecutionFactory.getExecution(null,
+        Execution execution = ExecutionFactory.createExecution(null,
                                                             null,
                                                             null,
                                                             10,
@@ -114,7 +114,7 @@ class CompilerServiceTests {
         // Given
         int memoryLimit = compilerService.getMinExecutionMemory() - 1;
     
-        Execution execution = ExecutionFactory.getExecution(null,
+        Execution execution = ExecutionFactory.createExecution(null,
                                                             null,
                                                             null,
                                                             10,
@@ -144,7 +144,7 @@ class CompilerServiceTests {
                 "Hello, World!".getBytes()
         );
     
-        Execution execution = ExecutionFactory.getExecution(
+        Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
         
         // Then
@@ -177,7 +177,7 @@ class CompilerServiceTests {
                 "Hello, World!".getBytes()
         );
         
-        Execution execution = ExecutionFactory.getExecution(
+        Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
         
         // When
@@ -217,7 +217,7 @@ class CompilerServiceTests {
                 "Hello, World!".getBytes()
         );
     
-        Execution execution = ExecutionFactory.getExecution(
+        Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
         
         // When
@@ -251,7 +251,7 @@ class CompilerServiceTests {
                 "Hello, World!".getBytes()
         );
     
-        Execution execution = ExecutionFactory.getExecution(
+        Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
         
         // When
@@ -285,7 +285,7 @@ class CompilerServiceTests {
                 "Hello, World!".getBytes()
         );
     
-        Execution execution = ExecutionFactory.getExecution(
+        Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
         
         // When
@@ -319,7 +319,7 @@ class CompilerServiceTests {
                 "Hello, World!".getBytes()
         );
     
-        Execution execution = ExecutionFactory.getExecution(
+        Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
         
         // When
@@ -353,7 +353,7 @@ class CompilerServiceTests {
                 "Hello, World!".getBytes()
         );
     
-        Execution execution = ExecutionFactory.getExecution(
+        Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
         
         // When
@@ -387,7 +387,7 @@ class CompilerServiceTests {
                 "Hello, World!".getBytes()
         );
     
-        Execution execution = ExecutionFactory.getExecution(
+        Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
         
         // When

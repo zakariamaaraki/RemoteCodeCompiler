@@ -34,7 +34,7 @@ public class JsonMapper {
                                    CompilerService compilerService) throws IOException, CompilerServerException {
         Request request = JsonMapper.toRequest(jsonRequest);
         
-        Execution execution = ExecutionFactory.getExecution(request.getSourceCode(),
+        Execution execution = ExecutionFactory.createExecution(request.getSourceCode(),
                                                             request.getInput(),
                                                             request.getExpectedOutput(),
                                                             request.getTimeLimit(),

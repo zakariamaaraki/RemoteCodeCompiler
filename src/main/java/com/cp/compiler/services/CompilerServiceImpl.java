@@ -13,12 +13,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileSystemUtils;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * Compiler Service Class, this class provides compilation utilities for several programing languages
@@ -60,7 +57,7 @@ public class CompilerServiceImpl implements CompilerService {
      */
     @Override
     public ResponseEntity<Object> compile(Request request) throws CompilerServerException, IOException {
-        Execution execution = ExecutionFactory.getExecution(request.getExpectedOutput(),
+        Execution execution = ExecutionFactory.createExecution(request.getExpectedOutput(),
                                                             request.getSourceCode(),
                                                             request.getInput(),
                                                             request.getTimeLimit(),

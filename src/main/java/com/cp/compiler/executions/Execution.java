@@ -2,7 +2,6 @@ package com.cp.compiler.executions;
 
 import com.cp.compiler.models.Language;
 import com.cp.compiler.utilities.FilesUtil;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.util.FileSystemUtils;
