@@ -1,10 +1,7 @@
 package com.cp.compiler.controllers;
 
 import com.cp.compiler.executions.Execution;
-import com.cp.compiler.executions.ExecutionFactory;
-import com.cp.compiler.models.Language;
-import com.cp.compiler.models.Request;
-import com.cp.compiler.models.Response;
+import com.cp.compiler.models.*;
 import com.cp.compiler.services.CompilerService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -56,10 +53,11 @@ class CompilerControllerTests {
         Mockito.when(compilerService.compile(request))
                 .thenReturn(ResponseEntity
                         .status(HttpStatus.OK)
-                        .body(new Response("test output",
-                                           "test expected output",
-                                           "Accepted",
-                                            LocalDateTime.now())));
+                        .body(new Response(
+                                new Result(Verdict.ACCEPTED,
+                                        "test output",
+                                        "test expected output", 0),
+                                        LocalDateTime.now())));
         
         // When
         ResponseEntity<Object> responseEntity = compilerController.compile(request);
@@ -79,10 +77,11 @@ class CompilerControllerTests {
         Mockito.when(compilerService.compile((Execution) Mockito.any()))
                 .thenReturn(ResponseEntity
                         .status(HttpStatus.OK)
-                        .body(new Response("test output",
-                                           "test expected output",
-                                           "Accepted",
-                                            LocalDateTime.now())));
+                        .body(new Response(
+                                new Result(Verdict.ACCEPTED,
+                                        "test output",
+                                        "test expected output", 0),
+                                        LocalDateTime.now())));
         
         // When
         ResponseEntity<Object> responseEntity = compilerController.compileJava(outputFile,
@@ -106,10 +105,11 @@ class CompilerControllerTests {
         Mockito.when(compilerService.compile((Execution) Mockito.any()))
                 .thenReturn(ResponseEntity
                         .status(HttpStatus.OK)
-                        .body(new Response("test output",
-                                           "test expected output",
-                                           "Accepted",
-                                           LocalDateTime.now())));
+                        .body(new Response(
+                                new Result(Verdict.ACCEPTED,
+                                        "test output",
+                                        "test expected output", 0),
+                                        LocalDateTime.now())));
         
         // When
         ResponseEntity<Object> responseEntity = compilerController.compileC(outputFile,
@@ -133,10 +133,11 @@ class CompilerControllerTests {
         Mockito.when(compilerService.compile((Execution) Mockito.any()))
                 .thenReturn(ResponseEntity
                         .status(HttpStatus.OK)
-                        .body(new Response("test output",
-                                           "test expected output",
-                                           "Accepted",
-                                           LocalDateTime.now())));
+                        .body(new Response(
+                                new Result(Verdict.ACCEPTED,
+                                        "test output",
+                                        "test expected output", 0),
+                                        LocalDateTime.now())));
         
         // When
         ResponseEntity<Object> responseEntity = compilerController.compileCpp(outputFile,
@@ -160,10 +161,11 @@ class CompilerControllerTests {
         Mockito.when(compilerService.compile((Execution) Mockito.any()))
                 .thenReturn(ResponseEntity
                         .status(HttpStatus.OK)
-                        .body(new Response("test output",
-                                           "test expected output",
-                                           "Accepted",
-                                           LocalDateTime.now())));
+                        .body(new Response(
+                                new Result(Verdict.ACCEPTED,
+                                        "test output",
+                                        "test expected output", 0),
+                                        LocalDateTime.now())));
         
         // When
         ResponseEntity<Object> responseEntity = compilerController.compilePython(outputFile,

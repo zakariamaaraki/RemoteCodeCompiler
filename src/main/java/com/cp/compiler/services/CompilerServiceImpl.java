@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  * Compiler Service Class, this class provides compilation utilities for several programing languages
@@ -73,11 +74,12 @@ public class CompilerServiceImpl implements CompilerService {
     @Override
     public ResponseEntity<Object> compile(Execution execution) throws Exception {
         
-        LocalDateTime date = LocalDateTime.now();
+        LocalDateTime dateTime = LocalDateTime.now();
     
         builderDockerImage(execution);
-    
-        Result result = containerService.runCode(execution.getImageName(), execution.getExpectedOutputFile());
+        
+        Result result = containerService.runCode(
+                execution.getImageName(), execution.getExpectedOutputFile(), execution.getTimeLimit());
         
         if (deleteDockerImage) {
             try {
@@ -88,12 +90,11 @@ public class CompilerServiceImpl implements CompilerService {
             }
         }
         
-        String statusResponse = result.getVerdict();
-        log.info(execution.getImageName() + " Status response is " + statusResponse);
+        log.info(execution.getImageName() + " Status response is " + result.getStatusResponse());
         
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(new Response(result.getOutput(), result.getExpectedOutput(), statusResponse, date));
+                .body(new Response(result, dateTime));
     }
     
     private void builderDockerImage(Execution execution) throws CompilerServerException {

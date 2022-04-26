@@ -19,6 +19,7 @@ spring:
 
   # Apache Kafka
   kafka:
+    throttling-duration: ${KAFKA_THROTTLING_DURATION:10000} # in millis, used when a throttling occurred
     topics:
       input-topic: ${KAFKA_INPUT_TOPIC:kafka.topic.input}
       output-topic: ${KAFKA_OUTPUT_TOPIC:kafka.topic.output}
@@ -35,17 +36,15 @@ spring:
     jaas:
       enabled: true
 
-
-
   # Rabbit MQ
   rabbitmq:
+    throttling-duration: ${RABBIT_THROTTLING_DURATION:10000} # in millis, used when a throttling occurred
     queues:
       input: ${RABBIT_QUEUE_INPUT:rabbit.queue.input}
       output: ${RABBIT_QUEUE_OUTPUT:rabbit.queue.output}
     password: ${RABBIT_PASSWORD:guest}
     username: ${RABBIT_USERNAME:guest}
     addresses: ${RABBIT_HOSTS:localhost:5672}
-
 
 management:
   metrics:

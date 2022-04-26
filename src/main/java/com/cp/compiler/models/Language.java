@@ -32,15 +32,13 @@ public enum Language {
     /**
      * The Folder.
      */
-    String folder;
+    private String folder;
     /**
      * The File.
      */
-    String file;
+    private String file;
     /**
      * The Command.
      */
-    String command;
-    
-    
+    private String command;
 }

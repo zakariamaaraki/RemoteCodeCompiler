@@ -53,7 +53,8 @@ class JavaE2ETests {
                                                                                500);
     
         // Then
-        Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
+        Assertions.assertEquals(Verdict.ACCEPTED.getStatusResponse(),
+                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
     }
     
     /**
@@ -85,8 +86,8 @@ class JavaE2ETests {
                                                                                500);
         
         // Then
-        Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getValue(),
-                                ((Response)responseEntity.getBody()).getStatus());
+        Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getStatusResponse(),
+                                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
     }
     
     /**
@@ -118,8 +119,8 @@ class JavaE2ETests {
                                                                                500);
         
         // Then
-        Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getValue(),
-                                ((Response)responseEntity.getBody()).getStatus());
+        Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getStatusResponse(),
+                                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
     }
     
     /**
@@ -151,7 +152,8 @@ class JavaE2ETests {
                                                                                500);
         
         // Then
-        Assertions.assertEquals(Verdict.COMPILATION_ERROR.getValue(), ((Response)responseEntity.getBody()).getStatus());
+        Assertions.assertEquals(Verdict.COMPILATION_ERROR.getStatusResponse()
+                , ((Response)responseEntity.getBody()).getResult().getStatusResponse());
     }
     
     /**
@@ -183,7 +185,8 @@ class JavaE2ETests {
                                                                                500);
         
         // Then
-        Assertions.assertEquals(Verdict.WRONG_ANSWER.getValue(), ((Response)responseEntity.getBody()).getStatus());
+        Assertions.assertEquals(Verdict.WRONG_ANSWER.getStatusResponse(),
+                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
     }
     
     /**
@@ -215,7 +218,8 @@ class JavaE2ETests {
                                                                                1);
         
         // Then
-        Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getValue(), ((Response)responseEntity.getBody()).getStatus());
+        Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getStatusResponse(),
+                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
     }
     
     /**
@@ -247,7 +251,8 @@ class JavaE2ETests {
                                                                                500);
         
         // Then
-        Assertions.assertEquals(Verdict.RUNTIME_ERROR.getValue(), ((Response)responseEntity.getBody()).getStatus());
+        Assertions.assertEquals(Verdict.RUNTIME_ERROR.getStatusResponse(),
+                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
     }
     
 

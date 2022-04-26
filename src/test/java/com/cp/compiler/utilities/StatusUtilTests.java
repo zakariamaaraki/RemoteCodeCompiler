@@ -14,10 +14,10 @@ class StatusUtilTests {
     @Test
     void shouldReturnAccepted() {
         // When
-        String status = StatusUtil.statusResponse(0, true);
+        Verdict status = StatusUtil.statusResponse(StatusUtil.ACCEPTED_OR_WRONG_ANSWER_STATUS, true);
         
         // Then
-        Assertions.assertEquals(Verdict.ACCEPTED.getValue(), status);
+        Assertions.assertEquals(Verdict.ACCEPTED, status);
     }
     
     /**
@@ -26,10 +26,10 @@ class StatusUtilTests {
     @Test
     void shouldReturnWrongAnswer() {
         // When
-        String status = StatusUtil.statusResponse(0, false);
+        Verdict status = StatusUtil.statusResponse(StatusUtil.ACCEPTED_OR_WRONG_ANSWER_STATUS, false);
         
         // Then
-        Assertions.assertEquals(Verdict.WRONG_ANSWER.getValue(), status);
+        Assertions.assertEquals(Verdict.WRONG_ANSWER, status);
     }
     
     /**
@@ -38,10 +38,10 @@ class StatusUtilTests {
     @Test
     void shouldReturnRunTimeError() {
         // When
-        String status = StatusUtil.statusResponse(1, false);
+        Verdict status = StatusUtil.statusResponse(1, false);
         
         // Then
-        Assertions.assertEquals(Verdict.RUNTIME_ERROR.getValue(), status);
+        Assertions.assertEquals(Verdict.RUNTIME_ERROR, status);
     }
     
     /**
@@ -50,10 +50,10 @@ class StatusUtilTests {
     @Test
     void shouldReturnCompilationError() {
         // When
-        String status = StatusUtil.statusResponse(2, false);
+        Verdict status = StatusUtil.statusResponse(StatusUtil.COMPILATION_ERROR_STATUS, false);
         
         // Then
-        Assertions.assertEquals(Verdict.COMPILATION_ERROR.getValue(), status);
+        Assertions.assertEquals(Verdict.COMPILATION_ERROR, status);
     }
     
     /**
@@ -61,11 +61,11 @@ class StatusUtilTests {
      */
     @Test
     void shouldReturnOutOfMemory() {
-        // WHen
-        String status = StatusUtil.statusResponse(139, false);
+        // When
+        Verdict status = StatusUtil.statusResponse(StatusUtil.OUT_OF_MEMORY_STATUS, false);
         
         // Then
-        Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getValue(), status);
+        Assertions.assertEquals(Verdict.OUT_OF_MEMORY, status);
     }
     
     /**
@@ -73,10 +73,10 @@ class StatusUtilTests {
      */
     @Test
     void shouldReturnTimeLimitExceeded() {
-        // WHen
-        String status = StatusUtil.statusResponse(124, false);
+        // When
+        Verdict status = StatusUtil.statusResponse(StatusUtil.TIME_LIMIT_EXCEEDED_STATUS, false);
         
         // Then
-        Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getValue(), status);
+        Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED, status);
     }
 }

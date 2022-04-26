@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/Readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +52,7 @@
     <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../CP" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/images" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
@@ -82,14 +83,32 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TopologyTests">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.CompilerServiceTests.WhenImageBuildSucceedShouldReturnAResult">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompilerServiceTests.WhenImageBuildSucceedShouldReturnAResult" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerServiceTests" />
+      <option name="METHOD_NAME" value="WhenImageBuildSucceedShouldReturnAResult" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -125,38 +144,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExecutionTests.shouldCopyDockerFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.utilities.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.utilities" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utilities.ExecutionTests" />
-      <option name="METHOD_NAME" value="shouldCopyDockerFile" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ExecutionTests.shouldCreateAnEntrypointFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.utilities.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.utilities" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utilities.ExecutionTests" />
-      <option name="METHOD_NAME" value="shouldCreateAnEntrypointFile" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TopologyTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
@@ -186,13 +173,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="local.kafka: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="kafka" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="local/docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CompilerServiceTests.WhenImageBuildSucceedShouldReturnAResult" />
+        <item itemvalue="Docker.local.kafka: Compose Deployment" />
         <item itemvalue="JUnit.TopologyTests" />
         <item itemvalue="JUnit.ExecutionTests" />
         <item itemvalue="JUnit.ExecutionTests.deleteExecutionDirectoryShouldDeleteTheDirectory" />
-        <item itemvalue="JUnit.ExecutionTests.shouldCreateAnEntrypointFile" />
-        <item itemvalue="JUnit.ExecutionTests.shouldCopyDockerFile" />
       </list>
     </recent_temporary>
   </component>
@@ -256,7 +256,8 @@
       <workItem from="1650153240219" duration="7009000" />
       <workItem from="1650204906190" duration="8420000" />
       <workItem from="1650710492198" duration="619000" />
-      <workItem from="1650791254933" duration="42315000" />
+      <workItem from="1650791254933" duration="72060000" />
+      <workItem from="1651187630942" duration="4430000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
@@ -286,7 +287,21 @@
       <option name="project" value="LOCAL" />
       <updated>1650941676600</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Add throttling duration retry for Apache Kafka and RabbitMQ &amp;&amp; executions &amp;&amp; throttling metrics">
+      <created>1650972199729</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1650972199729</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Update Response, add execution Status">
+      <created>1651189851070</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1651189851070</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -313,14 +328,17 @@
     <MESSAGE value="Refactoring entrypointFile creation" />
     <MESSAGE value="factories, use dynamic registrations" />
     <MESSAGE value="Add throttling to limit number of requests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add throttling to limit number of requests" />
+    <MESSAGE value="Add throttling duration retry for Apache Kafka and RabbitMQ" />
+    <MESSAGE value="Add throttling duration retry for Apache Kafka and RabbitMQ &amp;&amp; executions &amp;&amp; throttling metrics" />
+    <MESSAGE value="Update Response, add execution Status" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Response, add execution Status" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java</url>
-          <line>23</line>
+          <line>21</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
