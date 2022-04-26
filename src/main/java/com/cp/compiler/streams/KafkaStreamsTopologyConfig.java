@@ -42,12 +42,12 @@ public class KafkaStreamsTopologyConfig {
     @Bean
     public Topology topology(@Value("${spring.kafka.topics.input-topic}") String inputTopic,
                              @Value("${spring.kafka.topics.output-topic}") String outputTopic,
+                             @Value("${spring.kafka.throttling-duration}") long throttlingDuration,
                              @Autowired StreamsBuilder builder,
                              @Qualifier("proxy") @Autowired CompilerService compilerService) {
         
-        builder.stream(inputTopic,
-                       Consumed.with(stringSerde, stringSerde))
-                .transformValues((ValueTransformerSupplier) () -> new CompilerTransformer(compilerService))
+        builder.stream(inputTopic, Consumed.with(stringSerde, stringSerde))
+                .transformValues((ValueTransformerSupplier) () -> new CompilerTransformer(compilerService, throttlingDuration))
                 .to(outputTopic, Produced.with(stringSerde, stringSerde));
         
         return builder.build();

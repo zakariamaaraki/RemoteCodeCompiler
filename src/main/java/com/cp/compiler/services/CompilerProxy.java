@@ -3,6 +3,9 @@ package com.cp.compiler.services;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.Request;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -23,10 +27,23 @@ import java.util.concurrent.atomic.AtomicLong;
 public class CompilerProxy implements CompilerService {
     
     @Autowired
+    private MeterRegistry meterRegistry;
+    
+    @Autowired
     @Qualifier("client")
     private CompilerService compilerService;
     
     private AtomicLong executionsCounter = new AtomicLong(0);
+    
+    private Counter throttlingCounterMetric;
+    
+    @PostConstruct
+    public void init() {
+        throttlingCounterMetric = meterRegistry.counter("compiler", "proxy", "throttling");
+        Gauge.builder("executions", executionsCounter::get)
+                .description("Current number of executions")
+                .register(meterRegistry);
+    }
     
     @Getter
     @Value("${compiler.max-requests}")
@@ -83,6 +100,7 @@ public class CompilerProxy implements CompilerService {
             return response;
         }
         // The request has been throttled
+        throttlingCounterMetric.increment();
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
                 .body("Request throttled, service reached max allowed requests");
     }
