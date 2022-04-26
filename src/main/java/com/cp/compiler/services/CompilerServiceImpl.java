@@ -116,7 +116,7 @@ public class CompilerServiceImpl implements CompilerService {
                 execution.deleteExecutionDirectory();
                 log.info(execution.getImageName() + " execution directory has been deleted");
             } catch (IOException e) {
-                log.warn(execution.getImageName() + "Error while trying to delete execution directory, {}", e);
+                log.warn(execution.getImageName() + " Error while trying to delete execution directory, {}", e);
             }
         }
     }
