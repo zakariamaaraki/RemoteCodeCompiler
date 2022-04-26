@@ -82,6 +82,7 @@ public class CompilerProxy implements CompilerService {
             executionsCounter.decrementAndGet();
             return response;
         }
+        // The request has been throttled
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
                 .body("Request throttled, service reached max allowed requests");
     }
