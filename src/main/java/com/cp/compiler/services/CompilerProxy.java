@@ -70,10 +70,10 @@ public class CompilerProxy implements CompilerService {
     
     @Override
     public ResponseEntity<Object> compile(Execution execution) throws Exception {
-        Optional<ResponseEntity> requestValidation = validateRequest(execution);
-        if (requestValidation.isPresent()) {
+        Optional<ResponseEntity> requestValidationError = validateRequest(execution);
+        if (requestValidationError.isPresent()) {
             // the request is not valid
-            return requestValidation.get();
+            return requestValidationError.get();
         }
         if (allow()) {
             long counter = executionsCounter.incrementAndGet();
