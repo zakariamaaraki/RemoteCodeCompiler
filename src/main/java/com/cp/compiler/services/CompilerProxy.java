@@ -39,7 +39,7 @@ public class CompilerProxy implements CompilerService {
     
     @PostConstruct
     public void init() {
-        throttlingCounterMetric = meterRegistry.counter("compiler", "proxy", "throttling");
+        throttlingCounterMetric = meterRegistry.counter("throttling.counter");
         Gauge.builder("executions", executionsCounter::get)
                 .description("Current number of executions")
                 .register(meterRegistry);

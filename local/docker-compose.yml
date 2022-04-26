@@ -1,0 +1,33 @@
+version: "3.3"
+services:
+  compiler:
+    build: ..
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 8082:8082
+    environment:
+      - DELETE_DOCKER_IMAGE=true
+      - EXECUTION_MEMORY_MAX=10000
+      - EXECUTION_MEMORY_MIN=0
+      - EXECUTION_TIME_MAX=15
+      - EXECUTION_TIME_MIN=0
+      - MAX_REQUESTS=1000
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - ./datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml
+    ports:
+      - 3000:3000
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: monitoring_node_exporter
+    restart: unless-stopped
+    expose:
+      - 9100

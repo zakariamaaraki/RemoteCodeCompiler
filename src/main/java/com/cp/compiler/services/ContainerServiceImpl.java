@@ -38,8 +38,8 @@ public class ContainerServiceImpl implements ContainerService {
     
     @PostConstruct
     public void init() {
-        buildTimer = meterRegistry.timer("compiler", "container", "build");
-        runTimer = meterRegistry.timer("compiler", "container", "run");
+        buildTimer = meterRegistry.timer("container.build", "container", "docker");
+        runTimer = meterRegistry.timer("container.run", "container", "docker");
     }
     
     /**

@@ -173,6 +173,14 @@ sudo docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.s
 }
 ```
 
+### Metrics
+Check out exposed prometheus metrics using the following url : http://localhost:8080/actuator/prometheus
+
+![Parallel executions](images/parallel-executions-metrics.png?raw=true "Parallel Executions Metrics")
+
+![Throttling counter](images/throttling-counter-metrics.png?raw=true "Throttling Counter Metrics")
+
+
 ### Visualize Docker images and containers info
 It is also possible to visualize information about the images and docker containers that are currently running using these endpoints 
 
@@ -191,10 +199,6 @@ It is also possible to visualize information about the images and docker contain
 ##### Docker Stats (Memory and CPU usage)
 
 ![Docker stats](images/docker-all-stats.png?raw=true "Docker stats")
-
-
-### Metrics
-Check out exposed prometheus metrics using the following url : http://localhost:8080/actuator/prometheus
 
 ## Author
 

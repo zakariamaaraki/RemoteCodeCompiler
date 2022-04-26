@@ -3,6 +3,8 @@ package com.cp.compiler.amqp;
 import com.cp.compiler.exceptions.ThrottlingException;
 import com.cp.compiler.mappers.JsonMapper;
 import com.cp.compiler.services.CompilerService;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -11,6 +13,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
 
 /**
  * The type Rabbit consumer.
@@ -29,11 +33,24 @@ public class RabbitConsumer {
 	@Autowired
 	private RabbitTemplate rabbitTemplate;
 	
+	@Autowired
+	private MeterRegistry meterRegistry;
+	
 	@Value("${spring.rabbitmq.queues.output}")
 	private String outputQueue;
 	
 	@Value("${spring.rabbitmq.throttling-duration}")
 	private long throttlingDuration;
+	
+	private Counter throttlingRetriesCounter;
+	
+	/**
+	 * Init.
+	 */
+	@PostConstruct
+	public void init() {
+		throttlingRetriesCounter = meterRegistry.counter("amqp.throttling.retries", "broker", "rabbitmq");
+	}
 	
 	/**
 	 * Listen.
@@ -61,6 +78,7 @@ public class RabbitConsumer {
 	}
 	
 	private String retryAfter(String jsonRequest) throws Exception {
+		throttlingRetriesCounter.increment();
 		Thread.sleep(throttlingDuration);
 		return transform(jsonRequest);
 	}

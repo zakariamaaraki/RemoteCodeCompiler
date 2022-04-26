@@ -4,13 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="Add throttling duration retry for Apache Kafka and RabbitMQ">
+    <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/images/parallel-executions-metrics.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/throttling-counter-metrics.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/datasource.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/prometheus.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/amqp/RabbitConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/amqp/RabbitConsumer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/streams/KafkaStreamsTopologyConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/streams/KafkaStreamsTopologyConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/streams/transformers/CompilerTransformer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/streams/transformers/CompilerTransformer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +62,7 @@
     <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../CP" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/images" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
@@ -261,7 +267,7 @@
       <workItem from="1650153240219" duration="7009000" />
       <workItem from="1650204906190" duration="8420000" />
       <workItem from="1650710492198" duration="619000" />
-      <workItem from="1650791254933" duration="48546000" />
+      <workItem from="1650791254933" duration="52909000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
@@ -291,7 +297,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650941676600</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Add throttling duration retry for Apache Kafka and RabbitMQ &amp;&amp; executions &amp;&amp; throttling metrics">
+      <created>1650972199729</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1650972199729</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -319,7 +332,8 @@
     <MESSAGE value="factories, use dynamic registrations" />
     <MESSAGE value="Add throttling to limit number of requests" />
     <MESSAGE value="Add throttling duration retry for Apache Kafka and RabbitMQ" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add throttling duration retry for Apache Kafka and RabbitMQ" />
+    <MESSAGE value="Add throttling duration retry for Apache Kafka and RabbitMQ &amp;&amp; executions &amp;&amp; throttling metrics" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add throttling duration retry for Apache Kafka and RabbitMQ &amp;&amp; executions &amp;&amp; throttling metrics" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
