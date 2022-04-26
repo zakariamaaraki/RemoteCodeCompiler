@@ -2,8 +2,6 @@ package com.cp.compiler.kafka;
 
 import com.cp.compiler.exceptions.CompilerServerException;
 import com.cp.compiler.executions.Execution;
-import com.cp.compiler.executions.ExecutionFactory;
-import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.services.CompilerService;
 
@@ -72,7 +70,7 @@ public class TopologyTests {
     }
     
     @Test
-    public void shouldConsumeMessageFromInputTopicAndProduceMessageToOutputTopic() throws CompilerServerException {
+    public void shouldConsumeMessageFromInputTopicAndProduceMessageToOutputTopic() throws Exception {
 
         // Given
         String jsonRequest = "{\n\"expectedOutput\": \"0\\n1\\n2\\n3\\n4\\n5\\n6\\n7\\n8\\n9\\n\",\n\"sourceCode\": " +

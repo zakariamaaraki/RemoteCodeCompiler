@@ -28,7 +28,7 @@ public abstract class Execution {
      */
     protected static final String BASH_HEADER = "#!/usr/bin/env bash\n";
     
-    private MultipartFile sourceCode;
+    private MultipartFile sourceCodeFile;
     private MultipartFile inputFile;
     private MultipartFile expectedOutputFile;
     private int timeLimit;
@@ -42,18 +42,18 @@ public abstract class Execution {
     /**
      * Instantiates a new Execution.
      *
-     * @param sourceCode         the source code
-     * @param inputFile          the input file
+     * @param sourceCodeFile         the source code
+     * @param inputFile          the inputFile file
      * @param expectedOutputFile the expected output file
      * @param timeLimit          the time limit
      * @param memoryLimit        the memory limit
      */
-    protected Execution(MultipartFile sourceCode,
+    protected Execution(MultipartFile sourceCodeFile,
                      MultipartFile inputFile,
                      MultipartFile expectedOutputFile,
                      int timeLimit,
                      int memoryLimit) {
-        this.sourceCode = sourceCode;
+        this.sourceCodeFile = sourceCodeFile;
         this.inputFile = inputFile;
         this.expectedOutputFile = expectedOutputFile;
         this.timeLimit = timeLimit;
@@ -88,7 +88,7 @@ public abstract class Execution {
      * @throws IOException the io exception
      */
     protected void saveUploadedFiles(Language language) throws IOException {
-        FilesUtil.saveUploadedFiles(sourceCode, path + "/" + language.getFile());
+        FilesUtil.saveUploadedFiles(sourceCodeFile, path + "/" + language.getFile());
         FilesUtil.saveUploadedFiles(expectedOutputFile,
                 path + "/" + expectedOutputFile.getOriginalFilename());
         if (getInputFile() != null) {

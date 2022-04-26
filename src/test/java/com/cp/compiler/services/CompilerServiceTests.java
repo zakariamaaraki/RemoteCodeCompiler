@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,7 @@ class CompilerServiceTests {
     
     @MockBean
     private ContainerService containerService;
+    @Qualifier("proxy")
     @Autowired
     private CompilerService compilerService;
     
@@ -42,12 +44,8 @@ class CompilerServiceTests {
         // Given
         int timeLimit = compilerService.getMaxExecutionTime() + 1;
     
-        Execution execution = ExecutionFactory.createExecution(null,
-                                                            null,
-                                                            null,
-                                                            timeLimit,
-                                                            100,
-                                                            Language.JAVA);
+        Execution execution = ExecutionFactory.createExecution(
+                null, null, null, timeLimit, 100, Language.JAVA);
         
         // When
         ResponseEntity responseEntity = compilerService.compile(execution);
@@ -66,12 +64,8 @@ class CompilerServiceTests {
         // Given
         int timeLimit = compilerService.getMinExecutionTime() - 1;
     
-        Execution execution = ExecutionFactory.createExecution(null,
-                                                            null,
-                                                            null,
-                                                            timeLimit,
-                                                            100,
-                                                            Language.JAVA);
+        Execution execution = ExecutionFactory.createExecution(
+                null, null, null, timeLimit, 100, Language.JAVA);
         
         // When
         ResponseEntity responseEntity = compilerService.compile(execution);
@@ -90,12 +84,8 @@ class CompilerServiceTests {
         // Given
         int memoryLimit = compilerService.getMaxExecutionMemory() + 1;
     
-        Execution execution = ExecutionFactory.createExecution(null,
-                                                            null,
-                                                            null,
-                                                            10,
-                                                            memoryLimit,
-                                                            Language.JAVA);
+        Execution execution = ExecutionFactory.createExecution(
+                null, null, null, 10, memoryLimit, Language.JAVA);
         
         // When
         ResponseEntity responseEntity = compilerService.compile(execution);
@@ -114,12 +104,8 @@ class CompilerServiceTests {
         // Given
         int memoryLimit = compilerService.getMinExecutionMemory() - 1;
     
-        Execution execution = ExecutionFactory.createExecution(null,
-                                                            null,
-                                                            null,
-                                                            10,
-                                                            memoryLimit,
-                                                            Language.JAVA);
+        Execution execution = ExecutionFactory.createExecution(
+                null, null, null, 10, memoryLimit, Language.JAVA);
         
         // When
         ResponseEntity responseEntity = compilerService.compile(execution);
