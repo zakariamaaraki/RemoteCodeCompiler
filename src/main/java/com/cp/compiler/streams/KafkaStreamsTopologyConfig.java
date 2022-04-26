@@ -11,6 +11,7 @@ import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.Produced;
 import org.apache.kafka.streams.kstream.ValueTransformerSupplier;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,7 +43,7 @@ public class KafkaStreamsTopologyConfig {
     public Topology topology(@Value("${spring.kafka.topics.input-topic}") String inputTopic,
                              @Value("${spring.kafka.topics.output-topic}") String outputTopic,
                              @Autowired StreamsBuilder builder,
-                             @Autowired CompilerService compilerService) {
+                             @Qualifier("proxy") @Autowired CompilerService compilerService) {
         
         builder.stream(inputTopic,
                        Consumed.with(stringSerde, stringSerde))

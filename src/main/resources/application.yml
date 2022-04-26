@@ -11,6 +11,7 @@ compiler:
   execution-time:
     max: ${EXECUTION_TIME_MAX:15}
     min: ${EXECUTION_TIME_MIN:0}
+  max-requests: ${MAX_REQUESTS:1000}
 
 spring:
   application:

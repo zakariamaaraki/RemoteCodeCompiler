@@ -36,7 +36,7 @@ public class JavaExecution extends Execution {
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        var fileName = getSourceCode().getOriginalFilename();
+        var fileName = getSourceCodeFile().getOriginalFilename();
         final var prefixName = fileName.substring(0, fileName.length() - 5);
         String executionCommand = getInputFile() == null
                 ? TIMEOUT_CMD + getTimeLimit() + " java " + prefixName + "\n"

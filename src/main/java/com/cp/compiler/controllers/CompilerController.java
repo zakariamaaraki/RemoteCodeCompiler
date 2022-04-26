@@ -9,11 +9,10 @@ import com.cp.compiler.models.Response;
 import com.cp.compiler.services.CompilerService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 /**
  * Compiler Controller Class, this class exposes 4 endpoints for (Java, C, CPP, and Python)
@@ -27,7 +26,7 @@ public class CompilerController {
     
     private CompilerService compiler;
     
-    public CompilerController(CompilerService compiler) {
+    public CompilerController(@Qualifier("proxy") CompilerService compiler) {
         this.compiler = compiler;
     }
     
@@ -45,7 +44,7 @@ public class CompilerController {
             response = Response.class
     )
     public ResponseEntity<Object> compile(@ApiParam(value = "request") @RequestBody Request request)
-            throws CompilerServerException, IOException {
+            throws Exception {
         return compiler.compile(request);
     }
     
@@ -81,7 +80,7 @@ public class CompilerController {
             
             @ApiParam(value = "The memory limit that the running program must not exceed")
             @RequestParam(value = "memoryLimit") int memoryLimit
-    ) throws CompilerServerException {
+    ) throws Exception {
         Execution execution = ExecutionFactory.createExecution(
                 sourceCode, inputFile, outputFile, timeLimit, memoryLimit, Language.PYTHON);
         return compiler.compile(execution);
@@ -120,7 +119,7 @@ public class CompilerController {
             
             @ApiParam(value = "The memory limit that the running program must not exceed")
             @RequestParam(value = "memoryLimit") int memoryLimit
-    ) throws CompilerServerException {
+    ) throws Exception {
         Execution execution = ExecutionFactory.createExecution(
                 sourceCode, inputFile, outputFile, timeLimit, memoryLimit, Language.C);
         return compiler.compile(execution);
@@ -159,7 +158,7 @@ public class CompilerController {
             
             @ApiParam(value = "The memory limit that the running program must not exceed")
             @RequestParam(value = "memoryLimit") int memoryLimit
-    ) throws CompilerServerException {
+    ) throws Exception {
         Execution execution = ExecutionFactory.createExecution(
                 sourceCode, inputFile, outputFile, timeLimit, memoryLimit, Language.CPP);
         return compiler.compile(execution);
@@ -198,7 +197,7 @@ public class CompilerController {
             
             @ApiParam(value = "The memory limit that the running program must not exceed")
             @RequestParam(value = "memoryLimit") int memoryLimit
-    ) throws CompilerServerException {
+    ) throws Exception {
         Execution execution = ExecutionFactory.createExecution(
                 sourceCode, inputFile, outputFile, timeLimit, memoryLimit, Language.JAVA);
         return compiler.compile(execution);

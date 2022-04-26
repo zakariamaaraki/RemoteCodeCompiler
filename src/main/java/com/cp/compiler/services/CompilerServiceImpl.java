@@ -9,6 +9,7 @@ import com.cp.compiler.models.Response;
 import com.cp.compiler.models.Result;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,14 +24,10 @@ import java.time.LocalDateTime;
  * @author Zakaria Maaraki
  */
 @Slf4j
-@Service
+@Service("client")
 public class CompilerServiceImpl implements CompilerService {
     
     private final ContainerService containerService;
-    
-    @Getter
-    @Value("${compiler.docker.image.delete:true}")
-    private boolean deleteDockerImage;
     
     @Getter
     @Value("${compiler.execution-memory.max:10000}")
@@ -48,6 +45,10 @@ public class CompilerServiceImpl implements CompilerService {
     @Value("${compiler.execution-time.min:0}")
     private int minExecutionTime;
     
+    @Getter
+    @Value("${compiler.docker.image.delete:true}")
+    private boolean deleteDockerImage;
+    
     public CompilerServiceImpl(ContainerService containerService) {
         this.containerService = containerService;
     }
@@ -56,7 +57,7 @@ public class CompilerServiceImpl implements CompilerService {
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity<Object> compile(Request request) throws CompilerServerException, IOException {
+    public ResponseEntity<Object> compile(Request request) throws Exception {
         Execution execution = ExecutionFactory.createExecution(request.getExpectedOutput(),
                                                             request.getSourceCode(),
                                                             request.getInput(),
@@ -70,36 +71,9 @@ public class CompilerServiceImpl implements CompilerService {
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity<Object> compile(Execution execution) throws CompilerServerException {
+    public ResponseEntity<Object> compile(Execution execution) throws Exception {
         
         LocalDateTime date = LocalDateTime.now();
-        
-        if (execution.getMemoryLimit() < minExecutionMemory || execution.getMemoryLimit() > maxExecutionMemory) {
-            log.info(execution.getImageName() + " Error memoryLimit must be between {}Mb and {}Mb, provided : {}",
-                     minExecutionMemory,
-                     maxExecutionMemory,
-                     execution.getTimeLimit());
-            
-            return ResponseEntity
-                    .badRequest()
-                    .body("Error memoryLimit must be between "
-                            + minExecutionMemory + "Mb and " + maxExecutionMemory + "Mb, provided : "
-                            + execution.getMemoryLimit());
-        }
-        
-        
-        if (execution.getTimeLimit() < minExecutionTime || execution.getTimeLimit() > maxExecutionTime) {
-            log.info(execution.getImageName() + " Error timeLimit must be between {} Sec and {} Sec, provided : {}",
-                     minExecutionTime,
-                     maxExecutionTime,
-                     execution.getTimeLimit());
-            
-            return ResponseEntity
-                    .badRequest()
-                    .body("Error timeLimit must be between "
-                            + minExecutionTime + " Sec and " + maxExecutionTime + " Sec, provided : "
-                            + execution.getTimeLimit());
-        }
     
         builderDockerImage(execution);
     
