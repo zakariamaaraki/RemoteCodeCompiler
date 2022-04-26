@@ -16,7 +16,7 @@ Supports **Rest Calls**, **Apache Kafka** and **Rabbit MQ Messages**.
 {
     "input": "9",
     "expectedOutput": "0 1 2 3 4 5 6 7 8 9",
-    "sourceCode": "public class Test1 {\npublic static void main(String[] args) {\nint i = 0;\nwhile (i < 10) {\nSystem.out.println(i++);\n}}}",
+    "sourceCode": "<YOUR_SOURCE_CODE>",
     "language": "JAVA",
     "timeLimit": 15,
     "memoryLimit": 500
