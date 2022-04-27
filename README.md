@@ -100,6 +100,11 @@ For the documentation visit the swagger page at the following url : http://local
 * Time Limit Exceeded
 * Memory Limit Exceeded
 
+### Visualize Docker images and containers infos
+It is also possible to visualize information about the images and docker containers that are currently running using these endpoints
+
+![Docker info](images/swagger-docker-infos.png?raw=true "Docker info Swagger")
+
 ## Kafka Mode
 You can use the compiler with an event driven architecture.
 To enable kafka mode you must pass to the container the following env variables :
@@ -109,7 +114,8 @@ To enable kafka mode you must pass to the container the following env variables 
 * **KAFKA_CONSUMER_GROUP_ID** : Consumer group
 * **KAFKA_HOSTS** : List of brokers
 * **CLUSTER_API_KEY** : API key
-* **CLUSTER_API_SECRET**: API Secret
+* **CLUSTER_API_SECRET** : API Secret
+* **KAFKA_THROTTLING_DURATION** : Throttling duration, by default set to 10000ms (when number of docker containers running reach MAX_REQUESTS, this value is used to do not lose the request and retry after this duration)
 
 For best performance it's better to use 4 partitions for input topic
 
@@ -127,6 +133,7 @@ To enable Rabbit MQ mode you must pass to the container the following env variab
 * **RABBIT_USERNAME** : Rabbit MQ username  
 * **RABBIT_PASSWORD** : Rabbit MQ password
 * **RABBIT_HOSTS** : List of brokers
+* **RABBIT_THROTTLING_DURATION** : Throttling duration, by default set to 10000ms (when number of docker containers running reach MAX_REQUESTS, this value is used to do not lose the request and retry after this duration)
 
 ```shell
 sudo docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -e DELETE_DOCKER_IMAGE=true -e EXECUTION_MEMORY_MAX=10000 -e EXECUTION_MEMORY_MIN=0 -e EXECUTION_TIME_MAX=15 -e EXECUTION_TIME_MIN=0 -e ENABLE_RABBITMQ_MODE=true -e RABBIT_QUEUE_INPUT=queue.input -e RABBIT_QUEUE_OUTPUT=queue.output -e RABBIT_USERNAME=guest -e RABBIT_PASSWORD=guest -e RABBIT_HOSTS=ip_broker1,ip_broker2,ip_broker3 -t compiler
@@ -179,26 +186,6 @@ Check out exposed prometheus metrics using the following url : http://localhost:
 ![Parallel executions](images/parallel-executions-metrics.png?raw=true "Parallel Executions Metrics")
 
 ![Throttling counter](images/throttling-counter-metrics.png?raw=true "Throttling Counter Metrics")
-
-
-### Visualize Docker images and containers info
-It is also possible to visualize information about the images and docker containers that are currently running using these endpoints 
-
-![Docker info](images/swagger-docker-infos.png?raw=true "Docker info Swagger")
-
-#### Example of an Output
-
-##### Docker Containers 
-
-![Docker info response](images/docker-info-response.png?raw=true "Docker info Swagger")
-
-##### Docker Images 
-
-![Docker images info](images/docker-images-info.png?raw=true "Docker images info Swagger")
-
-##### Docker Stats (Memory and CPU usage)
-
-![Docker stats](images/docker-all-stats.png?raw=true "Docker stats")
 
 ## Author
 
