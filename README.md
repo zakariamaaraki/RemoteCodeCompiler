@@ -25,7 +25,7 @@ Supports **Rest Calls**, **Apache Kafka** and **Rabbit MQ Messages**.
 
 ### Example of an ouput
 
-The compiler clean your output, so having extra space or line break does not affect the status of the response.
+The compiler cleans your output, so having extra space or line break does not affect the status of the response.
 
 ```json
 {
