@@ -106,6 +106,9 @@ It is also possible to visualize information about the images and docker contain
 ![Docker info](images/swagger-docker-infos.png?raw=true "Docker info Swagger")
 
 ## Kafka Mode
+
+![remote code compiler kafka mode](images/kafka-streams.png?raw=true "Compiler Kafka Mode")
+
 You can use the compiler with an event driven architecture.
 To enable kafka mode you must pass to the container the following env variables :
 * **ENABLE_KAFKA_MODE** : True or False
@@ -123,9 +126,10 @@ For best performance it's better to use 4 partitions for input topic
 sudo docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -e DELETE_DOCKER_IMAGE=true -e EXECUTION_MEMORY_MAX=10000 -e EXECUTION_MEMORY_MIN=0 -e EXECUTION_TIME_MAX=15 -e EXECUTION_TIME_MIN=0 -e ENABLE_KAFKA_MODE=true -e KAFKA_INPUT_TOPIC=topic.input -e KAFKA_OUTPUT_TOPIC=topic.output -e KAFKA_CONSUMER_GROUP_ID=compilerId -e KAFKA_HOSTS=ip_broker1,ip_broker2,ip_broker3 -e API_KEY=YOUR_API_KEY -e API_SECRET=YOUR_API_SECRET -t compiler
 ```
 
-![remote code compiler kafka mode](images/kafka-streams.png?raw=true "Compiler Kafka Mode")
-
 ## Rabbit MQ Mode
+
+![remote code compiler rabbitMq mode](images/rabbitMq.png?raw=true "Compiler rabbitMq Mode")
+
 To enable Rabbit MQ mode you must pass to the container the following env variables :
 * **ENABLE_RABBITMQ_MODE** : True or False
 * **RABBIT_QUEUE_INPUT** : Input queue, json request
@@ -138,9 +142,6 @@ To enable Rabbit MQ mode you must pass to the container the following env variab
 ```shell
 sudo docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -e DELETE_DOCKER_IMAGE=true -e EXECUTION_MEMORY_MAX=10000 -e EXECUTION_MEMORY_MIN=0 -e EXECUTION_TIME_MAX=15 -e EXECUTION_TIME_MIN=0 -e ENABLE_RABBITMQ_MODE=true -e RABBIT_QUEUE_INPUT=queue.input -e RABBIT_QUEUE_OUTPUT=queue.output -e RABBIT_USERNAME=guest -e RABBIT_PASSWORD=guest -e RABBIT_HOSTS=ip_broker1,ip_broker2,ip_broker3 -t compiler
 ```
-
-![remote code compiler rabbitMq mode](images/rabbitMq.png?raw=true "Compiler rabbitMq Mode")
-
 
 ### Examples of Executions
 
