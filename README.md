@@ -25,7 +25,7 @@ Supports **Rest Calls**, **Apache Kafka** and **Rabbit MQ Messages**.
 
 ### Example of an ouput
 
-The compiler cleans your output, so having extra space or line break does not affect the status of the response.
+The compiler cleans your output, so having extra spaces or line breaks does not affect the status of the response.
 
 ```json
 {
@@ -58,12 +58,8 @@ sudo docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.s
 * The value of the env variable **EXECUTION_TIME_MAX** is by default set to 15 sec, and represents the maximum value of time limit that we can pass in the request. **EXECUTION_TIME_MIN** is by default set to 0.  
 * **MAX_REQUESTS** represents the number of requests that can be executed in parallel. When this value is reached all incoming requests will be throttled and the user will get 429 HTTP status code (there will be a retry in queue mode).
 
-### Portainer
-It might be a good idea if you run a **Portainer** instance and mount it to the same volume, in order to have a total view of created images and running containers.
-
-```shell
-docker container run -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
-```
+### Local execution
+Look at the documentation in local folder
 
 ### On K8s
 You can use the provided helm chart to deploy the project on k8s
