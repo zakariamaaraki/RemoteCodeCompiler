@@ -14,31 +14,31 @@ public enum Verdict {
     /**
      * Accepted verdict.
      */
-    ACCEPTED("Accepted"),
+    ACCEPTED("Accepted", 100),
     /**
-     * The Wrong answer.
+     * Wrong answer verdict.
      */
-    WRONG_ANSWER("Wrong Answer"),
+    WRONG_ANSWER("Wrong Answer", 200),
     /**
-     * The Compilation error.
+     * Compilation error verdict.
      */
-    COMPILATION_ERROR("Compilation Error"),
+    COMPILATION_ERROR("Compilation Error", 300),
     /**
-     * The Out of memory.
+     * Out of memory verdict.
      */
-    OUT_OF_MEMORY("Out Of Memory"),
+    OUT_OF_MEMORY("Out Of Memory", 400),
     /**
-     * The Time limit exceeded.
+     * Time limit exceeded verdict.
      */
-    TIME_LIMIT_EXCEEDED("Time Limit Exceeded"),
+    TIME_LIMIT_EXCEEDED("Time Limit Exceeded", 500),
     /**
-     * The Runtime error.
+     * Runtime error verdict.
      */
-    RUNTIME_ERROR("Runtime Error");
+    RUNTIME_ERROR("Runtime Error", 600);
     
-    /**
-     * The Value.
-     */
     @Getter
-    String value;
+    private String statusResponse;
+    
+    @Getter
+    private int statusCode;
 }

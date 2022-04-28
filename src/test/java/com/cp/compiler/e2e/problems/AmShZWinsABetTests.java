@@ -51,7 +51,9 @@ public class AmShZWinsABetTests {
                                                                             2000);
         
         // Then
-        Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
+        Assertions.assertEquals(
+                Verdict.ACCEPTED.getStatusResponse(),
+                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
     }
     
     @DisplayName("AmShZ Wins a Bet Problem test case 2")
@@ -84,7 +86,9 @@ public class AmShZWinsABetTests {
                                                                             2000);
         
         // Then
-        Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
+        Assertions.assertEquals(
+                Verdict.ACCEPTED.getStatusResponse(),
+                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
     }
     
     @DisplayName("AmShZ Wins a Bet Problem test case 3")
@@ -116,6 +120,8 @@ public class AmShZWinsABetTests {
                                                                             2000);
         
         // Then
-        Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
+        Assertions.assertEquals(
+                Verdict.ACCEPTED.getStatusResponse(),
+                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
     }
 }

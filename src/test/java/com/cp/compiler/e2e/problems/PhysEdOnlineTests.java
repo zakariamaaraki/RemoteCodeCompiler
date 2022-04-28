@@ -53,7 +53,9 @@ public class PhysEdOnlineTests {
                                                                               500);
         
         // Then
-        Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
+        Assertions.assertEquals(
+                Verdict.ACCEPTED.getStatusResponse(),
+                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
     }
     
     @DisplayName("Phys Ed Online Problem test case 2")
@@ -86,7 +88,9 @@ public class PhysEdOnlineTests {
                                                                               500);
         
         // Then
-        Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
+        Assertions.assertEquals(
+                Verdict.ACCEPTED.getStatusResponse(),
+                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
     }
 
 

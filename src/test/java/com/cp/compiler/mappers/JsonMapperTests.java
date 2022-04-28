@@ -1,8 +1,6 @@
 package com.cp.compiler.mappers;
 
-import com.cp.compiler.models.Language;
-import com.cp.compiler.models.Request;
-import com.cp.compiler.models.Response;
+import com.cp.compiler.models.*;
 import com.cp.compiler.services.CompilerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Assertions;
@@ -49,15 +47,16 @@ public class JsonMapperTests {
         Request requestInput = JsonMapper.toRequest(requestJson);
         
         // Then
-        Assertions.assertEquals(requestInput, request);
+        Assertions.assertEquals(request, requestInput);
     }
     
     @Test
     public void shouldTransformResponseObjectToJsonResponse() throws JsonProcessingException {
         // Given
         LocalDateTime localDateTime = LocalDateTime.now();
-        Response response = new Response("0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
-                "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n", "Accepted", localDateTime);
+        Result result = new Result(
+                Verdict.ACCEPTED, "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n", "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n", 0);
+        Response response = new Response(result, localDateTime);
         
         // When
         String responseOutput = JsonMapper.toJson(response);

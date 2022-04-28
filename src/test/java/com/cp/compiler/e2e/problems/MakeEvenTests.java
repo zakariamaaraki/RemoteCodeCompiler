@@ -51,6 +51,8 @@ public class MakeEvenTests {
                                                                                  500);
         
         // Then
-        Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
+        Assertions.assertEquals(
+                Verdict.ACCEPTED.getStatusResponse(),
+                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
     }
 }

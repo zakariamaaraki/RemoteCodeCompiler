@@ -151,9 +151,9 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
         
-        Result result = new Result(Verdict.ACCEPTED.getValue(), "", "");
+        Result result = new Result(Verdict.ACCEPTED, "", "", 0);
         
-        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
+        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);
         
         MockMultipartFile file = new MockMultipartFile(
@@ -172,10 +172,7 @@ class CompilerServiceTests {
         // Then
         Assertions.assertEquals(ResponseEntity
                                     .status(HttpStatus.OK)
-                                    .body(new Response(result.getOutput(),
-                                            result.getExpectedOutput(),
-                                            result.getVerdict(),
-                                            null))
+                                    .body(new Response(result, null))
                                     .getStatusCode(),
                                 responseEntity.getStatusCode());
     }
@@ -191,9 +188,9 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
         
-        Result result = new Result(Verdict.ACCEPTED.getValue(), "", "");
+        Result result = new Result(Verdict.ACCEPTED, "", "", 0);
         
-        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
+        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);
         
         MockMultipartFile file = new MockMultipartFile(
@@ -211,7 +208,7 @@ class CompilerServiceTests {
         
         // Then
         Response response = (Response) responseEntity.getBody();
-        Assertions.assertEquals(Verdict.ACCEPTED.getValue(), response.getStatus());
+        Assertions.assertEquals(Verdict.ACCEPTED.getStatusResponse(), response.getResult().getStatusResponse());
     }
     
     /**
@@ -225,9 +222,9 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
         
-        Result result = new Result(Verdict.WRONG_ANSWER.getValue(), "", "");
+        Result result = new Result(Verdict.WRONG_ANSWER, "", "", 0);
         
-        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
+        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);
         
         MockMultipartFile file = new MockMultipartFile(
@@ -245,7 +242,7 @@ class CompilerServiceTests {
         
         // Then
         Response response = (Response) responseEntity.getBody();
-        Assertions.assertEquals(Verdict.WRONG_ANSWER.getValue(), response.getStatus());
+        Assertions.assertEquals(Verdict.WRONG_ANSWER.getStatusResponse(), response.getResult().getStatusResponse());
     }
     
     /**
@@ -259,9 +256,9 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
         
-        Result result = new Result(Verdict.TIME_LIMIT_EXCEEDED.getValue(), "", "");
+        Result result = new Result(Verdict.TIME_LIMIT_EXCEEDED, "", "", 0);
         
-        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
+        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);
         
         MockMultipartFile file = new MockMultipartFile(
@@ -279,7 +276,7 @@ class CompilerServiceTests {
         
         // Then
         Response response = (Response) responseEntity.getBody();
-        Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getValue(), response.getStatus());
+        Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getStatusResponse(), response.getResult().getStatusResponse());
     }
     
     /**
@@ -293,9 +290,9 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
         
-        Result result = new Result(Verdict.RUNTIME_ERROR.getValue(), "", "");
+        Result result = new Result(Verdict.RUNTIME_ERROR, "", "", 0);
         
-        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
+        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);
 
         MockMultipartFile file = new MockMultipartFile(
@@ -313,7 +310,7 @@ class CompilerServiceTests {
         
         // Then
         Response response = (Response) responseEntity.getBody();
-        Assertions.assertEquals(Verdict.RUNTIME_ERROR.getValue(), response.getStatus());
+        Assertions.assertEquals(Verdict.RUNTIME_ERROR.getStatusResponse(), response.getResult().getStatusResponse());
     }
     
     /**
@@ -327,9 +324,9 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
         
-        Result result = new Result(Verdict.OUT_OF_MEMORY.getValue(), "", "");
+        Result result = new Result(Verdict.OUT_OF_MEMORY, "", "", 0);
         
-        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
+        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);
 
         MockMultipartFile file = new MockMultipartFile(
@@ -347,7 +344,7 @@ class CompilerServiceTests {
         
         // Then
         Response response = (Response) responseEntity.getBody();
-        Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getValue(), response.getStatus());
+        Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getStatusResponse(), response.getResult().getStatusResponse());
     }
     
     /**
@@ -361,9 +358,9 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
         
-        Result result = new Result(Verdict.COMPILATION_ERROR.getValue(), "", "");
+        Result result = new Result(Verdict.COMPILATION_ERROR, "", "", 0);
         
-        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any()))
+        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);
         
         MockMultipartFile file = new MockMultipartFile(
@@ -381,7 +378,7 @@ class CompilerServiceTests {
         
         // Then
         Response response = (Response) responseEntity.getBody();
-        Assertions.assertEquals(Verdict.COMPILATION_ERROR.getValue(), response.getStatus());
+        Assertions.assertEquals(Verdict.COMPILATION_ERROR.getStatusResponse(), response.getResult().getStatusResponse());
     }
     
 }

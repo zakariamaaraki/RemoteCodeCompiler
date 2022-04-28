@@ -23,9 +23,11 @@ scrape_configs:
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
-    - targets: ['compiler:8082'] 
+    - targets: ['compiler:8082']
+
   - job_name: 'node-exporter'
     metrics_path: '/metrics'
     scrape_interval: 5s
     static_configs:
-    - targets: ['node-exporter:9100'] 
+    - targets: ['node-exporter:9100']
+

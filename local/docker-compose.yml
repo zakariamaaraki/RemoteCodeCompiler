@@ -2,38 +2,82 @@ version: "3.3"
 services:
   compiler:
     build: ..
+    depends_on:
+      - init-kafka
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - 8082:8082
     environment:
-      - DELETE_DOCKER_IMAGE=true
-      - EXECUTION_MEMORY_MAX=10000
-      - EXECUTION_MEMORY_MIN=0
-      - EXECUTION_TIME_MAX=15
-      - EXECUTION_TIME_MIN=0
-      - MAX_REQUESTS=1000
+      DELETE_DOCKER_IMAGE: 'true'
+      EXECUTION_MEMORY_MAX: 10000
+      EXECUTION_MEMORY_MIN: 0
+      EXECUTION_TIME_MAX: 15
+      EXECUTION_TIME_MIN: 0
+      MAX_REQUESTS: 1000
+
   prometheus:
     image: prom/prometheus:latest
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - 9090:9090
+
   grafana:
     image: grafana/grafana:latest
     volumes:
       - ./datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml
     ports:
       - 3000:3000
+
   node-exporter:
     image: prom/node-exporter:latest
     container_name: monitoring_node_exporter
     restart: unless-stopped
     expose:
       - 9100
+
   portainer:
     image: portainer/portainer
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - 9000:9000
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:6.1.1
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+
+  kafka: # Is reachable on 9092 from the host and on 29092 from inside docker compose
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - '9092:9092'
+    expose:
+      - '29092'
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: '1'
+      KAFKA_MIN_INSYNC_REPLICAS: '1'
+
+  init-kafka: # Creates topics
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - kafka
+    entrypoint: [ '/bin/sh', '-c' ]
+    command: |
+      "kafka-topics --bootstrap-server kafka:29092 --list
+
+      echo -e 'Creating kafka topics'
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic compiler.input --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic compiler.output --replication-factor 1 --partitions 1
+
+      echo -e 'Successfully created the following topics:'
+      kafka-topics --bootstrap-server kafka:29092 --list"

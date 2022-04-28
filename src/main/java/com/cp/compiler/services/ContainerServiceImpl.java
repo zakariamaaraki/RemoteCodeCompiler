@@ -1,6 +1,7 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.models.Result;
+import com.cp.compiler.models.Verdict;
 import com.cp.compiler.utilities.CmdUtil;
 import com.cp.compiler.utilities.StatusUtil;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -64,7 +65,7 @@ public class ContainerServiceImpl implements ContainerService {
      * {@inheritDoc}
      */
     @Override
-    public Result runCode(String imageName, MultipartFile outputFile) {
+    public Result runCode(String imageName, MultipartFile outputFile, int timeLimit) {
         
         return runTimer.record(() -> {
             
@@ -78,10 +79,13 @@ public class ContainerServiceImpl implements ContainerService {
                 log.info(imageName + " Running the container");
                 String[] dockerCommand = new String[]{"docker", "run", "--rm", imageName};
                 ProcessBuilder processbuilder = new ProcessBuilder(dockerCommand);
+                
+                long executionStartTime = System.currentTimeMillis();
                 Process process = processbuilder.start();
                 
                 // Do not let the container exceed the timeout
                 process.waitFor(TIME_OUT, TimeUnit.MILLISECONDS);
+                long executionEndTime = System.currentTimeMillis();
                 
                 // Check if the container process is alive,
                 // if it's so then destroy it and return a time limit exceeded status
@@ -93,8 +97,10 @@ public class ContainerServiceImpl implements ContainerService {
                     
                     /* Can't get the output from the container (because it did not finish it's execution),
                        so we assume that the comparison between the output and the excepted output returns false */
-                    String statusResponse = StatusUtil.statusResponse(status, false);
-                    return new Result(statusResponse, "No available output", expectedOutput);
+                    Verdict verdict = StatusUtil.statusResponse(status, false);
+                    
+                    return new Result(
+                            verdict, "", expectedOutput, timeLimit * 1000 + 1);
                 } else {
                     status = process.exitValue();
                     log.info(imageName + " End of the execution of the container");
@@ -103,13 +109,18 @@ public class ContainerServiceImpl implements ContainerService {
                     String containerOutput = CmdUtil.readOutput(reader);
                     
                     boolean result = compareResult(containerOutput, expectedOutput);
-                    String statusResponse = StatusUtil.statusResponse(status, result);
-                    return new Result(statusResponse, containerOutput, expectedOutput);
+                    Verdict verdict = StatusUtil.statusResponse(status, result);
+                    
+                    return new Result(
+                            verdict,
+                            containerOutput,
+                            expectedOutput,
+                            executionEndTime - executionStartTime);
                 }
             } catch (Exception e) {
                 log.error("Error : ", e);
                 return new Result(StatusUtil.statusResponse(1, false),
-                                  "A server side error has occurred", "");
+                                  "A server side error has occurred", "", 0);
             }
         });
     }

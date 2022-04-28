@@ -53,7 +53,9 @@ class WatermelonTests {
                                                                                500);
         
         // Then
-        Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
+        Assertions.assertEquals(
+                Verdict.ACCEPTED.getStatusResponse(),
+                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
     }
     
     @DisplayName("Watermelon Problem test case 2")
@@ -86,7 +88,9 @@ class WatermelonTests {
                                                                                500);
         
         // Then
-        Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
+        Assertions.assertEquals(
+                Verdict.ACCEPTED.getStatusResponse(),
+                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
     }
     
     @DisplayName("Watermelon Problem test case 3")
@@ -119,6 +123,8 @@ class WatermelonTests {
                                                                                500);
         
         // Then
-        Assertions.assertEquals(Verdict.ACCEPTED.getValue(), ((Response)responseEntity.getBody()).getStatus());
+        Assertions.assertEquals(
+                Verdict.ACCEPTED.getStatusResponse(),
+                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
     }
 }

@@ -1,8 +1,9 @@
 package com.cp.compiler.kafka;
 
-import com.cp.compiler.exceptions.CompilerServerException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Response;
+import com.cp.compiler.models.Result;
+import com.cp.compiler.models.Verdict;
 import com.cp.compiler.services.CompilerService;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -80,10 +81,9 @@ public class TopologyTests {
         Mockito.when(compilerService.compile((Execution) Mockito.any()))
                 .thenReturn(ResponseEntity
                         .status(HttpStatus.OK)
-                        .body(new Response("test output",
-                                           "test expected output",
-                                           "Accepted",
-                                           LocalDateTime.now())));
+                        .body(new Response(
+                                new Result(Verdict.ACCEPTED,"test output", "test expected output", 0),
+                                LocalDateTime.now())));
                 
         // When
         inputTopic.pipeInput(jsonRequest);
