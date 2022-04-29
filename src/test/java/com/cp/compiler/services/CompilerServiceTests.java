@@ -19,6 +19,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * The type Compiler service tests.
@@ -30,9 +35,16 @@ class CompilerServiceTests {
     
     @MockBean
     private ContainerService containerService;
+    
     @Qualifier("proxy")
     @Autowired
     private CompilerService compilerService;
+
+    private MultipartFile file = new MockMultipartFile(
+            "test.txt.c",
+            "test.txt",
+            null,
+            (byte[]) null);
     
     /**
      * When time limit greater than 15 should return bad request.
@@ -45,7 +57,7 @@ class CompilerServiceTests {
         int timeLimit = compilerService.getMaxExecutionTime() + 1;
     
         Execution execution = ExecutionFactory.createExecution(
-                null, null, null, timeLimit, 100, Language.JAVA);
+                file, file, file, timeLimit, 100, Language.JAVA);
         
         // When
         ResponseEntity responseEntity = compilerService.compile(execution);
@@ -65,7 +77,7 @@ class CompilerServiceTests {
         int timeLimit = compilerService.getMinExecutionTime() - 1;
     
         Execution execution = ExecutionFactory.createExecution(
-                null, null, null, timeLimit, 100, Language.JAVA);
+                file, file, file, timeLimit, 100, Language.JAVA);
         
         // When
         ResponseEntity responseEntity = compilerService.compile(execution);
@@ -85,7 +97,7 @@ class CompilerServiceTests {
         int memoryLimit = compilerService.getMaxExecutionMemory() + 1;
     
         Execution execution = ExecutionFactory.createExecution(
-                null, null, null, 10, memoryLimit, Language.JAVA);
+                file, file, file, 10, memoryLimit, Language.JAVA);
         
         // When
         ResponseEntity responseEntity = compilerService.compile(execution);
@@ -105,7 +117,7 @@ class CompilerServiceTests {
         int memoryLimit = compilerService.getMinExecutionMemory() - 1;
     
         Execution execution = ExecutionFactory.createExecution(
-                null, null, null, 10, memoryLimit, Language.JAVA);
+                file, file, file, 10, memoryLimit, Language.JAVA);
         
         // When
         ResponseEntity responseEntity = compilerService.compile(execution);
@@ -151,7 +163,7 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
         
-        Result result = new Result(Verdict.ACCEPTED, "", "", 0);
+        Result result = new Result(Verdict.ACCEPTED, "file.txt", "file.txt", 0);
         
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);
@@ -188,7 +200,7 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
         
-        Result result = new Result(Verdict.ACCEPTED, "", "", 0);
+        Result result = new Result(Verdict.ACCEPTED, "file.txt", "file.txt", 0);
         
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);
@@ -222,7 +234,7 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
         
-        Result result = new Result(Verdict.WRONG_ANSWER, "", "", 0);
+        Result result = new Result(Verdict.WRONG_ANSWER, "file.txt", "file.txt", 0);
         
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);
@@ -256,7 +268,8 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
         
-        Result result = new Result(Verdict.TIME_LIMIT_EXCEEDED, "", "", 0);
+        Result result = new Result(
+                Verdict.TIME_LIMIT_EXCEEDED, "file.txt", "file.txt", 0);
         
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);
@@ -290,9 +303,11 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
         
-        Result result = new Result(Verdict.RUNTIME_ERROR, "", "", 0);
+        Result result = new Result(
+                Verdict.RUNTIME_ERROR, "file.txt", "file.txt", 0);
         
-        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
+        Mockito.when(
+                containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);
 
         MockMultipartFile file = new MockMultipartFile(
@@ -324,7 +339,8 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
         
-        Result result = new Result(Verdict.OUT_OF_MEMORY, "", "", 0);
+        Result result = new Result(
+                Verdict.OUT_OF_MEMORY, "file.txt", "file.txt", 0);
         
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);
@@ -358,7 +374,8 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
         
-        Result result = new Result(Verdict.COMPILATION_ERROR, "", "", 0);
+        Result result = new Result(
+                Verdict.COMPILATION_ERROR, "file.txt", "file.txt", 0);
         
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);

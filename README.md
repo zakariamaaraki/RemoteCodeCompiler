@@ -74,7 +74,7 @@ helm install compiler ./k8s/helm_charts/compiler_chart
 
 Note if you are running k8s using Minikube :
 * you can reuse the Docker daemon from Minikube by running this command : **eval $(minikube docker-env)**.
-* set image pull policy to **Never** in the values.yml file.
+* set image pull policy to **Never** in the values.yaml file.
 
 
 ## How It Works
