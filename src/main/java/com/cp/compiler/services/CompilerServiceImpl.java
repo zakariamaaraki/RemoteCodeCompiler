@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 /**
  * Compiler Service Class, this class provides compilation utilities for several programing languages
@@ -76,7 +75,7 @@ public class CompilerServiceImpl implements CompilerService {
         
         LocalDateTime dateTime = LocalDateTime.now();
     
-        builderDockerImage(execution);
+        builderImage(execution);
         
         Result result = containerService.runCode(
                 execution.getImageName(), execution.getExpectedOutputFile(), execution.getTimeLimit());
@@ -97,7 +96,7 @@ public class CompilerServiceImpl implements CompilerService {
                 .body(new Response(result, dateTime));
     }
     
-    private void builderDockerImage(Execution execution) throws CompilerServerException {
+    private void builderImage(Execution execution) throws CompilerServerException {
         try {
             execution.createExecutionDirectory();
         } catch (Exception e) {
