@@ -79,6 +79,8 @@ Note if you are running k8s using Minikube :
 
 ## How It Works
 
+The compiler creates a container for each execution to separate the execution environments.
+
 ![Architecture](images/compiler.png?raw=true "Compiler")
 
 There are 5 endpoints. The call is done through POST requests to the following urls :
