@@ -139,7 +139,7 @@ For the documentation visit the swagger page at the following url : http://local
 }
 ```
 
-#### Memory Limit Exceeded
+#### Time Limit Exceeded
 ```json
 {
   "result": {
