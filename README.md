@@ -29,10 +29,14 @@ The compiler cleans your output, so having extra spaces or line breaks does not 
 
 ```json
 {
+  "result": {
+    "statusResponse": "Accepted",
+    "statusCode": 100,
     "output": "0 1 2 3 4 5 6 7 8 9",
     "expectedOutput": "0 1 2 3 4 5 6 7 8 9",
-    "status": "Accepted",
-    "date": [2021,12,1,22,10,24,311828000]
+    "executionDuration": 2111
+  },
+  "dateTime": "2022-01-28T23:32:02.843465"
 }
 ```
 
@@ -91,12 +95,91 @@ For the documentation visit the swagger page at the following url : http://local
 
 ### Verdicts
 
-* Accepted
-* Wrong Answer
-* Compilation Error
-* Runtime Error
-* Time Limit Exceeded
-* Memory Limit Exceeded
+#### Accepted
+```json
+{
+  "result": {
+    "statusResponse": "Wrong Answer",
+    "statusCode": 200,
+    "output": "YES",
+    "expectedOutput": "YES",
+    "executionDuration": 73
+  },
+  "dateTime": "2022-01-28T23:32:02.843465"
+}
+```
+
+#### Wrong Answer
+
+```json
+{
+  "result": {
+    "statusResponse": "Wrong Answer",
+    "statusCode": 200,
+    "output": "YES",
+    "expectedOutput": "NO",
+    "executionDuration": 116
+  },
+  "dateTime": "2022-01-28T23:32:02.843465"
+}
+```
+
+#### Compilation Error
+
+```json
+{
+  "result": {
+    "statusResponse": "Compilation Error",
+    "statusCode": 300,
+    "output": "",
+    "expectedOutput": "0 1 2",
+    "executionDuration": 0
+  },
+  "dateTime": "2022-01-28T23:32:02.843465"
+}
+```
+
+#### Memory Limit Exceeded
+```json
+{
+  "result": {
+    "statusResponse": "Time Limit Exceeded",
+    "statusCode": 500,
+    "output": "",
+    "expectedOutput": "YES",
+    "executionDuration": 15001
+  },
+  "dateTime": "2022-01-28T23:32:02.843465"
+}
+```
+
+#### Runtime Error
+```json
+{
+  "result": {
+    "statusResponse": "Runtime Error",
+    "statusCode": 600,
+    "output": "",
+    "expectedOutput": "YES",
+    "executionDuration": 0
+  },
+  "dateTime": "2022-01-28T23:32:02.843465"
+}
+```
+
+#### Out Of Memory
+```json
+{
+  "result": {
+    "statusResponse": "Out Of Memory",
+    "statusCode": 400,
+    "output": "",
+    "expectedOutput": "YES",
+    "executionDuration": 0
+  },
+  "dateTime": "2022-01-28T23:32:02.843465"
+}
+```
 
 ### Visualize Docker images and containers infos
 It is also possible to visualize information about the images and docker containers that are currently running using these endpoints
@@ -139,44 +222,6 @@ To enable Rabbit MQ mode you must pass to the container the following env variab
 
 ```shell
 sudo docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -e DELETE_DOCKER_IMAGE=true -e EXECUTION_MEMORY_MAX=10000 -e EXECUTION_MEMORY_MIN=0 -e EXECUTION_TIME_MAX=15 -e EXECUTION_TIME_MIN=0 -e ENABLE_RABBITMQ_MODE=true -e RABBIT_QUEUE_INPUT=queue.input -e RABBIT_QUEUE_OUTPUT=queue.output -e RABBIT_USERNAME=guest -e RABBIT_PASSWORD=guest -e RABBIT_HOSTS=ip_broker1,ip_broker2,ip_broker3 -t compiler
-```
-
-### Examples of Executions
-
-```json
-{
-    "output": "0 1 2 3",
-    "expectedOutput": "0 1 2 3 4 5 6 7 8 9",
-    "status": "Wrong Answer",
-    "date": [2021,12,2 ,22,10,24,311828000]
-}
-```
-
-```json
-{
-    "output": "",
-    "expectedOutput": "test compiler",
-    "status": "Compilation Error",
-    "date": [2021,12,1 ,22,10,24,311828000]
-}
-```
-
-```json
-{
-    "output": "",
-    "expectedOutput": "test test test",
-    "status": "Time Limit Exceeded",
-    "date": [2021,12,3 ,22,10,24,311828000]
-}
-```
-
-```json
-{
-    "output": "abc",
-    "expectedOutput": "abc",
-    "status": "Accepted",
-    "date": [2021,12,4 ,22,10,24,311828000]
-}
 ```
 
 ### Metrics
