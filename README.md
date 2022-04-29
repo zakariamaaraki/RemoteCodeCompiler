@@ -62,7 +62,7 @@ sudo docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.s
 * The value of the env variable **EXECUTION_TIME_MAX** is by default set to 15 sec, and represents the maximum value of time limit that we can pass in the request. **EXECUTION_TIME_MIN** is by default set to 0.  
 * **MAX_REQUESTS** represents the number of requests that can be executed in parallel. When this value is reached all incoming requests will be throttled and the user will get 429 HTTP status code (there will be a retry in queue mode).
 
-### Local Run
+### Local Run (for dev environment)
 Look at the documentation in local folder, a docker-compose is provided.
 
 ### On K8s
