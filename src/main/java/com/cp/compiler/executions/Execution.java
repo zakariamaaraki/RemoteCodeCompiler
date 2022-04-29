@@ -89,8 +89,8 @@ public abstract class Execution {
      */
     protected void saveUploadedFiles(Language language) throws IOException {
         FilesUtil.saveUploadedFiles(sourceCodeFile, path + "/" + language.getFile());
-        FilesUtil.saveUploadedFiles(expectedOutputFile,
-                path + "/" + expectedOutputFile.getOriginalFilename());
+        FilesUtil.saveUploadedFiles(
+                expectedOutputFile, path + "/" + expectedOutputFile.getOriginalFilename());
         if (getInputFile() != null) {
             FilesUtil.saveUploadedFiles(getInputFile(), path + "/" + inputFile.getOriginalFilename());
         }
