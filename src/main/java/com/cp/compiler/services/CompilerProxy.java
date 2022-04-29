@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.util.Optional;
@@ -25,6 +26,8 @@ import java.util.concurrent.atomic.AtomicLong;
 @Slf4j
 @Service("proxy")
 public class CompilerProxy implements CompilerService {
+    
+    private final static String FILE_NAME_REGEX = "^[a-zA-Z0-9_-]*\\.[a-zA-Z0-9_-]*$";
     
     @Autowired
     private MeterRegistry meterRegistry;
@@ -106,12 +109,24 @@ public class CompilerProxy implements CompilerService {
     }
     
     private Optional<ResponseEntity> validateRequest(Execution execution) {
-        if (execution.getSourceCodeFile() == null) {
-            return Optional.of(buildOutputError(execution, "Bad request, source code cannot be null"));
+        if (!checkFileName(execution.getSourceCodeFile().getOriginalFilename())) {
+            return Optional.of(buildOutputError(
+                    execution,
+                    "Bad request, source code file must match the following regex " + FILE_NAME_REGEX));
         }
     
-        if (execution.getExpectedOutputFile() == null) {
-            return Optional.of(buildOutputError(execution, "Bad request, expected output cannot be null"));
+        if (!checkFileName(execution.getExpectedOutputFile().getOriginalFilename())) {
+            return Optional.of(buildOutputError(
+                    execution,
+                    "Bad request, expected output file must match the following regex " + FILE_NAME_REGEX));
+        }
+        
+        MultipartFile inputFile = execution.getInputFile();
+        
+        // Input files can be null
+        if (inputFile != null && !checkFileName(inputFile.getOriginalFilename())) {
+            return Optional.of(buildOutputError(
+                    execution, "Bad request, input file must match the following regex " + FILE_NAME_REGEX));
         }
         
         if (execution.getTimeLimit() < getMinExecutionTime() || execution.getTimeLimit() > getMaxExecutionTime()) {
@@ -137,6 +152,16 @@ public class CompilerProxy implements CompilerService {
     
         return ResponseEntity.badRequest()
                              .body(errorMessage);
+    }
+    
+    /**
+     * Checks for security reasons
+     *
+     * @param fileName
+     * @return A boolean
+     */
+    private boolean checkFileName(String fileName) {
+        return fileName != null && fileName.matches(FILE_NAME_REGEX);
     }
     
     private boolean allow() {
