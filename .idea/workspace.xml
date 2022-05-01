@@ -4,43 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="Implementation of Push Notification">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/config/RestConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownFileNames.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownHeaders.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownParams.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownUrls.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerFacade.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerFacadeImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceDecorator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/HooksStorage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/HooksStorageImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/LongRunningCompilerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/CompilerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/CompilerApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/CompilerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/CompilerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/CompilerServerException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/CompilerServerInternalException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/DockerBuildException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/ContainerBuildException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/AbstractExecutionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/AbstractExecutionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/Execution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/Execution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Request.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/controllers/CompilerControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/controllers/CompilerControllerTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CE2ETests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CppE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CppE2ETests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/JavaE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/JavaE2ETests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/PythonE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/PythonE2ETests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/AmShZWinsABetTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/AmShZWinsABetTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/MakeEvenTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/MakeEvenTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/PhysEdOnlineTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/PhysEdOnlineTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/WatermelonTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/WatermelonTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -340,7 +305,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651189851070</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Implementation of Push Notification">
+      <created>1651417686457</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1651417686457</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
