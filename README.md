@@ -7,7 +7,7 @@
 An online code compiler for Java, C, C++ and Python for competitive programming and coding interviews.
 This service execute your code remotely using docker containers to separate the different environements of executions.
 
-Supports **Rest Calls (Long Polling and Push Notification)**, **Apache Kafka** and **Rabbit MQ Messages**.
+Supports **Rest Calls (Long Polling and [Push Notification](https://en.wikipedia.org/wiki/Push_technology))**, **Apache Kafka** and **Rabbit MQ Messages**.
 
 ### Example of an input
 
