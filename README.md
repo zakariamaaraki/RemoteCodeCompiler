@@ -7,8 +7,7 @@
 An online code compiler for Java, C, C++ and Python for competitive programming and coding interviews.
 This service execute your code remotely using docker containers to separate the different environements of executions.
 
-Supports **Rest Calls**, **Apache Kafka** and **Rabbit MQ Messages**.
-
+Supports **Rest Calls (Long Polling and Push Notification)**, **Apache Kafka** and **Rabbit MQ Messages**.
 
 ### Example of an input
 
@@ -61,6 +60,13 @@ sudo docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.s
 * The value of the env variable **EXECUTION_MEMORY_MAX** is by default set to 10 000 MB, and represents the maximum value of memory limit that we can pass in the request. **EXECUTION_MEMORY_MIN** is by default set to 0.
 * The value of the env variable **EXECUTION_TIME_MAX** is by default set to 15 sec, and represents the maximum value of time limit that we can pass in the request. **EXECUTION_TIME_MIN** is by default set to 0.  
 * **MAX_REQUESTS** represents the number of requests that can be executed in parallel. When this value is reached all incoming requests will be throttled and the user will get 429 HTTP status code (there will be a retry in queue mode).
+
+### Push Notifications
+
+To enable push notifications you must set this env variable to true : **ENABLE_PUSH_NOTIFICATION**
+
+For long running executions, you may want to get the response later and to avoid http timeouts, you can use push notifications,
+to do so you must pass two header values (**url** where you want to get the response and **preferPush=prefer-push**)
 
 ### Local Run (for dev environment only)
 Look at the documentation in local folder, a docker-compose is provided.

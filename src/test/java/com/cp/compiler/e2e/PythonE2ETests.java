@@ -43,11 +43,14 @@ class PythonE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compilePython(expectedOutput,
-                                                                                 sourceCode,
-                                                                                 null,
-                                                                                 10,
-                                                                                 500);
+        ResponseEntity<Object> responseEntity = compilerController.compilePython(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -76,11 +79,14 @@ class PythonE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compilePython(expectedOutput,
-                                                                                 sourceCode,
-                                                                                 null,
-                                                                                 10,
-                                                                                 500);
+        ResponseEntity<Object> responseEntity = compilerController.compilePython(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -110,11 +116,14 @@ class PythonE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compilePython(expectedOutput,
-                                                                                 sourceCode,
-                                                                                 null,
-                                                                                 10,
-                                                                                 500);
+        ResponseEntity<Object> responseEntity = compilerController.compilePython(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -144,11 +153,14 @@ class PythonE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compilePython(expectedOutput,
-                                                                                 sourceCode,
-                                                                                 null,
-                                                                                 10,
-                                                                                 1);
+        ResponseEntity<Object> responseEntity = compilerController.compilePython(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                1,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -178,11 +190,14 @@ class PythonE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compilePython(expectedOutput,
-                                                                                 sourceCode,
-                                                                                 null,
-                                                                                 10,
-                                                                                 500);
+        ResponseEntity<Object> responseEntity = compilerController.compilePython(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(

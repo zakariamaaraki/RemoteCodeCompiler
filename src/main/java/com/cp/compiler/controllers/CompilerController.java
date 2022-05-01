@@ -1,15 +1,12 @@
 package com.cp.compiler.controllers;
 
-import com.cp.compiler.exceptions.CompilerServerException;
+import com.cp.compiler.exceptions.CompilerServerInternalException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
-import com.cp.compiler.models.Language;
-import com.cp.compiler.models.Request;
-import com.cp.compiler.models.Response;
-import com.cp.compiler.services.CompilerService;
+import com.cp.compiler.models.*;
+import com.cp.compiler.services.CompilerFacade;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,9 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/compiler")
 public class CompilerController {
     
-    private CompilerService compiler;
+    private CompilerFacade compiler;
     
-    public CompilerController(@Qualifier("proxy") CompilerService compiler) {
+    public CompilerController(CompilerFacade compiler) {
         this.compiler = compiler;
     }
     
@@ -35,17 +32,29 @@ public class CompilerController {
      *
      * @param request object
      * @return The verdict of the execution (Accepted, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded, Compilation Error, RunTime Error)
-     * @throws CompilerServerException The compiler exception
+     * @throws CompilerServerInternalException The compiler exception
      */
     @PostMapping("/json")
     @ApiOperation(
             value = "json",
-            notes = "Provide outputFile, inputFile (not required), source code, time limit and memory limit",
+            notes = "You should provide outputFile, inputFile (not required), source code, time limit and memory limit",
             response = Response.class
     )
-    public ResponseEntity<Object> compile(@ApiParam(value = "request") @RequestBody Request request)
+    public ResponseEntity<Object> compile(@ApiParam(value = "request") @RequestBody Request request,
+                                          @RequestHeader(value = WellKnownParams.PREFER_PUSH, required = false) String preferPush,
+                                          @RequestHeader(value = WellKnownParams.URL, required = false) String url)
             throws Exception {
-        return compiler.compile(request);
+        
+        Execution execution = ExecutionFactory.createExecution(
+                request.getSourceCode(),
+                request.getInput(),
+                request.getExpectedOutput(),
+                request.getTimeLimit(),
+                request.getMemoryLimit(),
+                Language.PYTHON);
+        
+        boolean isLongRunning = WellKnownHeaders.PREFER_PUSH.equals(preferPush);
+        return compiler.compile(execution, isLongRunning, url);
     }
     
     /**
@@ -57,33 +66,38 @@ public class CompilerController {
      * @param timeLimit   Time limit of the execution, must be between 0 and 15 sec
      * @param memoryLimit Memory limit of the execution, must be between 0 and 1000 MB
      * @return The verdict of the execution (Accepted, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded, Compilation Error, RunTime Error)
-     * @throws CompilerServerException The compiler exception
+     * @throws CompilerServerInternalException The compiler exception
      */
     @PostMapping("/python")
     @ApiOperation(
             value = "Python compiler",
-            notes = "Provide outputFile, inputFile (not required), source code, time limit and memory limit",
+            notes = "You should provide outputFile, inputFile (not required), source code, time limit and memory limit",
             response = Response.class
     )
-    public ResponseEntity<Object> compilePython(
+    public ResponseEntity compilePython(
             @ApiParam(value = "The expected output")
-            @RequestPart(value = "outputFile") MultipartFile outputFile,
+            @RequestPart(value = WellKnownParams.OUTPUT_FILE) MultipartFile outputFile,
             
             @ApiParam(value = "Your source code")
-            @RequestPart(value = "sourceCode") MultipartFile sourceCode,
+            @RequestPart(value = WellKnownParams.SOURCE_CODE) MultipartFile sourceCode,
             
             @ApiParam(value = "This one is not required, it's just the inputs")
-            @RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
+            @RequestParam(value = WellKnownParams.INPUT_FILE, required = false) MultipartFile inputFile,
             
             @ApiParam(value = "The time limit that the execution must not exceed")
-            @RequestParam(value = "timeLimit") int timeLimit,
+            @RequestParam(value = WellKnownParams.TIME_LIMIT) int timeLimit,
             
             @ApiParam(value = "The memory limit that the running program must not exceed")
-            @RequestParam(value = "memoryLimit") int memoryLimit
-    ) throws Exception {
+            @RequestParam(value = WellKnownParams.MEMORY_LIMIT) int memoryLimit,
+
+            @RequestHeader(value = WellKnownParams.PREFER_PUSH, required = false) String preferPush,
+            @RequestHeader(value = WellKnownParams.URL, required = false) String url) throws Exception {
+        
         Execution execution = ExecutionFactory.createExecution(
                 sourceCode, inputFile, outputFile, timeLimit, memoryLimit, Language.PYTHON);
-        return compiler.compile(execution);
+        
+        boolean isLongRunning = WellKnownHeaders.PREFER_PUSH.equals(preferPush);
+        return compiler.compile(execution, isLongRunning, url);
     }
     
     /**
@@ -96,33 +110,38 @@ public class CompilerController {
      * @param memoryLimit Memory limit of the execution, must be between 0 and 1000 MB
      * @return The verdict of the execution (Accepted, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded,
      * Compilation Error, RunTime Error)
-     * @throws CompilerServerException the compiler exception
+     * @throws CompilerServerInternalException the compiler exception
      */
     @PostMapping("/c")
     @ApiOperation(
             value = "C compiler",
-            notes = "Provide outputFile, inputFile (not required), source code, time limit and memory limit",
+            notes = "You should provide outputFile, inputFile (not required), source code, time limit and memory limit",
             response = Response.class
     )
-    public ResponseEntity<Object> compileC(
+    public ResponseEntity compileC(
             @ApiParam(value = "The expected output")
-            @RequestPart(value = "outputFile") MultipartFile outputFile,
+            @RequestPart(value = WellKnownParams.OUTPUT_FILE) MultipartFile outputFile,
             
             @ApiParam(value = "Your source code")
-            @RequestPart(value = "sourceCode") MultipartFile sourceCode,
+            @RequestPart(value = WellKnownParams.SOURCE_CODE) MultipartFile sourceCode,
             
             @ApiParam(value = "This one is not required, it's just the inputs")
-            @RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
+            @RequestParam(value = WellKnownParams.INPUT_FILE, required = false) MultipartFile inputFile,
             
             @ApiParam(value = "The time limit that the execution must not exceed")
-            @RequestParam(value = "timeLimit") int timeLimit,
+            @RequestParam(value = WellKnownParams.TIME_LIMIT) int timeLimit,
             
             @ApiParam(value = "The memory limit that the running program must not exceed")
-            @RequestParam(value = "memoryLimit") int memoryLimit
-    ) throws Exception {
+            @RequestParam(value = WellKnownParams.MEMORY_LIMIT) int memoryLimit,
+            
+            @RequestHeader(value = WellKnownParams.PREFER_PUSH, required = false) String preferPush,
+            @RequestHeader(value = WellKnownParams.URL, required = false) String url) throws Exception {
+        
         Execution execution = ExecutionFactory.createExecution(
                 sourceCode, inputFile, outputFile, timeLimit, memoryLimit, Language.C);
-        return compiler.compile(execution);
+    
+        boolean isLongRunning = WellKnownHeaders.PREFER_PUSH.equals(preferPush);
+        return compiler.compile(execution, isLongRunning, url);
     }
     
     /**
@@ -135,33 +154,38 @@ public class CompilerController {
      * @param memoryLimit Memory limit of the execution, must be between 0 and 1000 MB
      * @return The verdict of the execution (Accepted, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded,
      * Compilation Error, RunTime Error)
-     * @throws CompilerServerException the compiler exception
+     * @throws CompilerServerInternalException the compiler exception
      */
     @PostMapping("/cpp")
     @ApiOperation(
             value = "Cpp compiler",
-            notes = "Provide outputFile, inputFile (not required), source code, time limit and memory limit",
+            notes = "You should provide outputFile, inputFile (not required), source code, time limit and memory limit",
             response = Response.class
     )
-    public ResponseEntity<Object> compileCpp(
+    public ResponseEntity compileCpp(
             @ApiParam(value = "The expected output")
-            @RequestPart(value = "outputFile") MultipartFile outputFile,
+            @RequestPart(value = WellKnownParams.OUTPUT_FILE) MultipartFile outputFile,
             
             @ApiParam(value = "Your source code")
-            @RequestPart(value = "sourceCode") MultipartFile sourceCode,
+            @RequestPart(value = WellKnownParams.SOURCE_CODE) MultipartFile sourceCode,
             
             @ApiParam(value = "This one is not required, it's just the inputs")
-            @RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
+            @RequestParam(value = WellKnownParams.INPUT_FILE, required = false) MultipartFile inputFile,
             
             @ApiParam(value = "The time limit that the execution must not exceed")
-            @RequestParam(value = "timeLimit") int timeLimit,
+            @RequestParam(value = WellKnownParams.TIME_LIMIT) int timeLimit,
             
             @ApiParam(value = "The memory limit that the running program must not exceed")
-            @RequestParam(value = "memoryLimit") int memoryLimit
-    ) throws Exception {
+            @RequestParam(value = WellKnownParams.MEMORY_LIMIT) int memoryLimit,
+
+            @RequestHeader(value = WellKnownParams.PREFER_PUSH, required = false) String preferPush,
+            @RequestHeader(value = WellKnownParams.URL, required = false) String url) throws Exception {
+        
         Execution execution = ExecutionFactory.createExecution(
                 sourceCode, inputFile, outputFile, timeLimit, memoryLimit, Language.CPP);
-        return compiler.compile(execution);
+    
+        boolean isLongRunning = WellKnownHeaders.PREFER_PUSH.equals(preferPush);
+        return compiler.compile(execution, isLongRunning, url);
     }
     
     /**
@@ -174,33 +198,38 @@ public class CompilerController {
      * @param memoryLimit Memory limit of the execution, must be between 0 and 1000 MB
      * @return The verdict of the execution (Accepted, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded,
      * Compilation Error, RunTime Error)
-     * @throws CompilerServerException the compiler exception
+     * @throws CompilerServerInternalException the compiler exception
      */
     @PostMapping("/java")
     @ApiOperation(
             value = "Java compiler",
-            notes = "Provide outputFile, inputFile (not required), source code, time limit and memory limit",
+            notes = "You should provide outputFile, inputFile (not required), source code, time limit and memory limit",
             response = Response.class
     )
-    public ResponseEntity<Object> compileJava(
+    public ResponseEntity compileJava(
             @ApiParam(value = "The expected output")
-            @RequestPart(value = "outputFile") MultipartFile outputFile,
+            @RequestPart(value = WellKnownParams.OUTPUT_FILE) MultipartFile outputFile,
             
             @ApiParam(value = "Your source code")
-            @RequestPart(value = "sourceCode") MultipartFile sourceCode,
+            @RequestPart(value = WellKnownParams.SOURCE_CODE) MultipartFile sourceCode,
             
             @ApiParam(value = "This one is not required, it's just the inputs")
-            @RequestParam(value = "inputFile", required = false) MultipartFile inputFile,
+            @RequestParam(value = WellKnownParams.INPUT_FILE, required = false) MultipartFile inputFile,
             
             @ApiParam(value = "The time limit that the execution must not exceed")
-            @RequestParam(value = "timeLimit") int timeLimit,
+            @RequestParam(value = WellKnownParams.TIME_LIMIT) int timeLimit,
             
             @ApiParam(value = "The memory limit that the running program must not exceed")
-            @RequestParam(value = "memoryLimit") int memoryLimit
-    ) throws Exception {
+            @RequestParam(value = WellKnownParams.MEMORY_LIMIT) int memoryLimit,
+
+            @RequestHeader(value = WellKnownParams.PREFER_PUSH, required = false) String preferPush,
+            @RequestHeader(value = WellKnownParams.URL, required = false) String url) throws Exception {
+        
         Execution execution = ExecutionFactory.createExecution(
                 sourceCode, inputFile, outputFile, timeLimit, memoryLimit, Language.JAVA);
-        return compiler.compile(execution);
+    
+        boolean isLongRunning = WellKnownHeaders.PREFER_PUSH.equals(preferPush);
+        return compiler.compile(execution, isLongRunning, url);
     }
     
 }

@@ -1,13 +1,10 @@
 package com.cp.compiler.services;
 
-import com.cp.compiler.exceptions.CompilerServerException;
-import com.cp.compiler.exceptions.DockerBuildException;
+import com.cp.compiler.exceptions.CompilerServerInternalException;
+import com.cp.compiler.exceptions.ContainerBuildException;
 import com.cp.compiler.executions.Execution;
-import com.cp.compiler.executions.ExecutionFactory;
-import com.cp.compiler.models.Request;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.models.Result;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -28,24 +25,7 @@ import java.time.LocalDateTime;
 public class CompilerServiceImpl implements CompilerService {
     
     private final ContainerService containerService;
-    
-    @Getter
-    @Value("${compiler.execution-memory.max:10000}")
-    private int maxExecutionMemory;
-    
-    @Getter
-    @Value("${compiler.execution-memory.min:0}")
-    private int minExecutionMemory;
-    
-    @Getter
-    @Value("${compiler.execution-time.max:15}")
-    private int maxExecutionTime;
-    
-    @Getter
-    @Value("${compiler.execution-time.min:0}")
-    private int minExecutionTime;
-    
-    @Getter
+
     @Value("${compiler.docker.image.delete:true}")
     private boolean deleteDockerImage;
     
@@ -57,21 +37,7 @@ public class CompilerServiceImpl implements CompilerService {
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity<Object> compile(Request request) throws Exception {
-        Execution execution = ExecutionFactory.createExecution(request.getExpectedOutput(),
-                                                            request.getSourceCode(),
-                                                            request.getInput(),
-                                                            request.getTimeLimit(),
-                                                            request.getMemoryLimit(),
-                                                            request.getLanguage());
-        return compile(execution);
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ResponseEntity<Object> compile(Execution execution) throws Exception {
+    public ResponseEntity compile(Execution execution) throws Exception {
         
         LocalDateTime dateTime = LocalDateTime.now();
     
@@ -96,20 +62,25 @@ public class CompilerServiceImpl implements CompilerService {
                 .body(new Response(result, dateTime));
     }
     
-    private void builderImage(Execution execution) throws CompilerServerException {
+    private void builderImage(Execution execution) throws CompilerServerInternalException {
+    
+        String imageName = execution.getImageName();
+        
         try {
+            log.info(imageName + "Creating execution directory");
             execution.createExecutionDirectory();
         } catch (Exception e) {
-            throw new CompilerServerException(execution.getImageName() + " " + e.getMessage());
+            throw new CompilerServerInternalException(execution.getImageName() + " " + e.getMessage());
         }
         
         try {
-            log.info(execution.getImageName() + " Building the docker image");
+            log.info(imageName + " Building the docker image");
             int status = containerService.buildImage(execution.getPath(), execution.getImageName());
             if (status == 0) {
-                log.info(execution.getImageName() + " Docker image has been built");
+                log.info(imageName + " Container image has been built");
             } else {
-                throw new DockerBuildException(execution.getImageName() + " Error while building docker image");
+                throw new ContainerBuildException(imageName + " Error while building container image, Status Code : "
+                        + status);
             }
         } finally {
             try {

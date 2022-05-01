@@ -1,10 +1,7 @@
 package com.cp.compiler.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.SneakyThrows;
+import lombok.*;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,25 +15,29 @@ import java.io.IOException;
 public class Request {
     
     @JsonProperty("input")
-    private String input;
+    protected String input;
     
+    @NonNull
     @JsonProperty("expectedOutput")
-    private String expectedOutput;
+    protected String expectedOutput;
     
+    @NonNull
     @JsonProperty("sourceCode")
-    private String sourceCode;
+    protected String sourceCode;
     
+    @NonNull
     @JsonProperty("language")
-    private Language language;
+    protected Language language;
     
+    @NonNull
     @JsonProperty("timeLimit")
-    private int timeLimit;
+    protected int timeLimit;
     
+    @NonNull
     @JsonProperty("memoryLimit")
-    private int memoryLimit;
+    protected int memoryLimit;
     
     public MultipartFile getSourceCode() throws IOException {
-        File sourceCodeFile = new File(language.getFolder() + "/" + language.getFile());
         return new MockMultipartFile(
                 language.getFile(),
                 language.getFile(),
@@ -45,10 +46,9 @@ public class Request {
     }
     
     public MultipartFile getExpectedOutput() throws IOException {
-        File expectedOutput = new File(language.getFolder() + "/expectedOutput.txt");
         return new MockMultipartFile(
-                "expectedOutput.txt",
-                "expectedOutput.txt",
+                WellKnownFileNames.EXPECTED_OUTPUT_FILE_NAME,
+                WellKnownFileNames.EXPECTED_OUTPUT_FILE_NAME,
                 null,
                 new ByteArrayInputStream(this.expectedOutput.getBytes()));
     }
@@ -57,10 +57,9 @@ public class Request {
         if (this.input == null) {
             return null;
         }
-        File input = new File(language.getFolder() + "/input.txt");
         return new MockMultipartFile(
-                "input.txt",
-                "input.txt",
+                WellKnownFileNames.INPUT_FILE_NAME,
+                WellKnownFileNames.INPUT_FILE_NAME,
                 null,
                 new ByteArrayInputStream(this.input.getBytes()));
     }
@@ -75,7 +74,8 @@ public class Request {
         
         Request request = (Request) o;
         
-        if (request.input != this.input && ((this.input != null && !this.input.equals(""))
+        if (request.input != this.input
+                && ((this.input != null && !this.input.equals(""))
                 || (request.input != null && !request.input.equals("")))) {
             return false;
         }

@@ -31,13 +31,28 @@ public class CE2ETests {
     void shouldReturnAcceptedVerdict() throws Exception {
         // Given
         File sourceCodeFile = new File("src/test/resources/sources/c/Test1.c");
-        MultipartFile sourceCode = new MockMultipartFile("Test1.c", "Test1.c", null ,new FileInputStream(sourceCodeFile));
+        MultipartFile sourceCode = new MockMultipartFile(
+                "Test1.c",
+                "Test1.c",
+                null,
+                new FileInputStream(sourceCodeFile));
         
         File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
-        MultipartFile expectedOutput = new MockMultipartFile("Test1.txt", "Test1.txt", null, new FileInputStream(expectedOutputFile));
+        MultipartFile expectedOutput = new MockMultipartFile(
+                "Test1.txt",
+                "Test1.txt",
+                null,
+                new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput, sourceCode, null, 10, 500);
+        ResponseEntity<Object> responseEntity = compilerController.compileC(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -55,13 +70,28 @@ public class CE2ETests {
     void shouldReturnTimeLimitExceededVerdict() throws Exception {
         // Given
         File sourceCodeFile = new File("src/test/resources/sources/c/Test2.c");
-        MultipartFile sourceCode = new MockMultipartFile("Test2.c", "Test2.c", null ,new FileInputStream(sourceCodeFile));
+        MultipartFile sourceCode = new MockMultipartFile(
+                "Test2.c",
+                "Test2.c",
+                null,
+                new FileInputStream(sourceCodeFile));
         
         File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
-        MultipartFile expectedOutput = new MockMultipartFile("Test1.txt", "Test1.txt", null, new FileInputStream(expectedOutputFile));
+        MultipartFile expectedOutput = new MockMultipartFile(
+                "Test1.txt",
+                "Test1.txt",
+                null,
+                new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput, sourceCode, null, 10, 500);
+        ResponseEntity<Object> responseEntity = compilerController.compileC(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -79,13 +109,28 @@ public class CE2ETests {
     void shouldReturnCompilationErrorVerdict() throws Exception {
         // Given
         File sourceCodeFile = new File("src/test/resources/sources/c/Test3.c");
-        MultipartFile sourceCode = new MockMultipartFile("Test3.c", "Test3.c", null ,new FileInputStream(sourceCodeFile));
+        MultipartFile sourceCode = new MockMultipartFile(
+                "Test3.c",
+                "Test3.c",
+                null,
+                new FileInputStream(sourceCodeFile));
         
         File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
-        MultipartFile expectedOutput = new MockMultipartFile("Test1.txt", "Test1.txt", null, new FileInputStream(expectedOutputFile));
+        MultipartFile expectedOutput = new MockMultipartFile(
+                "Test1.txt",
+                "Test1.txt",
+                null,
+                new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput, sourceCode, null, 10, 500);
+        ResponseEntity<Object> responseEntity = compilerController.compileC(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -103,13 +148,28 @@ public class CE2ETests {
     void shouldReturnWrongAnswerVerdict() throws Exception {
         // Given
         File sourceCodeFile = new File("src/test/resources/sources/c/Test4.c");
-        MultipartFile sourceCode = new MockMultipartFile("Test4.c", "Test4.c", null ,new FileInputStream(sourceCodeFile));
+        MultipartFile sourceCode = new MockMultipartFile(
+                "Test4.c",
+                "Test4.c",
+                null,
+                new FileInputStream(sourceCodeFile));
         
         File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
-        MultipartFile expectedOutput = new MockMultipartFile("Test1.txt", "Test1.txt", null, new FileInputStream(expectedOutputFile));
+        MultipartFile expectedOutput = new MockMultipartFile(
+                "Test1.txt",
+                "Test1.txt",
+                null,
+                new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput, sourceCode, null, 10, 500);
+        ResponseEntity<Object> responseEntity = compilerController.compileC(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -127,13 +187,28 @@ public class CE2ETests {
     void shouldReturnOutOfMemoryVerdict() throws Exception {
         // Given
         File sourceCodeFile = new File("src/test/resources/sources/c/Test5.c");
-        MultipartFile sourceCode = new MockMultipartFile("Test5.c", "Test5.c", null ,new FileInputStream(sourceCodeFile));
+        MultipartFile sourceCode = new MockMultipartFile(
+                "Test5.c",
+                "Test5.c",
+                null,
+                new FileInputStream(sourceCodeFile));
         
         File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
-        MultipartFile expectedOutput = new MockMultipartFile("Test1.txt", "Test1.txt", null, new FileInputStream(expectedOutputFile));
+        MultipartFile expectedOutput = new MockMultipartFile(
+                "Test1.txt",
+                "Test1.txt",
+                null,
+                new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput, sourceCode, null, 10, 1);
+        ResponseEntity<Object> responseEntity = compilerController.compileC(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                1,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -163,11 +238,14 @@ public class CE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput,
-                                                                            sourceCode,
-                                                                            null,
-                                                                            10,
-                                                                            500);
+        ResponseEntity<Object> responseEntity = compilerController.compileC(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(

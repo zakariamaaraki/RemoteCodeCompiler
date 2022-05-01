@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-public class DockerBuildException extends RuntimeException {
+public class ContainerBuildException extends RuntimeException {
     
-    public DockerBuildException(String message) {
+    public ContainerBuildException(String message) {
         super(message);
     }
 }

@@ -4,6 +4,7 @@ import com.cp.compiler.models.Language;
 import com.cp.compiler.utilities.FilesUtil;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,12 +29,23 @@ public abstract class Execution {
      */
     protected static final String BASH_HEADER = "#!/usr/bin/env bash\n";
     
+    @NonNull
     private MultipartFile sourceCodeFile;
+    
     private MultipartFile inputFile;
+    
+    @NonNull
     private MultipartFile expectedOutputFile;
+    
+    @NonNull
     private int timeLimit;
+    
+    @NonNull
     private int memoryLimit;
+    
+    @NonNull
     private String imageName;
+    
     /**
      * The Path of the execution directory
      */

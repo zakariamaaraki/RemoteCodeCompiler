@@ -43,11 +43,14 @@ public class CppE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileCpp(expectedOutput,
-                                                                              sourceCode,
-                                                                              null,
-                                                                              10,
-                                                                              500);
+        ResponseEntity<Object> responseEntity = compilerController.compileCpp(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -77,11 +80,14 @@ public class CppE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileCpp(expectedOutput,
-                                                                              sourceCode,
-                                                                              null,
-                                                                              10,
-                                                                              500);
+        ResponseEntity<Object> responseEntity = compilerController.compileCpp(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -112,11 +118,14 @@ public class CppE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileCpp(expectedOutput,
-                                                                              sourceCode,
-                                                                              null,
-                                                                              10,
-                                                                              500);
+        ResponseEntity<Object> responseEntity = compilerController.compileCpp(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -146,11 +155,14 @@ public class CppE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileCpp(expectedOutput,
-                                                                              sourceCode,
-                                                                              null,
-                                                                              10,
-                                                                              500);
+        ResponseEntity<Object> responseEntity = compilerController.compileCpp(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -180,11 +192,14 @@ public class CppE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileCpp(expectedOutput,
-                                                                              sourceCode,
-                                                                              null,
-                                                                              10,
-                                                                              1);
+        ResponseEntity<Object> responseEntity = compilerController.compileCpp(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                1,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -214,11 +229,14 @@ public class CppE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileCpp(expectedOutput,
-                                                                              sourceCode,
-                                                                              null,
-                                                                              10,
-                                                                              500);
+        ResponseEntity<Object> responseEntity = compilerController.compileCpp(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(

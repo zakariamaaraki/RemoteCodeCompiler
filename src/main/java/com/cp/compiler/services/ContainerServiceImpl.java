@@ -21,22 +21,28 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Zakaria Maaraki
  */
-
 @Slf4j
 @Service
 public class ContainerServiceImpl implements ContainerService {
     
     private static final long TIME_OUT = 20000; // in ms
-    private static final int TIME_LIMIT_STATUS_CODE = 124;
     
     private final MeterRegistry meterRegistry;
     private Timer buildTimer;
     private Timer runTimer;
     
+    /**
+     * Instantiates a new Container service.
+     *
+     * @param meterRegistry the meter registry
+     */
     public ContainerServiceImpl(MeterRegistry meterRegistry) {
         this.meterRegistry = meterRegistry;
     }
     
+    /**
+     * Init.
+     */
     @PostConstruct
     public void init() {
         buildTimer = meterRegistry.timer("container.build", "container", "docker");
@@ -90,7 +96,7 @@ public class ContainerServiceImpl implements ContainerService {
                 // Check if the container process is alive,
                 // if it's so then destroy it and return a time limit exceeded status
                 if (process.isAlive()) {
-                    status = TIME_LIMIT_STATUS_CODE;
+                    status = StatusUtil.TIME_LIMIT_EXCEEDED_STATUS;
                     log.info(imageName + " The container exceed the 20 sec allowed for its execution");
                     process.destroy();
                     log.info(imageName + " The container has been destroyed");

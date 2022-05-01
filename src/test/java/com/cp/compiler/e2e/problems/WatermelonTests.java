@@ -46,11 +46,14 @@ class WatermelonTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput,
-                                                                               sourceCode,
-                                                                               inputs,
-                                                                               3,
-                                                                               500);
+        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+                expectedOutput,
+                sourceCode,
+                inputs,
+                3,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -81,11 +84,14 @@ class WatermelonTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput,
-                                                                               sourceCode,
-                                                                               inputs,
-                                                                               3,
-                                                                               500);
+        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+                expectedOutput,
+                sourceCode,
+                inputs,
+                3,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -116,11 +122,14 @@ class WatermelonTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput,
-                                                                               sourceCode,
-                                                                               inputs,
-                                                                               3,
-                                                                               500);
+        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+                expectedOutput,
+                sourceCode,
+                inputs,
+                3,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(

@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author: Zakaria Maaraki
  */
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-public class CompilerServerException extends Exception {
+public class CompilerServerInternalException extends Exception {
     
     /**
      * Instantiates a new Compiler server exception.
      *
      * @param message the message
      */
-    public CompilerServerException(String message) {
+    public CompilerServerInternalException(String message) {
         super(message);
     }
 }

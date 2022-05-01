@@ -44,11 +44,14 @@ public class AmShZWinsABetTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput,
-                                                                            sourceCode,
-                                                                            inputs,
-                                                                            3,
-                                                                            2000);
+        ResponseEntity<Object> responseEntity = compilerController.compileC(
+                expectedOutput,
+                sourceCode,
+                inputs,
+                3,
+                2000,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -79,11 +82,14 @@ public class AmShZWinsABetTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput,
-                                                                            sourceCode,
-                                                                            inputs,
-                                                                            3,
-                                                                            2000);
+        ResponseEntity<Object> responseEntity = compilerController.compileC(
+                expectedOutput,
+                sourceCode,
+                inputs,
+                3,
+                2000,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -113,11 +119,14 @@ public class AmShZWinsABetTests {
                                                      null, new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(expectedOutput,
-                                                                            sourceCode,
-                                                                            inputs,
-                                                                            3,
-                                                                            2000);
+        ResponseEntity<Object> responseEntity = compilerController.compileC(
+                expectedOutput,
+                sourceCode,
+                inputs,
+                3,
+                2000,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
