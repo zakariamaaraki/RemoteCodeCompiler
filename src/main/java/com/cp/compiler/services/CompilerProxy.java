@@ -1,12 +1,10 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.executions.Execution;
-import com.cp.compiler.executions.ExecutionFactory;
-import com.cp.compiler.models.Request;
+import com.cp.compiler.models.WellKnownFileNames;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,19 +25,44 @@ import java.util.concurrent.atomic.AtomicLong;
 @Service("proxy")
 public class CompilerProxy implements CompilerService {
     
-    private final static String FILE_NAME_REGEX = "^[a-zA-Z0-9_-]*\\.[a-zA-Z0-9_-]*$";
+    @Value("${compiler.max-requests}")
+    private long maxRequests;
+    
+    @Value("${compiler.execution-memory.max:10000}")
+    private int maxExecutionMemory;
+    
+    @Value("${compiler.execution-memory.min:0}")
+    private int minExecutionMemory;
+    
+    @Value("${compiler.execution-time.max:15}")
+    private int maxExecutionTime;
+    
+    @Value("${compiler.execution-time.min:0}")
+    private int minExecutionTime;
     
     @Autowired
     private MeterRegistry meterRegistry;
     
+    // For Long Polling
     @Autowired
     @Qualifier("client")
     private CompilerService compilerService;
+    
+    // For Push Notifications
+    @Autowired
+    @Qualifier("longRunning")
+    private CompilerService longRunningCompilerService;
+    
+    @Autowired
+    private HooksStorage hooksStorage;
     
     private AtomicLong executionsCounter = new AtomicLong(0);
     
     private Counter throttlingCounterMetric;
     
+    /**
+     * Init.
+     */
     @PostConstruct
     public void init() {
         throttlingCounterMetric = meterRegistry.counter("throttling.counter");
@@ -48,58 +71,27 @@ public class CompilerProxy implements CompilerService {
                 .register(meterRegistry);
     }
     
-    @Getter
-    @Value("${compiler.max-requests}")
-    private long maxRequests;
-    
     @Override
-    public int getMaxExecutionMemory() {
-        return compilerService.getMaxExecutionMemory();
-    }
-    
-    @Override
-    public int getMinExecutionMemory() {
-        return compilerService.getMinExecutionMemory();
-    }
-    
-    @Override
-    public int getMaxExecutionTime() {
-        return compilerService.getMaxExecutionTime();
-    }
-    
-    @Override
-    public int getMinExecutionTime() {
-        return compilerService.getMinExecutionTime();
-    }
-    
-    @Override
-    public boolean isDeleteDockerImage() {
-        return compilerService.isDeleteDockerImage();
-    }
-    
-    @Override
-    public ResponseEntity<Object> compile(Request request) throws Exception {
-        Execution execution = ExecutionFactory.createExecution(request.getExpectedOutput(),
-                                                               request.getSourceCode(),
-                                                               request.getInput(),
-                                                               request.getTimeLimit(),
-                                                               request.getMemoryLimit(),
-                                                               request.getLanguage());
-        return compile(execution);
-    }
-    
-    @Override
-    public ResponseEntity<Object> compile(Execution execution) throws Exception {
+    public ResponseEntity compile(Execution execution) throws Exception {
         Optional<ResponseEntity> requestValidationError = validateRequest(execution);
         if (requestValidationError.isPresent()) {
             // the request is not valid
+            log.info(execution.getImageName() + " Input data not valid : '{}'", requestValidationError.get().getBody());
             return requestValidationError.get();
         }
         if (allow()) {
             long counter = executionsCounter.incrementAndGet();
-            log.info("New request: {}, total: {}", execution.getImageName(), counter);
-            var response = compilerService.compile(execution);
-            executionsCounter.decrementAndGet();
+            log.info(execution.getImageName() + " New request: {}, total: {}", execution.getImageName(), counter);
+            
+            ResponseEntity response;
+            
+            try {
+                response = compileFacade(execution);
+            } finally {
+                // in all cases this is the end of the request, then we should decrement the counter
+                executionsCounter.decrementAndGet();
+            }
+            
             return response;
         }
         // The request has been throttled
@@ -108,17 +100,32 @@ public class CompilerProxy implements CompilerService {
                 .body("Request throttled, service reached max allowed requests");
     }
     
+    private ResponseEntity compileFacade(Execution execution) throws Exception {
+        // If the storage contains the imageName that means we registered the url before
+        // and the client want a push notification.
+        String imageName = execution.getImageName();
+        if (hooksStorage.contains(imageName)) {
+            log.info(imageName + " Start long running execution, the answer will be pushed to : {}",
+                    hooksStorage.get(imageName));
+            return longRunningCompilerService.compile(execution);
+        }
+        log.info(imageName + " Start short running execution");
+        return compilerService.compile(execution);
+    }
+    
     private Optional<ResponseEntity> validateRequest(Execution execution) {
         if (!checkFileName(execution.getSourceCodeFile().getOriginalFilename())) {
             return Optional.of(buildOutputError(
                     execution,
-                    "Bad request, source code file must match the following regex " + FILE_NAME_REGEX));
+                    "Bad request, source code file must match the following regex "
+                            + WellKnownFileNames.FILE_NAME_REGEX));
         }
     
         if (!checkFileName(execution.getExpectedOutputFile().getOriginalFilename())) {
             return Optional.of(buildOutputError(
                     execution,
-                    "Bad request, expected output file must match the following regex " + FILE_NAME_REGEX));
+                    "Bad request, expected output file must match the following regex "
+                            + WellKnownFileNames.FILE_NAME_REGEX));
         }
         
         MultipartFile inputFile = execution.getInputFile();
@@ -126,20 +133,21 @@ public class CompilerProxy implements CompilerService {
         // Input files can be null
         if (inputFile != null && !checkFileName(inputFile.getOriginalFilename())) {
             return Optional.of(buildOutputError(
-                    execution, "Bad request, input file must match the following regex " + FILE_NAME_REGEX));
+                    execution, "Bad request, input file must match the following regex "
+                            + WellKnownFileNames.FILE_NAME_REGEX));
         }
         
-        if (execution.getTimeLimit() < getMinExecutionTime() || execution.getTimeLimit() > getMaxExecutionTime()) {
+        if (execution.getTimeLimit() < minExecutionTime || execution.getTimeLimit() > maxExecutionTime) {
             String errorMessage = "Bad request, time limit must be between "
-                    + getMinExecutionTime() + " Sec and " + getMaxExecutionTime() + " Sec, provided : "
+                    + minExecutionTime + " Sec and " + maxExecutionTime + " Sec, provided : "
                     + execution.getTimeLimit();
     
             return Optional.of(buildOutputError(execution, errorMessage));
         }
     
-        if (execution.getMemoryLimit() < getMinExecutionMemory() || execution.getMemoryLimit() > getMaxExecutionMemory()) {
+        if (execution.getMemoryLimit() < minExecutionMemory || execution.getMemoryLimit() > maxExecutionMemory) {
             String errorMessage = "Bad request, memory limit must be between "
-                    + getMinExecutionMemory() + " MB and " + getMaxExecutionMemory() + " MB, provided : "
+                    + minExecutionMemory + " MB and " + maxExecutionMemory + " MB, provided : "
                     + execution.getMemoryLimit();
     
             return Optional.of(buildOutputError(execution, errorMessage));
@@ -161,7 +169,7 @@ public class CompilerProxy implements CompilerService {
      * @return A boolean
      */
     private boolean checkFileName(String fileName) {
-        return fileName != null && fileName.matches(FILE_NAME_REGEX);
+        return fileName != null && fileName.matches(WellKnownFileNames.FILE_NAME_REGEX);
     }
     
     private boolean allow() {

@@ -46,11 +46,14 @@ public class PhysEdOnlineTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileCpp(expectedOutput,
-                                                                              sourceCode,
-                                                                              inputs,
-                                                                              3,
-                                                                              500);
+        ResponseEntity<Object> responseEntity = compilerController.compileCpp(
+                expectedOutput,
+                sourceCode,
+                inputs,
+                3,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(
@@ -81,11 +84,14 @@ public class PhysEdOnlineTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileCpp(expectedOutput,
-                                                                              sourceCode,
-                                                                              inputs,
-                                                                              3,
-                                                                              500);
+        ResponseEntity<Object> responseEntity = compilerController.compileCpp(
+                expectedOutput,
+                sourceCode,
+                inputs,
+                3,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(

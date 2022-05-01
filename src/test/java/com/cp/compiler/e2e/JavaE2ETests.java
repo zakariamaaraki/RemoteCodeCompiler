@@ -46,11 +46,14 @@ class JavaE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput,
-                                                                               sourceCode,
-                                                                               null,
-                                                                               10,
-                                                                               500);
+        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
     
         // Then
         Assertions.assertEquals(Verdict.ACCEPTED.getStatusResponse(),
@@ -79,11 +82,14 @@ class JavaE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput,
-                                                                               sourceCode,
-                                                                               null,
-                                                                               10,
-                                                                               500);
+        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getStatusResponse(),
@@ -112,11 +118,14 @@ class JavaE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput,
-                                                                               sourceCode,
-                                                                               null,
-                                                                               5,
-                                                                               500);
+        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+                expectedOutput,
+                sourceCode,
+                null,
+                5,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getStatusResponse(),
@@ -145,11 +154,14 @@ class JavaE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput,
-                                                                               sourceCode,
-                                                                               null,
-                                                                               10,
-                                                                               500);
+        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(Verdict.COMPILATION_ERROR.getStatusResponse()
@@ -178,11 +190,14 @@ class JavaE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput,
-                                                                               sourceCode,
-                                                                               null,
-                                                                               10,
-                                                                               500);
+        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(Verdict.WRONG_ANSWER.getStatusResponse(),
@@ -211,11 +226,14 @@ class JavaE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput,
-                                                                               sourceCode,
-                                                                               null,
-                                                                               10,
-                                                                               1);
+        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                1,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getStatusResponse(),
@@ -244,11 +262,14 @@ class JavaE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(expectedOutput,
-                                                                               sourceCode,
-                                                                               null,
-                                                                               10,
-                                                                               500);
+        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+                expectedOutput,
+                sourceCode,
+                null,
+                10,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(Verdict.RUNTIME_ERROR.getStatusResponse(),

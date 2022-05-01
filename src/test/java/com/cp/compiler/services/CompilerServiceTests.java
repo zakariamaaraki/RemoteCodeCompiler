@@ -1,6 +1,6 @@
 package com.cp.compiler.services;
 
-import com.cp.compiler.exceptions.DockerBuildException;
+import com.cp.compiler.exceptions.ContainerBuildException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.Language;
@@ -20,10 +20,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 
 /**
  * The type Compiler service tests.
@@ -54,7 +50,7 @@ class CompilerServiceTests {
     @Test
     void WhenTimeLimitGreaterThanMaxExecutionTimeShouldReturnBadRequest() throws Exception {
         // Given
-        int timeLimit = compilerService.getMaxExecutionTime() + 1;
+        int timeLimit = Integer.MAX_VALUE;
     
         Execution execution = ExecutionFactory.createExecution(
                 file, file, file, timeLimit, 100, Language.JAVA);
@@ -74,7 +70,7 @@ class CompilerServiceTests {
     @Test
     void WhenTimeLimitLessThanMinExecutionTimeShouldReturnBadRequest() throws Exception {
         // Given
-        int timeLimit = compilerService.getMinExecutionTime() - 1;
+        int timeLimit = -1;
     
         Execution execution = ExecutionFactory.createExecution(
                 file, file, file, timeLimit, 100, Language.JAVA);
@@ -94,7 +90,7 @@ class CompilerServiceTests {
     @Test
     void WhenMemoryLimitGreaterThanMaxExecutionMemoryShouldReturnBadRequest() throws Exception {
         // Given
-        int memoryLimit = compilerService.getMaxExecutionMemory() + 1;
+        int memoryLimit = Integer.MAX_VALUE;
     
         Execution execution = ExecutionFactory.createExecution(
                 file, file, file, 10, memoryLimit, Language.JAVA);
@@ -114,7 +110,7 @@ class CompilerServiceTests {
     @Test
     void WhenMemoryLimitLessThanMinExecutionMemoryShouldReturnBadRequest() throws Exception {
         // Given
-        int memoryLimit = compilerService.getMinExecutionMemory() - 1;
+        int memoryLimit = -1;
     
         Execution execution = ExecutionFactory.createExecution(
                 file, file, file, 10, memoryLimit, Language.JAVA);
@@ -133,7 +129,7 @@ class CompilerServiceTests {
     void WhenImageBuildFailShouldThrowDockerBuildException() {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
-                .thenThrow(new DockerBuildException("Error Building image"));
+                .thenThrow(new ContainerBuildException("Error Building image"));
         
         MockMultipartFile file = new MockMultipartFile(
                 "file",
@@ -146,7 +142,7 @@ class CompilerServiceTests {
                 file, null, file, 10, 100, Language.JAVA);
         
         // Then
-        Assertions.assertThrows(DockerBuildException.class, () -> {
+        Assertions.assertThrows(ContainerBuildException.class, () -> {
             // When
             compilerService.compile(execution);
         });

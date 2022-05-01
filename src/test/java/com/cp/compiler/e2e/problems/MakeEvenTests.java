@@ -44,11 +44,14 @@ public class MakeEvenTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compilePython(expectedOutput,
-                                                                                 sourceCode,
-                                                                                 inputs,
-                                                                                 3,
-                                                                                 500);
+        ResponseEntity<Object> responseEntity = compilerController.compilePython(
+                expectedOutput,
+                sourceCode,
+                inputs,
+                3,
+                500,
+                null,
+                null);
         
         // Then
         Assertions.assertEquals(

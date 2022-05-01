@@ -2,6 +2,9 @@ server:
   port: 8082
 
 compiler:
+  features:
+    push-notification:
+      enabled: ${ENABLE_PUSH_NOTIFICATION:false}
   docker:
     image:
       delete: ${DELETE_DOCKER_IMAGE:true} # delete the docker image at the end of the execution of the container, by default it's set to true.
@@ -55,3 +58,11 @@ management:
     web:
       exposure:
         include: health, info, metrics, prometheus
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic

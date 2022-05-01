@@ -17,7 +17,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CompilerApplication implements CommandLineRunner {
     
-    
     @Value("${compiler.docker.image.delete:true}")
     private boolean deleteDockerImage;
     
