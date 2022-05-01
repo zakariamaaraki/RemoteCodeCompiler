@@ -7,7 +7,7 @@ import com.cp.compiler.models.Verdict;
  *
  * @author Zakaria Maaraki
  */
-public class StatusUtil {
+public abstract class StatusUtil {
     
     public static final int ACCEPTED_OR_WRONG_ANSWER_STATUS = 0;
     

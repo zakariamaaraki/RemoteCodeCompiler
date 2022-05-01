@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
  *
  * @author Zakaria Maaraki
  */
-public class CmdUtil {
+public abstract class CmdUtil {
     
     private CmdUtil() {}
     

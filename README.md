@@ -65,7 +65,7 @@ sudo docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.s
 
 To enable push notifications you must set **ENABLE_PUSH_NOTIFICATION** to true
 
-For long running executions, you may want to get the response later and to avoid http timeouts, you can use push notifications,
+For long-running executions, you may want to get the response later and to avoid http timeouts, you can use push notifications,
 to do so you must pass two header values (**url** where you want to get the response and **preferPush=prefer-push**)
 
 ### Local Run (for dev environment only)
