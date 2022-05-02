@@ -1,6 +1,5 @@
 package com.cp.compiler.controllers;
 
-import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.*;
 import com.cp.compiler.services.CompilerFacade;
 import org.assertj.core.api.Assertions;
@@ -44,7 +43,7 @@ class CompilerControllerTests {
      * @throws Exception the exception
      */
     @Test
-    void whenCompilingJavaCodeShouldReturnAResponseObjectInTheBody() throws Exception {
+    void whenCompilingACodeShouldReturnAResponseObjectInTheBody() throws Exception {
         // Given
         Mockito.when(compilerFacade.compile(Mockito.any(), eq(false), eq(null)))
                 .thenReturn(ResponseEntity
@@ -56,7 +55,8 @@ class CompilerControllerTests {
                                         LocalDateTime.now())));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.JAVA,
                 outputFile,
                 sourceCode,
                 null,
@@ -68,98 +68,4 @@ class CompilerControllerTests {
         // Then
         Assertions.assertThat(responseEntity.getBody() instanceof Response);
     }
-    
-    /**
-     * When compiling c code should return a response object in the body.
-     *
-     * @throws Exception the exception
-     */
-    @Test
-    void whenCompilingCCodeShouldReturnAResponseObjectInTheBody() throws Exception {
-        // Given
-        Mockito.when(compilerFacade.compile(Mockito.any(), eq(false), eq(null)))
-                .thenReturn(ResponseEntity
-                        .status(HttpStatus.OK)
-                        .body(new Response(
-                                new Result(Verdict.ACCEPTED,
-                                        "test output",
-                                        "test expected output", 0),
-                                        LocalDateTime.now())));
-        
-        // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(
-                outputFile,
-                sourceCode,
-                null,
-                10,
-                500,
-                "",
-                null);
-        
-        // Then
-        Assertions.assertThat(responseEntity.getBody() instanceof Response);
-    }
-    
-    /**
-     * When compiling cpp code should return a response object in the body.
-     *
-     * @throws Exception the exception
-     */
-    @Test
-    void whenCompilingCppCodeShouldReturnAResponseObjectInTheBody() throws Exception {
-        // Given
-        Mockito.when(compilerFacade.compile(Mockito.any(), eq(false), eq(null)))
-                .thenReturn(ResponseEntity
-                        .status(HttpStatus.OK)
-                        .body(new Response(
-                                new Result(Verdict.ACCEPTED,
-                                        "test output",
-                                        "test expected output", 0),
-                                        LocalDateTime.now())));
-        
-        // When
-        ResponseEntity<Object> responseEntity = compilerController.compileCpp(
-                outputFile,
-                sourceCode,
-                null,
-                10,
-                500,
-                "",
-                null);
-        
-        // Then
-        Assertions.assertThat(responseEntity.getBody() instanceof Response);
-    }
-    
-    /**
-     * When compiling python code should return a response object in the body.
-     *
-     * @throws Exception the exception
-     */
-    @Test
-    void whenCompilingPythonCodeShouldReturnAResponseObjectInTheBody() throws Exception {
-        // Given
-        Mockito.when(compilerFacade.compile(Mockito.any(), eq(false), eq(null)))
-                .thenReturn(ResponseEntity
-                        .status(HttpStatus.OK)
-                        .body(new Response(
-                                new Result(Verdict.ACCEPTED,
-                                        "test output",
-                                        "test expected output", 0),
-                                        LocalDateTime.now())));
-        
-        // When
-        ResponseEntity<Object> responseEntity = compilerController.compilePython(
-                outputFile,
-                sourceCode,
-                null,
-                10,
-                500,
-                "",
-                null);
-        
-        // Then
-        Assertions.assertThat(responseEntity.getBody() instanceof Response);
-    }
-    
 }

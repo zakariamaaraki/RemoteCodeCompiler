@@ -1,6 +1,7 @@
 package com.cp.compiler.e2e;
 
 import com.cp.compiler.controllers.CompilerController;
+import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.models.Verdict;
 import org.junit.jupiter.api.Assertions;
@@ -45,7 +46,8 @@ public class CE2ETests {
                 new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.C,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -84,7 +86,8 @@ public class CE2ETests {
                 new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.C,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -123,7 +126,8 @@ public class CE2ETests {
                 new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.C,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -162,7 +166,8 @@ public class CE2ETests {
                 new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.C,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -201,7 +206,8 @@ public class CE2ETests {
                 new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.C,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -238,7 +244,8 @@ public class CE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.C,
                 expectedOutput,
                 sourceCode,
                 null,

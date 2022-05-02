@@ -1,6 +1,7 @@
 package com.cp.compiler.e2e;
 
 import com.cp.compiler.controllers.CompilerController;
+import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.models.Verdict;
 import org.junit.jupiter.api.Assertions;
@@ -43,7 +44,8 @@ public class CppE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileCpp(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.CPP,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -80,7 +82,8 @@ public class CppE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileCpp(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.CPP,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -118,7 +121,8 @@ public class CppE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileCpp(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.CPP,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -155,7 +159,8 @@ public class CppE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileCpp(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.CPP,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -192,7 +197,8 @@ public class CppE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileCpp(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.CPP,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -229,7 +235,8 @@ public class CppE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileCpp(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.CPP,
                 expectedOutput,
                 sourceCode,
                 null,
