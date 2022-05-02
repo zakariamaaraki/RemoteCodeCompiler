@@ -52,7 +52,7 @@ public abstract class Execution {
      */
     protected String path;
     
-    // For monitoring the number of execution for each programming language
+    // For monitoring the number of executions for each programming language
     private final Counter executionCounter;
     
     /**
