@@ -1,6 +1,7 @@
 package com.cp.compiler.e2e.problems;
 
 import com.cp.compiler.controllers.CompilerController;
+import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.models.Verdict;
 import org.junit.jupiter.api.Assertions;
@@ -46,7 +47,8 @@ class WatermelonTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.JAVA,
                 expectedOutput,
                 sourceCode,
                 inputs,
@@ -84,7 +86,8 @@ class WatermelonTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.JAVA,
                 expectedOutput,
                 sourceCode,
                 inputs,
@@ -122,7 +125,8 @@ class WatermelonTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.JAVA,
                 expectedOutput,
                 sourceCode,
                 inputs,

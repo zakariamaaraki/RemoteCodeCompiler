@@ -1,6 +1,7 @@
 package com.cp.compiler.e2e;
 
 import com.cp.compiler.controllers.CompilerController;
+import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.models.Verdict;
 import org.junit.jupiter.api.Assertions;
@@ -43,7 +44,8 @@ class PythonE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compilePython(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.PYTHON,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -79,7 +81,8 @@ class PythonE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compilePython(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.PYTHON,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -116,7 +119,8 @@ class PythonE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compilePython(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.PYTHON,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -153,7 +157,8 @@ class PythonE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compilePython(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.PYTHON,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -190,7 +195,8 @@ class PythonE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compilePython(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.PYTHON,
                 expectedOutput,
                 sourceCode,
                 null,

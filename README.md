@@ -89,17 +89,9 @@ The compiler creates a container for each execution to separate the execution en
 
 ![Architecture](images/compiler.png?raw=true "Compiler")
 
-There are 5 endpoints. The call is done through POST requests to the following urls :
+For the documentation visit the swagger page at the following url : http://<IP:PORT>/swagger-ui.html
 
-- localhost:8080/compiler/**java**
-- localhost:8080/compiler/**c**
-- localhost:8080/compiler/**cpp**
-- localhost:8080/compiler/**python**
-- localhost:8080/compiler/**json**
-
-For the documentation visit the swagger page at the following url : http://localhost:8080/swagger-ui.html
-
-![Compilers endpoints](images/swagger.png?raw=true "Swagger")
+![Compiler swagger doc](images/swagger.png?raw=true "compiler swagger doc")
 
 ### Verdicts
 
@@ -233,7 +225,7 @@ sudo docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.s
 ```
 
 ### Metrics
-Check out exposed prometheus metrics using the following url : http://localhost:8080/actuator/prometheus
+Check out exposed prometheus metrics using the following url : http://<IP:PORT>/actuator/prometheus
 
 ![Parallel executions](images/parallel-executions-metrics.png?raw=true "Parallel Executions Metrics")
 

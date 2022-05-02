@@ -1,6 +1,7 @@
 package com.cp.compiler.e2e.problems;
 
 import com.cp.compiler.controllers.CompilerController;
+import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.models.Verdict;
 import org.junit.jupiter.api.Assertions;
@@ -46,7 +47,8 @@ public class PhysEdOnlineTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileCpp(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.CPP,
                 expectedOutput,
                 sourceCode,
                 inputs,
@@ -84,7 +86,8 @@ public class PhysEdOnlineTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileCpp(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.CPP,
                 expectedOutput,
                 sourceCode,
                 inputs,

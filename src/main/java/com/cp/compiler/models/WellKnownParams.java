@@ -17,4 +17,6 @@ public abstract class WellKnownParams {
     public static final String TIME_LIMIT = "timeLimit";
     
     public static final String MEMORY_LIMIT = "memoryLimit";
+    
+    public static final String LANGUAGE = "language";
 }

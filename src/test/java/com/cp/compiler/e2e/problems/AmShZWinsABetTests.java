@@ -1,6 +1,7 @@
 package com.cp.compiler.e2e.problems;
 
 import com.cp.compiler.controllers.CompilerController;
+import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.models.Verdict;
 import org.junit.jupiter.api.Assertions;
@@ -44,7 +45,8 @@ public class AmShZWinsABetTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.C,
                 expectedOutput,
                 sourceCode,
                 inputs,
@@ -82,7 +84,8 @@ public class AmShZWinsABetTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.C,
                 expectedOutput,
                 sourceCode,
                 inputs,
@@ -119,7 +122,8 @@ public class AmShZWinsABetTests {
                                                      null, new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileC(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.C,
                 expectedOutput,
                 sourceCode,
                 inputs,

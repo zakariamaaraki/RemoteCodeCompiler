@@ -1,6 +1,7 @@
 package com.cp.compiler.e2e;
 
 import com.cp.compiler.controllers.CompilerController;
+import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.models.Verdict;
 import org.junit.jupiter.api.Assertions;
@@ -46,7 +47,8 @@ class JavaE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.JAVA,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -82,7 +84,8 @@ class JavaE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.JAVA,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -118,7 +121,8 @@ class JavaE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.JAVA,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -154,7 +158,8 @@ class JavaE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.JAVA,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -190,7 +195,8 @@ class JavaE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.JAVA,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -226,7 +232,8 @@ class JavaE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.JAVA,
                 expectedOutput,
                 sourceCode,
                 null,
@@ -262,7 +269,8 @@ class JavaE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compileJava(
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.JAVA,
                 expectedOutput,
                 sourceCode,
                 null,
