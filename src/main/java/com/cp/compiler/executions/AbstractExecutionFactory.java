@@ -15,6 +15,7 @@ public interface AbstractExecutionFactory {
      * @param expectedOutputFile the expected output file
      * @param timeLimit          the time limit
      * @param memoryLimit        the memory limit
+     * @param executionCounter   the execution counter
      * @return the execution
      */
     Execution createExecution(MultipartFile sourceCode,

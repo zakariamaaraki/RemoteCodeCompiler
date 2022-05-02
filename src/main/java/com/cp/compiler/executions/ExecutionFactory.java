@@ -11,13 +11,19 @@ import java.util.function.Supplier;
 /**
  * The type Execution factory.
  */
-public class ExecutionFactory {
+public abstract class ExecutionFactory {
     
     private static Map<Language, Supplier<? extends AbstractExecutionFactory>> registeredSuppliers
             = new EnumMap<>(Language.class);
     
     private ExecutionFactory() {}
     
+    /**
+     * Register.
+     *
+     * @param language the language
+     * @param supplier the supplier
+     */
     public static void register(Language language, Supplier<? extends AbstractExecutionFactory> supplier) {
         registeredSuppliers.putIfAbsent(language, supplier);
     }
@@ -31,6 +37,7 @@ public class ExecutionFactory {
      * @param timeLimit          the time limit
      * @param memoryLimit        the memory limit
      * @param language           the language
+     * @param executionCounter   the execution counter
      * @return the execution
      */
     public static Execution createExecution(MultipartFile sourceCode,
@@ -43,6 +50,12 @@ public class ExecutionFactory {
         if (supplier == null) {
             throw new FactoryNotFoundException("No ExecutionFactory registered for the language " + language);
         }
-        return supplier.get().createExecution(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit);
+        
+        return supplier.get().createExecution(
+                sourceCode,
+                inputFile,
+                expectedOutputFile,
+                timeLimit,
+                memoryLimit);
     }
 }

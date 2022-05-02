@@ -1,6 +1,7 @@
 package com.cp.compiler.executions;
 
 import com.cp.compiler.models.Language;
+import io.micrometer.core.instrument.Counter;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,13 +24,15 @@ public class CExecution extends Execution {
      * @param expectedOutputFile the expected output file
      * @param timeLimit          the time limit
      * @param memoryLimit        the memory limit
+     * @param executionCounter   the execution counter
      */
     public CExecution(MultipartFile sourceCode,
                       MultipartFile inputFile,
                       MultipartFile expectedOutputFile,
                       int timeLimit,
-                      int memoryLimit) {
-        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit);
+                      int memoryLimit,
+                      Counter executionCounter) {
+        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter);
         setpath(Language.C);
     }
     

@@ -231,6 +231,10 @@ Check out exposed prometheus metrics using the following url : http://<IP:PORT>/
 
 ![Throttling counter](images/throttling-counter-metrics.png?raw=true "Throttling Counter Metrics")
 
+![Java execution counter](images/java_executions.png?raw=true "java execution counter")
+
+Other metrics are available.
+
 ## Author
 
 - **Zakaria Maaraki** - _Initial work_ - [zakariamaaraki](https://github.com/zakariamaaraki)
