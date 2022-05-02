@@ -25,62 +25,62 @@ import javax.annotation.PostConstruct;
 @Slf4j
 @Component
 public class RabbitConsumer {
-	
-	@Qualifier("proxy")
-	@Autowired
-	private CompilerService compilerService;
-	
-	@Autowired
-	private RabbitTemplate rabbitTemplate;
-	
-	@Autowired
-	private MeterRegistry meterRegistry;
-	
-	@Value("${spring.rabbitmq.queues.output}")
-	private String outputQueue;
-	
-	@Value("${spring.rabbitmq.throttling-duration}")
-	private long throttlingDuration;
-	
-	private Counter throttlingRetriesCounter;
-	
-	/**
-	 * Init.
-	 */
-	@PostConstruct
-	public void init() {
-		throttlingRetriesCounter = meterRegistry.counter("amqp.throttling.retries", "broker", "rabbitmq");
-	}
-	
-	/**
-	 * Listen.
-	 *
-	 * @param jsonRequest the json request
-	 * @throws Exception the exception
-	 */
-	@RabbitListener(queues = "${spring.rabbitmq.queues.input}")
-	public void listen(String jsonRequest) throws Exception {
-		try {
-			String jsonResult = transform(jsonRequest);
-			rabbitTemplate.convertAndSend(outputQueue, jsonResult);
-		} catch (Exception e) {
-			log.error("Error : {}", e);
-		}
-	}
-	
-	private String transform(String jsonRequest) throws Exception {
-		try {
-			return JsonMapper.transform(jsonRequest, compilerService);
-		} catch (ThrottlingException throttlingException) {
-			log.info("Request throttled {}, retrying after {}", throttlingException, throttlingDuration);
-			return retryAfter(jsonRequest);
-		}
-	}
-	
-	private String retryAfter(String jsonRequest) throws Exception {
-		throttlingRetriesCounter.increment();
-		Thread.sleep(throttlingDuration);
-		return transform(jsonRequest);
-	}
-	
+    
+    @Qualifier("proxy")
+    @Autowired
+    private CompilerService compilerService;
+    
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+    
+    @Autowired
+    private MeterRegistry meterRegistry;
+    
+    @Value("${spring.rabbitmq.queues.output}")
+    private String outputQueue;
+    
+    @Value("${spring.rabbitmq.throttling-duration}")
+    private long throttlingDuration;
+    
+    private Counter throttlingRetriesCounter;
+    
+    /**
+     * Init.
+     */
+    @PostConstruct
+    public void init() {
+        throttlingRetriesCounter = meterRegistry.counter("amqp.throttling.retries", "broker", "rabbitmq");
+    }
+    
+    /**
+     * Listen.
+     *
+     * @param jsonRequest the json request
+     * @throws Exception the exception
+     */
+    @RabbitListener(queues = "${spring.rabbitmq.queues.input}")
+    public void listen(String jsonRequest) throws Exception {
+        try {
+            String jsonResult = transform(jsonRequest);
+            rabbitTemplate.convertAndSend(outputQueue, jsonResult);
+        } catch (Exception e) {
+            log.error("Error : {}", e);
+        }
+    }
+    
+    private String transform(String jsonRequest) throws Exception {
+        try {
+            return JsonMapper.transform(jsonRequest, compilerService);
+        } catch (ThrottlingException throttlingException) {
+            log.info("Request throttled {}, retrying after {}", throttlingException, throttlingDuration);
+            return retryAfter(jsonRequest);
+        }
+    }
+    
+    private String retryAfter(String jsonRequest) throws Exception {
+        throttlingRetriesCounter.increment();
+        Thread.sleep(throttlingDuration);
+        return transform(jsonRequest);
+    }
+    
 }
