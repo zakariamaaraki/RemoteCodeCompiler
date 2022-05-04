@@ -35,7 +35,7 @@ public class LongRunningCompilerService extends CompilerServiceDecorator {
             } catch (Exception exception) {
                 // Other exception not expected
                 // In this case the error will not be returned to the client
-                log.error( "{} Error : {}", execution.getImageName(), exception);
+                log.error("Error : {}", exception);
             }
         }).start();
         String url = hooksStorage.get(execution.getImageName());
@@ -58,7 +58,7 @@ public class LongRunningCompilerService extends CompilerServiceDecorator {
         }
         String imageName = execution.getImageName();
         String url = hooksStorage.get(imageName);
-        log.info(imageName + " Sending response to {}", url);
+        log.info("Sending response to {}", url);
         sendResponse(url, response);
     }
 }

@@ -82,12 +82,12 @@ public class ContainerServiceImpl implements ContainerService {
                         new BufferedReader(new InputStreamReader(outputFile.getInputStream()));
                 String expectedOutput = CmdUtil.readOutput(expectedOutputReader);
                 
-                log.info(imageName + " Running the container");
+                log.info("Running the container");
                 String[] dockerCommand = new String[]{"docker", "run", "--rm", imageName};
                 ProcessBuilder processbuilder = new ProcessBuilder(dockerCommand);
                 
-                long executionStartTime = System.currentTimeMillis();
                 Process process = processbuilder.start();
+                long executionStartTime = System.currentTimeMillis();
                 
                 // Do not let the container exceed the timeout
                 process.waitFor(TIME_OUT, TimeUnit.MILLISECONDS);
@@ -97,9 +97,9 @@ public class ContainerServiceImpl implements ContainerService {
                 // if it's so then destroy it and return a time limit exceeded status
                 if (process.isAlive()) {
                     status = StatusUtil.TIME_LIMIT_EXCEEDED_STATUS;
-                    log.info(imageName + " The container exceed the 20 sec allowed for its execution");
+                    log.info("The container exceed the 20 sec allowed for its execution");
                     process.destroy();
-                    log.info(imageName + " The container has been destroyed");
+                    log.info("The container has been destroyed");
                     
                     /* Can't get the output from the container (because it did not finish it's execution),
                        so we assume that the comparison between the output and the excepted output returns false */
@@ -109,7 +109,7 @@ public class ContainerServiceImpl implements ContainerService {
                             verdict, "", expectedOutput, timeLimit * 1000 + 1);
                 } else {
                     status = process.exitValue();
-                    log.info(imageName + " End of the execution of the container");
+                    log.info("End of the execution of the container");
                     
                     BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                     String containerOutput = CmdUtil.readOutput(reader);

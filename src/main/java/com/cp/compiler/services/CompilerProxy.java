@@ -76,12 +76,12 @@ public class CompilerProxy implements CompilerService {
         Optional<ResponseEntity> requestValidationError = validateRequest(execution);
         if (requestValidationError.isPresent()) {
             // the request is not valid
-            log.info(execution.getImageName() + " Input data not valid : '{}'", requestValidationError.get().getBody());
+            log.info("Invalid input data: '{}'", requestValidationError.get().getBody());
             return requestValidationError.get();
         }
         if (allow()) {
             long counter = executionsCounter.incrementAndGet();
-            log.info(execution.getImageName() + " New request: {}, total: {}", execution.getImageName(), counter);
+            log.info("New request, total: {}", counter);
             
             ResponseEntity response;
             
@@ -105,11 +105,11 @@ public class CompilerProxy implements CompilerService {
         // and the client want a push notification.
         String imageName = execution.getImageName();
         if (hooksStorage.contains(imageName)) {
-            log.info(imageName + " Start long running execution, the answer will be pushed to : {}",
+            log.info("Start long running execution, the answer will be pushed to : {}",
                     hooksStorage.get(imageName));
             return longRunningCompilerService.compile(execution);
         }
-        log.info(imageName + " Start short running execution");
+        log.info("Start short running execution");
         return compilerService.compile(execution);
     }
     
@@ -156,8 +156,7 @@ public class CompilerProxy implements CompilerService {
     }
     
     private ResponseEntity buildOutputError(Execution execution, String errorMessage) {
-        log.info(execution.getImageName() + " " + errorMessage);
-    
+        log.info(errorMessage);
         return ResponseEntity.badRequest()
                              .body(errorMessage);
     }

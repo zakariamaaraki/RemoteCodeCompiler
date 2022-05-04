@@ -21,17 +21,13 @@ public class LanguagesConfig {
     }
     
     private void configure(MeterRegistry meterRegistry) {
-        ExecutionFactory.register(Language.JAVA, () -> {
-            return new JavaExecutionFactory(meterRegistry.counter("java.counter"));
-        });
-        ExecutionFactory.register(Language.PYTHON, () -> {
-            return new PythonExecutionFactory(meterRegistry.counter("python.counter"));
-        });
-        ExecutionFactory.register(Language.C, () -> {
-            return new CExecutionFactory(meterRegistry.counter("c.counter"));
-        });
-        ExecutionFactory.register(Language.CPP, () -> {
-            return new CPPExecutionFactory(meterRegistry.counter("cpp.counter"));
-        });
+        register(Language.JAVA,  new JavaExecutionFactory(meterRegistry.counter("java.counter")));
+        register(Language.PYTHON, new PythonExecutionFactory(meterRegistry.counter("python.counter")));
+        register(Language.C, new CExecutionFactory(meterRegistry.counter("c.counter")));
+        register(Language.CPP, new CPPExecutionFactory(meterRegistry.counter("cpp.counter")));
+    }
+    
+    private void register(Language language, AbstractExecutionFactory executionFactory) {
+        ExecutionFactory.register(language, () -> executionFactory);
     }
 }

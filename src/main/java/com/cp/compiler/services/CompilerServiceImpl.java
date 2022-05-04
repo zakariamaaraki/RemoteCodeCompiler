@@ -55,7 +55,7 @@ public class CompilerServiceImpl implements CompilerService {
             }
         }
         
-        log.info(execution.getImageName() + " Status response is " + result.getStatusResponse());
+        log.info("Status response is " + result.getStatusResponse());
         
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -63,31 +63,28 @@ public class CompilerServiceImpl implements CompilerService {
     }
     
     private void builderImage(Execution execution) throws CompilerServerInternalException {
-    
-        String imageName = execution.getImageName();
-        
         try {
-            log.info(imageName + "Creating execution directory");
+            log.info("Creating execution directory");
             execution.createExecutionDirectory();
         } catch (Exception e) {
-            throw new CompilerServerInternalException(execution.getImageName() + " " + e.getMessage());
+            throw new CompilerServerInternalException(e.getMessage());
         }
         
         try {
-            log.info(imageName + " Building the docker image");
+            log.info("Building the docker image");
             int status = containerService.buildImage(execution.getPath(), execution.getImageName());
             if (status == 0) {
-                log.info(imageName + " Container image has been built");
+                log.info("Container image has been built");
             } else {
-                throw new ContainerBuildException(imageName + " Error while building container image, Status Code : "
+                throw new ContainerBuildException("Error while building container image, Status Code : "
                         + status);
             }
         } finally {
             try {
                 execution.deleteExecutionDirectory();
-                log.info(execution.getImageName() + " execution directory has been deleted");
+                log.info("Execution directory has been deleted");
             } catch (IOException e) {
-                log.warn(execution.getImageName() + " Error while trying to delete execution directory, {}", e);
+                log.warn("Error while trying to delete execution directory, {}", e);
             }
         }
     }
