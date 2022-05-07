@@ -19,7 +19,7 @@ minikube service --url compiler
 
 ## Monitoring
 
-![monitoring](images/prometheus-grafana.png?raw=true "monitoring")
+![monitoring](../images/prometheus-grafana.png?raw=true "monitoring")
 
 We also provide you with a helm chart to monitor the compiler using prometheus and grafana on k8s.
 
