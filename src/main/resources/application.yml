@@ -19,8 +19,40 @@ compiler:
 spring:
   application:
     name: remote-code-compiler
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
 
-  # Apache Kafka
+management:
+  endpoint:
+    health:
+      show-details: always
+    env:
+      keys-to-sanitize: password, key, secret, token
+    service-registry:
+      enabled: false
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus, beans
+      base-path: /
+
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure: ERROR
+
+---
+# kafka profile
+spring:
+  config:
+    activate:
+      on-profile: kafka
   kafka:
     throttling-duration: ${KAFKA_THROTTLING_DURATION:10000} # in millis, used when a throttling occurred
     topics:
@@ -29,17 +61,24 @@ spring:
     streams:
       application-id: ${KAFKA_CONSUMER_GROUP_ID:compilerID}
       security:
-        protocol: SASL_SSL
+        protocol: ${KAFKA_SECURITY_PROTOCOL:SASL_SSL}
       properties:
         sasl:
           mechanism: PLAIN
           jaas:
             config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${CLUSTER_API_KEY}" password="${CLUSTER_API_SECRET}";
-    bootstrap-servers: ${KAFKA_HOSTS:localhost:29092}
+    bootstrap-servers: ${KAFKA_HOSTS:localhost:9092}
     jaas:
       enabled: true
 
-  # Rabbit MQ
+---
+# rabbitmq profile
+spring:
+  config:
+    activate:
+      on-profile: rabbitmq
+  autoconfigure:
+    include: org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
   rabbitmq:
     throttling-duration: ${RABBIT_THROTTLING_DURATION:10000} # in millis, used when a throttling occurred
     queues:
@@ -48,21 +87,4 @@ spring:
     password: ${RABBIT_PASSWORD:guest}
     username: ${RABBIT_USERNAME:guest}
     addresses: ${RABBIT_HOSTS:localhost:5672}
-
-management:
-  metrics:
-    export:
-      prometheus:
-        enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: health, info, metrics, prometheus
-
-logging:
-  level:
-    org:
-      springframework:
-        boot:
-          autoconfigure: ERROR
 

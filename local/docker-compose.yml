@@ -1,9 +1,13 @@
+# Do use only for development / testing purpose
 version: "3.3"
 services:
+
   compiler:
     build: ..
     depends_on:
       - init-kafka
+      - kafka
+      - rabbitmq
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
@@ -16,17 +20,42 @@ services:
       EXECUTION_TIME_MIN: 0
       MAX_REQUESTS: 1000
 
+      # Push notifications
+      ENABLE_PUSH_NOTIFICATION: 'true'
+
+      # Kafka env variables
+      ENABLE_KAFKA_MODE: 'true'
+      KAFKA_INPUT_TOPIC: 'compiler.input'
+      KAFKA_OUTPUT_TOPIC: 'compiler.output'
+      KAFKA_CONSUMER_GROUP_ID: 'compilerId'
+      KAFKA_HOSTS: 'kafka:29092'
+      KAFKA_SECURITY_PROTOCOL: PLAINTEXT # No need of authentication locally
+      KAFKA_THROTLING_DURATION: 10000 # ms
+
+      # RabbitMQ env variables
+      #ENABLE_RABBITMQ_MODE: 'true'
+      #RABBIT_QUEUE_INPUT: 'compiler.input'
+      #RABBIT_QUEUE_OUTPUT: 'compiler.output'
+      #RABBIT_USERNAME: 'guest'
+      #RABBIT_PASSWORD: 'guest'
+      #RABBIT_HOSTS: 'rabbitmq:5672'
+      #RABBIT_THROTTLING_DURATION: 10000 # ms
+
   prometheus:
     image: prom/prometheus:latest
+    depends_on:
+     - compiler
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus_conf/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - 9090:9090
 
   grafana:
     image: grafana/grafana:latest
+    depends_on:
+      - prometheus
     volumes:
-      - ./datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml
+      - ./grafana_conf/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml
     ports:
       - 3000:3000
 
@@ -81,3 +110,13 @@ services:
 
       echo -e 'Successfully created the following topics:'
       kafka-topics --bootstrap-server kafka:29092 --list"
+
+  rabbitmq:
+    image: rabbitmq:latest
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: 'guest'
+      RABBITMQ_DEFAULT_PASS: 'guest'

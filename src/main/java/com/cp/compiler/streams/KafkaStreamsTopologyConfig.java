@@ -79,7 +79,10 @@ public class KafkaStreamsTopologyConfig {
                     return new CompilerTransformer(compilerService, throttlingDuration, throttlingRetriesCounter);
                 })
                 .to(outputTopic, Produced.with(stringSerde, stringSerde));
+    
+        Topology topology = builder.build();
+        log.info("Topology: {}", topology.describe());
         
-        return builder.build();
+        return topology;
     }
 }
