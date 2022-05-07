@@ -3,7 +3,7 @@
 We provide you with a helm chart that will let you run the compiler in a distributed way on K8s.
 
 ```shell
-helm install compiler ./helm_charts/compiler
+helm install compiler ./compiler
 ```
 ### Minikube
 Note if you are running k8s using Minikube :
@@ -15,4 +15,11 @@ eval $(minikube docker-env)
 * Get the url using the following command:  
 ```shell
 minikube service --url compiler
+```
+
+## Monitoring
+We also provide you with a helm chart to monitor the compiler using prometheus and grafana on k8s.
+
+```shell
+helm install monitoring ./monitoring
 ```
