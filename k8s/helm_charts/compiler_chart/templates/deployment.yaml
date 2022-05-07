@@ -34,10 +34,23 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: 8082
               protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-config
+          volumeMounts:
+            - mountPath: /var/run
+              name: executions-volume
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: executions-volume
+          hostPath:
+            # directory location on host
+            path: /var/run
+            # this field is optional
+            type: DirectoryOrCreate
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

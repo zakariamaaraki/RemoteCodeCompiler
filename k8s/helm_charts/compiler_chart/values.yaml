@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: compiler
-  pullPolicy: IfNotPresent
+  pullPolicy: Never
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
@@ -28,6 +28,15 @@ securityContext:
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
+
+compiler:
+  deleteDockerImage: true
+  maxExecutionMemory: 1000
+  minExecutionMemory: 100
+  maxExecutionTime: 15
+  minExecutionTime: 1
+  maxRequests: 1000
+  enablePushNotification: true
 
 service:
   type: NodePort

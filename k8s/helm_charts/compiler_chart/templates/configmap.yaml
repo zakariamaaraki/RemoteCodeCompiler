@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+data:
+  "DELETE_DOCKER_IMAGE": "{{ .Values.compiler.deleteDockerImage }}"
+  "EXECUTION_MEMORY_MAX": "{{ .Values.compiler.maxExecutionMemory }}"
+  "EXECUTION_MEMORY_MIN": "{{ .Values.compiler.minExecutionMemory }}"
+  "EXECUTION_TIME_MAX": "{{ .Values.compiler.maxExecutionTime }}"
+  "EXECUTION_TIME_MIN": "{{ .Values.compiler.minExecutionTime }}"
+  "MAX_REQUESTS": "{{ .Values.compiler.maxRequests }}"
+  "ENABLE_PUSH_NOTIFICATION": "{{ .Values.compiler.enablePushNotification }}"
