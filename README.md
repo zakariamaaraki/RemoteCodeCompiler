@@ -77,7 +77,7 @@ You can use the provided helm chart to deploy the project on k8s
 ```shell
 helm install compiler ./k8s/helm_charts/compiler_chart
 ```
-See the documentation in k8s folder, helm charts provided.
+See the documentation in k8s folder, helm charts are provided.
 
 ## How It Works
 
