@@ -1,4 +1,4 @@
-# Do use only for development / testing purpose
+# Do use it only for development / testing purpose
 version: "3.3"
 services:
 
