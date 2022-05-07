@@ -69,7 +69,7 @@ For long-running executions, you may want to get the response later and to avoid
 to do so you must pass two header values (**url** where you want to get the response and set **preferPush** to prefer-push)
 
 ### Local Run (for dev environment only)
-Look at the documentation in local folder, a docker-compose is provided.
+See the documentation in local folder, a docker-compose is provided.
 
 ### On K8s
 You can use the provided helm chart to deploy the project on k8s
@@ -77,7 +77,7 @@ You can use the provided helm chart to deploy the project on k8s
 ```shell
 helm install compiler ./k8s/helm_charts/compiler_chart
 ```
-Look at the documentation in k8s folder, helm charts provided.
+See the documentation in k8s folder, helm charts provided.
 
 ## How It Works
 
