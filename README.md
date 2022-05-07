@@ -68,16 +68,14 @@ To enable push notifications you must set **ENABLE_PUSH_NOTIFICATION** to true
 For long-running executions, you may want to get the response later and to avoid http timeouts, you can use push notifications,
 to do so you must pass two header values (**url** where you want to get the response and set **preferPush** to prefer-push)
 
-### Local Run (for dev environment only)
+## Local Run (for dev environment only)
 See the documentation in local folder, a docker-compose is provided.
 
-### On K8s
-You can use the provided helm chart to deploy the project on k8s
+## On K8s
 
-```shell
-helm install compiler ./k8s/helm_charts/compiler_chart
-```
-See the documentation in k8s folder, helm charts are provided.
+![k8s](images/k8s.png?raw=true "k8s")
+
+You can use the provided helm chart to deploy the project on k8s, see the documentation on k8s folder.
 
 ## How It Works
 
