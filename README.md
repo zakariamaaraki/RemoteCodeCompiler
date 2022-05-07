@@ -79,6 +79,10 @@ See the documentation in local folder, a docker-compose is provided.
 
 You can use the provided helm chart to deploy the project on k8s, see the documentation on k8s folder.
 
+```shell
+helm install compiler ./k8s/compiler
+```
+
 ## How It Works
 
 The compiler creates a container for each execution to separate the execution environments.
