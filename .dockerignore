@@ -1,2 +1,9 @@
 target/
 .git/
+.github/
+images/
+k8s/
+local/
+README.md
+CONTRIBUTION.md
+LICENSE
