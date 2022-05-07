@@ -73,7 +73,9 @@ See the documentation in local folder, a docker-compose is provided.
 
 ## On K8s
 
-![k8s](images/k8s.png?raw=true "k8s")
+<p align="center">
+<img height="100px" width="100px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/1200px-Kubernetes_logo_without_workmark.svg.png" alt="k8s logo"/>
+</p>
 
 You can use the provided helm chart to deploy the project on k8s, see the documentation on k8s folder.
 
@@ -220,7 +222,9 @@ docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -
 
 ## Metrics
 
-![monitoring](images/Prometheus.png?raw=true "monitoring")
+<p align="center">
+<img height="100px" width="100px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Prometheus_software_logo.svg/1200px-Prometheus_software_logo.svg.png" alt="prometheus logo"/>
+</p>
 
 Check out exposed prometheus metrics using the following url : http://<IP:PORT>/prometheus
 
