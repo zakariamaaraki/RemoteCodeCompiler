@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-prometheus-config
+data:
+  prometheus.yml: |-
+    global:
+      scrape_interval: 5s
+      evaluation_interval: 5s
+    scrape_configs:
+    # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+    - job_name: 'prometheus'
+      # metrics_path defaults to '/metrics'
+      # scheme defaults to 'http'.
+      static_configs:
+        - targets: ['127.0.0.1:9090']
+
+    - job_name: 'compiler'
+      metrics_path: '/prometheus'
+      scrape_interval: 5s
+      static_configs:
+        - targets: [{{.Values.targetService.url}}]

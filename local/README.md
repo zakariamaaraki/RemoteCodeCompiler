@@ -1,5 +1,7 @@
 # Local execution of the compiler
 
+**Note**: running all these dependencies is not mandatory, the compiler is made to run in a standalone mode.
+
 The provided docker-compose file contains these dependencies: 
 
 * Grafana and Prometheus for monitoring
