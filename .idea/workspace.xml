@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/images/k8s.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/i01_k8s.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +61,7 @@
     <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/k8s/helm_charts/monitoring/charts/grafana/templates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/images" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
@@ -75,18 +73,18 @@
       <recent name="com.cp.compiler.services" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/k8s/helm_charts/monitoring/charts/grafana/templates" />
       <recent name="$PROJECT_DIR$/images" />
+      <recent name="$PROJECT_DIR$/k8s/helm_charts/monitoring/charts/grafana/templates" />
       <recent name="$PROJECT_DIR$/src/test/resources/outputs" />
       <recent name="$PROJECT_DIR$/src/test/resources/sources/cpp" />
       <recent name="$PROJECT_DIR$/src/test/resources/sources/c" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/images" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/test/resources/outputs/physEdOnline" />
       <recent name="$PROJECT_DIR$/src/test/resources/outputs" />
       <recent name="$PROJECT_DIR$/src/test/resources/outputs/watermelon" />
-      <recent name="$PROJECT_DIR$/src/test/resources/inputs/watermelon" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.cp.compiler" />
@@ -281,7 +279,7 @@
       <workItem from="1650791254933" duration="72060000" />
       <workItem from="1651187630942" duration="8647000" />
       <workItem from="1651692861596" duration="2016000" />
-      <workItem from="1651945617787" duration="8395000" />
+      <workItem from="1651945617787" duration="8778000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
