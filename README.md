@@ -221,6 +221,9 @@ docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -
 ```
 
 ### Metrics
+
+![monitoring](images/Prometheus.png?raw=true "monitoring")
+
 Check out exposed prometheus metrics using the following url : http://<IP:PORT>/prometheus
 
 ![Parallel executions](images/parallel-executions-metrics.png?raw=true "Parallel Executions Metrics")
