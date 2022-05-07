@@ -1,15 +1,15 @@
-# K8s
-
 <p align="center">
-<img height="100px" width="100px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/1200px-Kubernetes_logo_without_workmark.svg.png" alt="k8s logo"/>
+<img height="150px" width="150px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/1200px-Kubernetes_logo_without_workmark.svg.png" alt="k8s logo"/>
 </p>
 
-
+# K8s
 We provide you with a helm chart that will let you run the compiler in a distributed way on K8s.
 
 ```shell
 helm install compiler ./compiler
 ```
+
+
 ### Minikube
 Note if you are running k8s using Minikube :
 * you can reuse the Docker daemon from Minikube by running the following command: 
