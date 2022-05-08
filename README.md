@@ -87,6 +87,9 @@ You can use the provided helm chart to deploy the project on k8s, see the docume
 helm install compiler ./k8s/compiler
 ```
 
+### AKS Provisioning
+We provide you with a script to provision an AKS cluster to ease your deployment experience. See provisioning folder.
+
 ## How It Works
 
 The compiler creates a container for each execution to separate the execution environments.
