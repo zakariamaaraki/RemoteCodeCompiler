@@ -88,7 +88,7 @@ helm install compiler ./k8s/compiler
 ```
 
 ### AKS Provisioning
-We provide you with a script to provision an AKS cluster to ease your deployment experience. See the documentation in [provisioning](https://github.com/zakariamaaraki/RemoteCodeCompiler/tree/master/provisioning/arm) folder.
+We provide you with a script to provision an AKS cluster to ease your deployment experience. See the documentation in the [provisioning](https://github.com/zakariamaaraki/RemoteCodeCompiler/tree/master/provisioning/arm) folder.
 
 ## How It Works
 
