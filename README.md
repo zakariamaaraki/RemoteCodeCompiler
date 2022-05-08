@@ -69,7 +69,7 @@ For long-running executions, you may want to get the response later and to avoid
 to do so you must pass two header values (**url** where you want to get the response and set **preferPush** to prefer-push)
 
 ## Local Run (for dev environment only)
-See the documentation in local folder, a docker-compose is provided.
+See the documentation in the [local](https://github.com/zakariamaaraki/RemoteCodeCompiler/tree/master/local) folder, a docker-compose is provided.
 
 ```shell
 docker-compose up --build
@@ -81,14 +81,14 @@ docker-compose up --build
 <img height="100px" width="100px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/1200px-Kubernetes_logo_without_workmark.svg.png" alt="k8s logo"/>
 </p>
 
-You can use the provided helm chart to deploy the project on k8s, see the documentation on k8s folder.
+You can use the provided helm chart to deploy the project on k8s, see the documentation in the [k8s](https://github.com/zakariamaaraki/RemoteCodeCompiler/tree/master/k8s) folder.
 
 ```shell
 helm install compiler ./k8s/compiler
 ```
 
 ### AKS Provisioning
-We provide you with a script to provision an AKS cluster to ease your deployment experience. See provisioning folder.
+We provide you with a script to provision an AKS cluster to ease your deployment experience. See the documentation in [provisioning](https://github.com/zakariamaaraki/RemoteCodeCompiler/tree/master/provisioning/arm) folder.
 
 ## How It Works
 
