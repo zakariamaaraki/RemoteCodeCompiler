@@ -71,6 +71,10 @@ to do so you must pass two header values (**url** where you want to get the resp
 ## Local Run (for dev environment only)
 See the documentation in local folder, a docker-compose is provided.
 
+```shell
+docker-compose up --build
+```
+
 ## On K8s
 
 <p align="center">
