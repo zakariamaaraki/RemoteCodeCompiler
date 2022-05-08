@@ -1,6 +1,12 @@
 # Azure Resource Management
 
 ## Provisioning of an AKS cluster
+
+<p align="center">
+<img height="150px" width="150px" src="https://www.turbonomic.com/wp-content/uploads/2020/11/Azure-Kubernetes.png" alt="k8s logo"/>
+</p>
+
+
 <p>Before you begin you should create an Azure AD service principal, you must have permissions to register an application with your Azure AD tenant, and to assign the application to a role in your subscription.</p>
 
 <P>
