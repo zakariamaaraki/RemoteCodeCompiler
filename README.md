@@ -106,7 +106,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 ```json
 {
   "result": {
-    "statusResponse": "Wrong Answer",
+    "statusResponse": "Accepted",
     "statusCode": 200,
     "output": "YES",
     "expectedOutput": "YES",
