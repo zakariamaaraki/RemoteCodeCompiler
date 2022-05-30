@@ -102,7 +102,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 
 ### Verdicts
 
-#### Accepted
+#### Accepted :tada:
 ```json
 {
   "result": {
