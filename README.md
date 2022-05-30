@@ -102,7 +102,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 
 ### Verdicts
 
-#### Accepted :tada:
+#### :tada: Accepted 
 ```json
 {
   "result": {
@@ -116,7 +116,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 }
 ```
 
-#### Wrong Answer :x:
+#### :x: Wrong Answer 
 
 ```json
 {
@@ -131,7 +131,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 }
 ```
 
-#### Compilation Error :shit:
+#### :shit: Compilation Error 
 
 ```json
 {
@@ -146,7 +146,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 }
 ```
 
-#### Time Limit Exceeded :clock130:
+#### :clock130: Time Limit Exceeded 
 ```json
 {
   "result": {
@@ -160,7 +160,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 }
 ```
 
-#### Runtime Error :boom:
+#### :boom: Runtime Error 
 ```json
 {
   "result": {
@@ -174,7 +174,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 }
 ```
 
-#### Out Of Memory :minidisc:
+#### :minidisc: Out Of Memory 
 ```json
 {
   "result": {
