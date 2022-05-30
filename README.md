@@ -116,7 +116,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 }
 ```
 
-#### Wrong Answer
+#### Wrong Answer :x:
 
 ```json
 {
@@ -131,7 +131,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 }
 ```
 
-#### Compilation Error
+#### Compilation Error :shit:
 
 ```json
 {
@@ -146,7 +146,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 }
 ```
 
-#### Time Limit Exceeded
+#### Time Limit Exceeded :clock130:
 ```json
 {
   "result": {
@@ -160,7 +160,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 }
 ```
 
-#### Runtime Error
+#### Runtime Error :boom:
 ```json
 {
   "result": {
@@ -174,7 +174,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 }
 ```
 
-#### Out Of Memory
+#### Out Of Memory :minidisc:
 ```json
 {
   "result": {
