@@ -107,7 +107,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 {
   "result": {
     "statusResponse": "Accepted",
-    "statusCode": 200,
+    "statusCode": 100,
     "output": "YES",
     "expectedOutput": "YES",
     "executionDuration": 73
