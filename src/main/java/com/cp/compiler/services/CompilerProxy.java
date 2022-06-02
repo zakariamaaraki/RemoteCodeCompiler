@@ -105,8 +105,7 @@ public class CompilerProxy implements CompilerService {
         // and the client want a push notification.
         String imageName = execution.getImageName();
         if (hooksStorage.contains(imageName)) {
-            log.info("Start long running execution, the answer will be pushed to : {}",
-                    hooksStorage.get(imageName));
+            log.info("Start long running execution, the answer will be pushed to : {}", hooksStorage.get(imageName));
             return longRunningCompilerService.compile(execution);
         }
         log.info("Start short running execution");
