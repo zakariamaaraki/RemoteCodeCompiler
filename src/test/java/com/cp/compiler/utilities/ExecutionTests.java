@@ -63,7 +63,7 @@ class ExecutionTests {
         
         // When
         Execution execution = ExecutionFactory.createExecution(
-                file, file, file, 0, 0, Language.CPP);
+                file, file, file, 10, 100, Language.CPP);
         
         // When
         execution.createExecutionDirectory();
@@ -90,7 +90,7 @@ class ExecutionTests {
         
         // When
         Execution execution = ExecutionFactory.createExecution(
-                file, file, file, 0, 0, Language.JAVA);
+                file, file, file, 10, 100, Language.PYTHON);
         
         // When
         execution.createExecutionDirectory();
@@ -106,7 +106,7 @@ class ExecutionTests {
      * @throws IOException the io exception
      */
     @Test
-    void deleteExecutionDirectoryShouldDeleteTheDirectory() throws IOException {
+    void shouldDeleteTheDirectory() throws IOException {
         // Given
         MockMultipartFile file = new MockMultipartFile(
                 "file",
@@ -115,16 +115,16 @@ class ExecutionTests {
                 "Hello, World!".getBytes()
         );
         
-        // When
         Execution execution = ExecutionFactory.createExecution(
-                file, file, file, 0, 0, Language.JAVA);
-        
-        // When
+                file, file, file, 10, 100, Language.JAVA);
+
         execution.createExecutionDirectory();
         
-        // Then
+        // When
         Assertions.assertTrue(Files.exists(Path.of(execution.getPath())));
         execution.deleteExecutionDirectory();
+        
+        // Then
         Assertions.assertFalse(Files.exists(Path.of(execution.getPath())));
     }
 }
