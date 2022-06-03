@@ -10,12 +10,14 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.io.IOException;
 
 /**
  * The type Containers info controller tests.
  */
+@DirtiesContext
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
 class ContainersInfoControllerTests {

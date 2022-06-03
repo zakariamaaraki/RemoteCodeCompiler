@@ -17,7 +17,6 @@ import java.nio.file.Paths;
 /**
  * The type Files util tests.
  */
-@ExtendWith(SpringExtension.class)
 class FilesUtilTests {
     
     /**

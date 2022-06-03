@@ -32,6 +32,6 @@ public class ExecutionFactoryTests {
     void shouldThrowFactoryNotFoundException() {
         Assertions.assertThrows(
                 FactoryNotFoundException.class,
-                () -> ExecutionFactory.createExecution(file, file, file, 10, 100, Language.JAVA));
+                () -> ExecutionFactory.createExecution(file, file, file, 10, 100, null));
     }
 }

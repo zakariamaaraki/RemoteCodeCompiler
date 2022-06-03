@@ -21,11 +21,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import java.time.LocalDateTime;
 import java.util.Properties;
 
 @ActiveProfiles("kafka")
+@DirtiesContext
 @SpringBootTest
 public class TopologyTests {
     

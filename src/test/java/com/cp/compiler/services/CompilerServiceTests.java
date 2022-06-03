@@ -19,11 +19,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
  * The type Compiler service tests.
  */
+@DirtiesContext
 @SpringBootTest
 class CompilerServiceTests {
     

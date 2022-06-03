@@ -5,9 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFactoryTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/RegisteredFactoriesTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/controllers/CompilerControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/controllers/CompilerControllerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/controllers/ContainersInfoControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/controllers/ContainersInfoControllerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CE2ETests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CppE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CppE2ETests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/JavaE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/JavaE2ETests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/PythonE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/PythonE2ETests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/AmShZWinsABetTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/AmShZWinsABetTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/MakeEvenTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/MakeEvenTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/PhysEdOnlineTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/PhysEdOnlineTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/WatermelonTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/WatermelonTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFactoryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFactoryTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/RegisteredFactoriesTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/RegisteredFactoriesTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerFacadeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerFacadeTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerProxyServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerProxyServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/ContainerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/ContainerServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/HocksStorageTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/HocksStorageTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utilities/ExecutionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utilities/ExecutionTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utilities/FilesUtilTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utilities/FilesUtilTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +116,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.RegisteredFactoriesTests">
+  <component name="RunManager" selected="JUnit.ExecutionFactoryTests.shouldThrowFactoryNotFoundException">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -128,6 +147,21 @@
       <option name="USE_OPTIONS" value="false" />
       <option name="OPTIONS" value="" />
       <method v="2" />
+    </configuration>
+    <configuration name="ExecutionFactoryTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.executions.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionFactoryTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="ExecutionFactoryTests.shouldRegisterAProgrammingLanguage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
@@ -173,21 +207,6 @@
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionFactoryTests" />
       <option name="METHOD_NAME" value="shouldThrowFactoryNotFoundException" />
       <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="HocksStorageTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.HocksStorageTests" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -348,11 +367,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.RegisteredFactoriesTests" />
         <item itemvalue="JUnit.ExecutionFactoryTests.shouldThrowFactoryNotFoundException" />
+        <item itemvalue="JUnit.ExecutionFactoryTests" />
+        <item itemvalue="JUnit.RegisteredFactoriesTests" />
         <item itemvalue="JUnit.ExecutionFactoryTests.shouldThrowException" />
         <item itemvalue="JUnit.ExecutionFactoryTests.shouldRegisterAProgrammingLanguage" />
-        <item itemvalue="JUnit.HocksStorageTests" />
       </list>
     </recent_temporary>
   </component>
@@ -422,7 +441,7 @@
       <workItem from="1651945617787" duration="11882000" />
       <workItem from="1652048296944" duration="2410000" />
       <workItem from="1654198874514" duration="6033000" />
-      <workItem from="1654280181690" duration="1022000" />
+      <workItem from="1654280181690" duration="3304000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
@@ -519,7 +538,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java</url>
-          <line>21</line>
+          <line>23</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -529,17 +548,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerFacadeTests.java</url>
-          <line>40</line>
+          <line>42</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerFacadeTests.java</url>
-          <line>34</line>
+          <line>36</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerFacadeTests.java</url>
-          <line>43</line>
+          <line>45</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>

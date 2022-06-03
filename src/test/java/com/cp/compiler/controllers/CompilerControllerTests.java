@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ import static org.mockito.ArgumentMatchers.eq;
 /**
  * The type Compiler controller tests.
  */
+@DirtiesContext
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
 class CompilerControllerTests {
