@@ -5,6 +5,7 @@ import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.Language;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 
@@ -15,6 +16,7 @@ import java.nio.file.Path;
 /**
  * Test Execution directory creation
  */
+@SpringBootTest
 class ExecutionTests {
     
     /**

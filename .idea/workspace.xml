@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +95,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TopologyTests">
+  <component name="RunManager" selected="JUnit.CmdUtilTests">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -127,48 +127,61 @@
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="CompilerServiceTests.WhenImageBuildFailShouldThrowDockerBuildException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CmdUtilTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
+          <option name="PATTERN" value="com.cp.compiler.utilities.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerServiceTests" />
-      <option name="METHOD_NAME" value="WhenImageBuildFailShouldThrowDockerBuildException" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.utilities" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utilities.CmdUtilTests" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExecutionFactoryTests.shouldThrowFactoryNotFoundException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ExecutionTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.executions.*" />
+          <option name="PATTERN" value="com.cp.compiler.utilities.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionFactoryTests" />
-      <option name="METHOD_NAME" value="shouldThrowFactoryNotFoundException" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.utilities" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utilities.ExecutionTests" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JsonMapperTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="FilesUtilTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.mappers.*" />
+          <option name="PATTERN" value="com.cp.compiler.utilities.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.mappers" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.mappers.JsonMapperTests" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.utilities" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utilities.FilesUtilTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StatusUtilTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.utilities.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.utilities" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utilities.StatusUtilTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -185,22 +198,6 @@
       <option name="PACKAGE_NAME" value="com.cp.compiler.kafka" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.kafka.TopologyTests" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TopologyTests.shouldConsumeMessageFromInputTopicAndProduceMessageToOutputTopic" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.kafka.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.kafka" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.kafka.TopologyTests" />
-      <option name="METHOD_NAME" value="shouldConsumeMessageFromInputTopicAndProduceMessageToOutputTopic" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -346,11 +343,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CmdUtilTests" />
+        <item itemvalue="JUnit.StatusUtilTests" />
+        <item itemvalue="JUnit.FilesUtilTests" />
+        <item itemvalue="JUnit.ExecutionTests" />
         <item itemvalue="JUnit.TopologyTests" />
-        <item itemvalue="JUnit.JsonMapperTests" />
-        <item itemvalue="JUnit.TopologyTests.shouldConsumeMessageFromInputTopicAndProduceMessageToOutputTopic" />
-        <item itemvalue="JUnit.CompilerServiceTests.WhenImageBuildFailShouldThrowDockerBuildException" />
-        <item itemvalue="JUnit.ExecutionFactoryTests.shouldThrowFactoryNotFoundException" />
       </list>
     </recent_temporary>
   </component>
@@ -420,7 +417,7 @@
       <workItem from="1651945617787" duration="11882000" />
       <workItem from="1652048296944" duration="2410000" />
       <workItem from="1654198874514" duration="6033000" />
-      <workItem from="1654280181690" duration="11588000" />
+      <workItem from="1654280181690" duration="13723000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
