@@ -1,6 +1,5 @@
 package com.cp.compiler.kafka;
 
-import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.models.Result;
 import com.cp.compiler.models.Verdict;
@@ -15,26 +14,26 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
 import java.time.LocalDateTime;
 import java.util.Properties;
 
 @ActiveProfiles("kafka")
-@DirtiesContext
+@EmbeddedKafka(bootstrapServersProperty = "localhost:9092")
 @SpringBootTest
 public class TopologyTests {
     
     @Autowired
     private Topology topology;
     
-    @Mock
+    @MockBean(name = "client")
     private CompilerService compilerService;
 
     private TopologyTestDriver streamTest;
@@ -52,7 +51,7 @@ public class TopologyTests {
         // setup test driver
         final Properties props = new Properties();
         props.setProperty(StreamsConfig.APPLICATION_ID_CONFIG, "compilerIdTest");
-        props.setProperty(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:1234");
+        props.setProperty(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.setProperty(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
         props.setProperty(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
         streamTest = new TopologyTestDriver(topology, props);
@@ -80,7 +79,7 @@ public class TopologyTests {
                 "\"public class Test1 {\\npublic static void main(String[] args) {\\nint i = 0;\\nwhile (i < 10) " +
                 "{\\nSystem.out.println(i++);\\n}}}\",\n\"language\": \"JAVA\",\"timeLimit\": 15,\"memoryLimit\": 500\n}";
         
-        Mockito.when(compilerService.compile((Execution) Mockito.any()))
+        Mockito.when(compilerService.compile(Mockito.any()))
                 .thenReturn(ResponseEntity
                         .status(HttpStatus.OK)
                         .body(new Response(
@@ -92,7 +91,6 @@ public class TopologyTests {
         
         // Then
         Assertions.assertThat(!outputTopic.isEmpty());
-        
     }
     
     @Test
@@ -107,6 +105,5 @@ public class TopologyTests {
         // Then
         Assertions.assertThat(!outputTopic.isEmpty());
         Assertions.assertThat(outputTopic.readValue() == null);
-        
     }
 }

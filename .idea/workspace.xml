@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/CompilerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/CompilerApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/mappers/JsonMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/mappers/JsonMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +100,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CompilerServiceTests.WhenImageBuildFailShouldThrowDockerBuildException">
+  <component name="RunManager" selected="JUnit.TopologyTests">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -144,37 +148,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExecutionFactoryTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.executions.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionFactoryTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ExecutionFactoryTests.shouldThrowException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.executions.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionFactoryTests" />
-      <option name="METHOD_NAME" value="shouldThrowException" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ExecutionFactoryTests.shouldThrowFactoryNotFoundException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
@@ -191,17 +164,48 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RegisteredFactoriesTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="JsonMapperTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.executions.*" />
+          <option name="PATTERN" value="com.cp.compiler.mappers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.RegisteredFactoriesTests" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.mappers" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.mappers.JsonMapperTests" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TopologyTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.kafka.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.kafka" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.kafka.TopologyTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TopologyTests.shouldConsumeMessageFromInputTopicAndProduceMessageToOutputTopic" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.kafka.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.kafka" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.kafka.TopologyTests" />
+      <option name="METHOD_NAME" value="shouldConsumeMessageFromInputTopicAndProduceMessageToOutputTopic" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -347,11 +351,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TopologyTests" />
+        <item itemvalue="JUnit.JsonMapperTests" />
+        <item itemvalue="JUnit.TopologyTests.shouldConsumeMessageFromInputTopicAndProduceMessageToOutputTopic" />
         <item itemvalue="JUnit.CompilerServiceTests.WhenImageBuildFailShouldThrowDockerBuildException" />
         <item itemvalue="JUnit.ExecutionFactoryTests.shouldThrowFactoryNotFoundException" />
-        <item itemvalue="JUnit.ExecutionFactoryTests" />
-        <item itemvalue="JUnit.RegisteredFactoriesTests" />
-        <item itemvalue="JUnit.ExecutionFactoryTests.shouldThrowException" />
       </list>
     </recent_temporary>
   </component>
@@ -421,7 +425,7 @@
       <workItem from="1651945617787" duration="11882000" />
       <workItem from="1652048296944" duration="2410000" />
       <workItem from="1654198874514" duration="6033000" />
-      <workItem from="1654280181690" duration="5453000" />
+      <workItem from="1654280181690" duration="11467000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
@@ -516,11 +520,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java</url>
-          <line>23</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/CompilerController.java</url>
           <line>60</line>

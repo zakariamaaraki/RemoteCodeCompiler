@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;
 
-public class JsonMapper {
+public abstract class JsonMapper {
     
     private JsonMapper() {}
     

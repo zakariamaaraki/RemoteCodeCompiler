@@ -1,34 +1,13 @@
 package com.cp.compiler.mappers;
 
 import com.cp.compiler.models.*;
-import com.cp.compiler.services.CompilerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-@ExtendWith(MockitoExtension.class)
-@MockitoSettings(strictness = Strictness.LENIENT)
-@DirtiesContext
-@SpringBootTest
 public class JsonMapperTests {
-    
-    @Mock
-    private CompilerService compilerService;
-    @Mock
-    private MultipartFile outputFile;
-    @Mock
-    private MultipartFile sourceCode;
     
     private final static Request request = new Request(null, "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
             "public class Test1 {\npublic static void main(String[] args) {\nint i = 0;\nwhile (i < 10) " +
