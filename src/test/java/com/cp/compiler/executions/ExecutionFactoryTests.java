@@ -19,6 +19,7 @@ public class ExecutionFactoryTests {
             null,
             (byte[]) null);
     
+    // This test will affect all other tests, make sure the context is reseted.
     @Test
     void shouldRegisterAProgrammingLanguage() {
         // Given
