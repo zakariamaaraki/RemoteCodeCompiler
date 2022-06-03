@@ -40,9 +40,6 @@ public class TopologyTests {
     private TestInputTopic<String, String> inputTopic;
     private TestOutputTopic<String, String> outputTopic;
     
-    private ObjectMapper objectMapper = new ObjectMapper();
-    
-    
     private final Serde<String> stringSerde = new Serdes.StringSerde();
     
     @BeforeEach

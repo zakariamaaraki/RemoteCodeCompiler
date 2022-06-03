@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/CompilerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/CompilerApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/mappers/JsonMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/mappers/JsonMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -425,7 +420,7 @@
       <workItem from="1651945617787" duration="11882000" />
       <workItem from="1652048296944" duration="2410000" />
       <workItem from="1654198874514" duration="6033000" />
-      <workItem from="1654280181690" duration="11467000" />
+      <workItem from="1654280181690" duration="11588000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
