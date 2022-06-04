@@ -193,7 +193,7 @@ It is also possible to visualize information about the images and docker contain
 
 ![Docker info](images/swagger-docker-infos.png?raw=true "Docker info Swagger")
 
-## Kafka Mode
+## Stream processing with Kafka Streams
 
 ![remote code compiler kafka mode](images/kafka-streams.png?raw=true "Compiler Kafka Mode")
 
@@ -214,7 +214,7 @@ To enable kafka mode you must pass to the container the following env variables 
 docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -e DELETE_DOCKER_IMAGE=true -e EXECUTION_MEMORY_MAX=10000 -e EXECUTION_MEMORY_MIN=0 -e EXECUTION_TIME_MAX=15 -e EXECUTION_TIME_MIN=0 -e ENABLE_KAFKA_MODE=true -e KAFKA_INPUT_TOPIC=topic.input -e KAFKA_OUTPUT_TOPIC=topic.output -e KAFKA_CONSUMER_GROUP_ID=compilerId -e KAFKA_HOSTS=ip_broker1,ip_broker2,ip_broker3 -e API_KEY=YOUR_API_KEY -e API_SECRET=YOUR_API_SECRET -t compiler
 ```
 
-## Rabbit MQ Mode
+## Queueing system with RabbitMq
 
 ![remote code compiler rabbitMq mode](images/rabbitMq.png?raw=true "Compiler rabbitMq Mode")
 
