@@ -11,6 +11,10 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * The type Long running compiler service.
+ * Used for push notification
+ */
 @Slf4j
 @Service("longRunning")
 public class LongRunningCompilerService extends CompilerServiceDecorator {
@@ -19,6 +23,13 @@ public class LongRunningCompilerService extends CompilerServiceDecorator {
 
     private final HooksStorage hooksStorage;
     
+    /**
+     * Instantiates a new Long running compiler service.
+     *
+     * @param compilerService the compiler service
+     * @param restTemplate    the rest template
+     * @param hooksStorage    the hooks storage
+     */
     public LongRunningCompilerService(@Qualifier("client") CompilerService compilerService,
                                       RestTemplate restTemplate,
                                       HooksStorage hooksStorage) {
