@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/ThrottlingTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/application-throttling.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utility_java/c43fada1-5edb-42f6-a364-76edba4b2338/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utility_java/c43fada1-5edb-42f6-a364-76edba4b2338/entrypoint.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerProxyServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerProxyServiceTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceDecoratorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceDecoratorTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/LongRunningCompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/LongRunningCompilerServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +100,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CompilerProxyServiceTests">
+  <component name="RunManager" selected="JUnit.ThrottlingTests">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -176,21 +178,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExecutionFactoryTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.executions.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionFactoryTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="LongRunningCompilerServiceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
@@ -201,6 +188,21 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.LongRunningCompilerServiceTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ThrottlingTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.ThrottlingTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -347,11 +349,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ThrottlingTests" />
         <item itemvalue="JUnit.CompilerProxyServiceTests" />
         <item itemvalue="JUnit.LongRunningCompilerServiceTests" />
         <item itemvalue="JUnit.CompilerServiceDecoratorTests.shouldHaveTheSameBehaviorAsTheCompilerClient" />
         <item itemvalue="JUnit.CompilerServiceDecoratorTests" />
-        <item itemvalue="JUnit.ExecutionFactoryTests" />
       </list>
     </recent_temporary>
   </component>
@@ -421,7 +423,7 @@
       <workItem from="1651945617787" duration="11882000" />
       <workItem from="1652048296944" duration="2410000" />
       <workItem from="1654198874514" duration="6033000" />
-      <workItem from="1654280181690" duration="20494000" />
+      <workItem from="1654280181690" duration="22182000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
@@ -535,6 +537,21 @@
           <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerFacadeTests.java</url>
           <line>45</line>
           <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java</url>
+          <line>87</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java</url>
+          <line>88</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java</url>
+          <line>179</line>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

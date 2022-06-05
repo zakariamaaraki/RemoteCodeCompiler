@@ -5,6 +5,7 @@ import com.cp.compiler.models.WellKnownFileNames;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,18 +26,23 @@ import java.util.concurrent.atomic.AtomicLong;
 @Service("proxy")
 public class CompilerProxy implements CompilerService {
     
+    @Getter
     @Value("${compiler.max-requests}")
     private long maxRequests;
     
+    @Getter
     @Value("${compiler.execution-memory.max:10000}")
     private int maxExecutionMemory;
     
+    @Getter
     @Value("${compiler.execution-memory.min:0}")
     private int minExecutionMemory;
     
+    @Getter
     @Value("${compiler.execution-time.max:15}")
     private int maxExecutionTime;
     
+    @Getter
     @Value("${compiler.execution-time.min:0}")
     private int minExecutionTime;
     
@@ -81,7 +87,7 @@ public class CompilerProxy implements CompilerService {
         }
         if (allow()) {
             long counter = executionsCounter.incrementAndGet();
-            log.info("New request, total: {}", counter);
+            log.info("New request, total: {}, maxRequests: {}", counter, maxRequests);
             
             ResponseEntity response;
             
@@ -171,6 +177,6 @@ public class CompilerProxy implements CompilerService {
     }
     
     private boolean allow() {
-        return executionsCounter.get() <= maxRequests;
+        return executionsCounter.get() < maxRequests;
     }
 }
