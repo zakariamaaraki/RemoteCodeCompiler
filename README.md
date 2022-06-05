@@ -157,7 +157,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
     "statusResponse": "Time Limit Exceeded",
     "statusCode": 500,
     "output": "",
-    "error": "Execution exceeded 10sec",
+    "error": "Execution exceeded 15sec",
     "expectedOutput": "YES",
     "executionDuration": 15001
   },
