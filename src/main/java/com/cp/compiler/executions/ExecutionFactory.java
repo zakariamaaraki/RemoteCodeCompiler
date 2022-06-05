@@ -5,8 +5,10 @@ import com.cp.compiler.models.Language;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * The type Execution factory.
@@ -29,6 +31,18 @@ public abstract class ExecutionFactory {
     }
     
     /**
+     * Gets registered factories.
+     *
+     * @return the registered factories
+     */
+    public static List<Language> getRegisteredFactories() {
+        return registeredSuppliers
+                .keySet()
+                .stream()
+                .collect(Collectors.toList());
+    }
+    
+    /**
      * Gets execution.
      *
      * @param sourceCode         the source code
@@ -37,7 +51,6 @@ public abstract class ExecutionFactory {
      * @param timeLimit          the time limit
      * @param memoryLimit        the memory limit
      * @param language           the language
-     * @param executionCounter   the execution counter
      * @return the execution
      */
     public static Execution createExecution(MultipartFile sourceCode,
