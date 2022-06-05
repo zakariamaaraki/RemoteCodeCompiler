@@ -1,7 +1,7 @@
 package com.cp.compiler.repositories;
 
 /**
- * The interface Hooks storage service.
+ * The interface Hooks repository.
  */
 public interface HooksRepository {
     

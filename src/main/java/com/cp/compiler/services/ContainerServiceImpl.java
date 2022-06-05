@@ -27,6 +27,8 @@ public class ContainerServiceImpl implements ContainerService {
     
     private static final long TIME_OUT = 20000; // in ms
     
+    private static final int MAX_ERROR_LENGTH = 200; // number of chars
+    
     private final MeterRegistry meterRegistry;
     private Timer buildTimer;
     private Timer runTimer;
@@ -106,29 +108,54 @@ public class ContainerServiceImpl implements ContainerService {
                     Verdict verdict = StatusUtil.statusResponse(status, false);
                     
                     return new Result(
-                            verdict, "", expectedOutput, timeLimit * 1000 + 1);
+                            verdict,
+                            "",
+                            "Execution exceeded " + timeLimit + "sec",
+                            expectedOutput,
+                            timeLimit * 1000 + 1);
                 } else {
                     status = process.exitValue();
                     log.info("End of the execution of the container");
                     
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                    String containerOutput = CmdUtil.readOutput(reader);
+                    BufferedReader containerOutputReader =
+                            new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    String containerOutput = CmdUtil.readOutput(containerOutputReader);
                     
                     boolean result = compareResult(containerOutput, expectedOutput);
                     Verdict verdict = StatusUtil.statusResponse(status, result);
                     
+                    String errorOutput = "";
+                    
+                    // Case of an Error (Compilation Error, Runtime Error, Out Of Memory Error)
+                    // Return the error
+                    if (verdict != Verdict.ACCEPTED
+                            && verdict != Verdict.WRONG_ANSWER
+                            && verdict != Verdict.TIME_LIMIT_EXCEEDED) {
+                        
+                        BufferedReader containerErrorReader =
+                                new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                        errorOutput = buildErrorOutput(CmdUtil.readOutput(containerErrorReader));
+                    }
+                    
                     return new Result(
                             verdict,
                             containerOutput,
-                            expectedOutput,
-                            executionEndTime - executionStartTime);
+                            errorOutput,
+                            expectedOutput, executionEndTime - executionStartTime);
                 }
             } catch (Exception e) {
                 log.error("Error : ", e);
                 return new Result(StatusUtil.statusResponse(1, false),
-                                  "A server side error has occurred", "", 0);
+                                  "", "A server side error has occurred", "", 0);
             }
         });
+    }
+    
+    private String buildErrorOutput(String readOutput) {
+        if (readOutput.length() > MAX_ERROR_LENGTH) {
+            return readOutput.substring(0, MAX_ERROR_LENGTH) + "...";
+        }
+        return readOutput;
     }
     
     /**

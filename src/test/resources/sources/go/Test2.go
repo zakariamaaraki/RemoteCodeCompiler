@@ -1,10 +1,10 @@
-package main
-import "fmt"
-func main() {
+    package main
+    import "fmt"
+    func main() {
 
-    var i int = 0
+        var i int = 0
 
-    for (i < 10) {
-        fmt.Println(i)
+        for (i < 10) {
+            fmt.Println(i)
+        }
     }
-}

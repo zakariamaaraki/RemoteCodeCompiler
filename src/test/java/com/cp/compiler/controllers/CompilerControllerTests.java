@@ -52,7 +52,7 @@ class CompilerControllerTests {
                         .status(HttpStatus.OK)
                         .body(new Response(
                                 new Result(Verdict.ACCEPTED,
-                                        "test output",
+                                        "test output", "",
                                         "test expected output", 0),
                                         LocalDateTime.now())));
         

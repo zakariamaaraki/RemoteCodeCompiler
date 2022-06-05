@@ -161,7 +161,7 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
         
-        Result result = new Result(Verdict.ACCEPTED, "file.txt", "file.txt", 0);
+        Result result = new Result(Verdict.ACCEPTED, "file.txt", "", "file.txt", 0);
         
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);
@@ -198,7 +198,7 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
         
-        Result result = new Result(Verdict.ACCEPTED, "file.txt", "file.txt", 0);
+        Result result = new Result(Verdict.ACCEPTED, "file.txt", "", "file.txt", 0);
         
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);
@@ -232,7 +232,7 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
         
-        Result result = new Result(Verdict.WRONG_ANSWER, "file.txt", "file.txt", 0);
+        Result result = new Result(Verdict.WRONG_ANSWER, "file.txt", "", "file.txt", 0);
         
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);
@@ -267,7 +267,7 @@ class CompilerServiceTests {
                 .thenReturn(0);
         
         Result result = new Result(
-                Verdict.TIME_LIMIT_EXCEEDED, "file.txt", "file.txt", 0);
+                Verdict.TIME_LIMIT_EXCEEDED, "file.txt", "error", "file.txt", 0);
         
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);
@@ -302,7 +302,7 @@ class CompilerServiceTests {
                 .thenReturn(0);
         
         Result result = new Result(
-                Verdict.RUNTIME_ERROR, "file.txt", "file.txt", 0);
+                Verdict.RUNTIME_ERROR, "file.txt", "runTimeError", "file.txt", 0);
         
         Mockito.when(
                 containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
@@ -338,7 +338,7 @@ class CompilerServiceTests {
                 .thenReturn(0);
         
         Result result = new Result(
-                Verdict.OUT_OF_MEMORY, "file.txt", "file.txt", 0);
+                Verdict.OUT_OF_MEMORY, "file.txt", "OutOfMemoryError", "file.txt", 0);
         
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);
@@ -373,7 +373,7 @@ class CompilerServiceTests {
                 .thenReturn(0);
         
         Result result = new Result(
-                Verdict.COMPILATION_ERROR, "file.txt", "file.txt", 0);
+                Verdict.COMPILATION_ERROR, "file.txt", "CompilationError", "file.txt", 0);
         
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);

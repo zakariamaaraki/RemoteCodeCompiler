@@ -2,16 +2,17 @@ package com.cp.compiler.repositories;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * The type Hooks storage.
+ * The type Hooks repository.
  */
 @Repository
 public class HooksRepositoryImpl implements HooksRepository {
     
-    private final Map<String, String> hooks = new HashMap<>();
+    // Full concurrency of retrievals
+    private final Map<String, String> hooks = new ConcurrentHashMap<>();
     
     @Override
     public String get(String imageName) {

@@ -36,7 +36,11 @@ public class JsonMapperTests {
         // Given
         LocalDateTime localDateTime = LocalDateTime.now();
         Result result = new Result(
-                Verdict.ACCEPTED, "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n", "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n", 0);
+                Verdict.ACCEPTED,
+                "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
+                "",
+                "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
+                0);
         Response response = new Response(result, localDateTime);
         
         // When

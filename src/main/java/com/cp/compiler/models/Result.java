@@ -20,13 +20,15 @@ public class Result {
      *
      * @param verdict           the verdict
      * @param output            the output
+     * @param error             the error
      * @param expectedOutput    the expected output
      * @param executionDuration the execution duration
      */
-    public Result(Verdict verdict, String output, String expectedOutput, long executionDuration) {
+    public Result(Verdict verdict, String output, String error, String expectedOutput, long executionDuration) {
         this.statusCode = verdict.getStatusCode();
         this.statusResponse = verdict.getStatusResponse();
         this.output = output;
+        this.error = error;
         this.expectedOutput = expectedOutput;
         this.executionDuration = executionDuration;
     }
@@ -40,6 +42,9 @@ public class Result {
     
     @ApiModelProperty(notes = "The output of the program during the execution")
     private String output;
+    
+    @ApiModelProperty(notes = "The error if it occurs")
+    private String error;
     
     @ApiModelProperty(notes = "The expected output")
     private String expectedOutput;

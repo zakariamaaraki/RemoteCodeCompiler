@@ -46,7 +46,7 @@ public class LongRunningCompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
     
-        Result result = new Result(Verdict.ACCEPTED, "file.txt", "file.txt", 0);
+        Result result = new Result(Verdict.ACCEPTED, "file.txt", "", "file.txt", 0);
     
         Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
                 .thenReturn(result);

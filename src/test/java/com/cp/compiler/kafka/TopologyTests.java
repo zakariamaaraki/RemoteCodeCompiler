@@ -5,7 +5,6 @@ import com.cp.compiler.models.Result;
 import com.cp.compiler.models.Verdict;
 import com.cp.compiler.services.CompilerService;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.*;
@@ -80,7 +79,12 @@ public class TopologyTests {
                 .thenReturn(ResponseEntity
                         .status(HttpStatus.OK)
                         .body(new Response(
-                                new Result(Verdict.ACCEPTED,"test output", "test expected output", 0),
+                                new Result(
+                                        Verdict.ACCEPTED,
+                                        "test output",
+                                        "",
+                                        "test expected output",
+                                        0),
                                 LocalDateTime.now())));
                 
         // When

@@ -32,6 +32,7 @@ The compiler cleans up your output, so having extra spaces or line breaks does n
     "statusResponse": "Accepted",
     "statusCode": 100,
     "output": "0 1 2 3 4 5 6 7 8 9",
+    "error": "",
     "expectedOutput": "0 1 2 3 4 5 6 7 8 9",
     "executionDuration": 2111
   },
@@ -109,6 +110,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
     "statusResponse": "Accepted",
     "statusCode": 100,
     "output": "YES",
+    "error": "",
     "expectedOutput": "YES",
     "executionDuration": 73
   },
@@ -124,6 +126,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
     "statusResponse": "Wrong Answer",
     "statusCode": 200,
     "output": "YES",
+    "error": "",
     "expectedOutput": "NO",
     "executionDuration": 116
   },
@@ -139,10 +142,11 @@ For the documentation visit the swagger page at the following url : http://<IP:P
     "statusResponse": "Compilation Error",
     "statusCode": 300,
     "output": "",
-    "expectedOutput": "0 1 2",
+    "error": "# command-line-arguments\n./main.go:5:10: undefined: i\n./main.go:6:21: undefined: i\n./main.go:7:9: undefined: i\n",
+    "expectedOutput": "1 2",
     "executionDuration": 0
   },
-  "dateTime": "2022-01-28T23:32:02.843465"
+  "dateTime": "2022-06-05T19:21:25.547048"
 }
 ```
 
@@ -153,6 +157,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
     "statusResponse": "Time Limit Exceeded",
     "statusCode": 500,
     "output": "",
+    "error": "Execution exceeded 10sec",
     "expectedOutput": "YES",
     "executionDuration": 15001
   },
@@ -167,10 +172,11 @@ For the documentation visit the swagger page at the following url : http://<IP:P
     "statusResponse": "Runtime Error",
     "statusCode": 600,
     "output": "",
-    "expectedOutput": "YES",
-    "executionDuration": 0
+    "error": "panic: runtime error: integer divide by zero\n\ngoroutine 1 [running]:\nmain.main()\n\t/app/main.go:11 +0x9b\n",
+    "expectedOutput": "1 2\n",
+    "executionDuration": 13
   },
-  "dateTime": "2022-01-28T23:32:02.843465"
+  "dateTime": "2022-06-05T19:10:34.357349"
 }
 ```
 
@@ -181,10 +187,11 @@ For the documentation visit the swagger page at the following url : http://<IP:P
     "statusResponse": "Out Of Memory",
     "statusCode": 400,
     "output": "",
+    "error": "fatal error: runtime: out of memory\n\nruntime stack:\nruntime.throw({0x497d72?, 0x17487800000?})\n\t/usr/local/go/src/runtime/panic.go:992 +0x71\nruntime.sysMap(0xc000400000, 0x7ffccb36b0d0?, 0x7ffccb36b13...",
     "expectedOutput": "YES",
-    "executionDuration": 0
+    "executionDuration": 12
   },
-  "dateTime": "2022-01-28T23:32:02.843465"
+  "dateTime": "2022-06-05T19:17:35.384797"
 }
 ```
 
