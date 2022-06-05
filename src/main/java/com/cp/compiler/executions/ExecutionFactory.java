@@ -5,8 +5,8 @@ import com.cp.compiler.models.Language;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.EnumMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -35,11 +35,11 @@ public abstract class ExecutionFactory {
      *
      * @return the registered factories
      */
-    public static List<Language> getRegisteredFactories() {
+    public static Set<Language> getRegisteredFactories() {
         return registeredSuppliers
                 .keySet()
                 .stream()
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
     
     /**

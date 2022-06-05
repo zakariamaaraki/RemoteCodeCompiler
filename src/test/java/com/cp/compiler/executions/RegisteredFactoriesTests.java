@@ -20,30 +20,35 @@ public class RegisteredFactoriesTests {
     
     @Test
     void javaExecutionFactoryShouldBeRegistered() {
+        Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.JAVA));
         Assertions.assertNotNull(
                 ExecutionFactory.createExecution(file, file, file, 10, 100, Language.JAVA));
     }
     
     @Test
     void goExecutionFactoryShouldBeRegistered() {
+        Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.GO));
         Assertions.assertNotNull(
                 ExecutionFactory.createExecution(file, file, file, 10, 100, Language.GO));
     }
     
     @Test
     void cExecutionFactoryShouldBeRegistered() {
+        Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.C));
         Assertions.assertNotNull(
                 ExecutionFactory.createExecution(file, file, file, 10, 100, Language.C));
     }
     
     @Test
     void cppExecutionFactoryShouldBeRegistered() {
+        Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.CPP));
         Assertions.assertNotNull(
                 ExecutionFactory.createExecution(file, file, file, 10, 100, Language.CPP));
     }
     
     @Test
     void pythonExecutionFactoryShouldBeRegistered() {
+        Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.PYTHON));
         Assertions.assertNotNull(
                 ExecutionFactory.createExecution(file, file, file, 10, 100, Language.PYTHON));
     }

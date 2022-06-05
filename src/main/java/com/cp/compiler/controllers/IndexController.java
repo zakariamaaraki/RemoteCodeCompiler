@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/")
@@ -23,7 +23,7 @@ public class IndexController {
     
     @ApiOperation(value = "Get supported languages")
     @GetMapping("/languages")
-    public List<Language> getSupportedLanguages() {
+    public Set<Language> getSupportedLanguages() {
         return ExecutionFactory.getRegisteredFactories();
     }
 }

@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/IndexController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/ExecutionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/ExecutionFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/RegisteredFactoriesTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/RegisteredFactoriesTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +98,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ExecutionFactoryTests">
+  <component name="RunManager" selected="JUnit.RegisteredFactoriesTests">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -144,22 +145,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CompilerServiceDecoratorTests.shouldHaveTheSameBehaviorAsTheCompilerClient" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerServiceDecoratorTests" />
-      <option name="METHOD_NAME" value="shouldHaveTheSameBehaviorAsTheCompilerClient" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ExecutionFactoryTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
@@ -185,6 +170,21 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.LongRunningCompilerServiceTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RegisteredFactoriesTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.executions.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.RegisteredFactoriesTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -346,11 +346,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.RegisteredFactoriesTests" />
         <item itemvalue="JUnit.ExecutionFactoryTests" />
         <item itemvalue="JUnit.ThrottlingTests" />
         <item itemvalue="JUnit.CompilerProxyServiceTests" />
         <item itemvalue="JUnit.LongRunningCompilerServiceTests" />
-        <item itemvalue="JUnit.CompilerServiceDecoratorTests.shouldHaveTheSameBehaviorAsTheCompilerClient" />
       </list>
     </recent_temporary>
   </component>
@@ -420,7 +420,7 @@
       <workItem from="1651945617787" duration="11882000" />
       <workItem from="1652048296944" duration="2410000" />
       <workItem from="1654198874514" duration="6033000" />
-      <workItem from="1654280181690" duration="35069000" />
+      <workItem from="1654280181690" duration="35891000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
