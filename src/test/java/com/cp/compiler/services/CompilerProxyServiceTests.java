@@ -6,7 +6,6 @@ import com.cp.compiler.models.Language;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +22,8 @@ public class CompilerProxyServiceTests {
     @MockBean
     private ContainerService containerService;
     
-    @Qualifier("proxy")
     @Autowired
-    private CompilerService compilerService;
+    private CompilerProxy compilerService;
     
     private MultipartFile invalidFileName = new MockMultipartFile(
             "test",
