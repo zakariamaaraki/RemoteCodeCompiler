@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * The type Configure languages.
+ * Any new language added should be registered in the factory
  */
 @Configuration
 public class LanguagesConfig {
