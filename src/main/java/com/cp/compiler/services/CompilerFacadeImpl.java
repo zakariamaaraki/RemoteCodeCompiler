@@ -2,6 +2,7 @@ package com.cp.compiler.services;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.WellKnownUrls;
+import com.cp.compiler.repositories.HooksRepository;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,7 @@ public class CompilerFacadeImpl implements CompilerFacade {
     
     private final CompilerService compilerService;
     
-    private final HooksStorage hooksStorage;
+    private final HooksRepository hooksRepository;
     
     private final MeterRegistry meterRegistry;
     
@@ -46,14 +47,14 @@ public class CompilerFacadeImpl implements CompilerFacade {
      *
      * @param compilerService the compiler service
      * @param meterRegistry   the meter registry
-     * @param hooksStorage    the hooks storage
+     * @param hooksRepository    the hooks storage
      */
     public CompilerFacadeImpl(@Qualifier("proxy") CompilerService compilerService,
                               MeterRegistry meterRegistry,
-                              HooksStorage hooksStorage) {
+                              HooksRepository hooksRepository) {
         this.compilerService = compilerService;
         this.meterRegistry = meterRegistry;
-        this.hooksStorage = hooksStorage;
+        this.hooksRepository = hooksRepository;
     }
     
     @Override
@@ -68,7 +69,7 @@ public class CompilerFacadeImpl implements CompilerFacade {
                         .body("url " + url  + " not valid");
             }
             log.info("The execution is long running and the url is valid");
-            hooksStorage.addUrl(execution.getImageName(), url);
+            hooksRepository.addUrl(execution.getImageName(), url);
         }
         // Short running execution (Long Polling)
         shortRunningExecutionCounter.increment();

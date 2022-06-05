@@ -2,6 +2,7 @@ package com.cp.compiler.services;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.WellKnownFileNames;
+import com.cp.compiler.repositories.HooksRepository;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -60,7 +61,7 @@ public class CompilerProxy implements CompilerService {
     private CompilerService longRunningCompilerService;
     
     @Autowired
-    private HooksStorage hooksStorage;
+    private HooksRepository hooksRepository;
     
     private AtomicLong executionsCounter = new AtomicLong(0);
     
@@ -110,8 +111,8 @@ public class CompilerProxy implements CompilerService {
         // If the storage contains the imageName that means we registered the url before
         // and the client want a push notification.
         String imageName = execution.getImageName();
-        if (hooksStorage.contains(imageName)) {
-            log.info("Start long running execution, the answer will be pushed to : {}", hooksStorage.get(imageName));
+        if (hooksRepository.contains(imageName)) {
+            log.info("Start long running execution, the answer will be pushed to : {}", hooksRepository.get(imageName));
             return longRunningCompilerService.compile(execution);
         }
         log.info("Start short running execution");

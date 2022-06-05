@@ -1,6 +1,7 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.executions.Execution;
+import com.cp.compiler.repositories.HooksRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -21,21 +22,21 @@ public class LongRunningCompilerService extends CompilerServiceDecorator {
     
     private final RestTemplate restTemplate;
 
-    private final HooksStorage hooksStorage;
+    private final HooksRepository hooksRepository;
     
     /**
      * Instantiates a new Long running compiler service.
      *
      * @param compilerService the compiler service
      * @param restTemplate    the rest template
-     * @param hooksStorage    the hooks storage
+     * @param hooksRepository    the hooks storage
      */
     public LongRunningCompilerService(@Qualifier("client") CompilerService compilerService,
                                       RestTemplate restTemplate,
-                                      HooksStorage hooksStorage) {
+                                      HooksRepository hooksRepository) {
         super(compilerService);
         this.restTemplate = restTemplate;
-        this.hooksStorage = hooksStorage;
+        this.hooksRepository = hooksRepository;
     }
     
     @Override
@@ -49,7 +50,7 @@ public class LongRunningCompilerService extends CompilerServiceDecorator {
                 log.error("Error : {}", exception);
             }
         }).start();
-        String url = hooksStorage.get(execution.getImageName());
+        String url = hooksRepository.get(execution.getImageName());
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
                 .body("Executing the request, you'll get the response in the following url : " + url);
@@ -68,7 +69,7 @@ public class LongRunningCompilerService extends CompilerServiceDecorator {
             response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception);
         }
         String imageName = execution.getImageName();
-        String url = hooksStorage.get(imageName);
+        String url = hooksRepository.get(imageName);
         log.info("Sending response to {}", url);
         sendResponse(url, response);
     }

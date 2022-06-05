@@ -1,5 +1,6 @@
 package com.cp.compiler.services;
 
+import com.cp.compiler.repositories.HooksRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.test.annotation.DirtiesContext;
 public class HocksStorageTests {
     
     @Autowired
-    private HooksStorage hooksStorage;
+    private HooksRepository hooksRepository;
     
     @Test
     void shouldAddUrl() {
@@ -20,10 +21,10 @@ public class HocksStorageTests {
         String url = "test";
         
         // When
-        hooksStorage.addUrl(imageName, url);
+        hooksRepository.addUrl(imageName, url);
         
         // Then
-        Assertions.assertTrue(hooksStorage.contains(imageName));
+        Assertions.assertTrue(hooksRepository.contains(imageName));
     }
     
     @Test
@@ -31,10 +32,10 @@ public class HocksStorageTests {
         // Given
         String imageName = "test";
         String url = "test";
-        hooksStorage.addUrl(imageName, url);
+        hooksRepository.addUrl(imageName, url);
     
         // When
-        String retrievedUrl = hooksStorage.get(imageName);
+        String retrievedUrl = hooksRepository.get(imageName);
         
         // Then
         Assertions.assertEquals(url, retrievedUrl);
@@ -45,13 +46,13 @@ public class HocksStorageTests {
         // Given
         String imageName = "test";
         String url = "test";
-        hooksStorage.addUrl(imageName, url);
+        hooksRepository.addUrl(imageName, url);
     
         // When
-        String retrievedUrl = hooksStorage.getAndRemove(imageName);
+        String retrievedUrl = hooksRepository.getAndRemove(imageName);
     
         // Then
-        Assertions.assertFalse(hooksStorage.contains(imageName));
+        Assertions.assertFalse(hooksRepository.contains(imageName));
         Assertions.assertEquals(url, retrievedUrl);
     }
     
@@ -60,10 +61,10 @@ public class HocksStorageTests {
         // Given
         String imageName = "test";
         String url = "test";
-        hooksStorage.addUrl(imageName, url);
+        hooksRepository.addUrl(imageName, url);
     
         // When
-        boolean exists = hooksStorage.contains(imageName);
+        boolean exists = hooksRepository.contains(imageName);
     
         // Then
         Assertions.assertTrue(exists);
@@ -72,7 +73,7 @@ public class HocksStorageTests {
     @Test
     void shouldReturnFalseIfTheUrlDoesNotExist() {
         // When
-        boolean exists = hooksStorage.contains("test");
+        boolean exists = hooksRepository.contains("test");
     
         // Then
         Assertions.assertFalse(exists);

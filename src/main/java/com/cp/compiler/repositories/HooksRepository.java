@@ -1,9 +1,9 @@
-package com.cp.compiler.services;
+package com.cp.compiler.repositories;
 
 /**
  * The interface Hooks storage service.
  */
-public interface HooksStorage {
+public interface HooksRepository {
     
     /**
      * Get string.

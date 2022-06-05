@@ -1,6 +1,6 @@
-package com.cp.compiler.services;
+package com.cp.compiler.repositories;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,8 +8,8 @@ import java.util.Map;
 /**
  * The type Hooks storage.
  */
-@Component
-public class HooksStorageImpl implements HooksStorage {
+@Repository
+public class HooksRepositoryImpl implements HooksRepository {
     
     private final Map<String, String> hooks = new HashMap<>();
     
