@@ -39,4 +39,74 @@ public class ExecutionFactoryTests {
                 FactoryNotFoundException.class,
                 () -> ExecutionFactory.createExecution(file, file, file, 10, 100, null));
     }
+    
+    @Test
+    void shouldCreateJavaExecution() {
+        // Given
+        var javaExecutionFactory = new JavaExecutionFactory(null);
+        
+        // When
+        Execution execution =
+                javaExecutionFactory.createExecution(file, file, file, 10, 100);
+        
+        // Then
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof JavaExecution);
+    }
+    
+    @Test
+    void shouldCreatePythonExecution() {
+        // Given
+        var pythonExecutionFactory = new PythonExecutionFactory(null);
+        
+        // When
+        Execution execution =
+                pythonExecutionFactory.createExecution(file, file, file, 10, 100);
+        
+        // Then
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof PythonExecution);
+    }
+    
+    @Test
+    void shouldCreateCExecution() {
+        // Given
+        var cExecutionFactory = new CExecutionFactory(null);
+        
+        // When
+        Execution execution =
+                cExecutionFactory.createExecution(file, file, file, 10, 100);
+        
+        // Then
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof CExecution);
+    }
+    
+    @Test
+    void shouldCreateCppExecution() {
+        // Given
+        var cppExecutionFactory = new CPPExecutionFactory(null);
+        
+        // When
+        Execution execution =
+                cppExecutionFactory.createExecution(file, file, file, 10, 100);
+        
+        // Then
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof CPPExecution);
+    }
+    
+    @Test
+    void shouldCreateGoExecution() {
+        // Given
+        var goExecutionFactory = new GoExecutionFactory(null);
+        
+        // When
+        Execution execution =
+                goExecutionFactory.createExecution(file, file, file, 10, 100);
+        
+        // Then
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof GoExecution);
+    }
 }

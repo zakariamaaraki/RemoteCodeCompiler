@@ -11,7 +11,7 @@ public abstract class StatusUtil {
     
     public static final int ACCEPTED_OR_WRONG_ANSWER_STATUS = 0;
     
-    public static final int COMPILATION_ERROR_STATUS = 2;
+    public static final int COMPILATION_ERROR_STATUS = 96; // random number
     
     public static final int OUT_OF_MEMORY_STATUS = 139;
     

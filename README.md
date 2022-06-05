@@ -4,7 +4,7 @@
 
 # Remote Code Compiler
 
-An online code compiler supporting Java, C, C++ and Python for competitive programming and coding interviews.
+An online code compiler supporting Java, C, C++, Golang and Python for competitive programming and coding interviews.
 This service execute your code remotely using docker containers to separate environments of execution.
 
 Supports **Rest Calls (Long Polling and [Push Notification](https://en.wikipedia.org/wiki/Push_technology))**, **Apache Kafka** and **Rabbit MQ Messages**.

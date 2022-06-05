@@ -25,6 +25,12 @@ public class RegisteredFactoriesTests {
     }
     
     @Test
+    void goExecutionFactoryShouldBeRegistered() {
+        Assertions.assertNotNull(
+                ExecutionFactory.createExecution(file, file, file, 10, 100, Language.GO));
+    }
+    
+    @Test
     void cExecutionFactoryShouldBeRegistered() {
         Assertions.assertNotNull(
                 ExecutionFactory.createExecution(file, file, file, 10, 100, Language.C));

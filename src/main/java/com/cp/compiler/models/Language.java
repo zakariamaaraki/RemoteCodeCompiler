@@ -27,7 +27,12 @@ public enum Language {
     /**
      * Java language.
      */
-    JAVA("utility_java", "main.java", "javac");
+    JAVA("utility_java", "main.java", "javac"),
+    
+    /**
+     * Golang language.
+     */
+    GO("utility_go", "main.go", "go build");
     
     /**
      * The Folder.

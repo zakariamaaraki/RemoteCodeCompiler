@@ -1,6 +1,7 @@
 package com.cp.compiler.executions;
 
 import com.cp.compiler.models.Language;
+import com.cp.compiler.utilities.StatusUtil;
 import io.micrometer.core.instrument.Counter;
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -52,7 +53,7 @@ public class JavaExecution extends Execution {
                 + "ret=$?\n"
                 + "if [ $ret -ne 0 ]\n"
                 + "then\n"
-                + "  exit 2\n"
+                + "  exit " + StatusUtil.COMPILATION_ERROR_STATUS + "\n"
                 + "fi\n"
                 + "ulimit -s " + getMemoryLimit() + "\n"
                 + executionCommand

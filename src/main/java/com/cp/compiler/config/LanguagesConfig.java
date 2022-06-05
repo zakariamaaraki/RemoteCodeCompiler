@@ -25,6 +25,7 @@ public class LanguagesConfig {
         register(Language.PYTHON, new PythonExecutionFactory(meterRegistry.counter("python.counter")));
         register(Language.C, new CExecutionFactory(meterRegistry.counter("c.counter")));
         register(Language.CPP, new CPPExecutionFactory(meterRegistry.counter("cpp.counter")));
+        register(Language.GO, new GoExecutionFactory(meterRegistry.counter("go.counter")));
     }
     
     private void register(Language language, AbstractExecutionFactory executionFactory) {
