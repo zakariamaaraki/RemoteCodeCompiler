@@ -24,7 +24,7 @@ Supports **Rest Calls (Long Polling and [Push Notification](https://en.wikipedia
 
 ### Example of an ouput
 
-The compiler cleans your output, so having extra spaces or line breaks does not affect the status of the response.
+The compiler cleans up your output, so having extra spaces or line breaks does not affect the status of the response.
 
 ```json
 {
