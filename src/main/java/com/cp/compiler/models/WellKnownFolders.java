@@ -25,7 +25,7 @@ public abstract class WellKnownFolders {
     /**
      * The constant PYTHON_EXECUTION_FOLDER_NAME.
      */
-    public static final String PYTHON_EXECUTION_FOLDER_NAME = "utility_python";
+    public static final String PYTHON_EXECUTION_FOLDER_NAME = "utility_py";
     
     /**
      * The constant GO_EXECUTION_FOLDER_NAME.
