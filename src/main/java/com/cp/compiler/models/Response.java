@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
  * @author Zakaria Maaraki
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(description = "The returned response")
 public class Response {

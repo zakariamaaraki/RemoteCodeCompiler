@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * The type Result.
@@ -11,6 +12,7 @@ import lombok.Data;
  * @author Zakaria Maaraki
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(description = "The result of the execution")
 public class Result {
