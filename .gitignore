@@ -36,6 +36,8 @@ utility_java/entrypoint.sh
 ./utility_c/entrypoint.sh
 ./utility_cpp/entrypoint.sh
 ./utility_py/entrypoint.sh
+./utility_go/entrypoint.sh
+./utility_cs/entrypoint.sh
 
 ### idea ###
 .idea
