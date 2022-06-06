@@ -48,7 +48,7 @@ public class JsonMapperTests {
             "{\\nSystem.out.println(i++);\\n}}}\",\n\"language\": \"JAVA\",\"timeLimit\": 15,\"memoryLimit\": 500\n}";
     
     @Test
-    public void shouldTransformJsonRequestJsonToRequestObject() throws IOException {
+    void shouldTransformJsonRequestJsonToRequestObject() throws IOException {
         // When
         Request requestInput = JsonMapper.toRequest(jsonRequest);
         
@@ -57,7 +57,7 @@ public class JsonMapperTests {
     }
     
     @Test
-    public void shouldTransformResponseObjectToJsonResponse() throws JsonProcessingException {
+    void shouldTransformResponseObjectToJsonResponse() throws JsonProcessingException {
         // Given
         LocalDateTime localDateTime = LocalDateTime.now();
         Result result = new Result(
@@ -76,7 +76,7 @@ public class JsonMapperTests {
     }
     
     @Test
-    public void givenJsonRequestShouldCompileTheRequestAndReturnJsonResponse() throws Exception {
+    void givenJsonRequestShouldCompileTheRequestAndReturnJsonResponse() throws Exception {
         // Given
         Mockito.when(compilerService.compile(ArgumentMatchers.any()))
                 .thenReturn(ResponseEntity.ok(
@@ -92,7 +92,7 @@ public class JsonMapperTests {
     }
     
     @Test
-    public void givenJsonRequestShouldCompileTheRequestAndReturnACorrectJsonResponse() throws Exception {
+    void givenJsonRequestShouldCompileTheRequestAndReturnACorrectJsonResponse() throws Exception {
         // Given
         final var result = new Result(Verdict.ACCEPTED, "aaa", "", "aaa", 100);
     
@@ -107,7 +107,7 @@ public class JsonMapperTests {
     }
     
     @Test
-    public void ifTheRequestIsThrottledShouldThrowAThrottlingException() throws Exception {
+    void ifTheRequestIsThrottledShouldThrowAThrottlingException() throws Exception {
         // Given
         final var result = new Result(Verdict.ACCEPTED, "aaa", "", "aaa", 100);
     
@@ -116,6 +116,20 @@ public class JsonMapperTests {
         
         // Then
         Assertions.assertThrows(ThrottlingException.class, () -> JsonMapper.transform(jsonRequest, compilerService));
+    }
+    
+    @Test
+    void shouldReturnNullValueIfTheReturnedObjectIsNotAnInstanceOfResponseClass() throws Exception {
+
+        // Given
+        Mockito.when(compilerService.compile(ArgumentMatchers.any()))
+                .thenReturn(ResponseEntity.ok("test"));
+    
+        // When
+        var jsonResponse = JsonMapper.transform(jsonRequest, compilerService);
+        
+        // Then
+        Assertions.assertEquals(null, jsonResponse);
     }
     
     private Response toResponse(String jsonResponse) throws JsonProcessingException {

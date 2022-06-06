@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/mappers/JsonMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/mappers/JsonMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Response.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Result.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -181,6 +178,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="JsonMapperTests.shouldReturnNullValueIfTheReturnedObjectIsNotAnInstanceOfResponseClass" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.mappers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.mappers" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.mappers.JsonMapperTests" />
+      <option name="METHOD_NAME" value="shouldReturnNullValueIfTheReturnedObjectIsNotAnInstanceOfResponseClass" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="JsonMapperTests.shouldTransformJsonResponseJsonToResponseObject" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
@@ -192,22 +205,6 @@
       <option name="PACKAGE_NAME" value="com.cp.compiler.mappers" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.mappers.JsonMapperTests" />
       <option name="METHOD_NAME" value="shouldTransformJsonResponseJsonToResponseObject" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RegisteredFactoriesTests.csExecutionFactoryShouldBeRegistered" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.executions.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.RegisteredFactoriesTests" />
-      <option name="METHOD_NAME" value="csExecutionFactoryShouldBeRegistered" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -355,10 +352,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.JsonMapperTests" />
+        <item itemvalue="JUnit.JsonMapperTests.shouldReturnNullValueIfTheReturnedObjectIsNotAnInstanceOfResponseClass" />
         <item itemvalue="JUnit.JsonMapperTests.givenJsonRequestShouldCompileTheRequestAndReturnACorrectJsonResponse" />
         <item itemvalue="JUnit.JsonMapperTests.ifTheRequestIfThrottledShouldThrowAThrottlingException" />
         <item itemvalue="JUnit.JsonMapperTests.shouldTransformJsonResponseJsonToResponseObject" />
-        <item itemvalue="JUnit.RegisteredFactoriesTests.csExecutionFactoryShouldBeRegistered" />
       </list>
     </recent_temporary>
   </component>
@@ -428,7 +425,7 @@
       <workItem from="1651945617787" duration="11882000" />
       <workItem from="1652048296944" duration="2410000" />
       <workItem from="1654198874514" duration="6033000" />
-      <workItem from="1654280181690" duration="71485000" />
+      <workItem from="1654280181690" duration="72317000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
@@ -580,7 +577,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java</url>
-          <line>121</line>
+          <line>134</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
