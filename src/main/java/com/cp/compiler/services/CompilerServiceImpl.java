@@ -66,7 +66,7 @@ public class CompilerServiceImpl implements CompilerService {
         try {
             log.info("Creating execution directory");
             execution.createExecutionDirectory();
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new CompilerServerInternalException(e.getMessage());
         }
         

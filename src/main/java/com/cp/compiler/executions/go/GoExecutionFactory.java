@@ -1,21 +1,23 @@
-package com.cp.compiler.executions;
+package com.cp.compiler.executions.go;
 
+import com.cp.compiler.executions.AbstractExecutionFactory;
+import com.cp.compiler.executions.Execution;
 import io.micrometer.core.instrument.Counter;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * The type Python execution factory.
+ * The type Go execution factory.
  */
-public class PythonExecutionFactory implements AbstractExecutionFactory {
+public class GoExecutionFactory implements AbstractExecutionFactory {
     
     private final Counter executionCounter;
     
     /**
-     * Instantiates a new Python execution factory.
+     * Instantiates a new Go execution factory.
      *
      * @param executionCounter the execution counter for monitoring
      */
-    public PythonExecutionFactory(Counter executionCounter) {
+    public GoExecutionFactory(Counter executionCounter) {
         this.executionCounter = executionCounter;
     }
     
@@ -25,6 +27,6 @@ public class PythonExecutionFactory implements AbstractExecutionFactory {
                                      MultipartFile expectedOutputFile,
                                      int timeLimit,
                                      int memoryLimit) {
-        return new PythonExecution(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter);
+        return new GoExecution(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter);
     }
 }

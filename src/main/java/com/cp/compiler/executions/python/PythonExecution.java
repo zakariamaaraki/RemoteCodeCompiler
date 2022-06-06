@@ -1,5 +1,6 @@
-package com.cp.compiler.executions;
+package com.cp.compiler.executions.python;
 
+import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import io.micrometer.core.instrument.Counter;
 import lombok.Getter;
@@ -39,12 +40,13 @@ public class PythonExecution extends Execution {
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        String executionCommand = getInputFile() == null
-                ? TIMEOUT_CMD + getTimeLimit() + "s " + Language.PYTHON.getCommand() + " main.py" + "\n"
-                : TIMEOUT_CMD+ getTimeLimit() + "s " + Language.PYTHON.getCommand()
-                + " main.py" + " < " + getInputFile().getOriginalFilename() + "\n";
+        final var commandPrefix =
+                TIMEOUT_CMD + getTimeLimit() + "s " + Language.PYTHON.getCommand() + " " + Language.PYTHON.getFile();
+        final var executionCommand = getInputFile() == null
+                ? commandPrefix + "\n"
+                : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
     
-        String content = BASH_HEADER
+        final var content = BASH_HEADER
                 + "ulimit -s " + getMemoryLimit() + "\n"
                 + executionCommand
                 + "exit $?\n";

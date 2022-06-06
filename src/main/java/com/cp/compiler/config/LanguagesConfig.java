@@ -1,6 +1,12 @@
 package com.cp.compiler.config;
 
 import com.cp.compiler.executions.*;
+import com.cp.compiler.executions.c.CExecutionFactory;
+import com.cp.compiler.executions.cpp.CPPExecutionFactory;
+import com.cp.compiler.executions.cs.CSExecutionFactory;
+import com.cp.compiler.executions.go.GoExecutionFactory;
+import com.cp.compiler.executions.java.JavaExecutionFactory;
+import com.cp.compiler.executions.python.PythonExecutionFactory;
 import com.cp.compiler.models.Language;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +33,7 @@ public class LanguagesConfig {
         register(Language.C, new CExecutionFactory(meterRegistry.counter("c.counter")));
         register(Language.CPP, new CPPExecutionFactory(meterRegistry.counter("cpp.counter")));
         register(Language.GO, new GoExecutionFactory(meterRegistry.counter("go.counter")));
+        register(Language.CS, new CSExecutionFactory(meterRegistry.counter("cs.counter")));
     }
     
     private void register(Language language, AbstractExecutionFactory executionFactory) {

@@ -15,24 +15,27 @@ public enum Language {
     /**
      * Python language.
      */
-    PYTHON("utility_py", "main.py", "python3"),
+    PYTHON(WellKnownFolders.PYTHON_EXECUTION_FOLDER_NAME, WellKnownFileNames.PYTHON_FILE_NAME, WellKnownCommands.PYTHON_COMMAND_LINE),
     /**
      * C language.
      */
-    C("utility_c", "main.c", "gcc"),
+    C(WellKnownFolders.C_EXECUTION_FOLDER_NAME, WellKnownFileNames.C_FILE_NAME, WellKnownCommands.C_COMMAND_LINE),
     /**
      * Cpp language.
      */
-    CPP("utility_cpp", "main.cpp", "g++"),
+    CPP(WellKnownFolders.CPP_EXECUTION_FOLDER_NAME, WellKnownFileNames.CPP_FILE_NAME, WellKnownCommands.CPP_COMMAND_LINE),
     /**
      * Java language.
      */
-    JAVA("utility_java", "main.java", "javac"),
-    
+    JAVA(WellKnownFolders.JAVA_EXECUTION_FOLDER_NAME, WellKnownFileNames.JAVA_FILE_NAME, WellKnownCommands.JAVA_COMMAND_LINE),
     /**
      * Golang language.
      */
-    GO("utility_go", "main.go", "go build");
+    GO(WellKnownFolders.GO_EXECUTION_FOLDER_NAME, WellKnownFileNames.GO_FILE_NAME, WellKnownCommands.GO_COMMAND_LINE),
+    /**
+     * Cs language.
+     */
+    CS(WellKnownFolders.CS_EXECUTION_FOLDER_NAME, WellKnownFileNames.CS_FILE_NAME, WellKnownCommands.CS_COMMAND_LINE);
     
     /**
      * The Folder.

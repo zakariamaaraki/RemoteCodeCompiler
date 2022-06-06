@@ -1,24 +1,25 @@
-package com.cp.compiler.executions;
+package com.cp.compiler.executions.c;
 
+import com.cp.compiler.executions.AbstractExecutionFactory;
+import com.cp.compiler.executions.Execution;
 import io.micrometer.core.instrument.Counter;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * The type Java execution factory.
+ * The type C execution factory.
  */
-public class JavaExecutionFactory implements AbstractExecutionFactory {
+public class CExecutionFactory implements AbstractExecutionFactory {
     
     private final Counter executionCounter;
     
     /**
-     * Instantiates a new Java execution factory.
+     * Instantiates a new C execution factory.
      *
      * @param executionCounter the execution counter for monitoring
      */
-    public JavaExecutionFactory(Counter executionCounter) {
+    public CExecutionFactory(Counter executionCounter) {
         this.executionCounter = executionCounter;
     }
-    
     
     /**
      * Create execution execution.
@@ -28,6 +29,7 @@ public class JavaExecutionFactory implements AbstractExecutionFactory {
      * @param expectedOutputFile the expected output file
      * @param timeLimit          the time limit
      * @param memoryLimit        the memory limit
+     * @param executionCounter   the execution counter
      * @return the execution
      */
     @Override
@@ -36,6 +38,6 @@ public class JavaExecutionFactory implements AbstractExecutionFactory {
                                      MultipartFile expectedOutputFile,
                                      int timeLimit,
                                      int memoryLimit) {
-        return new JavaExecution(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter);
+        return new CExecution(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter);
     }
 }

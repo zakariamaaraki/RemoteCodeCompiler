@@ -1,6 +1,16 @@
 package com.cp.compiler.executions;
 
 import com.cp.compiler.exceptions.FactoryNotFoundException;
+import com.cp.compiler.executions.c.CExecution;
+import com.cp.compiler.executions.c.CExecutionFactory;
+import com.cp.compiler.executions.cpp.CPPExecution;
+import com.cp.compiler.executions.cpp.CPPExecutionFactory;
+import com.cp.compiler.executions.go.GoExecution;
+import com.cp.compiler.executions.go.GoExecutionFactory;
+import com.cp.compiler.executions.java.JavaExecution;
+import com.cp.compiler.executions.java.JavaExecutionFactory;
+import com.cp.compiler.executions.python.PythonExecution;
+import com.cp.compiler.executions.python.PythonExecutionFactory;
 import com.cp.compiler.models.Language;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

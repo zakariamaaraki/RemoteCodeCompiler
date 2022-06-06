@@ -17,6 +17,8 @@ compiler:
   max-requests: ${MAX_REQUESTS:1000}
 
 spring:
+  banner:
+    location: classpath:bannername.txt
   application:
     name: remote-code-compiler
   autoconfigure:

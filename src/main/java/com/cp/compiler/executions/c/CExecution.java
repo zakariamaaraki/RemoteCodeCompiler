@@ -1,5 +1,6 @@
-package com.cp.compiler.executions;
+package com.cp.compiler.executions.c;
 
+import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.utilities.StatusUtil;
 import io.micrometer.core.instrument.Counter;
@@ -12,13 +13,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * The type Cpp execution.
+ * The type C execution.
  */
 @Getter
-public class CPPExecution extends Execution {
+public class CExecution extends Execution {
     
     /**
-     * Instantiates a new Cpp execution.
+     * Instantiates a new C execution.
      *
      * @param sourceCode         the source code
      * @param inputFile          the input file
@@ -27,25 +28,26 @@ public class CPPExecution extends Execution {
      * @param memoryLimit        the memory limit
      * @param executionCounter   the execution counter
      */
-    public CPPExecution(MultipartFile sourceCode,
-                        MultipartFile inputFile,
-                        MultipartFile expectedOutputFile,
-                        int timeLimit,
-                        int memoryLimit,
-                        Counter executionCounter) {
+    public CExecution(MultipartFile sourceCode,
+                      MultipartFile inputFile,
+                      MultipartFile expectedOutputFile,
+                      int timeLimit,
+                      int memoryLimit,
+                      Counter executionCounter) {
         super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter);
-        setpath(Language.CPP);
+        setpath(Language.C);
     }
     
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        String executionCommand = getInputFile() == null
-                ? TIMEOUT_CMD + getTimeLimit() + " ./exec " + "\n"
-                : TIMEOUT_CMD + getTimeLimit() + " ./exec " + " < " + getInputFile().getOriginalFilename() + "\n";
+        final var commandPrefix = TIMEOUT_CMD + getTimeLimit() + " ./exec ";
+        final var executionCommand = getInputFile() == null
+                ? commandPrefix + "\n"
+                : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
     
-        String content = BASH_HEADER
-                + Language.CPP.getCommand() + " main.cpp" + " -o exec" + "\n"
+        final var content = BASH_HEADER
+                + Language.C.getCommand() + " " + Language.C.getFile() + " -o exec" + " > /dev/null\n"
                 + "ret=$?\n"
                 + "if [ $ret -ne 0 ]\n"
                 + "then\n"
@@ -62,11 +64,11 @@ public class CPPExecution extends Execution {
     
     @Override
     protected void saveUploadedFiles() throws IOException {
-        saveUploadedFiles(Language.CPP);
+        saveUploadedFiles(Language.C);
     }
     
     @Override
     protected void copyDockerFileToExecutionDirectory() throws IOException {
-        copyDockerFileToExecutionDirectory(Language.CPP);
+        copyDockerFileToExecutionDirectory(Language.C);
     }
 }

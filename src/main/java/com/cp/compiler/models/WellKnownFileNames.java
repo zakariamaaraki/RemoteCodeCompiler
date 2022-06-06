@@ -8,6 +8,36 @@ public abstract class WellKnownFileNames {
     private WellKnownFileNames() {}
     
     /**
+     * The constant JAVA_FILE_NAME.
+     */
+    public static final String JAVA_FILE_NAME = "main.java";
+    
+    /**
+     * The constant PYTHON_FILE_NAME.
+     */
+    public static final String PYTHON_FILE_NAME = "main.py";
+    
+    /**
+     * The constant C_FILE_NAME.
+     */
+    public static final String C_FILE_NAME = "main.c";
+    
+    /**
+     * The constant CPP_FILE_NAME.
+     */
+    public static final String CPP_FILE_NAME = "main.cpp";
+    
+    /**
+     * The constant GO_FILE_NAME.
+     */
+    public static final String GO_FILE_NAME = "main.go";
+    
+    /**
+     * The constant CS_FILE_NAME.
+     */
+    public static final String CS_FILE_NAME = "main.cs";
+    
+    /**
      * The constant INPUT_FILE_NAME.
      */
     public static final String INPUT_FILE_NAME = "input.txt";

@@ -20,6 +20,7 @@ ADD utility_c utility_c
 ADD utility_cpp utility_cpp
 ADD utility_py utility_py
 ADD utility_go utility_go
+ADD utility_cs utility_cs
 
 ADD entrypoint.sh entrypoint.sh
 

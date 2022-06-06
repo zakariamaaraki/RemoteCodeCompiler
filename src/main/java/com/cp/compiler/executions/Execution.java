@@ -6,6 +6,7 @@ import io.micrometer.core.instrument.Counter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +18,7 @@ import java.util.UUID;
 /**
  * The type Execution.
  */
+@Slf4j
 @Getter
 @EqualsAndHashCode
 public abstract class Execution {
@@ -52,7 +54,7 @@ public abstract class Execution {
      */
     protected String path;
     
-    // For monitoring the number of executions for each programming language
+    // For monitoring purpose it represents the number of executions in parallel for each programming language
     private final Counter executionCounter;
     
     /**
@@ -88,7 +90,9 @@ public abstract class Execution {
     public void createExecutionDirectory() throws IOException {
         executionCounter.increment();
         Files.createDirectory(Path.of(path));
+        log.debug("Saving uploaded files");
         saveUploadedFiles();
+        log.debug("Copying Dockerfile to execution directory");
         copyDockerFileToExecutionDirectory();
         createEntrypointFile();
     }

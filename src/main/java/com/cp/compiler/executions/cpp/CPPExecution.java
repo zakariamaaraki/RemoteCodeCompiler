@@ -1,5 +1,6 @@
-package com.cp.compiler.executions;
+package com.cp.compiler.executions.cpp;
 
+import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.utilities.StatusUtil;
 import io.micrometer.core.instrument.Counter;
@@ -12,13 +13,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * The type Java execution.
+ * The type Cpp execution.
  */
 @Getter
-public class JavaExecution extends Execution {
+public class CPPExecution extends Execution {
     
     /**
-     * Instantiates a new Java execution.
+     * Instantiates a new Cpp execution.
      *
      * @param sourceCode         the source code
      * @param inputFile          the input file
@@ -27,29 +28,26 @@ public class JavaExecution extends Execution {
      * @param memoryLimit        the memory limit
      * @param executionCounter   the execution counter
      */
-    public JavaExecution(MultipartFile sourceCode,
-                         MultipartFile inputFile,
-                         MultipartFile expectedOutputFile,
-                         int timeLimit,
-                         int memoryLimit,
-                         Counter executionCounter) {
+    public CPPExecution(MultipartFile sourceCode,
+                        MultipartFile inputFile,
+                        MultipartFile expectedOutputFile,
+                        int timeLimit,
+                        int memoryLimit,
+                        Counter executionCounter) {
         super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter);
-        setpath(Language.JAVA);
+        setpath(Language.CPP);
     }
     
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        var fileName = getSourceCodeFile().getOriginalFilename();
-        final var prefixName = fileName.substring(0, fileName.length() - 5);
-        String executionCommand = getInputFile() == null
-                ? TIMEOUT_CMD + getTimeLimit() + " java " + prefixName + "\n"
-                : TIMEOUT_CMD + getTimeLimit() + " java " + prefixName + " < "
-                + getInputFile().getOriginalFilename() + "\n";
-        
-        String content = BASH_HEADER +
-                "mv main.java " + fileName + "\n"
-                + Language.JAVA.getCommand() + " " + fileName + "\n"
+        final var commandPrefix = TIMEOUT_CMD + getTimeLimit() + " ./exec ";
+        final var executionCommand = getInputFile() == null
+                ? commandPrefix + "\n"
+                : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
+    
+        final var content = BASH_HEADER
+                + Language.CPP.getCommand() + " main.cpp" + " -o exec" + " > /dev/null\n"
                 + "ret=$?\n"
                 + "if [ $ret -ne 0 ]\n"
                 + "then\n"
@@ -58,7 +56,7 @@ public class JavaExecution extends Execution {
                 + "ulimit -s " + getMemoryLimit() + "\n"
                 + executionCommand
                 + "exit $?\n";
-        
+    
         try(OutputStream os = new FileOutputStream(path + "/entrypoint.sh")) {
             os.write(content.getBytes(), 0, content.length());
         }
@@ -66,11 +64,11 @@ public class JavaExecution extends Execution {
     
     @Override
     protected void saveUploadedFiles() throws IOException {
-        saveUploadedFiles(Language.JAVA);
+        saveUploadedFiles(Language.CPP);
     }
     
     @Override
     protected void copyDockerFileToExecutionDirectory() throws IOException {
-        copyDockerFileToExecutionDirectory(Language.JAVA);
+        copyDockerFileToExecutionDirectory(Language.CPP);
     }
 }
