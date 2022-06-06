@@ -5,9 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/images/supported-languages.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CSE2ETests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/cs/Test1.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/cs/Test2.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/cs/Test3.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/cs/Test4.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/cs/Test5.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/cs/Test6.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/Execution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/Execution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/c/CExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/c/CExecution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/cpp/CPPExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/cpp/CPPExecution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/cs/CSExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/cs/CSExecution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/go/GoExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/go/GoExecution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/java/JavaExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/java/JavaExecution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/RegisteredFactoriesTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/RegisteredFactoriesTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +75,7 @@
     <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/utility_cs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/resources/sources/cs" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
@@ -75,11 +87,11 @@
       <recent name="com.cp.compiler.services" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources/sources/cs" />
       <recent name="$PROJECT_DIR$/utility_cs" />
       <recent name="$PROJECT_DIR$/src/test/resources/sources/go" />
       <recent name="$PROJECT_DIR$/utility_go" />
       <recent name="$PROJECT_DIR$/images" />
-      <recent name="$PROJECT_DIR$/k8s/helm_charts/monitoring/charts/grafana/templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/images" />
@@ -100,7 +112,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.RegisteredFactoriesTests">
+  <component name="RunManager" selected="JUnit.RegisteredFactoriesTests.csExecutionFactoryShouldBeRegistered">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -132,21 +144,6 @@
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="CompilerProxyServiceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.repositories.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerProxyServiceTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ExecutionFactoryTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
@@ -162,17 +159,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LongRunningCompilerServiceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ExecutionFactoryTests.shouldCreateCsExecution" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.repositories.*" />
+          <option name="PATTERN" value="com.cp.compiler.executions.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.LongRunningCompilerServiceTests" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionFactoryTests" />
+      <option name="METHOD_NAME" value="shouldCreateCsExecution" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -188,6 +186,22 @@
       <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.RegisteredFactoriesTests" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RegisteredFactoriesTests.csExecutionFactoryShouldBeRegistered" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.executions.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.RegisteredFactoriesTests" />
+      <option name="METHOD_NAME" value="csExecutionFactoryShouldBeRegistered" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -348,11 +362,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.RegisteredFactoriesTests.csExecutionFactoryShouldBeRegistered" />
+        <item itemvalue="JUnit.ExecutionFactoryTests.shouldCreateCsExecution" />
         <item itemvalue="JUnit.RegisteredFactoriesTests" />
         <item itemvalue="JUnit.ExecutionFactoryTests" />
         <item itemvalue="JUnit.ThrottlingTests" />
-        <item itemvalue="JUnit.CompilerProxyServiceTests" />
-        <item itemvalue="JUnit.LongRunningCompilerServiceTests" />
       </list>
     </recent_temporary>
   </component>
@@ -422,7 +436,7 @@
       <workItem from="1651945617787" duration="11882000" />
       <workItem from="1652048296944" duration="2410000" />
       <workItem from="1654198874514" duration="6033000" />
-      <workItem from="1654280181690" duration="58177000" />
+      <workItem from="1654280181690" duration="65089000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>

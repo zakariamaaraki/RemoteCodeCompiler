@@ -26,6 +26,13 @@ public class RegisteredFactoriesTests {
     }
     
     @Test
+    void csExecutionFactoryShouldBeRegistered() {
+        Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.CS));
+        Assertions.assertNotNull(
+                ExecutionFactory.createExecution(file, file, file, 10, 100, Language.CS));
+    }
+    
+    @Test
     void goExecutionFactoryShouldBeRegistered() {
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.GO));
         Assertions.assertNotNull(

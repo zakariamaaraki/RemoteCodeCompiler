@@ -45,7 +45,7 @@ public class GoExecution extends Execution {
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
     
         final var content = BASH_HEADER
-                + Language.GO.getCommand() + " -o exec" + " " + Language.GO.getFile() + " > /dev/null\n"
+                + Language.GO.getCommand() + " -o exec" + " " + Language.GO.getFile() + " 1> /dev/null\n"
                 + "ret=$?\n"
                 + "if [ $ret -ne 0 ]\n"
                 + "then\n"

@@ -47,7 +47,7 @@ public class CExecution extends Execution {
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
     
         final var content = BASH_HEADER
-                + Language.C.getCommand() + " " + Language.C.getFile() + " -o exec" + " > /dev/null\n"
+                + Language.C.getCommand() + " " + Language.C.getFile() + " -o exec" + " 1> /dev/null\n"
                 + "ret=$?\n"
                 + "if [ $ret -ne 0 ]\n"
                 + "then\n"

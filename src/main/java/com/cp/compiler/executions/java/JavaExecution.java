@@ -52,7 +52,7 @@ public class JavaExecution extends Execution {
         
         final var content = BASH_HEADER +
                 "mv main.java " + fileName + "\n"
-                + Language.JAVA.getCommand() + " " + fileName + " > /dev/null\n"
+                + Language.JAVA.getCommand() + " " + fileName + " 1> /dev/null\n"
                 + "ret=$?\n"
                 + "if [ $ret -ne 0 ]\n"
                 + "then\n"

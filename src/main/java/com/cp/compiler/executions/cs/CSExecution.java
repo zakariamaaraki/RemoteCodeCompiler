@@ -47,7 +47,7 @@ public class CSExecution extends Execution {
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
     
         final var content = BASH_HEADER
-                + Language.CS.getCommand() + " " + Language.CS.getFile() + " > /dev/null\n"
+                + Language.CS.getCommand() + " " + Language.CS.getFile() + " 1> /dev/null\n"
                 + "ret=$?\n"
                 + "if [ $ret -ne 0 ]\n"
                 + "then\n"

@@ -5,6 +5,8 @@ import com.cp.compiler.executions.c.CExecution;
 import com.cp.compiler.executions.c.CExecutionFactory;
 import com.cp.compiler.executions.cpp.CPPExecution;
 import com.cp.compiler.executions.cpp.CPPExecutionFactory;
+import com.cp.compiler.executions.cs.CSExecution;
+import com.cp.compiler.executions.cs.CSExecutionFactory;
 import com.cp.compiler.executions.go.GoExecution;
 import com.cp.compiler.executions.go.GoExecutionFactory;
 import com.cp.compiler.executions.java.JavaExecution;
@@ -118,5 +120,20 @@ public class ExecutionFactoryTests {
         // Then
         Assertions.assertNotNull(execution);
         Assertions.assertTrue(execution instanceof GoExecution);
+    }
+    
+    
+    @Test
+    void shouldCreateCsExecution() {
+        // Given
+        var csExecutionFactory = new CSExecutionFactory(null);
+        
+        // When
+        Execution execution =
+                csExecutionFactory.createExecution(file, file, file, 10, 100);
+        
+        // Then
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof CSExecution);
     }
 }
