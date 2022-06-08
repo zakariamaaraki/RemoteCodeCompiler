@@ -1,4 +1,4 @@
-package com.cp.compiler.executions.java;
+package com.cp.compiler.executions.kotlin;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
@@ -13,13 +13,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * The type Java execution.
+ * The type Kotlin execution.
  */
 @Getter
-public class JavaExecution extends Execution {
+public class KotlinExecution extends Execution {
     
     /**
-     * Instantiates a new Java execution.
+     * Instantiates a new Kotlin execution.
      *
      * @param sourceCode         the source code
      * @param inputFile          the input file
@@ -28,31 +28,31 @@ public class JavaExecution extends Execution {
      * @param memoryLimit        the memory limit
      * @param executionCounter   the execution counter
      */
-    public JavaExecution(MultipartFile sourceCode,
-                         MultipartFile inputFile,
-                         MultipartFile expectedOutputFile,
-                         int timeLimit,
-                         int memoryLimit,
-                         Counter executionCounter) {
+    public KotlinExecution(MultipartFile sourceCode,
+                           MultipartFile inputFile,
+                           MultipartFile expectedOutputFile,
+                           int timeLimit,
+                           int memoryLimit,
+                           Counter executionCounter) {
         super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter);
-        setpath(Language.JAVA);
+        setpath(Language.KOTLIN);
     }
     
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        // This case is a bit different, Java file name must be the same as the name of the class
+        // This case is a bit different, Kotlin and Java files name must be the same as the name of the class
         // So we will keep the name of the file as it's sent by the user.
         var fileName = getSourceCodeFile().getOriginalFilename();
-        final var prefixName = fileName.substring(0, fileName.length() - 5);
-        final var commandPrefix = TIMEOUT_CMD + getTimeLimit() + " java " + prefixName;
+        final var prefixName = fileName.substring(0, fileName.length() - 3);
+        final var commandPrefix = TIMEOUT_CMD + getTimeLimit() + " kotlin " + prefixName;
         final var executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
         
         final var content = BASH_HEADER
-                + "mv main.java " + fileName + "\n"
-                + Language.JAVA.getCommand() + " " + fileName + " 1> /dev/null\n"
+                + "mv main.kt " + fileName + "\n"
+                + Language.KOTLIN.getCommand() + " " + fileName + " 1> /dev/null\n"
                 + "ret=$?\n"
                 + "if [ $ret -ne 0 ]\n"
                 + "then\n"
@@ -69,11 +69,11 @@ public class JavaExecution extends Execution {
     
     @Override
     protected void saveUploadedFiles() throws IOException {
-        saveUploadedFiles(Language.JAVA);
+        saveUploadedFiles(Language.KOTLIN);
     }
     
     @Override
     protected void copyDockerFileToExecutionDirectory() throws IOException {
-        copyDockerFileToExecutionDirectory(Language.JAVA);
+        copyDockerFileToExecutionDirectory(Language.KOTLIN);
     }
 }

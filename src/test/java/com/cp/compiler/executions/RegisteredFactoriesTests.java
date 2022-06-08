@@ -26,6 +26,13 @@ public class RegisteredFactoriesTests {
     }
     
     @Test
+    void kotlinExecutionFactoryShouldBeRegistered() {
+        Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.KOTLIN));
+        Assertions.assertNotNull(
+                ExecutionFactory.createExecution(file, file, file, 10, 100, Language.KOTLIN));
+    }
+    
+    @Test
     void csExecutionFactoryShouldBeRegistered() {
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.CS));
         Assertions.assertNotNull(

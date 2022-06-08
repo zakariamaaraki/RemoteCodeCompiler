@@ -36,4 +36,9 @@ public abstract class WellKnownFolders {
      * The constant CS_EXECUTION_FOLDER_NAME.
      */
     public static final String CS_EXECUTION_FOLDER_NAME = "utility_cs";
+    
+    /**
+     * The constant KOTLIN_EXECUTION_FOLDER_NAME.
+     */
+    public static final String KOTLIN_EXECUTION_FOLDER_NAME = "utility_kt";
 }

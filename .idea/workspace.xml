@@ -5,8 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/kotlin/KotlinExecution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/kotlin/KotlinExecutionFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/KotlinE2ETests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/kotlin/Test1.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/kotlin/Test2.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/kotlin/Test3.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/kotlin/Test4.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/kotlin/Test5.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/kotlin/Test6.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utility_kt/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/supported-languages.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/supported-languages.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/config/LanguagesConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/config/LanguagesConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/java/JavaExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/java/JavaExecution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/java/JavaExecutionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/java/JavaExecutionFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Language.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Language.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownCommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownFileNames.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownFileNames.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownFolders.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownFolders.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFactoryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFactoryTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/RegisteredFactoriesTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/RegisteredFactoriesTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +83,8 @@
     <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/resources/sources/cs" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/resources/sources/kotlin" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
@@ -74,11 +96,11 @@
       <recent name="com.cp.compiler.services" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources/sources/kotlin" />
+      <recent name="$PROJECT_DIR$/utility_kt" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/kotlin" />
       <recent name="$PROJECT_DIR$/src/test/resources/sources/cs" />
       <recent name="$PROJECT_DIR$/utility_cs" />
-      <recent name="$PROJECT_DIR$/src/test/resources/sources/go" />
-      <recent name="$PROJECT_DIR$/utility_go" />
-      <recent name="$PROJECT_DIR$/images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/images" />
@@ -91,6 +113,7 @@
       <recent name="com.cp.compiler" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.cp.compiler.e2e" />
       <recent name="com.cp.compiler.executions.cs" />
     </key>
   </component>
@@ -100,13 +123,15 @@
     </option>
   </component>
   <component name="RunManager" selected="JUnit.JsonMapperTests">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -426,6 +451,7 @@
       <workItem from="1652048296944" duration="2410000" />
       <workItem from="1654198874514" duration="6033000" />
       <workItem from="1654280181690" duration="72317000" />
+      <workItem from="1654632494297" duration="11819000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>

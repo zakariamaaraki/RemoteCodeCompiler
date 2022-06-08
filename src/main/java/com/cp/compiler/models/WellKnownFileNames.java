@@ -38,6 +38,11 @@ public abstract class WellKnownFileNames {
     public static final String CS_FILE_NAME = "main.cs";
     
     /**
+     * The constant KOTLIN_FILE_NAME.
+     */
+    public static final String KOTLIN_FILE_NAME = "main.kt";
+    
+    /**
      * The constant INPUT_FILE_NAME.
      */
     public static final String INPUT_FILE_NAME = "input.txt";

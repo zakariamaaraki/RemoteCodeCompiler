@@ -36,4 +36,9 @@ public abstract class WellKnownCommands {
      * The constant CS_COMMAND_LINE.
      */
     public static final String CS_COMMAND_LINE = "csc";
+    
+    /**
+     * The constant KOTLIN_COMMAND_LINE.
+     */
+    public static final String KOTLIN_COMMAND_LINE = "kotlinc";
 }

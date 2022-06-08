@@ -35,7 +35,11 @@ public enum Language {
     /**
      * Cs language.
      */
-    CS(WellKnownFolders.CS_EXECUTION_FOLDER_NAME, WellKnownFileNames.CS_FILE_NAME, WellKnownCommands.CS_COMMAND_LINE);
+    CS(WellKnownFolders.CS_EXECUTION_FOLDER_NAME, WellKnownFileNames.CS_FILE_NAME, WellKnownCommands.CS_COMMAND_LINE),
+    /**
+     * Kotlin language.
+     */
+    KOTLIN(WellKnownFolders.KOTLIN_EXECUTION_FOLDER_NAME, WellKnownFileNames.KOTLIN_FILE_NAME, WellKnownCommands.KOTLIN_COMMAND_LINE);
     
     /**
      * The Folder.

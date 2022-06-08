@@ -11,6 +11,8 @@ import com.cp.compiler.executions.go.GoExecution;
 import com.cp.compiler.executions.go.GoExecutionFactory;
 import com.cp.compiler.executions.java.JavaExecution;
 import com.cp.compiler.executions.java.JavaExecutionFactory;
+import com.cp.compiler.executions.kotlin.KotlinExecution;
+import com.cp.compiler.executions.kotlin.KotlinExecutionFactory;
 import com.cp.compiler.executions.python.PythonExecution;
 import com.cp.compiler.executions.python.PythonExecutionFactory;
 import com.cp.compiler.models.Language;
@@ -135,5 +137,19 @@ public class ExecutionFactoryTests {
         // Then
         Assertions.assertNotNull(execution);
         Assertions.assertTrue(execution instanceof CSExecution);
+    }
+    
+    @Test
+    void shouldCreateKotlinExecution() {
+        // Given
+        var kotlinExecutionFactory = new KotlinExecutionFactory(null);
+        
+        // When
+        Execution execution =
+                kotlinExecutionFactory.createExecution(file, file, file, 10, 100);
+        
+        // Then
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof KotlinExecution);
     }
 }

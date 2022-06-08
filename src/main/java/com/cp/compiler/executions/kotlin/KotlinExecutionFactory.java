@@ -1,4 +1,4 @@
-package com.cp.compiler.executions.java;
+package com.cp.compiler.executions.kotlin;
 
 import com.cp.compiler.executions.AbstractExecutionFactory;
 import com.cp.compiler.executions.Execution;
@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * The type Java execution factory.
  */
-public class JavaExecutionFactory implements AbstractExecutionFactory {
+public class KotlinExecutionFactory implements AbstractExecutionFactory {
     
     private final Counter executionCounter;
     
@@ -17,13 +17,13 @@ public class JavaExecutionFactory implements AbstractExecutionFactory {
      *
      * @param executionCounter the execution counter for monitoring
      */
-    public JavaExecutionFactory(Counter executionCounter) {
+    public KotlinExecutionFactory(Counter executionCounter) {
         this.executionCounter = executionCounter;
     }
     
     
     /**
-     * Create Java execution.
+     * Create Kotlin execution.
      *
      * @param sourceCode         the source code
      * @param inputFile          the input file
@@ -38,6 +38,6 @@ public class JavaExecutionFactory implements AbstractExecutionFactory {
                                      MultipartFile expectedOutputFile,
                                      int timeLimit,
                                      int memoryLimit) {
-        return new JavaExecution(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter);
+        return new KotlinExecution(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter);
     }
 }
