@@ -47,7 +47,7 @@ class RegistrationTests {
     private CompilerController compilerController;
     
     @Test
-    void allComponentShouldBeRegistered() {
+    void allComponentsShouldBeRegistered() {
         Assertions.assertNotNull(compilerFacade);
         Assertions.assertNotNull(compilerServiceClient);
         Assertions.assertNotNull(compilerServiceLongRunning);
