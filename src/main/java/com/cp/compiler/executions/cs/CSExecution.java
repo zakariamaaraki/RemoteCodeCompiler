@@ -9,7 +9,6 @@ import lombok.SneakyThrows;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 
 /**
@@ -34,8 +33,7 @@ public class CSExecution extends Execution {
                        int timeLimit,
                        int memoryLimit,
                        Counter executionCounter) {
-        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter);
-        setpath(Language.CS);
+        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, Language.CS, executionCounter);
     }
     
     @SneakyThrows
@@ -57,18 +55,8 @@ public class CSExecution extends Execution {
                 + executionCommand
                 + "exit $?\n";
     
-        try(OutputStream os = new FileOutputStream(path + "/entrypoint.sh")) {
+        try(OutputStream os = new FileOutputStream(getPath() + "/entrypoint.sh")) {
             os.write(content.getBytes(), 0, content.length());
         }
-    }
-    
-    @Override
-    protected void saveUploadedFiles() throws IOException {
-        saveUploadedFiles(Language.CS);
-    }
-    
-    @Override
-    protected void copyDockerFileToExecutionDirectory() throws IOException {
-        copyDockerFileToExecutionDirectory(Language.CS);
     }
 }

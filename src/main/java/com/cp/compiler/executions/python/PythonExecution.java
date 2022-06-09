@@ -8,7 +8,6 @@ import lombok.SneakyThrows;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 
 /**
@@ -33,8 +32,7 @@ public class PythonExecution extends Execution {
                            int timeLimit,
                            int memoryLimit,
                            Counter executionCounter) {
-        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter);
-        setpath(Language.PYTHON);
+        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, Language.PYTHON, executionCounter);
     }
     
     @SneakyThrows
@@ -54,15 +52,5 @@ public class PythonExecution extends Execution {
         try(OutputStream os = new FileOutputStream(getPath() + "/entrypoint.sh")) {
             os.write(content.getBytes(), 0, content.length());
         }
-    }
-    
-    @Override
-    protected void saveUploadedFiles() throws IOException {
-        saveUploadedFiles(Language.PYTHON);
-    }
-    
-    @Override
-    protected void copyDockerFileToExecutionDirectory() throws IOException {
-        copyDockerFileToExecutionDirectory(Language.PYTHON);
     }
 }
