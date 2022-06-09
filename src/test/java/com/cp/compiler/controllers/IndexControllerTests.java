@@ -23,4 +23,14 @@ class IndexControllerTests {
         // Then
         Assertions.assertEquals(ExecutionFactory.getRegisteredFactories(), supportedLanguages);
     }
+    
+    @Test
+    void shouldRedirectSwaggerPageToIndexPage() {
+        // When
+        var redirectView = indexController.redirectToIndexPage(null);
+        
+        // Then
+        Assertions.assertTrue(redirectView.isRedirectView());
+        Assertions.assertEquals("/swagger-ui.html", redirectView.getUrl());
+    }
 }
