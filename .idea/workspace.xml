@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/controllers/IndexControllerTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/Execution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/Execution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/c/CExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/c/CExecution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/cpp/CPPExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/cpp/CPPExecution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/cs/CSExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/cs/CSExecution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/go/GoExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/go/GoExecution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/java/JavaExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/java/JavaExecution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/kotlin/KotlinExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/kotlin/KotlinExecution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/python/PythonExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/python/PythonExecution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFolderTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFolderTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +101,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ExecutionTests.shouldCopyDockerFileToExecutionDirectory">
+  <component name="RunManager" selected="JUnit.IndexControllerTests.shouldReturnSupportedLanguages">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -191,22 +182,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExecutionTests.shouldCreateAnEntrypointFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.executions.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionTests" />
-      <option name="METHOD_NAME" value="shouldCreateAnEntrypointFile" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ExecutionTests.shouldSaveUploadedFiles" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
@@ -218,6 +193,22 @@
       <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionTests" />
       <option name="METHOD_NAME" value="shouldSaveUploadedFiles" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="IndexControllerTests.shouldReturnSupportedLanguages" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.controllers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.controllers" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.controllers.IndexControllerTests" />
+      <option name="METHOD_NAME" value="shouldReturnSupportedLanguages" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -364,11 +355,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.IndexControllerTests.shouldReturnSupportedLanguages" />
         <item itemvalue="JUnit.ExecutionTests.shouldCopyDockerFileToExecutionDirectory" />
         <item itemvalue="JUnit.ExecutionTests.shouldSaveUploadedFiles" />
         <item itemvalue="JUnit.ExecutionTests.goExecutionShouldCreateAnEntrypointFile" />
         <item itemvalue="JUnit.ExecutionTests" />
-        <item itemvalue="JUnit.ExecutionTests.shouldCreateAnEntrypointFile" />
       </list>
     </recent_temporary>
   </component>
@@ -439,7 +430,7 @@
       <workItem from="1652048296944" duration="2410000" />
       <workItem from="1654198874514" duration="6033000" />
       <workItem from="1654280181690" duration="72317000" />
-      <workItem from="1654632494297" duration="23275000" />
+      <workItem from="1654632494297" duration="25114000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
