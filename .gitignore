@@ -32,12 +32,12 @@ build/
 .vscode/
 
 ### utility ###
-utility_java/entrypoint.sh
-./utility_c/entrypoint.sh
-./utility_cpp/entrypoint.sh
-./utility_py/entrypoint.sh
-./utility_go/entrypoint.sh
-./utility_cs/entrypoint.sh
+executions/utility_java/entrypoint.sh
+executions/utility_c/entrypoint.sh
+executions/utility_cpp/entrypoint.sh
+executions/utility_py/entrypoint.sh
+executions/utility_go/entrypoint.sh
+executions/utility_cs/entrypoint.sh
 
 ### idea ###
 .idea

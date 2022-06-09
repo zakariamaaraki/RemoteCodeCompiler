@@ -10,35 +10,35 @@ public abstract class WellKnownFolders {
     /**
      * The constant JAVA_EXECUTION_FOLDER_NAME.
      */
-    public static final String JAVA_EXECUTION_FOLDER_NAME = "utility_java";
+    public static final String JAVA_EXECUTION_FOLDER_NAME = "executions/utility_java";
     
     /**
      * The constant C_EXECUTION_FOLDER_NAME.
      */
-    public static final String C_EXECUTION_FOLDER_NAME = "utility_c";
+    public static final String C_EXECUTION_FOLDER_NAME = "executions/utility_c";
     
     /**
      * The constant CPP_EXECUTION_FOLDER_NAME.
      */
-    public static final String CPP_EXECUTION_FOLDER_NAME = "utility_cpp";
+    public static final String CPP_EXECUTION_FOLDER_NAME = "executions/utility_cpp";
     
     /**
      * The constant PYTHON_EXECUTION_FOLDER_NAME.
      */
-    public static final String PYTHON_EXECUTION_FOLDER_NAME = "utility_py";
+    public static final String PYTHON_EXECUTION_FOLDER_NAME = "executions/utility_py";
     
     /**
      * The constant GO_EXECUTION_FOLDER_NAME.
      */
-    public static final String GO_EXECUTION_FOLDER_NAME = "utility_go";
+    public static final String GO_EXECUTION_FOLDER_NAME = "executions/utility_go";
     
     /**
      * The constant CS_EXECUTION_FOLDER_NAME.
      */
-    public static final String CS_EXECUTION_FOLDER_NAME = "utility_cs";
+    public static final String CS_EXECUTION_FOLDER_NAME = "executions/utility_cs";
     
     /**
      * The constant KOTLIN_EXECUTION_FOLDER_NAME.
      */
-    public static final String KOTLIN_EXECUTION_FOLDER_NAME = "utility_kt";
+    public static final String KOTLIN_EXECUTION_FOLDER_NAME = "executions/utility_kt";
 }

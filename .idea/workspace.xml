@@ -5,29 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/kotlin/KotlinExecution.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/kotlin/KotlinExecutionFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/KotlinE2ETests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/kotlin/Test1.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/kotlin/Test2.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/kotlin/Test3.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/kotlin/Test4.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/kotlin/Test5.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/kotlin/Test6.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utility_kt/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executions/utility_java/2486711b-60b0-4add-9065-765546634e8c/Watermelon-2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executions/utility_java/2486711b-60b0-4add-9065-765546634e8c/entrypoint.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executions/utility_java/2486711b-60b0-4add-9065-765546634e8c/main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executions/utility_java/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFolderTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/supported-languages.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/supported-languages.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/config/LanguagesConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/config/LanguagesConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/java/JavaExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/java/JavaExecution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/java/JavaExecutionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/java/JavaExecutionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Language.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Language.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownCommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownFileNames.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownFileNames.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownFolders.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownFolders.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFactoryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFactoryTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/RegisteredFactoriesTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/RegisteredFactoriesTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utility_c/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/executions/utility_c/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utility_cpp/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/executions/utility_cpp/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utility_cs/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/executions/utility_cs/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utility_go/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/executions/utility_go/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utility_java/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/executions/utility_java/2486711b-60b0-4add-9065-765546634e8c/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utility_kt/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/executions/utility_kt/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utility_py/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/executions/utility_py/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,11 +96,11 @@
       <recent name="$PROJECT_DIR$/utility_cs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/executions" />
       <recent name="$PROJECT_DIR$/images" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/test/resources/outputs/physEdOnline" />
       <recent name="$PROJECT_DIR$/src/test/resources/outputs" />
-      <recent name="$PROJECT_DIR$/src/test/resources/outputs/watermelon" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.cp.compiler" />
@@ -122,7 +115,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.JsonMapperTests">
+  <component name="RunManager" selected="JUnit.ExecutionFolderTests">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -156,6 +149,53 @@
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="ExecutionFolderTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.executions.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionFolderTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExecutionFolderTests.javaExecutionFolderShouldContainsADockerfile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.executions.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionFolderTests" />
+      <option name="METHOD_NAME" value="javaExecutionFolderShouldContainsADockerfile" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExecutionFolderTests.javaExecutionFolderShouldExist" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.executions.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionFolderTests" />
+      <option name="METHOD_NAME" value="javaExecutionFolderShouldExist" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="JsonMapperTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
@@ -171,38 +211,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JsonMapperTests.givenJsonRequestShouldCompileTheRequestAndReturnACorrectJsonResponse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.mappers.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.mappers" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.mappers.JsonMapperTests" />
-      <option name="METHOD_NAME" value="givenJsonRequestShouldCompileTheRequestAndReturnACorrectJsonResponse" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JsonMapperTests.ifTheRequestIfThrottledShouldThrowAThrottlingException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.mappers.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.mappers" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.mappers.JsonMapperTests" />
-      <option name="METHOD_NAME" value="ifTheRequestIfThrottledShouldThrowAThrottlingException" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="JsonMapperTests.shouldReturnNullValueIfTheReturnedObjectIsNotAnInstanceOfResponseClass" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
@@ -214,22 +222,6 @@
       <option name="PACKAGE_NAME" value="com.cp.compiler.mappers" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.mappers.JsonMapperTests" />
       <option name="METHOD_NAME" value="shouldReturnNullValueIfTheReturnedObjectIsNotAnInstanceOfResponseClass" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JsonMapperTests.shouldTransformJsonResponseJsonToResponseObject" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.mappers.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.mappers" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.mappers.JsonMapperTests" />
-      <option name="METHOD_NAME" value="shouldTransformJsonResponseJsonToResponseObject" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -376,11 +368,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ExecutionFolderTests" />
+        <item itemvalue="JUnit.ExecutionFolderTests.javaExecutionFolderShouldContainsADockerfile" />
+        <item itemvalue="JUnit.ExecutionFolderTests.javaExecutionFolderShouldExist" />
         <item itemvalue="JUnit.JsonMapperTests" />
         <item itemvalue="JUnit.JsonMapperTests.shouldReturnNullValueIfTheReturnedObjectIsNotAnInstanceOfResponseClass" />
-        <item itemvalue="JUnit.JsonMapperTests.givenJsonRequestShouldCompileTheRequestAndReturnACorrectJsonResponse" />
-        <item itemvalue="JUnit.JsonMapperTests.ifTheRequestIfThrottledShouldThrowAThrottlingException" />
-        <item itemvalue="JUnit.JsonMapperTests.shouldTransformJsonResponseJsonToResponseObject" />
       </list>
     </recent_temporary>
   </component>
@@ -451,7 +443,7 @@
       <workItem from="1652048296944" duration="2410000" />
       <workItem from="1654198874514" duration="6033000" />
       <workItem from="1654280181690" duration="72317000" />
-      <workItem from="1654632494297" duration="11819000" />
+      <workItem from="1654632494297" duration="15032000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
