@@ -15,13 +15,7 @@ COPY --from=BUILD_STAGE /compiler/target/*.jar compiler.jar
 
 RUN apt update && apt install -y docker.io
     
-ADD executions/utility_java utility_java
-ADD executions/utility_c utility_c
-ADD executions/utility_cpp utility_cpp
-ADD executions/utility_py utility_py
-ADD executions/utility_go utility_go
-ADD executions/utility_cs utility_cs
-ADD executions/utility_kt utility_kt
+ADD executions executions
 
 ADD entrypoint.sh entrypoint.sh
 
