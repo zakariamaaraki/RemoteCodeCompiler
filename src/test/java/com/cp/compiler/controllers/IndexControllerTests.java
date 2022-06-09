@@ -15,6 +15,8 @@ class IndexControllerTests {
     @Autowired
     private IndexController indexController;
     
+    private static final String URL_REDIRECTION = "/swagger-ui.html";
+    
     @Test
     void shouldReturnSupportedLanguages() {
         // When
@@ -31,6 +33,6 @@ class IndexControllerTests {
         
         // Then
         Assertions.assertTrue(redirectView.isRedirectView());
-        Assertions.assertEquals("/swagger-ui.html", redirectView.getUrl());
+        Assertions.assertEquals(URL_REDIRECTION, redirectView.getUrl());
     }
 }
