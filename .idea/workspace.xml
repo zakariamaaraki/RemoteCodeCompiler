@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/amqp/RabbitConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/amqp/RabbitConsumer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownMetrics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownMetrics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerFacadeImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerFacadeImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/streams/KafkaStreamsTopologyConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/streams/KafkaStreamsTopologyConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -424,7 +418,7 @@
       <workItem from="1654198874514" duration="6033000" />
       <workItem from="1654280181690" duration="72317000" />
       <workItem from="1654632494297" duration="27767000" />
-      <workItem from="1655230166717" duration="1343000" />
+      <workItem from="1655230166717" duration="1544000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>

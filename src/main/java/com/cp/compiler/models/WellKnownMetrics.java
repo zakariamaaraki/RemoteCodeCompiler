@@ -5,6 +5,8 @@ package com.cp.compiler.models;
  */
 public abstract class WellKnownMetrics {
     
+    private WellKnownMetrics() {}
+    
     /**
      * The constant JAVA_COUNTER_NAME.
      */
