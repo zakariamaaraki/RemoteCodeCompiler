@@ -2,6 +2,7 @@ package com.cp.compiler.services;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.WellKnownFileNames;
+import com.cp.compiler.models.WellKnownMetrics;
 import com.cp.compiler.repositories.HooksRepository;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
@@ -67,14 +68,16 @@ public class CompilerProxy implements CompilerService {
     
     private Counter throttlingCounterMetric;
     
+    private static final String EXECUTIONS_GAUGE_DESCRIPTION = "Current number of executions";
+    
     /**
      * Init.
      */
     @PostConstruct
     public void init() {
-        throttlingCounterMetric = meterRegistry.counter("throttling.counter");
-        Gauge.builder("executions", executionsCounter::get)
-                .description("Current number of executions")
+        throttlingCounterMetric = meterRegistry.counter(WellKnownMetrics.THROTTLING_COUNTER_NAME);
+        Gauge.builder(WellKnownMetrics.EXECUTIONS_GAUGE, executionsCounter::get)
+                .description(EXECUTIONS_GAUGE_DESCRIPTION)
                 .register(meterRegistry);
     }
     

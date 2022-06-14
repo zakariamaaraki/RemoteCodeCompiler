@@ -1,6 +1,7 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.executions.Execution;
+import com.cp.compiler.models.WellKnownMetrics;
 import com.cp.compiler.models.WellKnownUrls;
 import com.cp.compiler.repositories.HooksRepository;
 import io.micrometer.core.instrument.Counter;
@@ -38,8 +39,8 @@ public class CompilerFacadeImpl implements CompilerFacade {
      */
     @PostConstruct
     public void init() {
-        shortRunningExecutionCounter = meterRegistry.counter("short-running-execution.counter");
-        longRunningExecutionCounter = meterRegistry.counter("long-running-execution.counter");
+        shortRunningExecutionCounter = meterRegistry.counter(WellKnownMetrics.SHORT_RUNNING_EXECUTIONS_COUNTER);
+        longRunningExecutionCounter = meterRegistry.counter(WellKnownMetrics.LONG_RUNNING_EXECUTIONS_COUNTER);
     }
     
     /**

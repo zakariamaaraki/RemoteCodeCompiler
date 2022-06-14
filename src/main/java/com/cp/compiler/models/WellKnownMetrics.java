@@ -39,4 +39,20 @@ public abstract class WellKnownMetrics {
      * The constant CS_COUNTER_NAME.
      */
     public static final String CS_COUNTER_NAME = "cs.counter";
+    
+    public static final String THROTTLING_COUNTER_NAME = "throttling.counter";
+    
+    public static final String EXECUTIONS_GAUGE = "executions";
+    
+    public static final String SHORT_RUNNING_EXECUTIONS_COUNTER = "short-running-executions.counter";
+    
+    public static final String LONG_RUNNING_EXECUTIONS_COUNTER = "long-running-executions.counter";
+    
+    public static final String CONTAINER_BUILD_TIMER = "container.build";
+    
+    public static final String CONTAINER_RUN_TIMER = "container.build";
+    
+    public static final String KAFKA_THROTTLING_RETRIES = "kafka.throttling.retries";
+    
+    public static final String AMQP_THROTTLING_RETRIES = "amqp.throttling.retries";
 }

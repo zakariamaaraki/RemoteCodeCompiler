@@ -2,6 +2,7 @@ package com.cp.compiler.amqp;
 
 import com.cp.compiler.exceptions.ThrottlingException;
 import com.cp.compiler.mappers.JsonMapper;
+import com.cp.compiler.models.WellKnownMetrics;
 import com.cp.compiler.services.CompilerService;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -49,7 +50,7 @@ public class RabbitConsumer {
      */
     @PostConstruct
     public void init() {
-        throttlingRetriesCounter = meterRegistry.counter("amqp.throttling.retries", "broker", "rabbitmq");
+        throttlingRetriesCounter = meterRegistry.counter(WellKnownMetrics.AMQP_THROTTLING_RETRIES, "broker", "rabbitmq");
     }
     
     /**

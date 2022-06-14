@@ -1,5 +1,6 @@
 package com.cp.compiler.streams;
 
+import com.cp.compiler.models.WellKnownMetrics;
 import com.cp.compiler.services.CompilerService;
 import com.cp.compiler.streams.transformers.CompilerTransformer;
 import io.micrometer.core.instrument.Counter;
@@ -54,7 +55,7 @@ public class KafkaStreamsTopologyConfig {
      */
     @PostConstruct
     public void init() {
-        throttlingRetriesCounter = meterRegistry.counter("kafka.throttling.retries", "broker", "kafka");
+        throttlingRetriesCounter = meterRegistry.counter(WellKnownMetrics.KAFKA_THROTTLING_RETRIES, "broker", "kafka");
     }
     
     /**

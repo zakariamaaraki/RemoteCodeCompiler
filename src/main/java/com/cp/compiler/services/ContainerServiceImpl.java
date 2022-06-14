@@ -2,6 +2,7 @@ package com.cp.compiler.services;
 
 import com.cp.compiler.models.Result;
 import com.cp.compiler.models.Verdict;
+import com.cp.compiler.models.WellKnownMetrics;
 import com.cp.compiler.utilities.CmdUtil;
 import com.cp.compiler.utilities.StatusUtil;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -47,8 +48,8 @@ public class ContainerServiceImpl implements ContainerService {
      */
     @PostConstruct
     public void init() {
-        buildTimer = meterRegistry.timer("container.build", "container", "docker");
-        runTimer = meterRegistry.timer("container.run", "container", "docker");
+        buildTimer = meterRegistry.timer(WellKnownMetrics.CONTAINER_BUILD_TIMER, "container", "docker");
+        runTimer = meterRegistry.timer(WellKnownMetrics.CONTAINER_RUN_TIMER, "container", "docker");
     }
     
     /**
