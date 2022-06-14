@@ -9,6 +9,7 @@ import com.cp.compiler.executions.java.JavaExecutionFactory;
 import com.cp.compiler.executions.kotlin.KotlinExecutionFactory;
 import com.cp.compiler.executions.python.PythonExecutionFactory;
 import com.cp.compiler.models.Language;
+import com.cp.compiler.models.WellKnownMetrics;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.context.annotation.Configuration;
 
@@ -29,13 +30,13 @@ public class LanguagesConfig {
     }
     
     private void configure(MeterRegistry meterRegistry) {
-        register(Language.JAVA,  new JavaExecutionFactory(meterRegistry.counter("java.counter")));
-        register(Language.PYTHON, new PythonExecutionFactory(meterRegistry.counter("python.counter")));
-        register(Language.C, new CExecutionFactory(meterRegistry.counter("c.counter")));
-        register(Language.CPP, new CPPExecutionFactory(meterRegistry.counter("cpp.counter")));
-        register(Language.GO, new GoExecutionFactory(meterRegistry.counter("go.counter")));
-        register(Language.CS, new CSExecutionFactory(meterRegistry.counter("cs.counter")));
-        register(Language.KOTLIN, new KotlinExecutionFactory(meterRegistry.counter("kotlin.counter")));
+        register(Language.JAVA,  new JavaExecutionFactory(meterRegistry.counter(WellKnownMetrics.JAVA_COUNTER_NAME)));
+        register(Language.PYTHON, new PythonExecutionFactory(meterRegistry.counter(WellKnownMetrics.PYTHON_COUNTER_NAME)));
+        register(Language.C, new CExecutionFactory(meterRegistry.counter(WellKnownMetrics.C_COUNTER_NAME)));
+        register(Language.CPP, new CPPExecutionFactory(meterRegistry.counter(WellKnownMetrics.CPP_COUNTER_NAME)));
+        register(Language.GO, new GoExecutionFactory(meterRegistry.counter(WellKnownMetrics.GO_COUNTER_NAME)));
+        register(Language.CS, new CSExecutionFactory(meterRegistry.counter(WellKnownMetrics.CS_COUNTER_NAME)));
+        register(Language.KOTLIN, new KotlinExecutionFactory(meterRegistry.counter(WellKnownMetrics.KOTLIN_COUNTER_NAME)));
     }
     
     private void register(Language language, AbstractExecutionFactory executionFactory) {
