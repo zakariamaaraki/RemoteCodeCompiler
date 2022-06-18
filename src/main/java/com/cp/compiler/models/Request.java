@@ -6,7 +6,6 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 
 @Getter
@@ -39,8 +38,8 @@ public class Request {
     
     public MultipartFile getSourceCode() throws IOException {
         return new MockMultipartFile(
-                language.getFile(),
-                language.getFile(),
+                language.getSourceCodeFileName(),
+                language.getSourceCodeFileName(),
                 null,
                 new ByteArrayInputStream(this.sourceCode.getBytes()));
     }

@@ -2,6 +2,8 @@ package com.cp.compiler.executions.java;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
+import com.cp.compiler.models.WellKnownTemplates;
+import com.cp.compiler.templates.EntrypointFileGenerator;
 import com.cp.compiler.utilities.StatusUtil;
 import io.micrometer.core.instrument.Counter;
 import lombok.Getter;
@@ -10,13 +12,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.Map;
 
 /**
  * The type Java execution.
  */
 @Getter
 public class JavaExecution extends Execution {
-    
+
     /**
      * Instantiates a new Java execution.
      *
@@ -32,8 +35,9 @@ public class JavaExecution extends Execution {
                          MultipartFile expectedOutputFile,
                          int timeLimit,
                          int memoryLimit,
-                         Counter executionCounter) {
-        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, Language.JAVA, executionCounter);
+                         Counter executionCounter,
+                         EntrypointFileGenerator entryPointFileGenerator) {
+        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, Language.JAVA, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
@@ -42,23 +46,25 @@ public class JavaExecution extends Execution {
         // This case is a bit different, Java file name must be the same as the name of the class
         // So we will keep the name of the file as it's sent by the user.
         var fileName = getSourceCodeFile().getOriginalFilename();
-        final var prefixName = fileName.substring(0, fileName.length() - 5);
-        final var commandPrefix = TIMEOUT_CMD + getTimeLimit() + " java " + prefixName;
+        final var prefixName = fileName.substring(0, fileName.length() - 5); // remove ".java"
+        final var commandPrefix = "java " + prefixName;
         final var executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
+    
+        Map<String, String> attributes = Map.of(
+                "rename", "true",
+                "compile", "true",
+                "defaultName", "main.java",
+                "fileName", fileName,
+                "timeLimit", String.valueOf(getTimeLimit()),
+                "compilationCommand", Language.JAVA.getCompilationCommand() + " " + fileName,
+                "compilationErrorStatusCode", String.valueOf(StatusUtil.COMPILATION_ERROR_STATUS),
+                "memoryLimit", String.valueOf(getMemoryLimit()),
+                "executionCommand", executionCommand);
         
-        final var content = BASH_HEADER
-                + "mv main.java " + fileName + "\n"
-                + Language.JAVA.getCommand() + " " + fileName + " 1> /dev/null\n"
-                + "ret=$?\n"
-                + "if [ $ret -ne 0 ]\n"
-                + "then\n"
-                + "  exit " + StatusUtil.COMPILATION_ERROR_STATUS + "\n"
-                + "fi\n"
-                + "ulimit -s " + getMemoryLimit() + "\n"
-                + executionCommand
-                + "exit $?\n";
+        String content = getEntrypointFileGenerator()
+                .createEntrypointFile(WellKnownTemplates.ENTRYPOINT_TEMPLATE, attributes);
         
         try(OutputStream os = new FileOutputStream(getPath() + "/entrypoint.sh")) {
             os.write(content.getBytes(), 0, content.length());

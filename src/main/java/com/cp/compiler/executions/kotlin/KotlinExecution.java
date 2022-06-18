@@ -2,6 +2,8 @@ package com.cp.compiler.executions.kotlin;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
+import com.cp.compiler.models.WellKnownTemplates;
+import com.cp.compiler.templates.EntrypointFileGenerator;
 import com.cp.compiler.utilities.StatusUtil;
 import io.micrometer.core.instrument.Counter;
 import lombok.Getter;
@@ -10,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.Map;
 
 /**
  * The type Kotlin execution.
@@ -32,8 +35,9 @@ public class KotlinExecution extends Execution {
                            MultipartFile expectedOutputFile,
                            int timeLimit,
                            int memoryLimit,
-                           Counter executionCounter) {
-        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, Language.KOTLIN, executionCounter);
+                           Counter executionCounter,
+                           EntrypointFileGenerator entryPointFileGenerator) {
+        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, Language.KOTLIN, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
@@ -42,24 +46,26 @@ public class KotlinExecution extends Execution {
         // This case is a bit different, Kotlin and Java files name must be the same as the name of the class
         // So we will keep the name of the file as it's sent by the user.
         var fileName = getSourceCodeFile().getOriginalFilename();
-        final var prefixName = fileName.substring(0, fileName.length() - 3);
-        final var commandPrefix = TIMEOUT_CMD + getTimeLimit() + " kotlin " + prefixName;
+        final var prefixName = fileName.substring(0, fileName.length() - 3); // remove .kt
+        final var commandPrefix = "kotlin " + prefixName;
         final var executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
-        
-        final var content = BASH_HEADER
-                + "mv main.kt " + fileName + "\n"
-                + Language.KOTLIN.getCommand() + " " + fileName + " 1> /dev/null\n"
-                + "ret=$?\n"
-                + "if [ $ret -ne 0 ]\n"
-                + "then\n"
-                + "  exit " + StatusUtil.COMPILATION_ERROR_STATUS + "\n"
-                + "fi\n"
-                + "ulimit -s " + getMemoryLimit() + "\n"
-                + executionCommand
-                + "exit $?\n";
-        
+    
+        Map<String, String> attributes = Map.of(
+                "rename", "true",
+                "compile", "true",
+                "defaultName", "main.kt",
+                "fileName", fileName,
+                "timeLimit", String.valueOf(getTimeLimit()),
+                "compilationCommand", Language.KOTLIN.getCompilationCommand() + " " + fileName,
+                "compilationErrorStatusCode", String.valueOf(StatusUtil.COMPILATION_ERROR_STATUS),
+                "memoryLimit", String.valueOf(getMemoryLimit()),
+                "executionCommand", executionCommand);
+    
+        String content = getEntrypointFileGenerator()
+                .createEntrypointFile(WellKnownTemplates.ENTRYPOINT_TEMPLATE, attributes);
+    
         try(OutputStream os = new FileOutputStream(getPath() + "/entrypoint.sh")) {
             os.write(content.getBytes(), 0, content.length());
         }

@@ -24,6 +24,13 @@ spring:
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
 
+  # Thymeleaf template engine
+  thymeleaf:
+    cache: true
+    mode: TEXT
+    prefix: classpath:/templates/
+    suffix: .sh
+
 management:
   endpoint:
     health:
@@ -48,6 +55,7 @@ logging:
       springframework:
         boot:
           autoconfigure: ERROR
+
 
 ---
 # kafka profile

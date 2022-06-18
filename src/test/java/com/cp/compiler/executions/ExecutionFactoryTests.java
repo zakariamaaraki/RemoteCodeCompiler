@@ -37,7 +37,7 @@ public class ExecutionFactoryTests {
     @Test
     void shouldRegisterAProgrammingLanguage() {
         // Given
-        JavaExecutionFactory javaExecutionFactory = new JavaExecutionFactory(null);
+        JavaExecutionFactory javaExecutionFactory = new JavaExecutionFactory(null, null);
         
         // When
         ExecutionFactory.register(Language.JAVA, () -> javaExecutionFactory);
@@ -57,7 +57,7 @@ public class ExecutionFactoryTests {
     @Test
     void shouldCreateJavaExecution() {
         // Given
-        var javaExecutionFactory = new JavaExecutionFactory(null);
+        var javaExecutionFactory = new JavaExecutionFactory(null, null);
         
         // When
         Execution execution =
@@ -71,7 +71,7 @@ public class ExecutionFactoryTests {
     @Test
     void shouldCreatePythonExecution() {
         // Given
-        var pythonExecutionFactory = new PythonExecutionFactory(null);
+        var pythonExecutionFactory = new PythonExecutionFactory(null, null);
         
         // When
         Execution execution =
@@ -85,7 +85,7 @@ public class ExecutionFactoryTests {
     @Test
     void shouldCreateCExecution() {
         // Given
-        var cExecutionFactory = new CExecutionFactory(null);
+        var cExecutionFactory = new CExecutionFactory(null, null);
         
         // When
         Execution execution =
@@ -99,7 +99,7 @@ public class ExecutionFactoryTests {
     @Test
     void shouldCreateCppExecution() {
         // Given
-        var cppExecutionFactory = new CPPExecutionFactory(null);
+        var cppExecutionFactory = new CPPExecutionFactory(null, null);
         
         // When
         Execution execution =
@@ -113,7 +113,7 @@ public class ExecutionFactoryTests {
     @Test
     void shouldCreateGoExecution() {
         // Given
-        var goExecutionFactory = new GoExecutionFactory(null);
+        var goExecutionFactory = new GoExecutionFactory(null, null);
         
         // When
         Execution execution =
@@ -128,7 +128,7 @@ public class ExecutionFactoryTests {
     @Test
     void shouldCreateCsExecution() {
         // Given
-        var csExecutionFactory = new CSExecutionFactory(null);
+        var csExecutionFactory = new CSExecutionFactory(null, null);
         
         // When
         Execution execution =
@@ -142,7 +142,7 @@ public class ExecutionFactoryTests {
     @Test
     void shouldCreateKotlinExecution() {
         // Given
-        var kotlinExecutionFactory = new KotlinExecutionFactory(null);
+        var kotlinExecutionFactory = new KotlinExecutionFactory(null, null);
         
         // When
         Execution execution =

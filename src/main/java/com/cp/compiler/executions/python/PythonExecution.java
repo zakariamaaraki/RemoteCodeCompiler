@@ -2,6 +2,9 @@ package com.cp.compiler.executions.python;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
+import com.cp.compiler.models.WellKnownTemplates;
+import com.cp.compiler.templates.EntrypointFileGenerator;
+import com.cp.compiler.utilities.StatusUtil;
 import io.micrometer.core.instrument.Counter;
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -9,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.Map;
 
 /**
  * The type Python execution.
@@ -31,23 +35,33 @@ public class PythonExecution extends Execution {
                            MultipartFile expectedOutputFile,
                            int timeLimit,
                            int memoryLimit,
-                           Counter executionCounter) {
-        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, Language.PYTHON, executionCounter);
+                           Counter executionCounter,
+                           EntrypointFileGenerator entryPointFileGenerator) {
+        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, Language.PYTHON, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        final var commandPrefix =
-                TIMEOUT_CMD + getTimeLimit() + "s " + Language.PYTHON.getCommand() + " " + Language.PYTHON.getFile();
-        final var executionCommand = getInputFile() == null
+        final var commandPrefix = Language.PYTHON.getCompilationCommand() + " " + Language.PYTHON.getSourceCodeFileName();
+        final String executionCommand;
+        executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
     
-        final var content = BASH_HEADER
-                + "ulimit -s " + getMemoryLimit() + "\n"
-                + executionCommand
-                + "exit $?\n";
+        Map<String, String> attributes = Map.of(
+                "rename", "false",
+                "compile", "false",
+                "fileName", "main.py",
+                "defaultName", "main.py",
+                "compilationCommand", "",
+                "timeLimit", String.valueOf(getTimeLimit()),
+                "compilationErrorStatusCode", String.valueOf(StatusUtil.COMPILATION_ERROR_STATUS),
+                "memoryLimit", String.valueOf(getMemoryLimit()),
+                "executionCommand", executionCommand);
+    
+        String content = getEntrypointFileGenerator()
+                .createEntrypointFile(WellKnownTemplates.ENTRYPOINT_TEMPLATE, attributes);
     
         try(OutputStream os = new FileOutputStream(getPath() + "/entrypoint.sh")) {
             os.write(content.getBytes(), 0, content.length());

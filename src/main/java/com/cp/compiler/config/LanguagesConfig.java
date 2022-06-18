@@ -10,6 +10,7 @@ import com.cp.compiler.executions.kotlin.KotlinExecutionFactory;
 import com.cp.compiler.executions.python.PythonExecutionFactory;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.WellKnownMetrics;
+import com.cp.compiler.templates.EntrypointFileGenerator;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,20 +24,21 @@ public class LanguagesConfig {
     /**
      * Instantiates a new Configure languages.
      *
-     * @param meterRegistry the meter registry for monitoring
+     * @param meterRegistry           the meter registry for monitoring
+     * @param entryPointFileGenerator the entry point file generator
      */
-    public LanguagesConfig(MeterRegistry meterRegistry) {
-        configure(meterRegistry);
+    public LanguagesConfig(MeterRegistry meterRegistry, EntrypointFileGenerator entryPointFileGenerator) {
+        configure(meterRegistry, entryPointFileGenerator);
     }
     
-    private void configure(MeterRegistry meterRegistry) {
-        register(Language.JAVA,  new JavaExecutionFactory(meterRegistry.counter(WellKnownMetrics.JAVA_COUNTER_NAME)));
-        register(Language.PYTHON, new PythonExecutionFactory(meterRegistry.counter(WellKnownMetrics.PYTHON_COUNTER_NAME)));
-        register(Language.C, new CExecutionFactory(meterRegistry.counter(WellKnownMetrics.C_COUNTER_NAME)));
-        register(Language.CPP, new CPPExecutionFactory(meterRegistry.counter(WellKnownMetrics.CPP_COUNTER_NAME)));
-        register(Language.GO, new GoExecutionFactory(meterRegistry.counter(WellKnownMetrics.GO_COUNTER_NAME)));
-        register(Language.CS, new CSExecutionFactory(meterRegistry.counter(WellKnownMetrics.CS_COUNTER_NAME)));
-        register(Language.KOTLIN, new KotlinExecutionFactory(meterRegistry.counter(WellKnownMetrics.KOTLIN_COUNTER_NAME)));
+    private void configure(MeterRegistry meterRegistry, EntrypointFileGenerator entryPointFileGenerator) {
+        register(Language.JAVA,  new JavaExecutionFactory(meterRegistry.counter(WellKnownMetrics.JAVA_COUNTER_NAME), entryPointFileGenerator));
+        register(Language.PYTHON, new PythonExecutionFactory(meterRegistry.counter(WellKnownMetrics.PYTHON_COUNTER_NAME), entryPointFileGenerator));
+        register(Language.C, new CExecutionFactory(meterRegistry.counter(WellKnownMetrics.C_COUNTER_NAME), entryPointFileGenerator));
+        register(Language.CPP, new CPPExecutionFactory(meterRegistry.counter(WellKnownMetrics.CPP_COUNTER_NAME), entryPointFileGenerator));
+        register(Language.GO, new GoExecutionFactory(meterRegistry.counter(WellKnownMetrics.GO_COUNTER_NAME), entryPointFileGenerator));
+        register(Language.CS, new CSExecutionFactory(meterRegistry.counter(WellKnownMetrics.CS_COUNTER_NAME), entryPointFileGenerator));
+        register(Language.KOTLIN, new KotlinExecutionFactory(meterRegistry.counter(WellKnownMetrics.KOTLIN_COUNTER_NAME), entryPointFileGenerator));
     }
     
     private void register(Language language, AbstractExecutionFactory executionFactory) {

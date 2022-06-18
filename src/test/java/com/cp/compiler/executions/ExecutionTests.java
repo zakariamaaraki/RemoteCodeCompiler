@@ -8,8 +8,10 @@ import com.cp.compiler.executions.java.JavaExecutionFactory;
 import com.cp.compiler.executions.kotlin.KotlinExecutionFactory;
 import com.cp.compiler.executions.python.PythonExecutionFactory;
 import com.cp.compiler.models.Language;
+import com.cp.compiler.templates.EntrypointFileGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.annotation.DirtiesContext;
@@ -24,6 +26,9 @@ import java.nio.file.Path;
 @SpringBootTest
 public class ExecutionTests {
     
+    @Autowired
+    private EntrypointFileGenerator entrypointFileGenerator;
+    
     private static final String DOCKERFILE = "Dockerfile";
     
     private MultipartFile file = new MockMultipartFile(
@@ -37,7 +42,6 @@ public class ExecutionTests {
         // Given
         Execution execution = ExecutionFactory.createExecution(
                 file, file, file, 10, 500, Language.JAVA);
-        File javaExecutionFolder = new File(Language.JAVA.getFolder());
         
         // When
         execution.createExecutionDirectory();
@@ -56,7 +60,6 @@ public class ExecutionTests {
         // Given
         Execution execution = ExecutionFactory.createExecution(
                 file, file, file, 10, 500, Language.JAVA);
-        File javaExecutionFolder = new File(Language.JAVA.getFolder());
         
         // When
         execution.createExecutionDirectory();
@@ -71,7 +74,7 @@ public class ExecutionTests {
     @Test
     void javaExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
-        var javaExecutionFactory = new JavaExecutionFactory(null);
+        var javaExecutionFactory = new JavaExecutionFactory(null, entrypointFileGenerator);
         Execution execution = javaExecutionFactory.createExecution(
                 file, file, file, 10, 500);
     
@@ -93,7 +96,7 @@ public class ExecutionTests {
     @Test
     void pythonExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
-        var pythonExecutionFactory = new PythonExecutionFactory(null);
+        var pythonExecutionFactory = new PythonExecutionFactory(null, entrypointFileGenerator);
         Execution execution = pythonExecutionFactory.createExecution(
                 file, file, file, 10, 500);
         
@@ -115,7 +118,7 @@ public class ExecutionTests {
     @Test
     void cExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
-        var cExecutionFactory = new CExecutionFactory(null);
+        var cExecutionFactory = new CExecutionFactory(null, entrypointFileGenerator);
         Execution execution = cExecutionFactory.createExecution(
                 file, file, file, 10, 500);
         
@@ -137,7 +140,7 @@ public class ExecutionTests {
     @Test
     void cppExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
-        var cppExecutionFactory = new CPPExecutionFactory(null);
+        var cppExecutionFactory = new CPPExecutionFactory(null, entrypointFileGenerator);
         Execution execution = cppExecutionFactory.createExecution(
                 file, file, file, 10, 500);
         
@@ -159,7 +162,7 @@ public class ExecutionTests {
     @Test
     void csExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
-        var csExecutionFactory = new CSExecutionFactory(null);
+        var csExecutionFactory = new CSExecutionFactory(null, entrypointFileGenerator);
         Execution execution = csExecutionFactory.createExecution(
                 file, file, file, 10, 500);
         
@@ -181,7 +184,7 @@ public class ExecutionTests {
     @Test
     void kotlinExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
-        var kotlinExecutionFactory = new KotlinExecutionFactory(null);
+        var kotlinExecutionFactory = new KotlinExecutionFactory(null, entrypointFileGenerator);
         Execution execution = kotlinExecutionFactory.createExecution(
                 file, file, file, 10, 500);
         
@@ -203,7 +206,7 @@ public class ExecutionTests {
     @Test
     void goExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
-        var goExecutionFactory = new GoExecutionFactory(null);
+        var goExecutionFactory = new GoExecutionFactory(null, entrypointFileGenerator);
         Execution execution = goExecutionFactory.createExecution(
                 file, file, file, 10, 500);
         
@@ -225,7 +228,7 @@ public class ExecutionTests {
     @Test
     void shouldCopyDockerFileToExecutionDirectory() throws IOException {
         // Given
-        var goExecutionFactory = new GoExecutionFactory(null);
+        var goExecutionFactory = new GoExecutionFactory(null, entrypointFileGenerator);
         Execution execution = goExecutionFactory.createExecution(file, file, file, 10, 500);
         
         Files.createDirectory(Path.of(execution.getPath()));
@@ -235,7 +238,6 @@ public class ExecutionTests {
         
         // Then
         File dockerfileCopy = new File(execution.getPath() + "/" + DOCKERFILE);
-        File dockerfileSource = new File(Language.GO.getFolder() + "/" + DOCKERFILE);
         
         Assertions.assertTrue(dockerfileCopy.exists());
         Assertions.assertTrue(dockerfileCopy.isFile());

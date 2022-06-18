@@ -13,7 +13,7 @@ class ExecutionFolderTests {
     @Test
     void javaExecutionFolderShouldExist() {
         // Given
-        File javaExecutionFolder = new File(Language.JAVA.getFolder());
+        File javaExecutionFolder = new File(Language.JAVA.getFolderName());
         
         // Then
         Assertions.assertTrue(javaExecutionFolder.exists());
@@ -23,7 +23,7 @@ class ExecutionFolderTests {
     @Test
     void javaExecutionFolderShouldContainsADockerfile() {
         // Given
-        File javaExecutionFolder = new File(Language.JAVA.getFolder() + "/" + DOCKERFILE);
+        File javaExecutionFolder = new File(Language.JAVA.getFolderName() + "/" + DOCKERFILE);
         
         // Then
         Assertions.assertTrue(javaExecutionFolder.exists());
@@ -33,7 +33,7 @@ class ExecutionFolderTests {
     @Test
     void pythonExecutionFolderShouldExist() {
         // Given
-        File pythonExecutionFolder = new File(Language.PYTHON.getFolder());
+        File pythonExecutionFolder = new File(Language.PYTHON.getFolderName());
         
         // Then
         Assertions.assertTrue(pythonExecutionFolder.exists());
@@ -43,7 +43,7 @@ class ExecutionFolderTests {
     @Test
     void pythonExecutionFolderShouldContainsADockerfile() {
         // Given
-        File pythonExecutionFolder = new File(Language.PYTHON.getFolder()+ "/" + DOCKERFILE);
+        File pythonExecutionFolder = new File(Language.PYTHON.getFolderName()+ "/" + DOCKERFILE);
         
         // Then
         Assertions.assertTrue(pythonExecutionFolder.exists());
@@ -53,7 +53,7 @@ class ExecutionFolderTests {
     @Test
     void kotlinExecutionFolderShouldExist() {
         // Given
-        File kotlinExecutionFolder = new File(Language.KOTLIN.getFolder());
+        File kotlinExecutionFolder = new File(Language.KOTLIN.getFolderName());
         
         // Then
         Assertions.assertTrue(kotlinExecutionFolder.exists());
@@ -63,7 +63,7 @@ class ExecutionFolderTests {
     @Test
     void kotlinExecutionFolderShouldContainsADockerfile() {
         // Given
-        File kotlinExecutionFolder = new File(Language.KOTLIN.getFolder() + "/" + DOCKERFILE);
+        File kotlinExecutionFolder = new File(Language.KOTLIN.getFolderName() + "/" + DOCKERFILE);
         
         // Then
         Assertions.assertTrue(kotlinExecutionFolder.exists());
@@ -73,7 +73,7 @@ class ExecutionFolderTests {
     @Test
     void cExecutionFolderShouldExist() {
         // Given
-        File cExecutionFolder = new File(Language.C.getFolder());
+        File cExecutionFolder = new File(Language.C.getFolderName());
         
         // Then
         Assertions.assertTrue(cExecutionFolder.exists());
@@ -83,7 +83,7 @@ class ExecutionFolderTests {
     @Test
     void cExecutionFolderShouldContainsADockerfile() {
         // Given
-        File cExecutionFolder = new File(Language.C.getFolder() + "/" + DOCKERFILE);
+        File cExecutionFolder = new File(Language.C.getFolderName() + "/" + DOCKERFILE);
         
         // Then
         Assertions.assertTrue(cExecutionFolder.exists());
@@ -93,7 +93,7 @@ class ExecutionFolderTests {
     @Test
     void cppExecutionFolderShouldExist() {
         // Given
-        File cppExecutionFolder = new File(Language.CPP.getFolder());
+        File cppExecutionFolder = new File(Language.CPP.getFolderName());
         
         // Then
         Assertions.assertTrue(cppExecutionFolder.exists());
@@ -103,7 +103,7 @@ class ExecutionFolderTests {
     @Test
     void cppExecutionFolderShouldContainsADockerfile() {
         // Given
-        File cppExecutionFolder = new File(Language.CPP.getFolder() + "/" + DOCKERFILE);
+        File cppExecutionFolder = new File(Language.CPP.getFolderName() + "/" + DOCKERFILE);
         
         // Then
         Assertions.assertTrue(cppExecutionFolder.exists());
@@ -113,7 +113,7 @@ class ExecutionFolderTests {
     @Test
     void csExecutionFolderShouldExist() {
         // Given
-        File csExecutionFolder = new File(Language.CS.getFolder());
+        File csExecutionFolder = new File(Language.CS.getFolderName());
         
         // Then
         Assertions.assertTrue(csExecutionFolder.exists());
@@ -123,7 +123,7 @@ class ExecutionFolderTests {
     @Test
     void csExecutionFolderShouldContainsADockerfile() {
         // Given
-        File csExecutionFolder = new File(Language.CS.getFolder() + "/" + DOCKERFILE);
+        File csExecutionFolder = new File(Language.CS.getFolderName() + "/" + DOCKERFILE);
         
         // Then
         Assertions.assertTrue(csExecutionFolder.exists());
@@ -133,7 +133,7 @@ class ExecutionFolderTests {
     @Test
     void goExecutionFolderShouldExist() {
         // Given
-        File goExecutionFolder = new File(Language.GO.getFolder());
+        File goExecutionFolder = new File(Language.GO.getFolderName());
         
         // Then
         Assertions.assertTrue(goExecutionFolder.exists());
@@ -143,7 +143,7 @@ class ExecutionFolderTests {
     @Test
     void goExecutionFolderShouldContainsADockerfile() {
         // Given
-        File goExecutionFolder = new File(Language.GO.getFolder() + "/" + DOCKERFILE);
+        File goExecutionFolder = new File(Language.GO.getFolderName() + "/" + DOCKERFILE);
         
         // Then
         Assertions.assertTrue(goExecutionFolder.exists());
