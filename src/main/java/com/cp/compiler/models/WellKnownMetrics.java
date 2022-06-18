@@ -18,6 +18,11 @@ public abstract class WellKnownMetrics {
     public static final String KOTLIN_COUNTER_NAME = "kotlin.counter";
     
     /**
+     * The constant SCALA_COUNTER_NAME.
+     */
+    public static final String SCALA_COUNTER_NAME = "scala.counter";
+    
+    /**
      * The constant C_COUNTER_NAME.
      */
     public static final String C_COUNTER_NAME = "c.counter";

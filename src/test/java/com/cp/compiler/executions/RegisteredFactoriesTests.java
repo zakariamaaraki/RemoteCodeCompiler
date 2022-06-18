@@ -33,6 +33,13 @@ public class RegisteredFactoriesTests {
     }
     
     @Test
+    void scalaExecutionFactoryShouldBeRegistered() {
+        Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.SCALA));
+        Assertions.assertNotNull(
+                ExecutionFactory.createExecution(file, file, file, 10, 100, Language.SCALA));
+    }
+    
+    @Test
     void csExecutionFactoryShouldBeRegistered() {
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.CS));
         Assertions.assertNotNull(

@@ -1,0 +1,12 @@
+FROM hseeberger/scala-sbt
+
+WORKDIR /app
+
+USER root
+
+ADD . .
+
+RUN chmod a+x ./main.sc
+RUN chmod a+x ./entrypoint.sh
+
+ENTRYPOINT ["./entrypoint.sh"]

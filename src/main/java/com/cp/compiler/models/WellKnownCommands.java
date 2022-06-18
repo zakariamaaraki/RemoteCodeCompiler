@@ -41,4 +41,9 @@ public abstract class WellKnownCommands {
      * The constant KOTLIN_COMMAND_LINE.
      */
     public static final String KOTLIN_COMMAND_LINE = "kotlinc";
+    
+    /**
+     * The constant SCALA_COMMAND_LINE.
+     */
+    public static final String SCALA_COMMAND_LINE = "scalac";
 }

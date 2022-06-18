@@ -149,4 +149,24 @@ class ExecutionFolderTests {
         Assertions.assertTrue(goExecutionFolder.exists());
         Assertions.assertTrue(goExecutionFolder.isFile());
     }
+    
+    @Test
+    void scalaExecutionFolderShouldExist() {
+        // Given
+        File scalaExecutionFolder = new File(Language.SCALA.getFolderName());
+        
+        // Then
+        Assertions.assertTrue(scalaExecutionFolder.exists());
+        Assertions.assertTrue(scalaExecutionFolder.isDirectory());
+    }
+    
+    @Test
+    void scalaExecutionFolderShouldContainsADockerfile() {
+        // Given
+        File scalaExecutionFolder = new File(Language.SCALA.getFolderName() + "/" + DOCKERFILE);
+        
+        // Then
+        Assertions.assertTrue(scalaExecutionFolder.exists());
+        Assertions.assertTrue(scalaExecutionFolder.isFile());
+    }
 }

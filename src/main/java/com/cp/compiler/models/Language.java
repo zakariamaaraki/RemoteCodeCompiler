@@ -53,7 +53,11 @@ public enum Language {
      */
     KOTLIN(WellKnownFolders.KOTLIN_EXECUTION_FOLDER_NAME,
             WellKnownFileNames.KOTLIN_FILE_NAME,
-            WellKnownCommands.KOTLIN_COMMAND_LINE);
+            WellKnownCommands.KOTLIN_COMMAND_LINE),
+    
+    SCALA(WellKnownFolders.SCALA_EXECUTION_FOLDER_NAME,
+           WellKnownFileNames.SCALA_FILE_NAME,
+           WellKnownCommands.KOTLIN_COMMAND_LINE);
     
     /**
      * The execution folder name.

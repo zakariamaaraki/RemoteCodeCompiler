@@ -41,4 +41,9 @@ public abstract class WellKnownFolders {
      * The constant KOTLIN_EXECUTION_FOLDER_NAME.
      */
     public static final String KOTLIN_EXECUTION_FOLDER_NAME = "executions/utility_kt";
+    
+    /**
+     * The constant SCALA_EXECUTION_FOLDER_NAME.
+     */
+    public static final String SCALA_EXECUTION_FOLDER_NAME = "executions/utility_sc";
 }

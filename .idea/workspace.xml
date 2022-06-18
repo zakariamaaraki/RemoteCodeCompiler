@@ -5,66 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/executions/utility_c/d225fde8-5c04-4920-8f2d-5552f5d167f4/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_c/d225fde8-5c04-4920-8f2d-5552f5d167f4/amShZWinsABet-2.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_c/d225fde8-5c04-4920-8f2d-5552f5d167f4/entrypoint.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_c/d225fde8-5c04-4920-8f2d-5552f5d167f4/main.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cpp/a9ef8235-1277-4c9d-b28d-6c13d33c4362/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cpp/a9ef8235-1277-4c9d-b28d-6c13d33c4362/hello.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cpp/a9ef8235-1277-4c9d-b28d-6c13d33c4362/main.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/0b493df7-7283-4e3f-b6ed-4633d88dfd4a/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/0b493df7-7283-4e3f-b6ed-4633d88dfd4a/Test1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/0b493df7-7283-4e3f-b6ed-4633d88dfd4a/main.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/41958269-c251-45af-867d-cc9023329b96/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/41958269-c251-45af-867d-cc9023329b96/Test1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/41958269-c251-45af-867d-cc9023329b96/main.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/42832f13-2a4c-45eb-b397-7369d142271c/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/42832f13-2a4c-45eb-b397-7369d142271c/Test1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/42832f13-2a4c-45eb-b397-7369d142271c/main.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/b06fd7b6-554a-489c-ae36-3b00f8f672b9/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/b06fd7b6-554a-489c-ae36-3b00f8f672b9/Test1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/b06fd7b6-554a-489c-ae36-3b00f8f672b9/main.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/e00f9a6f-2a97-482e-b861-7bc5b8b37971/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/e00f9a6f-2a97-482e-b861-7bc5b8b37971/Test1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/e00f9a6f-2a97-482e-b861-7bc5b8b37971/main.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/e915021b-727a-4d1a-bed6-bbfd474c4355/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/e915021b-727a-4d1a-bed6-bbfd474c4355/Test1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/e915021b-727a-4d1a-bed6-bbfd474c4355/main.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_py/e31b80c1-6a87-490d-91fa-213957bcb4f5/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_py/e31b80c1-6a87-490d-91fa-213957bcb4f5/hello.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_py/e31b80c1-6a87-490d-91fa-213957bcb4f5/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_py/f373a509-deb9-419c-a032-1b6f15ab3e02/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_py/f373a509-deb9-419c-a032-1b6f15ab3e02/hello.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_py/f373a509-deb9-419c-a032-1b6f15ab3e02/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownTemplates.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/templates/EntrypointFileGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/templates/EntrypointFileGeneratorImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/entrypoint-template.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/templates/EntrypointGeneratorTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executions/utility_sc/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/scala/ScalaExecution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/scala/ScalaExecutionFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/config/LanguagesConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/config/LanguagesConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/Execution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/Execution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/c/CExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/c/CExecution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/c/CExecutionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/c/CExecutionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/cpp/CPPExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/cpp/CPPExecution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/cpp/CPPExecutionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/cpp/CPPExecutionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/cs/CSExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/cs/CSExecution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/cs/CSExecutionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/cs/CSExecutionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/go/GoExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/go/GoExecution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/go/GoExecutionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/go/GoExecutionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/java/JavaExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/java/JavaExecution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/java/JavaExecutionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/java/JavaExecutionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/kotlin/KotlinExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/kotlin/KotlinExecution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/kotlin/KotlinExecutionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/kotlin/KotlinExecutionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/python/PythonExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/python/PythonExecution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/python/PythonExecutionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/python/PythonExecutionFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/config/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/config/SwaggerConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Language.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Language.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Request.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownCommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownFileNames.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownFileNames.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownFolders.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownFolders.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownMetrics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownMetrics.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFactoryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFactoryTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFolderTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFolderTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/RegisteredFactoriesTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/RegisteredFactoriesTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +76,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/templates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/scala" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
@@ -133,11 +88,11 @@
       <recent name="com.cp.compiler.services" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/scala" />
       <recent name="$PROJECT_DIR$/src/main/resources/templates" />
       <recent name="$PROJECT_DIR$/src/test/resources/sources/kotlin" />
       <recent name="$PROJECT_DIR$/utility_kt" />
       <recent name="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/kotlin" />
-      <recent name="$PROJECT_DIR$/src/test/resources/sources/cs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/templates" />
@@ -159,7 +114,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.RegistrationTests.allComponentShouldBeRegistered">
+  <component name="RunManager" selected="JUnit.ExecutionFactoryTests">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -191,7 +146,37 @@
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ExecutionTests.shouldCopyDockerFileToExecutionDirectory" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ExecutionFactoryTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.executions.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionFactoryTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExecutionFolderTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.executions.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionFolderTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExecutionTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
@@ -201,13 +186,12 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionTests" />
-      <option name="METHOD_NAME" value="shouldCopyDockerFileToExecutionDirectory" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExecutionTests.shouldSaveUploadedFiles" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RegisteredFactoriesTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
@@ -216,41 +200,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionTests" />
-      <option name="METHOD_NAME" value="shouldSaveUploadedFiles" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="IndexControllerTests.shouldRedirectSwaggerPageToIndexPage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.controllers.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.controllers" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.controllers.IndexControllerTests" />
-      <option name="METHOD_NAME" value="shouldRedirectSwaggerPageToIndexPage" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="IndexControllerTests.shouldReturnSupportedLanguages" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.controllers.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.controllers" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.controllers.IndexControllerTests" />
-      <option name="METHOD_NAME" value="shouldReturnSupportedLanguages" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.RegisteredFactoriesTests" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -412,11 +363,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ExecutionFactoryTests" />
+        <item itemvalue="JUnit.ExecutionFolderTests" />
+        <item itemvalue="JUnit.ExecutionTests" />
+        <item itemvalue="JUnit.RegisteredFactoriesTests" />
         <item itemvalue="JUnit.RegistrationTests.allComponentShouldBeRegistered" />
-        <item itemvalue="JUnit.IndexControllerTests.shouldRedirectSwaggerPageToIndexPage" />
-        <item itemvalue="JUnit.IndexControllerTests.shouldReturnSupportedLanguages" />
-        <item itemvalue="JUnit.ExecutionTests.shouldCopyDockerFileToExecutionDirectory" />
-        <item itemvalue="JUnit.ExecutionTests.shouldSaveUploadedFiles" />
       </list>
     </recent_temporary>
   </component>
@@ -488,7 +439,7 @@
       <workItem from="1654198874514" duration="6033000" />
       <workItem from="1654280181690" duration="72317000" />
       <workItem from="1654632494297" duration="27767000" />
-      <workItem from="1655230166717" duration="23923000" />
+      <workItem from="1655230166717" duration="27654000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>

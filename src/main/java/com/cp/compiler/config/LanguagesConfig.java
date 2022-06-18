@@ -39,6 +39,7 @@ public class LanguagesConfig {
         register(Language.GO, new GoExecutionFactory(meterRegistry.counter(WellKnownMetrics.GO_COUNTER_NAME), entryPointFileGenerator));
         register(Language.CS, new CSExecutionFactory(meterRegistry.counter(WellKnownMetrics.CS_COUNTER_NAME), entryPointFileGenerator));
         register(Language.KOTLIN, new KotlinExecutionFactory(meterRegistry.counter(WellKnownMetrics.KOTLIN_COUNTER_NAME), entryPointFileGenerator));
+        register(Language.SCALA, new KotlinExecutionFactory(meterRegistry.counter(WellKnownMetrics.SCALA_COUNTER_NAME), entryPointFileGenerator));
     }
     
     private void register(Language language, AbstractExecutionFactory executionFactory) {

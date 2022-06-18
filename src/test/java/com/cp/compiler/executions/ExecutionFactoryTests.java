@@ -15,6 +15,8 @@ import com.cp.compiler.executions.kotlin.KotlinExecution;
 import com.cp.compiler.executions.kotlin.KotlinExecutionFactory;
 import com.cp.compiler.executions.python.PythonExecution;
 import com.cp.compiler.executions.python.PythonExecutionFactory;
+import com.cp.compiler.executions.scala.ScalaExecution;
+import com.cp.compiler.executions.scala.ScalaExecutionFactory;
 import com.cp.compiler.models.Language;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -151,5 +153,19 @@ public class ExecutionFactoryTests {
         // Then
         Assertions.assertNotNull(execution);
         Assertions.assertTrue(execution instanceof KotlinExecution);
+    }
+    
+    @Test
+    void shouldCreateScalaExecution() {
+        // Given
+        var scalaExecutionFactory = new ScalaExecutionFactory(null, null);
+        
+        // When
+        Execution execution =
+                scalaExecutionFactory.createExecution(file, file, file, 10, 100);
+        
+        // Then
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof ScalaExecution);
     }
 }

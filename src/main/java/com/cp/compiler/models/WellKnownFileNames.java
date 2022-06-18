@@ -43,6 +43,11 @@ public abstract class WellKnownFileNames {
     public static final String KOTLIN_FILE_NAME = "main.kt";
     
     /**
+     * The constant SCALA_FILE_NAME.
+     */
+    public static final String SCALA_FILE_NAME = "main.sc";
+    
+    /**
      * The constant INPUT_FILE_NAME.
      */
     public static final String INPUT_FILE_NAME = "input.txt";

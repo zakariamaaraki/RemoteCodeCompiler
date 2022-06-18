@@ -7,6 +7,7 @@ import com.cp.compiler.executions.go.GoExecutionFactory;
 import com.cp.compiler.executions.java.JavaExecutionFactory;
 import com.cp.compiler.executions.kotlin.KotlinExecutionFactory;
 import com.cp.compiler.executions.python.PythonExecutionFactory;
+import com.cp.compiler.executions.scala.ScalaExecutionFactory;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import org.junit.jupiter.api.Assertions;
@@ -84,8 +85,7 @@ public class ExecutionTests {
         execution.createEntrypointFile();
     
         // Then
-        File executionFolder =
-                new File(execution.getPath() + "/entrypoint.sh");
+        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
     
@@ -106,8 +106,7 @@ public class ExecutionTests {
         execution.createEntrypointFile();
         
         // Then
-        File executionFolder =
-                new File(execution.getPath() + "/entrypoint.sh");
+        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -128,8 +127,7 @@ public class ExecutionTests {
         execution.createEntrypointFile();
         
         // Then
-        File executionFolder =
-                new File(execution.getPath() + "/entrypoint.sh");
+        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -150,8 +148,7 @@ public class ExecutionTests {
         execution.createEntrypointFile();
         
         // Then
-        File executionFolder =
-                new File(execution.getPath() + "/entrypoint.sh");
+        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -172,8 +169,7 @@ public class ExecutionTests {
         execution.createEntrypointFile();
         
         // Then
-        File executionFolder =
-                new File(execution.getPath() + "/entrypoint.sh");
+        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -194,8 +190,28 @@ public class ExecutionTests {
         execution.createEntrypointFile();
         
         // Then
-        File executionFolder =
-                new File(execution.getPath() + "/entrypoint.sh");
+        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
+        Assertions.assertTrue(executionFolder.exists());
+        Assertions.assertTrue(executionFolder.isFile());
+        
+        // Clean up
+        execution.deleteExecutionDirectory();
+    }
+    
+    @Test
+    void scalaExecutionShouldCreateAnEntrypointFile() throws IOException {
+        // Given
+        var scalaExecutionFactory = new ScalaExecutionFactory(null, entrypointFileGenerator);
+        Execution execution = scalaExecutionFactory.createExecution(
+                file, file, file, 10, 500);
+        
+        Files.createDirectory(Path.of(execution.getPath()));
+        
+        // When
+        execution.createEntrypointFile();
+        
+        // Then
+        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -216,8 +232,7 @@ public class ExecutionTests {
         execution.createEntrypointFile();
         
         // Then
-        File executionFolder =
-                new File(execution.getPath() + "/entrypoint.sh");
+        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
