@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/entrypoint.sh" beforeDir="false" afterPath="$PROJECT_DIR$/entrypoint.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -415,7 +415,7 @@
       <workItem from="1654280181690" duration="72317000" />
       <workItem from="1654632494297" duration="27767000" />
       <workItem from="1655230166717" duration="48555000" />
-      <workItem from="1655670532862" duration="4835000" />
+      <workItem from="1655670532862" duration="5243000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>

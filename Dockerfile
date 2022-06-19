@@ -17,8 +17,6 @@ RUN apt update && apt install -y docker.io
     
 ADD executions executions
 
-ADD baseimages baseimages
-
 ADD entrypoint.sh entrypoint.sh
 
 RUN chmod a+x ./entrypoint.sh
