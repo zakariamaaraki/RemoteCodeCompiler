@@ -17,5 +17,7 @@ then
   fi
 fi
 
+docker build baseimages/scala -t scala
+
 java -jar -Dspring.profiles.active=$profiles compiler.jar
 

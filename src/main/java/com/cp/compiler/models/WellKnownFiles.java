@@ -3,9 +3,9 @@ package com.cp.compiler.models;
 /**
  * The type Well known file names.
  */
-public abstract class WellKnownFileNames {
+public abstract class WellKnownFiles {
     
-    private WellKnownFileNames() {}
+    private WellKnownFiles() {}
     
     /**
      * The constant JAVA_FILE_NAME.
@@ -45,7 +45,7 @@ public abstract class WellKnownFileNames {
     /**
      * The constant SCALA_FILE_NAME.
      */
-    public static final String SCALA_FILE_NAME = "main.sc";
+    public static final String SCALA_FILE_NAME = "main.scala";
     
     /**
      * The constant INPUT_FILE_NAME.

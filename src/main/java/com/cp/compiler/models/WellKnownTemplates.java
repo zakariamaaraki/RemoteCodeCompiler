@@ -8,7 +8,12 @@ public abstract class WellKnownTemplates {
     private WellKnownTemplates() {}
     
     /**
-     * The constant JAVA_ENTRYPOINT_TEMPLATE.
+     * The constant default ENTRYPOINT_TEMPLATE.
      */
     public static final String ENTRYPOINT_TEMPLATE = "entrypoint-template";
+    
+    /**
+     * The constant SCALA_ENTRYPOINT_TEMPLATE.
+     */
+    public static final String SCALA_ENTRYPOINT_TEMPLATE = "scala-entrypoint-template";
 }

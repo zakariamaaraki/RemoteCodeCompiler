@@ -1,7 +1,7 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.executions.Execution;
-import com.cp.compiler.models.WellKnownFileNames;
+import com.cp.compiler.models.WellKnownFiles;
 import com.cp.compiler.models.WellKnownMetrics;
 import com.cp.compiler.repositories.HooksRepository;
 import io.micrometer.core.instrument.Counter;
@@ -127,14 +127,14 @@ public class CompilerProxy implements CompilerService {
             return Optional.of(buildOutputError(
                     execution,
                     "Bad request, source code file must match the following regex "
-                            + WellKnownFileNames.FILE_NAME_REGEX));
+                            + WellKnownFiles.FILE_NAME_REGEX));
         }
     
         if (!checkFileName(execution.getExpectedOutputFile().getOriginalFilename())) {
             return Optional.of(buildOutputError(
                     execution,
                     "Bad request, expected output file must match the following regex "
-                            + WellKnownFileNames.FILE_NAME_REGEX));
+                            + WellKnownFiles.FILE_NAME_REGEX));
         }
         
         MultipartFile inputFile = execution.getInputFile();
@@ -143,7 +143,7 @@ public class CompilerProxy implements CompilerService {
         if (inputFile != null && !checkFileName(inputFile.getOriginalFilename())) {
             return Optional.of(buildOutputError(
                     execution, "Bad request, input file must match the following regex "
-                            + WellKnownFileNames.FILE_NAME_REGEX));
+                            + WellKnownFiles.FILE_NAME_REGEX));
         }
         
         if (execution.getTimeLimit() < minExecutionTime || execution.getTimeLimit() > maxExecutionTime) {
@@ -177,7 +177,7 @@ public class CompilerProxy implements CompilerService {
      * @return A boolean
      */
     private boolean checkFileName(String fileName) {
-        return fileName != null && fileName.matches(WellKnownFileNames.FILE_NAME_REGEX);
+        return fileName != null && fileName.matches(WellKnownFiles.FILE_NAME_REGEX);
     }
     
     private boolean allow() {

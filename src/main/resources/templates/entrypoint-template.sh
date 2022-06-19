@@ -17,5 +17,5 @@ then
   fi
 fi
 ulimit -s [(${compiler.memoryLimit})]
-timeout --signal=SIGTERM [(${compiler.timeLimit})] [(${compiler.executionCommand})]
+timeout -s SIGTERM [(${compiler.timeLimit})] [(${compiler.executionCommand})]
 exit $?    

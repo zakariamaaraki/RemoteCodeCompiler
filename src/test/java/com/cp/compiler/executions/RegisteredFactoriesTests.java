@@ -1,5 +1,13 @@
 package com.cp.compiler.executions;
 
+import com.cp.compiler.executions.c.CExecution;
+import com.cp.compiler.executions.cpp.CPPExecution;
+import com.cp.compiler.executions.cs.CSExecution;
+import com.cp.compiler.executions.go.GoExecution;
+import com.cp.compiler.executions.java.JavaExecution;
+import com.cp.compiler.executions.kotlin.KotlinExecution;
+import com.cp.compiler.executions.python.PythonExecution;
+import com.cp.compiler.executions.scala.ScalaExecution;
 import com.cp.compiler.models.Language;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -20,57 +28,65 @@ public class RegisteredFactoriesTests {
     
     @Test
     void javaExecutionFactoryShouldBeRegistered() {
+        Execution execution = ExecutionFactory.createExecution(file, file, file, 10, 100, Language.JAVA);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.JAVA));
-        Assertions.assertNotNull(
-                ExecutionFactory.createExecution(file, file, file, 10, 100, Language.JAVA));
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof JavaExecution);
     }
     
     @Test
     void kotlinExecutionFactoryShouldBeRegistered() {
+        Execution execution = ExecutionFactory.createExecution(file, file, file, 10, 100, Language.KOTLIN);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.KOTLIN));
-        Assertions.assertNotNull(
-                ExecutionFactory.createExecution(file, file, file, 10, 100, Language.KOTLIN));
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof KotlinExecution);
     }
     
     @Test
     void scalaExecutionFactoryShouldBeRegistered() {
+        Execution execution = ExecutionFactory.createExecution(file, file, file, 10, 100, Language.SCALA);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.SCALA));
-        Assertions.assertNotNull(
-                ExecutionFactory.createExecution(file, file, file, 10, 100, Language.SCALA));
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof ScalaExecution);
     }
     
     @Test
     void csExecutionFactoryShouldBeRegistered() {
+        Execution execution = ExecutionFactory.createExecution(file, file, file, 10, 100, Language.CS);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.CS));
-        Assertions.assertNotNull(
-                ExecutionFactory.createExecution(file, file, file, 10, 100, Language.CS));
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof CSExecution);
     }
     
     @Test
     void goExecutionFactoryShouldBeRegistered() {
+        Execution execution = ExecutionFactory.createExecution(file, file, file, 10, 100, Language.GO);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.GO));
-        Assertions.assertNotNull(
-                ExecutionFactory.createExecution(file, file, file, 10, 100, Language.GO));
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof GoExecution);
     }
     
     @Test
     void cExecutionFactoryShouldBeRegistered() {
+        Execution execution = ExecutionFactory.createExecution(file, file, file, 10, 100, Language.C);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.C));
-        Assertions.assertNotNull(
-                ExecutionFactory.createExecution(file, file, file, 10, 100, Language.C));
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof CExecution);
     }
     
     @Test
     void cppExecutionFactoryShouldBeRegistered() {
+        Execution execution = ExecutionFactory.createExecution(file, file, file, 10, 100, Language.CPP);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.CPP));
-        Assertions.assertNotNull(
-                ExecutionFactory.createExecution(file, file, file, 10, 100, Language.CPP));
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof CPPExecution);
     }
     
     @Test
     void pythonExecutionFactoryShouldBeRegistered() {
+        Execution execution = ExecutionFactory.createExecution(file, file, file, 10, 100, Language.PYTHON);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.PYTHON));
-        Assertions.assertNotNull(
-                ExecutionFactory.createExecution(file, file, file, 10, 100, Language.PYTHON));
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof PythonExecution);
     }
 }

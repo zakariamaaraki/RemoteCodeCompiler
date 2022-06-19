@@ -46,8 +46,8 @@ public class Request {
     
     public MultipartFile getExpectedOutput() throws IOException {
         return new MockMultipartFile(
-                WellKnownFileNames.EXPECTED_OUTPUT_FILE_NAME,
-                WellKnownFileNames.EXPECTED_OUTPUT_FILE_NAME,
+                WellKnownFiles.EXPECTED_OUTPUT_FILE_NAME,
+                WellKnownFiles.EXPECTED_OUTPUT_FILE_NAME,
                 null,
                 new ByteArrayInputStream(this.expectedOutput.getBytes()));
     }
@@ -57,8 +57,8 @@ public class Request {
             return null;
         }
         return new MockMultipartFile(
-                WellKnownFileNames.INPUT_FILE_NAME,
-                WellKnownFileNames.INPUT_FILE_NAME,
+                WellKnownFiles.INPUT_FILE_NAME,
+                WellKnownFiles.INPUT_FILE_NAME,
                 null,
                 new ByteArrayInputStream(this.input.getBytes()));
     }

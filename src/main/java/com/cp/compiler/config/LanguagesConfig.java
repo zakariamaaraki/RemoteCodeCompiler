@@ -8,10 +8,12 @@ import com.cp.compiler.executions.go.GoExecutionFactory;
 import com.cp.compiler.executions.java.JavaExecutionFactory;
 import com.cp.compiler.executions.kotlin.KotlinExecutionFactory;
 import com.cp.compiler.executions.python.PythonExecutionFactory;
+import com.cp.compiler.executions.scala.ScalaExecutionFactory;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.WellKnownMetrics;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import io.micrometer.core.instrument.MeterRegistry;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -32,6 +34,7 @@ public class LanguagesConfig {
     }
     
     private void configure(MeterRegistry meterRegistry, EntrypointFileGenerator entryPointFileGenerator) {
+        // register factories
         register(Language.JAVA,  new JavaExecutionFactory(meterRegistry.counter(WellKnownMetrics.JAVA_COUNTER_NAME), entryPointFileGenerator));
         register(Language.PYTHON, new PythonExecutionFactory(meterRegistry.counter(WellKnownMetrics.PYTHON_COUNTER_NAME), entryPointFileGenerator));
         register(Language.C, new CExecutionFactory(meterRegistry.counter(WellKnownMetrics.C_COUNTER_NAME), entryPointFileGenerator));
@@ -39,7 +42,7 @@ public class LanguagesConfig {
         register(Language.GO, new GoExecutionFactory(meterRegistry.counter(WellKnownMetrics.GO_COUNTER_NAME), entryPointFileGenerator));
         register(Language.CS, new CSExecutionFactory(meterRegistry.counter(WellKnownMetrics.CS_COUNTER_NAME), entryPointFileGenerator));
         register(Language.KOTLIN, new KotlinExecutionFactory(meterRegistry.counter(WellKnownMetrics.KOTLIN_COUNTER_NAME), entryPointFileGenerator));
-        register(Language.SCALA, new KotlinExecutionFactory(meterRegistry.counter(WellKnownMetrics.SCALA_COUNTER_NAME), entryPointFileGenerator));
+        register(Language.SCALA, new ScalaExecutionFactory(meterRegistry.counter(WellKnownMetrics.SCALA_COUNTER_NAME), entryPointFileGenerator));
     }
     
     private void register(Language language, AbstractExecutionFactory executionFactory) {

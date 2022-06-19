@@ -46,7 +46,7 @@ public class ScalaExecution extends Execution {
         // This case is a bit different, Kotlin, Scala and Java files name must be the same as the name of the class
         // So we will keep the name of the file as it's sent by the user.
         var fileName = getSourceCodeFile().getOriginalFilename();
-        final var prefixName = fileName.substring(0, fileName.length() - 3); // remove .sc
+        final var prefixName = fileName.substring(0, fileName.length() - 6); // remove .scala
         final var commandPrefix = "scala " + prefixName;
         final String executionCommand;
         executionCommand = getInputFile() == null
@@ -54,8 +54,6 @@ public class ScalaExecution extends Execution {
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
     
         Map<String, String> attributes = Map.of(
-                "rename", "true",
-                "compile", "true",
                 "defaultName", "main.scala",
                 "fileName", fileName,
                 "timeLimit", String.valueOf(getTimeLimit()),
@@ -65,7 +63,7 @@ public class ScalaExecution extends Execution {
                 "executionCommand", executionCommand);
     
         String content = getEntrypointFileGenerator()
-                .createEntrypointFile(WellKnownTemplates.ENTRYPOINT_TEMPLATE, attributes);
+                .createEntrypointFile(WellKnownTemplates.SCALA_ENTRYPOINT_TEMPLATE, attributes);
     
         try(OutputStream os = new FileOutputStream(getPath() + "/entrypoint.sh")) {
             os.write(content.getBytes(), 0, content.length());
