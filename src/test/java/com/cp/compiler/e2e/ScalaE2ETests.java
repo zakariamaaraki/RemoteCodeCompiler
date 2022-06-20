@@ -19,7 +19,7 @@ import java.io.FileInputStream;
 
 @DirtiesContext
 @SpringBootTest
-public class ScalaE2ETests {
+class ScalaE2ETests {
     
     @Autowired
     private CompilerController compilerController;
