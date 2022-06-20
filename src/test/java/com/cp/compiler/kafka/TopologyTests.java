@@ -20,12 +20,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import java.time.LocalDateTime;
 import java.util.Properties;
 
 @ActiveProfiles("kafka")
 @EmbeddedKafka(bootstrapServersProperty = "localhost:9092")
+@DirtiesContext
 @SpringBootTest
 public class TopologyTests {
     
@@ -95,7 +97,7 @@ public class TopologyTests {
     }
     
     @Test
-    public void ifInputMessageIsNotAValidRequestShouldPublishNullValueToOutputTopic() {
+    public void     ifInputMessageIsNotAValidRequestShouldPublishNullValueToOutputTopic() {
         
         // Given
         String jsonRequest = "This is a non valid json";

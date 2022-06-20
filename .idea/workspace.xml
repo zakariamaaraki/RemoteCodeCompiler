@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +101,20 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.RegisteredFactoriesTests">
+  <component name="RunManager" selected="JUnit.TopologyTests">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="DjangoTestsConfigurationType">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -181,18 +195,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RegistrationTests.allComponentShouldBeRegistered" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TopologyTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.*" />
+          <option name="PATTERN" value="com.cp.compiler.kafka.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.RegistrationTests" />
-      <option name="METHOD_NAME" value="allComponentShouldBeRegistered" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.kafka" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.kafka.TopologyTests" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -338,11 +351,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TopologyTests" />
         <item itemvalue="JUnit.RegisteredFactoriesTests" />
         <item itemvalue="JUnit.ExecutionFactoryTests" />
         <item itemvalue="JUnit.ExecutionFolderTests" />
         <item itemvalue="JUnit.ExecutionTests" />
-        <item itemvalue="JUnit.RegistrationTests.allComponentShouldBeRegistered" />
       </list>
     </recent_temporary>
   </component>
@@ -415,7 +428,7 @@
       <workItem from="1654280181690" duration="72317000" />
       <workItem from="1654632494297" duration="27767000" />
       <workItem from="1655230166717" duration="48555000" />
-      <workItem from="1655670532862" duration="5243000" />
+      <workItem from="1655670532862" duration="7065000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
