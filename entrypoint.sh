@@ -17,5 +17,19 @@ then
   fi
 fi
 
+if [ ! -z "$PULL_IMAGES_BEFORE_STARTUP" ] && [ "$PULL_IMAGES_BEFORE_STARTUP" = true ];
+then
+  # pull all images before starting the container to make first requests quicker
+  echo "Pulling all images..."
+  docker pull gcc
+  docker pull mono
+  docker pull golang
+  docker pull openjdk:11.0.6-jdk-slim
+  docker pull zenika/kotlin
+  docker pull python:3
+  docker pull rust
+  docker pull denvazh/scala
+fi
+
 java -jar -Dspring.profiles.active=$profiles compiler.jar
 
