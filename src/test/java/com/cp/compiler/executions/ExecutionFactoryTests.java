@@ -15,6 +15,8 @@ import com.cp.compiler.executions.kotlin.KotlinExecution;
 import com.cp.compiler.executions.kotlin.KotlinExecutionFactory;
 import com.cp.compiler.executions.python.PythonExecution;
 import com.cp.compiler.executions.python.PythonExecutionFactory;
+import com.cp.compiler.executions.rust.RustExecution;
+import com.cp.compiler.executions.rust.RustExecutionFactory;
 import com.cp.compiler.executions.scala.ScalaExecution;
 import com.cp.compiler.executions.scala.ScalaExecutionFactory;
 import com.cp.compiler.models.Language;
@@ -62,8 +64,7 @@ public class ExecutionFactoryTests {
         var javaExecutionFactory = new JavaExecutionFactory(null, null);
         
         // When
-        Execution execution =
-                javaExecutionFactory.createExecution(file, file, file, 10, 100);
+        Execution execution = javaExecutionFactory.createExecution(file, file, file, 10, 100);
         
         // Then
         Assertions.assertNotNull(execution);
@@ -76,8 +77,7 @@ public class ExecutionFactoryTests {
         var pythonExecutionFactory = new PythonExecutionFactory(null, null);
         
         // When
-        Execution execution =
-                pythonExecutionFactory.createExecution(file, file, file, 10, 100);
+        Execution execution = pythonExecutionFactory.createExecution(file, file, file, 10, 100);
         
         // Then
         Assertions.assertNotNull(execution);
@@ -90,8 +90,7 @@ public class ExecutionFactoryTests {
         var cExecutionFactory = new CExecutionFactory(null, null);
         
         // When
-        Execution execution =
-                cExecutionFactory.createExecution(file, file, file, 10, 100);
+        Execution execution = cExecutionFactory.createExecution(file, file, file, 10, 100);
         
         // Then
         Assertions.assertNotNull(execution);
@@ -104,8 +103,7 @@ public class ExecutionFactoryTests {
         var cppExecutionFactory = new CPPExecutionFactory(null, null);
         
         // When
-        Execution execution =
-                cppExecutionFactory.createExecution(file, file, file, 10, 100);
+        Execution execution = cppExecutionFactory.createExecution(file, file, file, 10, 100);
         
         // Then
         Assertions.assertNotNull(execution);
@@ -118,8 +116,7 @@ public class ExecutionFactoryTests {
         var goExecutionFactory = new GoExecutionFactory(null, null);
         
         // When
-        Execution execution =
-                goExecutionFactory.createExecution(file, file, file, 10, 100);
+        Execution execution = goExecutionFactory.createExecution(file, file, file, 10, 100);
         
         // Then
         Assertions.assertNotNull(execution);
@@ -133,8 +130,7 @@ public class ExecutionFactoryTests {
         var csExecutionFactory = new CSExecutionFactory(null, null);
         
         // When
-        Execution execution =
-                csExecutionFactory.createExecution(file, file, file, 10, 100);
+        Execution execution = csExecutionFactory.createExecution(file, file, file, 10, 100);
         
         // Then
         Assertions.assertNotNull(execution);
@@ -147,8 +143,7 @@ public class ExecutionFactoryTests {
         var kotlinExecutionFactory = new KotlinExecutionFactory(null, null);
         
         // When
-        Execution execution =
-                kotlinExecutionFactory.createExecution(file, file, file, 10, 100);
+        Execution execution = kotlinExecutionFactory.createExecution(file, file, file, 10, 100);
         
         // Then
         Assertions.assertNotNull(execution);
@@ -161,11 +156,23 @@ public class ExecutionFactoryTests {
         var scalaExecutionFactory = new ScalaExecutionFactory(null, null);
         
         // When
-        Execution execution =
-                scalaExecutionFactory.createExecution(file, file, file, 10, 100);
+        Execution execution = scalaExecutionFactory.createExecution(file, file, file, 10, 100);
         
         // Then
         Assertions.assertNotNull(execution);
         Assertions.assertTrue(execution instanceof ScalaExecution);
+    }
+    
+    @Test
+    void shouldCreateRustExecution() {
+        // Given
+        var rustExecutionFactory = new RustExecutionFactory(null, null);
+        
+        // When
+        Execution execution = rustExecutionFactory.createExecution(file, file, file, 10, 100);
+        
+        // Then
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof RustExecution);
     }
 }

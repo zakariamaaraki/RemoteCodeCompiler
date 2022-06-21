@@ -7,6 +7,7 @@ import com.cp.compiler.executions.go.GoExecution;
 import com.cp.compiler.executions.java.JavaExecution;
 import com.cp.compiler.executions.kotlin.KotlinExecution;
 import com.cp.compiler.executions.python.PythonExecution;
+import com.cp.compiler.executions.rust.RustExecution;
 import com.cp.compiler.executions.scala.ScalaExecution;
 import com.cp.compiler.models.Language;
 import org.junit.jupiter.api.Assertions;
@@ -88,5 +89,13 @@ public class RegisteredFactoriesTests {
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.PYTHON));
         Assertions.assertNotNull(execution);
         Assertions.assertTrue(execution instanceof PythonExecution);
+    }
+    
+    @Test
+    void rustExecutionFactoryShouldBeRegistered() {
+        Execution execution = ExecutionFactory.createExecution(file, file, file, 10, 100, Language.RUST);
+        Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.RUST));
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof RustExecution);
     }
 }

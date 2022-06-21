@@ -46,4 +46,9 @@ public abstract class WellKnownFolders {
      * The constant SCALA_EXECUTION_FOLDER_NAME.
      */
     public static final String SCALA_EXECUTION_FOLDER_NAME = "executions/utility_scala";
+    
+    /**
+     * The constant RUST_EXECUTION_FOLDER_NAME.
+     */
+    public static final String RUST_EXECUTION_FOLDER_NAME = "executions/utility_rs";
 }

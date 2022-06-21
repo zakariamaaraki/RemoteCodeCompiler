@@ -8,6 +8,7 @@ import com.cp.compiler.executions.go.GoExecutionFactory;
 import com.cp.compiler.executions.java.JavaExecutionFactory;
 import com.cp.compiler.executions.kotlin.KotlinExecutionFactory;
 import com.cp.compiler.executions.python.PythonExecutionFactory;
+import com.cp.compiler.executions.rust.RustExecutionFactory;
 import com.cp.compiler.executions.scala.ScalaExecutionFactory;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.WellKnownMetrics;
@@ -43,6 +44,7 @@ public class LanguagesConfig {
         register(Language.CS, new CSExecutionFactory(meterRegistry.counter(WellKnownMetrics.CS_COUNTER_NAME), entryPointFileGenerator));
         register(Language.KOTLIN, new KotlinExecutionFactory(meterRegistry.counter(WellKnownMetrics.KOTLIN_COUNTER_NAME), entryPointFileGenerator));
         register(Language.SCALA, new ScalaExecutionFactory(meterRegistry.counter(WellKnownMetrics.SCALA_COUNTER_NAME), entryPointFileGenerator));
+        register(Language.RUST, new RustExecutionFactory(meterRegistry.counter(WellKnownMetrics.RUST_COUNTER_NAME), entryPointFileGenerator));
     }
     
     private void register(Language language, AbstractExecutionFactory executionFactory) {

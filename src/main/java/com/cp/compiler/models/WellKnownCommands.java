@@ -46,4 +46,10 @@ public abstract class WellKnownCommands {
      * The constant SCALA_COMMAND_LINE.
      */
     public static final String SCALA_COMMAND_LINE = "scalac";
+    
+    
+    /**
+     * The constant RUST_COMMAND_LINE.
+     */
+    public static final String RUST_COMMAND_LINE = "rustc";
 }

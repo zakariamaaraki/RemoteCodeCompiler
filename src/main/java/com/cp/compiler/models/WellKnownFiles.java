@@ -48,6 +48,11 @@ public abstract class WellKnownFiles {
     public static final String SCALA_FILE_NAME = "main.scala";
     
     /**
+     * The constant RUST_FILE_NAME.
+     */
+    public static final String RUST_FILE_NAME = "main.rs";
+    
+    /**
      * The constant INPUT_FILE_NAME.
      */
     public static final String INPUT_FILE_NAME = "input.txt";

@@ -23,6 +23,11 @@ public abstract class WellKnownMetrics {
     public static final String SCALA_COUNTER_NAME = "scala.counter";
     
     /**
+     * The constant RUST_COUNTER_NAME.
+     */
+    public static final String RUST_COUNTER_NAME = "rust.counter";
+    
+    /**
      * The constant C_COUNTER_NAME.
      */
     public static final String C_COUNTER_NAME = "c.counter";

@@ -4,11 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
+    <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="Update endpoints (one endpoint for all languages)">
+      <change afterPath="$PROJECT_DIR$/executions/utility_rs/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/rust/RustExecution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/rust/RustExecutionFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/RustE2ETests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/rust/Test1.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/rust/Test2.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/rust/Test3.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/rust/Test4.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/sources/rust/Test5.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_scala/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/executions/utility_scala/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/config/LanguagesConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/config/LanguagesConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Language.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Language.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownCommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownFiles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownFolders.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownFolders.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownMetrics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/WellKnownMetrics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFactoryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFactoryTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFolderTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFolderTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/RegisteredFactoriesTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/RegisteredFactoriesTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +81,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/templates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/resources/sources/rust" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
@@ -77,11 +93,11 @@
       <recent name="com.cp.compiler.services" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources/sources/rust" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/rust" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions" />
       <recent name="$PROJECT_DIR$/src/main/resources/templates" />
       <recent name="$PROJECT_DIR$/src/test/resources/sources/scala" />
-      <recent name="$PROJECT_DIR$/src/test/resources/sources" />
-      <recent name="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/scala" />
-      <recent name="$PROJECT_DIR$/src/test/resources/sources/kotlin" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/baseimages/scala" />
@@ -103,7 +119,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TopologyTests">
+  <component name="RunManager" selected="JUnit.ExecutionFolderTests">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -135,21 +151,6 @@
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ExecutionFactoryTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.executions.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionFactoryTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ExecutionFolderTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
@@ -165,7 +166,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExecutionTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ExecutionTests.rustExecutionShouldCreateAnEntrypointFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
@@ -175,7 +176,8 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionTests" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="METHOD_NAME" value="rustExecutionShouldCreateAnEntrypointFile" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -191,6 +193,22 @@
       <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.RegisteredFactoriesTests" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RegisteredFactoriesTests.rustExecutionFactoryShouldBeRegistered" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.executions.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.RegisteredFactoriesTests" />
+      <option name="METHOD_NAME" value="rustExecutionFactoryShouldBeRegistered" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -351,11 +369,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ExecutionFolderTests" />
+        <item itemvalue="JUnit.ExecutionTests.rustExecutionShouldCreateAnEntrypointFile" />
+        <item itemvalue="JUnit.RegisteredFactoriesTests.rustExecutionFactoryShouldBeRegistered" />
         <item itemvalue="JUnit.TopologyTests" />
         <item itemvalue="JUnit.RegisteredFactoriesTests" />
-        <item itemvalue="JUnit.ExecutionFactoryTests" />
-        <item itemvalue="JUnit.ExecutionFolderTests" />
-        <item itemvalue="JUnit.ExecutionTests" />
       </list>
     </recent_temporary>
   </component>
@@ -429,7 +447,7 @@
       <workItem from="1654632494297" duration="27767000" />
       <workItem from="1655230166717" duration="48555000" />
       <workItem from="1655670532862" duration="9251000" />
-      <workItem from="1655749929924" duration="3879000" />
+      <workItem from="1655749929924" duration="10451000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>

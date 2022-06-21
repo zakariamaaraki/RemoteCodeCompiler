@@ -60,7 +60,14 @@ public enum Language {
      */
     SCALA(WellKnownFolders.SCALA_EXECUTION_FOLDER_NAME,
            WellKnownFiles.SCALA_FILE_NAME,
-           WellKnownCommands.SCALA_COMMAND_LINE);
+           WellKnownCommands.SCALA_COMMAND_LINE),
+    
+    /**
+     * Rust language.
+     */
+    RUST(WellKnownFolders.RUST_EXECUTION_FOLDER_NAME,
+          WellKnownFiles.RUST_FILE_NAME,
+          WellKnownCommands.RUST_COMMAND_LINE);
     
     /**
      * The execution folder name.
