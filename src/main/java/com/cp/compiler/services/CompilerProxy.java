@@ -91,7 +91,7 @@ public class CompilerProxy implements CompilerService {
         }
         if (allow()) {
             long counter = executionsCounter.incrementAndGet();
-            log.info("New request, total: {}, maxRequests: {}", counter, maxRequests);
+            log.info("New request for, total: {}, maxRequests: {}, language: {}", counter, maxRequests, execution.getLanguage());
             
             ResponseEntity response;
             

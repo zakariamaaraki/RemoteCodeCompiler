@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/ScalaE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/ScalaE2ETests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/executions/utility_scala/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/executions/utility_scala/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,15 +104,13 @@
     </option>
   </component>
   <component name="RunManager" selected="JUnit.TopologyTests">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -428,7 +428,8 @@
       <workItem from="1654280181690" duration="72317000" />
       <workItem from="1654632494297" duration="27767000" />
       <workItem from="1655230166717" duration="48555000" />
-      <workItem from="1655670532862" duration="8032000" />
+      <workItem from="1655670532862" duration="9251000" />
+      <workItem from="1655749929924" duration="3879000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
@@ -542,16 +543,6 @@
           <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerFacadeTests.java</url>
           <line>45</line>
           <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java</url>
-          <line>91</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java</url>
-          <line>92</line>
-          <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java</url>
