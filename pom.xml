@@ -87,6 +87,13 @@
 			<version>2.11.0</version>
 		</dependency>
 
+		<!-- Parsing yaml files -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+
 		<!-- Apache Kafka -->
 		<dependency>
 			<groupId>org.apache.kafka</groupId>
