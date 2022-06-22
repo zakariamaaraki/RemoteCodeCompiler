@@ -1,9 +1,12 @@
 target/
+.idea/
 .git/
+.gitignore
 .github/
 images/
 k8s/
 local/
+provisioning/
 README.md
 CONTRIBUTION.md
 LICENSE
