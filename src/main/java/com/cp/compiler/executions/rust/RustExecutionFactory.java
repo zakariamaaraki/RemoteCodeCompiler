@@ -7,7 +7,7 @@ import io.micrometer.core.instrument.Counter;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * The type C execution factory.
+ * The type Rust execution factory.
  */
 public class RustExecutionFactory implements AbstractExecutionFactory {
     
@@ -16,7 +16,7 @@ public class RustExecutionFactory implements AbstractExecutionFactory {
     private final EntrypointFileGenerator entryPointFileGenerator;
     
     /**
-     * Instantiates a new C execution factory.
+     * Instantiates a new Rust execution factory.
      *
      * @param executionCounter        the execution counter for monitoring
      * @param entryPointFileGenerator the entry point file generator
@@ -27,7 +27,7 @@ public class RustExecutionFactory implements AbstractExecutionFactory {
     }
     
     /**
-     * Create execution execution.
+     * Create Rust execution.
      *
      * @param sourceCode         the source code
      * @param inputFile          the input file

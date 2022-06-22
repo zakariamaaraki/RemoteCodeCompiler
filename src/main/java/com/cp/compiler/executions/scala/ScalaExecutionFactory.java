@@ -7,7 +7,7 @@ import io.micrometer.core.instrument.Counter;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * The type Java execution factory.
+ * The type Scala execution factory.
  */
 public class ScalaExecutionFactory implements AbstractExecutionFactory {
     
@@ -16,7 +16,7 @@ public class ScalaExecutionFactory implements AbstractExecutionFactory {
     private final EntrypointFileGenerator entryPointFileGenerator;
     
     /**
-     * Instantiates a new Java execution factory.
+     * Instantiates a new Scala execution factory.
      *
      * @param executionCounter        the execution counter for monitoring
      * @param entryPointFileGenerator the entry point file generator
