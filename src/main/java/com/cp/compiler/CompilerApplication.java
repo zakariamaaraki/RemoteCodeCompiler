@@ -29,6 +29,6 @@ public class CompilerApplication implements CommandLineRunner {
     
     @Override
     public void run(String... args) throws Exception {
-        log.info("DELETE_DOCKER_IMAGE set to : {}", deleteDockerImage);
+        log.info("DELETE_DOCKER_IMAGE is set to : {}", deleteDockerImage);
     }
 }

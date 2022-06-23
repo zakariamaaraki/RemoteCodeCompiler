@@ -64,14 +64,14 @@ public class CompilerServiceImpl implements CompilerService {
     
     private void builderImage(Execution execution) throws CompilerServerInternalException {
         try {
-            log.info("Creating execution directory");
+            log.info("Creating execution directory: {}", execution.getImageName());
             execution.createExecutionDirectory();
         } catch (Throwable e) {
             throw new CompilerServerInternalException(e.getMessage());
         }
         
         try {
-            log.info("Building the docker image");
+            log.info("Building the docker image: {}", execution.getImageName());
             int status = containerService.buildImage(execution.getPath(), execution.getImageName());
             if (status == 0) {
                 log.info("Container image has been built");
@@ -82,7 +82,7 @@ public class CompilerServiceImpl implements CompilerService {
         } finally {
             try {
                 execution.deleteExecutionDirectory();
-                log.info("Execution directory has been deleted");
+                log.info("Execution directory {} has been deleted", execution.getImageName());
             } catch (IOException e) {
                 log.warn("Error while trying to delete execution directory, {}", e);
             }

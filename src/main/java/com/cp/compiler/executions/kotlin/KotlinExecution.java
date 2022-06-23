@@ -55,7 +55,7 @@ public class KotlinExecution extends Execution {
         Map<String, String> attributes = Map.of(
                 "rename", "true",
                 "compile", "true",
-                "defaultName", "main.kt",
+                "defaultName", Language.KOTLIN.getSourceCodeFileName(),
                 "fileName", fileName,
                 "timeLimit", String.valueOf(getTimeLimit()),
                 "compilationCommand", Language.KOTLIN.getCompilationCommand() + " " + fileName,

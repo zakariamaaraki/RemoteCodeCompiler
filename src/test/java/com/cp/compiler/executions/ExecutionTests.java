@@ -7,6 +7,7 @@ import com.cp.compiler.executions.go.GoExecutionFactory;
 import com.cp.compiler.executions.java.JavaExecutionFactory;
 import com.cp.compiler.executions.kotlin.KotlinExecutionFactory;
 import com.cp.compiler.executions.python.PythonExecutionFactory;
+import com.cp.compiler.executions.ruby.RubyExecutionFactory;
 import com.cp.compiler.executions.rust.RustExecutionFactory;
 import com.cp.compiler.executions.scala.ScalaExecutionFactory;
 import com.cp.compiler.models.Language;
@@ -246,6 +247,27 @@ public class ExecutionTests {
         // Given
         var rustExecutionFactory = new RustExecutionFactory(null, entrypointFileGenerator);
         Execution execution = rustExecutionFactory.createExecution(
+                file, file, file, 10, 500);
+        
+        Files.createDirectory(Path.of(execution.getPath()));
+        
+        // When
+        execution.createEntrypointFile();
+        
+        // Then
+        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
+        Assertions.assertTrue(executionFolder.exists());
+        Assertions.assertTrue(executionFolder.isFile());
+        
+        // Clean up
+        execution.deleteExecutionDirectory();
+    }
+    
+    @Test
+    void rubyExecutionShouldCreateAnEntrypointFile() throws IOException {
+        // Given
+        var rubyExecutionFactory = new RubyExecutionFactory(null, entrypointFileGenerator);
+        Execution execution = rubyExecutionFactory.createExecution(
                 file, file, file, 10, 500);
         
         Files.createDirectory(Path.of(execution.getPath()));

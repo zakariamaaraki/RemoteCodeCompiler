@@ -55,7 +55,7 @@ public class JavaExecution extends Execution {
         Map<String, String> attributes = Map.of(
                 "rename", "true",
                 "compile", "true",
-                "defaultName", "main.java",
+                "defaultName", Language.JAVA.getSourceCodeFileName(),
                 "fileName", fileName,
                 "timeLimit", String.valueOf(getTimeLimit()),
                 "compilationCommand", Language.JAVA.getCompilationCommand() + " " + fileName,

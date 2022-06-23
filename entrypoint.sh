@@ -29,6 +29,7 @@ then
   docker pull python:3
   docker pull rust
   docker pull denvazh/scala
+  docker pull ruby
 fi
 
 java -jar -Dspring.profiles.active=$profiles compiler.jar

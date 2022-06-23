@@ -23,11 +23,11 @@ class ExecutionFolderTests {
     @Test
     void javaExecutionFolderShouldContainsADockerfile() {
         // Given
-        File dockefile = new File(Language.JAVA.getFolderName() + "/" + DOCKERFILE);
+        File dockerfile = new File(Language.JAVA.getFolderName() + "/" + DOCKERFILE);
         
         // Then
-        Assertions.assertTrue(dockefile.exists());
-        Assertions.assertTrue(dockefile.isFile());
+        Assertions.assertTrue(dockerfile.exists());
+        Assertions.assertTrue(dockerfile.isFile());
     }
     
     @Test
@@ -43,11 +43,11 @@ class ExecutionFolderTests {
     @Test
     void pythonExecutionFolderShouldContainsADockerfile() {
         // Given
-        File dockefile = new File(Language.PYTHON.getFolderName()+ "/" + DOCKERFILE);
+        File dockerfile = new File(Language.PYTHON.getFolderName()+ "/" + DOCKERFILE);
         
         // Then
-        Assertions.assertTrue(dockefile.exists());
-        Assertions.assertTrue(dockefile.isFile());
+        Assertions.assertTrue(dockerfile.exists());
+        Assertions.assertTrue(dockerfile.isFile());
     }
     
     @Test
@@ -63,11 +63,11 @@ class ExecutionFolderTests {
     @Test
     void kotlinExecutionFolderShouldContainsADockerfile() {
         // Given
-        File dockefile = new File(Language.KOTLIN.getFolderName() + "/" + DOCKERFILE);
+        File dockerfile = new File(Language.KOTLIN.getFolderName() + "/" + DOCKERFILE);
         
         // Then
-        Assertions.assertTrue(dockefile.exists());
-        Assertions.assertTrue(dockefile.isFile());
+        Assertions.assertTrue(dockerfile.exists());
+        Assertions.assertTrue(dockerfile.isFile());
     }
     
     @Test
@@ -83,11 +83,11 @@ class ExecutionFolderTests {
     @Test
     void cExecutionFolderShouldContainsADockerfile() {
         // Given
-        File dockefile = new File(Language.C.getFolderName() + "/" + DOCKERFILE);
+        File dockerfile = new File(Language.C.getFolderName() + "/" + DOCKERFILE);
         
         // Then
-        Assertions.assertTrue(dockefile.exists());
-        Assertions.assertTrue(dockefile.isFile());
+        Assertions.assertTrue(dockerfile.exists());
+        Assertions.assertTrue(dockerfile.isFile());
     }
     
     @Test
@@ -103,11 +103,11 @@ class ExecutionFolderTests {
     @Test
     void cppExecutionFolderShouldContainsADockerfile() {
         // Given
-        File dockefile = new File(Language.CPP.getFolderName() + "/" + DOCKERFILE);
+        File dockerfile = new File(Language.CPP.getFolderName() + "/" + DOCKERFILE);
         
         // Then
-        Assertions.assertTrue(dockefile.exists());
-        Assertions.assertTrue(dockefile.isFile());
+        Assertions.assertTrue(dockerfile.exists());
+        Assertions.assertTrue(dockerfile.isFile());
     }
     
     @Test
@@ -123,11 +123,11 @@ class ExecutionFolderTests {
     @Test
     void csExecutionFolderShouldContainsADockerfile() {
         // Given
-        File dockefile = new File(Language.CS.getFolderName() + "/" + DOCKERFILE);
+        File dockerfile = new File(Language.CS.getFolderName() + "/" + DOCKERFILE);
         
         // Then
-        Assertions.assertTrue(dockefile.exists());
-        Assertions.assertTrue(dockefile.isFile());
+        Assertions.assertTrue(dockerfile.exists());
+        Assertions.assertTrue(dockerfile.isFile());
     }
     
     @Test
@@ -143,11 +143,11 @@ class ExecutionFolderTests {
     @Test
     void goExecutionFolderShouldContainsADockerfile() {
         // Given
-        File dockefile = new File(Language.GO.getFolderName() + "/" + DOCKERFILE);
+        File dockerfile = new File(Language.GO.getFolderName() + "/" + DOCKERFILE);
         
         // Then
-        Assertions.assertTrue(dockefile.exists());
-        Assertions.assertTrue(dockefile.isFile());
+        Assertions.assertTrue(dockerfile.exists());
+        Assertions.assertTrue(dockerfile.isFile());
     }
     
     @Test
@@ -163,11 +163,11 @@ class ExecutionFolderTests {
     @Test
     void scalaExecutionFolderShouldContainsADockerfile() {
         // Given
-        File dockefile = new File(Language.SCALA.getFolderName() + "/" + DOCKERFILE);
+        File dockerfile = new File(Language.SCALA.getFolderName() + "/" + DOCKERFILE);
         
         // Then
-        Assertions.assertTrue(dockefile.exists());
-        Assertions.assertTrue(dockefile.isFile());
+        Assertions.assertTrue(dockerfile.exists());
+        Assertions.assertTrue(dockerfile.isFile());
     }
     
     @Test
@@ -183,10 +183,30 @@ class ExecutionFolderTests {
     @Test
     void rustExecutionFolderShouldContainsADockerfile() {
         // Given
-        File dockefile = new File(Language.RUST.getFolderName() + "/" + DOCKERFILE);
+        File dockerfile = new File(Language.RUST.getFolderName() + "/" + DOCKERFILE);
         
         // Then
-        Assertions.assertTrue(dockefile.exists());
-        Assertions.assertTrue(dockefile.isFile());
+        Assertions.assertTrue(dockerfile.exists());
+        Assertions.assertTrue(dockerfile.isFile());
+    }
+    
+    @Test
+    void rubyExecutionFolderShouldExist() {
+        // Given
+        File rubyExecutionFolder = new File(Language.RUBY.getFolderName());
+        
+        // Then
+        Assertions.assertTrue(rubyExecutionFolder.exists());
+        Assertions.assertTrue(rubyExecutionFolder.isDirectory());
+    }
+    
+    @Test
+    void rubyExecutionFolderShouldContainsADockerfile() {
+        // Given
+        File dockerfile = new File(Language.RUBY.getFolderName() + "/" + DOCKERFILE);
+        
+        // Then
+        Assertions.assertTrue(dockerfile.exists());
+        Assertions.assertTrue(dockerfile.isFile());
     }
 }

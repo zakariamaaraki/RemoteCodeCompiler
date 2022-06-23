@@ -51,8 +51,8 @@ public class CSExecution extends Execution {
         Map<String, String> attributes = Map.of(
                 "rename", "false",
                 "compile", "true",
-                "defaultName", "main.cs",
-                "fileName", "main.cs",
+                "defaultName", Language.CS.getSourceCodeFileName(),
+                "fileName", Language.CS.getSourceCodeFileName(),
                 "timeLimit", String.valueOf(getTimeLimit()),
                 "compilationCommand", Language.CS.getCompilationCommand() + " " + Language.CS.getSourceCodeFileName(),
                 "compilationErrorStatusCode", String.valueOf(StatusUtil.COMPILATION_ERROR_STATUS),

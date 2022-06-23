@@ -51,4 +51,9 @@ public abstract class WellKnownFolders {
      * The constant RUST_EXECUTION_FOLDER_NAME.
      */
     public static final String RUST_EXECUTION_FOLDER_NAME = "executions/utility_rs";
+    
+    /**
+     * The constant RUBY_EXECUTION_FOLDER_NAME.
+     */
+    public static final String RUBY_EXECUTION_FOLDER_NAME = "executions/utility_rb";
 }

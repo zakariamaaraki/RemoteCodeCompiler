@@ -93,13 +93,13 @@ public class CompilerController {
             @ApiParam(value = "Your source code")
             @RequestPart(value = WellKnownParams.SOURCE_CODE) MultipartFile sourceCode,
             
-            @ApiParam(value = "This one is not required, it's just the inputs")
+            @ApiParam(value = "Input file is not required")
             @RequestParam(value = WellKnownParams.INPUT_FILE, required = false) MultipartFile inputFile,
             
-            @ApiParam(value = "The time limit that the execution must not exceed")
+            @ApiParam(value = "The time limit in seconds that the execution must not exceed")
             @RequestParam(value = WellKnownParams.TIME_LIMIT) int timeLimit,
             
-            @ApiParam(value = "The memory limit that the running program must not exceed")
+            @ApiParam(value = "The memory limit in MB that the running program must not exceed")
             @RequestParam(value = WellKnownParams.MEMORY_LIMIT) int memoryLimit,
 
             @RequestHeader(value = WellKnownParams.PREFER_PUSH, required = false) String preferPush,

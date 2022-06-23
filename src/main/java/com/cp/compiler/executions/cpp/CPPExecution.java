@@ -52,8 +52,8 @@ public class CPPExecution extends Execution {
         Map<String, String> attributes = Map.of(
                 "rename", "false",
                 "compile", "true",
-                "fileName", "main.cpp",
-                "defaultName", "main.cpp",
+                "fileName", Language.CPP.getSourceCodeFileName() ,
+                "defaultName", Language.CPP.getSourceCodeFileName() ,
                 "timeLimit", String.valueOf(getTimeLimit()),
                 "compilationCommand", Language.CPP.getCompilationCommand() + " " + Language.CPP.getSourceCodeFileName() + " -o exec",
                 "compilationErrorStatusCode", String.valueOf(StatusUtil.COMPILATION_ERROR_STATUS),

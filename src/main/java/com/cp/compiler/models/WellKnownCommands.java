@@ -47,9 +47,13 @@ public abstract class WellKnownCommands {
      */
     public static final String SCALA_COMMAND_LINE = "scalac";
     
-    
     /**
      * The constant RUST_COMMAND_LINE.
      */
     public static final String RUST_COMMAND_LINE = "rustc";
+    
+    /**
+     * The constant RUBY_COMMAND_LINE.
+     */
+    public static final String RUBY_COMMAND_LINE = "ruby";
 }

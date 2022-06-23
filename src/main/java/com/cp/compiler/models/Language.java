@@ -67,7 +67,14 @@ public enum Language {
      */
     RUST(WellKnownFolders.RUST_EXECUTION_FOLDER_NAME,
           WellKnownFiles.RUST_FILE_NAME,
-          WellKnownCommands.RUST_COMMAND_LINE);
+          WellKnownCommands.RUST_COMMAND_LINE),
+    
+    /**
+     * Ruby language.
+     */
+    RUBY(WellKnownFolders.RUBY_EXECUTION_FOLDER_NAME,
+            WellKnownFiles.RUBY_FILE_NAME,
+            WellKnownCommands.RUBY_COMMAND_LINE);
     
     /**
      * The execution folder name.

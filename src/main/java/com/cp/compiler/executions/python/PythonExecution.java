@@ -52,8 +52,8 @@ public class PythonExecution extends Execution {
         Map<String, String> attributes = Map.of(
                 "rename", "false",
                 "compile", "false",
-                "fileName", "main.py",
-                "defaultName", "main.py",
+                "fileName", Language.PYTHON.getSourceCodeFileName(),
+                "defaultName", Language.PYTHON.getSourceCodeFileName(),
                 "compilationCommand", "",
                 "timeLimit", String.valueOf(getTimeLimit()),
                 "compilationErrorStatusCode", String.valueOf(StatusUtil.COMPILATION_ERROR_STATUS),

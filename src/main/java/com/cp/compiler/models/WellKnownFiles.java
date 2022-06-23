@@ -53,6 +53,11 @@ public abstract class WellKnownFiles {
     public static final String RUST_FILE_NAME = "main.rs";
     
     /**
+     * The constant RUBY_FILE_NAME.
+     */
+    public static final String RUBY_FILE_NAME = "main.rb";
+    
+    /**
      * The constant INPUT_FILE_NAME.
      */
     public static final String INPUT_FILE_NAME = "input.txt";

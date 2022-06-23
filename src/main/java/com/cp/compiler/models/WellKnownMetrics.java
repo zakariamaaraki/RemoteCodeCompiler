@@ -50,7 +50,12 @@ public abstract class WellKnownMetrics {
     /**
      * The constant CS_COUNTER_NAME.
      */
-    public static final String CS_COUNTER_NAME = "cs.counter";
+    public static final String CS_COUNTER_NAME = "csharp.counter";
+    
+    /**
+     * The constant RUBY_COUNTER_NAME.
+     */
+    public static final String RUBY_COUNTER_NAME = "ruby.counter";
     
     /**
      * The constant THROTTLING_COUNTER_NAME.

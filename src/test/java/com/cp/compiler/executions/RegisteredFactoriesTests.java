@@ -7,6 +7,7 @@ import com.cp.compiler.executions.go.GoExecution;
 import com.cp.compiler.executions.java.JavaExecution;
 import com.cp.compiler.executions.kotlin.KotlinExecution;
 import com.cp.compiler.executions.python.PythonExecution;
+import com.cp.compiler.executions.ruby.RubyExecution;
 import com.cp.compiler.executions.rust.RustExecution;
 import com.cp.compiler.executions.scala.ScalaExecution;
 import com.cp.compiler.models.Language;
@@ -97,5 +98,13 @@ public class RegisteredFactoriesTests {
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.RUST));
         Assertions.assertNotNull(execution);
         Assertions.assertTrue(execution instanceof RustExecution);
+    }
+    
+    @Test
+    void rubyExecutionFactoryShouldBeRegistered() {
+        Execution execution = ExecutionFactory.createExecution(file, file, file, 10, 100, Language.RUBY);
+        Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.RUBY));
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof RubyExecution);
     }
 }

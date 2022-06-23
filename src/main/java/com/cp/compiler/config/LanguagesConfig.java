@@ -8,13 +8,13 @@ import com.cp.compiler.executions.go.GoExecutionFactory;
 import com.cp.compiler.executions.java.JavaExecutionFactory;
 import com.cp.compiler.executions.kotlin.KotlinExecutionFactory;
 import com.cp.compiler.executions.python.PythonExecutionFactory;
+import com.cp.compiler.executions.ruby.RubyExecutionFactory;
 import com.cp.compiler.executions.rust.RustExecutionFactory;
 import com.cp.compiler.executions.scala.ScalaExecutionFactory;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.WellKnownMetrics;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import io.micrometer.core.instrument.MeterRegistry;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -45,6 +45,7 @@ public class LanguagesConfig {
         register(Language.KOTLIN, new KotlinExecutionFactory(meterRegistry.counter(WellKnownMetrics.KOTLIN_COUNTER_NAME), entryPointFileGenerator));
         register(Language.SCALA, new ScalaExecutionFactory(meterRegistry.counter(WellKnownMetrics.SCALA_COUNTER_NAME), entryPointFileGenerator));
         register(Language.RUST, new RustExecutionFactory(meterRegistry.counter(WellKnownMetrics.RUST_COUNTER_NAME), entryPointFileGenerator));
+        register(Language.RUBY, new RubyExecutionFactory(meterRegistry.counter(WellKnownMetrics.RUBY_COUNTER_NAME), entryPointFileGenerator));
     }
     
     private void register(Language language, AbstractExecutionFactory executionFactory) {

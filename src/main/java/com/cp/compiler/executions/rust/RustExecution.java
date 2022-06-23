@@ -51,8 +51,8 @@ public class RustExecution extends Execution {
         Map<String, String> attributes = Map.of(
                 "rename", "false",
                 "compile", "true",
-                "fileName", "main.rs",
-                "defaultName", "main.rs",
+                "fileName", Language.RUST.getSourceCodeFileName(),
+                "defaultName", Language.RUST.getSourceCodeFileName(),
                 "timeLimit", String.valueOf(getTimeLimit()),
                 "compilationCommand", Language.RUST.getCompilationCommand() + " " + Language.RUST.getSourceCodeFileName(),
                 "compilationErrorStatusCode", String.valueOf(StatusUtil.COMPILATION_ERROR_STATUS),

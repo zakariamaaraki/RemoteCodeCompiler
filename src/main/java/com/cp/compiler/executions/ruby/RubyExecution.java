@@ -1,4 +1,4 @@
-package com.cp.compiler.executions.scala;
+package com.cp.compiler.executions.ruby;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
@@ -15,13 +15,13 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
- * The type Kotlin execution.
+ * The type Ruby execution.
  */
 @Getter
-public class ScalaExecution extends Execution {
+public class RubyExecution extends Execution {
     
     /**
-     * Instantiates a new Scala execution.
+     * Instantiates a new Ruby execution.
      *
      * @param sourceCode         the source code
      * @param inputFile          the input file
@@ -30,40 +30,37 @@ public class ScalaExecution extends Execution {
      * @param memoryLimit        the memory limit
      * @param executionCounter   the execution counter
      */
-    public ScalaExecution(MultipartFile sourceCode,
-                          MultipartFile inputFile,
-                          MultipartFile expectedOutputFile,
-                          int timeLimit,
-                          int memoryLimit,
-                          Counter executionCounter,
-                          EntrypointFileGenerator entryPointFileGenerator) {
-        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, Language.SCALA, executionCounter, entryPointFileGenerator);
+    public RubyExecution(MultipartFile sourceCode,
+                         MultipartFile inputFile,
+                         MultipartFile expectedOutputFile,
+                         int timeLimit,
+                         int memoryLimit,
+                         Counter executionCounter,
+                         EntrypointFileGenerator entryPointFileGenerator) {
+        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, Language.RUBY, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        // This case is a bit different, Kotlin, Scala and Java files name must be the same as the name of the class
-        // So we will keep the name of the file as it's sent by the user.
-        var fileName = getSourceCodeFile().getOriginalFilename();
-        final var prefixName = fileName.substring(0, fileName.length() - 6); // remove .scala
-        final var commandPrefix = "scala " + prefixName;
-        final String executionCommand;
-        executionCommand = getInputFile() == null
+        final String commandPrefix = Language.RUBY.getCompilationCommand() + " " + Language.RUBY.getSourceCodeFileName();
+        final String executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
     
         Map<String, String> attributes = Map.of(
-                "defaultName", Language.SCALA.getSourceCodeFileName(),
-                "fileName", fileName,
+                "rename", "false",
+                "compile", "false",
+                "fileName", Language.RUBY.getSourceCodeFileName(),
+                "defaultName", Language.RUBY.getSourceCodeFileName(),
                 "timeLimit", String.valueOf(getTimeLimit()),
-                "compilationCommand", Language.SCALA.getCompilationCommand() + " " + fileName,
+                "compilationCommand", "",
                 "compilationErrorStatusCode", String.valueOf(StatusUtil.COMPILATION_ERROR_STATUS),
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
     
         String content = getEntrypointFileGenerator()
-                .createEntrypointFile(WellKnownTemplates.SCALA_ENTRYPOINT_TEMPLATE, attributes);
+                .createEntrypointFile(WellKnownTemplates.ENTRYPOINT_TEMPLATE, attributes);
     
         try(OutputStream os = new FileOutputStream(getPath() + "/entrypoint.sh")) {
             os.write(content.getBytes(), 0, content.length());

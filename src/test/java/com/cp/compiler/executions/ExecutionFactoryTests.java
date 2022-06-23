@@ -15,6 +15,8 @@ import com.cp.compiler.executions.kotlin.KotlinExecution;
 import com.cp.compiler.executions.kotlin.KotlinExecutionFactory;
 import com.cp.compiler.executions.python.PythonExecution;
 import com.cp.compiler.executions.python.PythonExecutionFactory;
+import com.cp.compiler.executions.ruby.RubyExecution;
+import com.cp.compiler.executions.ruby.RubyExecutionFactory;
 import com.cp.compiler.executions.rust.RustExecution;
 import com.cp.compiler.executions.rust.RustExecutionFactory;
 import com.cp.compiler.executions.scala.ScalaExecution;
@@ -174,5 +176,18 @@ public class ExecutionFactoryTests {
         // Then
         Assertions.assertNotNull(execution);
         Assertions.assertTrue(execution instanceof RustExecution);
+    }
+    
+    @Test
+    void shouldCreateRubyExecution() {
+        // Given
+        var rubyExecutionFactory = new RubyExecutionFactory(null, null);
+        
+        // When
+        Execution execution = rubyExecutionFactory.createExecution(file, file, file, 10, 100);
+        
+        // Then
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof RubyExecution);
     }
 }
