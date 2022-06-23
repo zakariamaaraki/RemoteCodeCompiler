@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="Update endpoints (one endpoint for all languages)">
-      <change afterPath="$PROJECT_DIR$/images/Screenshot_20220623_205927.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/compiler.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/compiler-logo.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -434,7 +436,7 @@
       <workItem from="1655230166717" duration="48555000" />
       <workItem from="1655670532862" duration="9251000" />
       <workItem from="1655749929924" duration="12214000" />
-      <workItem from="1655848371923" duration="13264000" />
+      <workItem from="1655848371923" duration="13666000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>

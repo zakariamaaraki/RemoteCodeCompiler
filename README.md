@@ -97,7 +97,7 @@ We provide you with a script to provision an AKS cluster to ease your deployment
 
 The compiler creates a container for each execution to separate the execution environments.
 
-![Architecture](images/compiler.png?raw=true "Compiler")
+![Architecture](images/compiler-logo.png?raw=true "Compiler")
 
 For the documentation visit the swagger page at the following url : http://<IP:PORT>/swagger-ui.html
 
