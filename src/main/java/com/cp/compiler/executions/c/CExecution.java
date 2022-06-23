@@ -2,6 +2,7 @@ package com.cp.compiler.executions.c;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
+import com.cp.compiler.models.WellKnownFiles;
 import com.cp.compiler.models.WellKnownTemplates;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import com.cp.compiler.utilities.StatusUtil;
@@ -63,7 +64,7 @@ public class CExecution extends Execution {
         String content = getEntrypointFileGenerator()
                 .createEntrypointFile(WellKnownTemplates.ENTRYPOINT_TEMPLATE, attributes);
     
-        try(OutputStream os = new FileOutputStream(getPath() + "/entrypoint.sh")) {
+        try(OutputStream os = new FileOutputStream(getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME)) {
             os.write(content.getBytes(), 0, content.length());
         }
     }

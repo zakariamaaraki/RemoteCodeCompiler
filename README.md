@@ -4,7 +4,7 @@
 
 # Remote Code Compiler
 
-An online code compiler supporting 9 languages (**Java**, **Kotlin**, **C**, **C++**, **C#**, **Golang**, **Python**, **Scala** and **Rust**) for competitive programming and coding interviews.
+An online code compiler supporting 10 languages (**Java**, **Kotlin**, **C**, **C++**, **C#**, **Golang**, **Python**, **Scala**, **Ruby** and **Rust**) for competitive programming and coding interviews.
 This service execute your code remotely using docker containers to separate environments of execution.
 
 ![Supported languages](images/supported-languages.png?raw=true "supported-languages logos")

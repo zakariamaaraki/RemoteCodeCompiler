@@ -68,6 +68,11 @@ public abstract class WellKnownFiles {
     public static final String EXPECTED_OUTPUT_FILE_NAME = "expectedOutput.txt";
     
     /**
+     * The constant ENTRYPOINT_FILE_NAME.
+     */
+    public static final String ENTRYPOINT_FILE_NAME = "entrypoint.sh";
+    
+    /**
      * The constant FILE_NAME_REGEX.
      */
     public static final String FILE_NAME_REGEX = "^[a-zA-Z0-9_-]*\\.[a-zA-Z0-9_-]*$";
