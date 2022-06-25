@@ -9,6 +9,8 @@ import com.cp.compiler.executions.cs.CSExecution;
 import com.cp.compiler.executions.cs.CSExecutionFactory;
 import com.cp.compiler.executions.go.GoExecution;
 import com.cp.compiler.executions.go.GoExecutionFactory;
+import com.cp.compiler.executions.haskell.HaskellExecution;
+import com.cp.compiler.executions.haskell.HaskellExecutionFactory;
 import com.cp.compiler.executions.java.JavaExecution;
 import com.cp.compiler.executions.java.JavaExecutionFactory;
 import com.cp.compiler.executions.kotlin.KotlinExecution;
@@ -189,5 +191,18 @@ public class ExecutionFactoryTests {
         // Then
         Assertions.assertNotNull(execution);
         Assertions.assertTrue(execution instanceof RubyExecution);
+    }
+    
+    @Test
+    void shouldCreateHaskellExecution() {
+        // Given
+        var haskellExecutionFactory = new HaskellExecutionFactory(null, null);
+        
+        // When
+        Execution execution = haskellExecutionFactory.createExecution(file, file, file, 10, 100);
+        
+        // Then
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof HaskellExecution);
     }
 }

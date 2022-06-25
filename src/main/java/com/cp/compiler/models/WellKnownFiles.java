@@ -58,6 +58,11 @@ public abstract class WellKnownFiles {
     public static final String RUBY_FILE_NAME = "main.rb";
     
     /**
+     * The constant HASKELL_FILE_NAME.
+     */
+    public static final String HASKELL_FILE_NAME = "main.hs";
+    
+    /**
      * The constant INPUT_FILE_NAME.
      */
     public static final String INPUT_FILE_NAME = "input.txt";

@@ -4,6 +4,7 @@ import com.cp.compiler.executions.c.CExecution;
 import com.cp.compiler.executions.cpp.CPPExecution;
 import com.cp.compiler.executions.cs.CSExecution;
 import com.cp.compiler.executions.go.GoExecution;
+import com.cp.compiler.executions.haskell.HaskellExecution;
 import com.cp.compiler.executions.java.JavaExecution;
 import com.cp.compiler.executions.kotlin.KotlinExecution;
 import com.cp.compiler.executions.python.PythonExecution;
@@ -106,5 +107,13 @@ public class RegisteredFactoriesTests {
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.RUBY));
         Assertions.assertNotNull(execution);
         Assertions.assertTrue(execution instanceof RubyExecution);
+    }
+    
+    @Test
+    void haskellExecutionFactoryShouldBeRegistered() {
+        Execution execution = ExecutionFactory.createExecution(file, file, file, 10, 100, Language.HASKELL);
+        Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.HASKELL));
+        Assertions.assertNotNull(execution);
+        Assertions.assertTrue(execution instanceof HaskellExecution);
     }
 }

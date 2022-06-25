@@ -2,6 +2,8 @@ server:
   port: 8082
 
 compiler:
+  execution:
+    max-cpus: ${MAX_EXECUTION_CPUS:0}
   features:
     push-notification:
       enabled: ${ENABLE_PUSH_NOTIFICATION:false}

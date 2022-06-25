@@ -5,6 +5,11 @@ import com.cp.compiler.exceptions.ContainerBuildException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.models.Result;
+import com.cp.compiler.models.Verdict;
+import com.cp.compiler.models.WellKnownMetrics;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Timer;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -12,8 +17,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Compiler Service Class, this class provides compilation utilities for several programing languages
@@ -25,12 +34,33 @@ import java.time.LocalDateTime;
 public class CompilerServiceImpl implements CompilerService {
     
     private final ContainerService containerService;
+    
+    private final MeterRegistry meterRegistry;
+    
+    private final Map<String, Counter> verdictsCounters = new HashMap<>();
 
     @Value("${compiler.docker.image.delete:true}")
     private boolean deleteDockerImage;
     
-    public CompilerServiceImpl(ContainerService containerService) {
+    /**
+     * Instantiates a new Compiler service.
+     *
+     * @param containerService the container service
+     * @param meterRegistry    the meter registry
+     */
+    public CompilerServiceImpl(ContainerService containerService, MeterRegistry meterRegistry) {
         this.containerService = containerService;
+        this.meterRegistry = meterRegistry;
+    }
+    
+    /**
+     * Init.
+     */
+    @PostConstruct
+    public void init() {
+        Arrays.stream(Verdict.values())
+                .forEach(verdict -> verdictsCounters.put(verdict.getStatusResponse(),
+                        meterRegistry.counter(verdict.getCounterMetric())));
     }
     
     /**
@@ -56,6 +86,9 @@ public class CompilerServiceImpl implements CompilerService {
         }
         
         log.info("Status response is " + result.getStatusResponse());
+        
+        // update metrics
+        verdictsCounters.get(result.getStatusResponse()).increment();
         
         return ResponseEntity
                 .status(HttpStatus.OK)

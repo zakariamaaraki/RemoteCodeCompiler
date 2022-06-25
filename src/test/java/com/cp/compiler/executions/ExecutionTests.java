@@ -4,6 +4,7 @@ import com.cp.compiler.executions.c.CExecutionFactory;
 import com.cp.compiler.executions.cpp.CPPExecutionFactory;
 import com.cp.compiler.executions.cs.CSExecutionFactory;
 import com.cp.compiler.executions.go.GoExecutionFactory;
+import com.cp.compiler.executions.haskell.HaskellExecutionFactory;
 import com.cp.compiler.executions.java.JavaExecutionFactory;
 import com.cp.compiler.executions.kotlin.KotlinExecutionFactory;
 import com.cp.compiler.executions.python.PythonExecutionFactory;
@@ -11,6 +12,7 @@ import com.cp.compiler.executions.ruby.RubyExecutionFactory;
 import com.cp.compiler.executions.rust.RustExecutionFactory;
 import com.cp.compiler.executions.scala.ScalaExecutionFactory;
 import com.cp.compiler.models.Language;
+import com.cp.compiler.models.WellKnownFiles;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -87,7 +89,7 @@ public class ExecutionTests {
         execution.createEntrypointFile();
     
         // Then
-        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
+        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
     
@@ -108,7 +110,7 @@ public class ExecutionTests {
         execution.createEntrypointFile();
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
+        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -129,7 +131,7 @@ public class ExecutionTests {
         execution.createEntrypointFile();
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
+        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -150,7 +152,7 @@ public class ExecutionTests {
         execution.createEntrypointFile();
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
+        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -171,7 +173,7 @@ public class ExecutionTests {
         execution.createEntrypointFile();
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
+        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -192,7 +194,7 @@ public class ExecutionTests {
         execution.createEntrypointFile();
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
+        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -213,7 +215,7 @@ public class ExecutionTests {
         execution.createEntrypointFile();
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
+        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -234,7 +236,7 @@ public class ExecutionTests {
         execution.createEntrypointFile();
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
+        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -255,7 +257,7 @@ public class ExecutionTests {
         execution.createEntrypointFile();
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
+        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -276,7 +278,28 @@ public class ExecutionTests {
         execution.createEntrypointFile();
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/entrypoint.sh");
+        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
+        Assertions.assertTrue(executionFolder.exists());
+        Assertions.assertTrue(executionFolder.isFile());
+        
+        // Clean up
+        execution.deleteExecutionDirectory();
+    }
+    
+    @Test
+    void haskellExecutionShouldCreateAnEntrypointFile() throws IOException {
+        // Given
+        var haskellExecutionFactory = new HaskellExecutionFactory(null, entrypointFileGenerator);
+        Execution execution = haskellExecutionFactory.createExecution(
+                file, file, file, 10, 500);
+        
+        Files.createDirectory(Path.of(execution.getPath()));
+        
+        // When
+        execution.createEntrypointFile();
+        
+        // Then
+        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         

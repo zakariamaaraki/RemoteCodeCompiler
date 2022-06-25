@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * The Compiler proxy Service.
@@ -27,10 +26,6 @@ import java.util.concurrent.atomic.AtomicLong;
 @Slf4j
 @Service("proxy")
 public class CompilerProxy implements CompilerService {
-    
-    @Getter
-    @Value("${compiler.max-requests}")
-    private long maxRequests;
     
     @Getter
     @Value("${compiler.execution-memory.max:10000}")
@@ -64,7 +59,8 @@ public class CompilerProxy implements CompilerService {
     @Autowired
     private HooksRepository hooksRepository;
     
-    private AtomicLong executionsCounter = new AtomicLong(0);
+    @Autowired
+    private Resources resources;
     
     private Counter throttlingCounterMetric;
     
@@ -76,7 +72,7 @@ public class CompilerProxy implements CompilerService {
     @PostConstruct
     public void init() {
         throttlingCounterMetric = meterRegistry.counter(WellKnownMetrics.THROTTLING_COUNTER_NAME);
-        Gauge.builder(WellKnownMetrics.EXECUTIONS_GAUGE, executionsCounter::get)
+        Gauge.builder(WellKnownMetrics.EXECUTIONS_GAUGE, () -> resources.getNumberOfExecutions())
                 .description(EXECUTIONS_GAUGE_DESCRIPTION)
                 .register(meterRegistry);
     }
@@ -89,9 +85,9 @@ public class CompilerProxy implements CompilerService {
             log.info("Invalid input data: '{}'", requestValidationError.get().getBody());
             return requestValidationError.get();
         }
-        if (allow()) {
-            long counter = executionsCounter.incrementAndGet();
-            log.info("New request for, total: {}, maxRequests: {}, language: {}", counter, maxRequests, execution.getLanguage());
+        if (resources.allowNewExecution()) {
+            int counter = resources.reserveResources();
+            log.info("New request, total: {}, maxRequests: {}, language: {}", counter, resources.getMaxRequests(), execution.getLanguage());
             
             ResponseEntity response;
             
@@ -99,15 +95,14 @@ public class CompilerProxy implements CompilerService {
                 response = compileFacade(execution);
             } finally {
                 // in all cases this is the end of the request, then we should decrement the counter
-                executionsCounter.decrementAndGet();
+                resources.cleanup();
             }
-            
             return response;
         }
         // The request has been throttled
         throttlingCounterMetric.increment();
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
-                .body("Request throttled, service reached max allowed requests");
+                .body("Request throttled, service reached maximum allowed requests");
     }
     
     private ResponseEntity compileFacade(Execution execution) throws Exception {
@@ -178,9 +173,5 @@ public class CompilerProxy implements CompilerService {
      */
     private boolean checkFileName(String fileName) {
         return fileName != null && fileName.matches(WellKnownFiles.FILE_NAME_REGEX);
-    }
-    
-    private boolean allow() {
-        return executionsCounter.get() < maxRequests;
     }
 }

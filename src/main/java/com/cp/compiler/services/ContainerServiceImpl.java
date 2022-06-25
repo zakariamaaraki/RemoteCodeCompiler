@@ -8,6 +8,7 @@ import com.cp.compiler.utilities.StatusUtil;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,13 +35,16 @@ public class ContainerServiceImpl implements ContainerService {
     private Timer buildTimer;
     private Timer runTimer;
     
+    private final Resources resources;
+    
     /**
      * Instantiates a new Container service.
      *
      * @param meterRegistry the meter registry
      */
-    public ContainerServiceImpl(MeterRegistry meterRegistry) {
+    public ContainerServiceImpl(MeterRegistry meterRegistry, Resources resources) {
         this.meterRegistry = meterRegistry;
+        this.resources = resources;
     }
     
     /**
@@ -86,7 +90,9 @@ public class ContainerServiceImpl implements ContainerService {
                 String expectedOutput = CmdUtil.readOutput(expectedOutputReader);
                 
                 log.info("Running the container");
-                String[] dockerCommand = new String[]{"docker", "run", "--rm", imageName};
+                
+                var cpus = "--cpus=" + resources.getMaxCpus();
+                String[] dockerCommand = new String[]{"docker", "run", cpus, "--rm", imageName};
                 ProcessBuilder processbuilder = new ProcessBuilder(dockerCommand);
                 
                 Process process = processbuilder.start();

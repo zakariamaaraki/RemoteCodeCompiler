@@ -74,7 +74,14 @@ public enum Language {
      */
     RUBY(WellKnownFolders.RUBY_EXECUTION_FOLDER_NAME,
             WellKnownFiles.RUBY_FILE_NAME,
-            WellKnownCommands.RUBY_COMMAND_LINE);
+            WellKnownCommands.RUBY_COMMAND_LINE),
+    
+    /**
+     * Haskell language.
+     */
+    HASKELL(WellKnownFolders.HASKELL_EXECUTION_FOLDER_NAME,
+         WellKnownFiles.HASKELL_FILE_NAME,
+         WellKnownCommands.HASKELL_COMMAND_LINE);
     
     /**
      * The execution folder name.

@@ -30,6 +30,7 @@ then
   docker pull rust
   docker pull denvazh/scala
   docker pull ruby
+  docker pull haskell
 fi
 
 java -jar -Dspring.profiles.active=$profiles compiler.jar

@@ -5,6 +5,7 @@ import com.cp.compiler.executions.c.CExecutionFactory;
 import com.cp.compiler.executions.cpp.CPPExecutionFactory;
 import com.cp.compiler.executions.cs.CSExecutionFactory;
 import com.cp.compiler.executions.go.GoExecutionFactory;
+import com.cp.compiler.executions.haskell.HaskellExecutionFactory;
 import com.cp.compiler.executions.java.JavaExecutionFactory;
 import com.cp.compiler.executions.kotlin.KotlinExecutionFactory;
 import com.cp.compiler.executions.python.PythonExecutionFactory;
@@ -46,6 +47,7 @@ public class LanguagesConfig {
         register(Language.SCALA, new ScalaExecutionFactory(meterRegistry.counter(WellKnownMetrics.SCALA_COUNTER_NAME), entryPointFileGenerator));
         register(Language.RUST, new RustExecutionFactory(meterRegistry.counter(WellKnownMetrics.RUST_COUNTER_NAME), entryPointFileGenerator));
         register(Language.RUBY, new RubyExecutionFactory(meterRegistry.counter(WellKnownMetrics.RUBY_COUNTER_NAME), entryPointFileGenerator));
+        register(Language.HASKELL, new HaskellExecutionFactory(meterRegistry.counter(WellKnownMetrics.HASKELL_COUNTER_NAME), entryPointFileGenerator));
     }
     
     private void register(Language language, AbstractExecutionFactory executionFactory) {

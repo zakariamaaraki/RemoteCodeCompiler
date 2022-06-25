@@ -56,4 +56,9 @@ public abstract class WellKnownCommands {
      * The constant RUBY_COMMAND_LINE.
      */
     public static final String RUBY_COMMAND_LINE = "ruby";
+    
+    /**
+     * The constant HASKELL_COMMAND_LINE.
+     */
+    public static final String HASKELL_COMMAND_LINE = "ghc";
 }

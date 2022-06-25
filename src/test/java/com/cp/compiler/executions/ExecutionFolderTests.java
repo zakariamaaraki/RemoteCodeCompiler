@@ -209,4 +209,24 @@ class ExecutionFolderTests {
         Assertions.assertTrue(dockerfile.exists());
         Assertions.assertTrue(dockerfile.isFile());
     }
+    
+    @Test
+    void haskellExecutionFolderShouldExist() {
+        // Given
+        File haskellExecutionFolder = new File(Language.HASKELL.getFolderName());
+        
+        // Then
+        Assertions.assertTrue(haskellExecutionFolder.exists());
+        Assertions.assertTrue(haskellExecutionFolder.isDirectory());
+    }
+    
+    @Test
+    void haskellExecutionFolderShouldContainsADockerfile() {
+        // Given
+        File dockerfile = new File(Language.HASKELL.getFolderName() + "/" + DOCKERFILE);
+        
+        // Then
+        Assertions.assertTrue(dockerfile.exists());
+        Assertions.assertTrue(dockerfile.isFile());
+    }
 }

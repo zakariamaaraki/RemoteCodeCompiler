@@ -58,6 +58,11 @@ public abstract class WellKnownMetrics {
     public static final String RUBY_COUNTER_NAME = "ruby.counter";
     
     /**
+     * The constant HASKELL_COUNTER_NAME.
+     */
+    public static final String HASKELL_COUNTER_NAME = "haskell.counter";
+    
+    /**
      * The constant THROTTLING_COUNTER_NAME.
      */
     public static final String THROTTLING_COUNTER_NAME = "throttling.counter";
@@ -96,4 +101,34 @@ public abstract class WellKnownMetrics {
      * The constant AMQP_THROTTLING_RETRIES.
      */
     public static final String AMQP_THROTTLING_RETRIES = "amqp.throttling.retries";
+    
+    /**
+     * The constant ACCEPTED_VERDICT_COUNTER.
+     */
+    public static final String ACCEPTED_VERDICT_COUNTER = "verdict.accepted.counter";
+    
+    /**
+     * The constant WRONG_ANSWER_VERDICT_COUNTER.
+     */
+    public static final String WRONG_ANSWER_VERDICT_COUNTER = "verdict.wrong-answer.counter";
+    
+    /**
+     * The constant COMPILATION_ERROR_VERDICT_COUNTER.
+     */
+    public static final String COMPILATION_ERROR_VERDICT_COUNTER = "verdict.compilation-error.counter";
+    
+    /**
+     * The constant RUNTIME_ERROR_VERDICT_COUNTER.
+     */
+    public static final String RUNTIME_ERROR_VERDICT_COUNTER = "verdict.runtime-error.counter";
+    
+    /**
+     * The constant TIME_LIMIT_EXCEEDED_VERDICT_COUNTER.
+     */
+    public static final String TIME_LIMIT_EXCEEDED_VERDICT_COUNTER = "verdict.time-limit-exceeded.counter";
+    
+    /**
+     * The constant OUT_OF_MEMORY_VERDICT_COUNTER.
+     */
+    public static final String OUT_OF_MEMORY_VERDICT_COUNTER = "verdict.out-of-memory.counter";
 }

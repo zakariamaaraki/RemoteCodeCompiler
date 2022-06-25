@@ -56,4 +56,9 @@ public abstract class WellKnownFolders {
      * The constant RUBY_EXECUTION_FOLDER_NAME.
      */
     public static final String RUBY_EXECUTION_FOLDER_NAME = "executions/utility_rb";
+    
+    /**
+     * The constant HASKELL_EXECUTION_FOLDER_NAME.
+     */
+    public static final String HASKELL_EXECUTION_FOLDER_NAME = "executions/utility_hs";
 }
