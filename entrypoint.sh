@@ -19,7 +19,7 @@ fi
 
 if [ ! -z "$PULL_IMAGES_BEFORE_STARTUP" ] && [ "$PULL_IMAGES_BEFORE_STARTUP" = true ];
 then
-  # pull all images before starting the container to make first requests quicker
+  # pull all images before starting the container to make first requests faster
   echo "Pulling all images..."
   docker pull gcc
   docker pull mono

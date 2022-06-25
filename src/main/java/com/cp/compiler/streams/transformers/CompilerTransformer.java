@@ -49,7 +49,7 @@ public class CompilerTransformer implements ValueTransformer<String, String> {
         try {
             return JsonMapper.transform(jsonRequest, compilerService);
         } catch (ThrottlingException throttlingException) {
-            log.info("Request throttled {}, retrying after {}", throttlingException, throttlingDuration);
+            log.info("Request has been throttled {}, retrying after {}", throttlingException, throttlingDuration);
             return retryAfter(jsonRequest);
         } catch (Exception e) {
             log.error("Error : {}", e);

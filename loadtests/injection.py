@@ -48,7 +48,7 @@ class pythonthread(threading.Thread):
     def run(self):
         requests.post(url = URL, json = pythonData, headers = headers)
 
-for i in range(50):
+for i in range(1000):
     cRequestThread = cthread()
     cRequestThread.start()
     pythonRequestThread = pythonthread()
