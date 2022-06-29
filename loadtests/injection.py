@@ -15,6 +15,20 @@ cData = {
     "timeLimit": 15
 }
 
+# Java
+javaInput = open("inputs/Watermelon-1.txt", "r").read()
+javaExpectedOutput = open("expected-outputs/Watermelon-1.txt", "r").read()
+javaSourceCode = open("source-code/Watermelon.java", "r").read()
+
+javaData = {
+    "expectedOutput": javaExpectedOutput,
+    "input": javaInput,
+    "language": "JAVA",
+    "memoryLimit": 1500,
+    "sourceCode": javaSourceCode,
+    "timeLimit": 15
+}
+
 # Python
 pythonInput = open("inputs/makeEven-1.txt", "r").read()
 pythonExpectedOutput = open("expected-outputs/makeEven-1.txt", "r").read()
@@ -48,8 +62,19 @@ class pythonthread(threading.Thread):
     def run(self):
         requests.post(url = URL, json = pythonData, headers = headers)
 
-for i in range(1000):
+
+class javathread(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+
+    # helper function to execute the threads
+    def run(self):
+        requests.post(url = URL, json = javaData, headers = headers)
+
+for i in range(10):
     cRequestThread = cthread()
     cRequestThread.start()
     pythonRequestThread = pythonthread()
     pythonRequestThread.start()
+    javaRequestThread = javathread()
+    javaRequestThread.start()

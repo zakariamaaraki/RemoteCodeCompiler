@@ -1,5 +1,6 @@
 package com.cp.compiler.services;
 
+import com.cp.compiler.models.ContainerOutput;
 import com.cp.compiler.models.Result;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,14 +21,15 @@ public interface ContainerService {
     int buildImage(String folder, String imageName);
     
     /**
-     * Run code result.
+     * Run container container output.
      *
-     * @param imageName  the image name
-     * @param outputFile the output file
-     * @param timeLimit  the time limit
-     * @return the result
+     * @param imageName the image name
+     * @param timeout   the timeout
+     * @return the container output
+     * @throws IOException          the io exception
+     * @throws InterruptedException the interrupted exception
      */
-    Result runCode(String imageName, MultipartFile outputFile, int timeLimit);
+    ContainerOutput runContainer(String imageName, long timeout) throws IOException, InterruptedException;
     
     /**
      * Gets running containers.

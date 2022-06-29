@@ -1,5 +1,8 @@
 package com.cp.compiler.services;
 
+import com.cp.compiler.exceptions.ContainerExecutionException;
+import com.cp.compiler.exceptions.ContainerFailedDependencyException;
+import com.cp.compiler.models.ContainerOutput;
 import com.cp.compiler.models.Result;
 import com.cp.compiler.models.Verdict;
 import com.cp.compiler.models.WellKnownMetrics;
@@ -27,10 +30,6 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class ContainerServiceImpl implements ContainerService {
     
-    private static final long TIME_OUT = 20000; // in ms
-    
-    private static final int MAX_ERROR_LENGTH = 200; // number of chars
-    
     private final MeterRegistry meterRegistry;
     private Timer buildTimer;
     private Timer runTimer;
@@ -41,6 +40,7 @@ public class ContainerServiceImpl implements ContainerService {
      * Instantiates a new Container service.
      *
      * @param meterRegistry the meter registry
+     * @param resources     the resources
      */
     public ContainerServiceImpl(MeterRegistry meterRegistry, Resources resources) {
         this.meterRegistry = meterRegistry;
@@ -75,94 +75,64 @@ public class ContainerServiceImpl implements ContainerService {
     }
     
     /**
-     * {@inheritDoc}
+     * Run an instance of an image
+     * @param imageName the image name
+     * @param timeout   the timeout after which the container will be destroyed
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
      */
     @Override
-    public Result runCode(String imageName, MultipartFile outputFile, int timeLimit) {
-        
+    public ContainerOutput runContainer(String imageName, long timeout) {
         return runTimer.record(() -> {
-            
             try {
-                int status;
-                
-                BufferedReader expectedOutputReader =
-                        new BufferedReader(new InputStreamReader(outputFile.getInputStream()));
-                String expectedOutput = CmdUtil.readOutput(expectedOutputReader);
-                
-                log.info("Running the container");
-                
                 var cpus = "--cpus=" + resources.getMaxCpus();
                 String[] dockerCommand = new String[]{"docker", "run", cpus, "--rm", imageName};
                 ProcessBuilder processbuilder = new ProcessBuilder(dockerCommand);
-                
+    
                 Process process = processbuilder.start();
                 long executionStartTime = System.currentTimeMillis();
-                
+    
                 // Do not let the container exceed the timeout
-                process.waitFor(TIME_OUT, TimeUnit.MILLISECONDS);
+                process.waitFor(timeout, TimeUnit.MILLISECONDS);
                 long executionEndTime = System.currentTimeMillis();
-                
+    
+                int status = 0;
+                String stdOut = "";
+                String stdErr = "";
+    
                 // Check if the container process is alive,
                 // if it's so then destroy it and return a time limit exceeded status
                 if (process.isAlive()) {
                     status = StatusUtil.TIME_LIMIT_EXCEEDED_STATUS;
-                    log.info("The container exceed the 20 sec allowed for its execution");
+                    log.info("The container exceed the " + timeout + " Millis allowed for its execution");
                     process.destroy();
                     log.info("The container has been destroyed");
-                    
-                    /* Can't get the output from the container (because it did not finish it's execution),
-                       so we assume that the comparison between the output and the excepted output returns false */
-                    Verdict verdict = StatusUtil.statusResponse(status, false);
-                    
-                    return new Result(
-                            verdict,
-                            "",
-                            "Execution exceeded " + timeLimit + "sec",
-                            expectedOutput,
-                            timeLimit * 1000 + 1);
                 } else {
                     status = process.exitValue();
-                    log.info("End of the execution of the container");
-                    
+        
                     BufferedReader containerOutputReader =
                             new BufferedReader(new InputStreamReader(process.getInputStream()));
-                    String containerOutput = CmdUtil.readOutput(containerOutputReader);
-                    
-                    boolean result = compareResult(containerOutput, expectedOutput);
-                    Verdict verdict = StatusUtil.statusResponse(status, result);
-                    
-                    String errorOutput = "";
-                    
-                    // Case of an Error (Compilation Error, Runtime Error, Out Of Memory Error)
-                    // Return the error
-                    if (verdict != Verdict.ACCEPTED
-                            && verdict != Verdict.WRONG_ANSWER
-                            && verdict != Verdict.TIME_LIMIT_EXCEEDED) {
-                        
-                        BufferedReader containerErrorReader =
-                                new BufferedReader(new InputStreamReader(process.getErrorStream()));
-                        errorOutput = buildErrorOutput(CmdUtil.readOutput(containerErrorReader));
-                    }
-                    
-                    return new Result(
-                            verdict,
-                            containerOutput,
-                            errorOutput,
-                            expectedOutput, executionEndTime - executionStartTime);
+                    stdOut = CmdUtil.readOutput(containerOutputReader);
+        
+                    BufferedReader containerErrorReader =
+                            new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                    stdErr = CmdUtil.buildErrorOutput(CmdUtil.readOutput(containerErrorReader));
                 }
-            } catch (Exception e) {
-                log.error("Error : ", e);
-                return new Result(StatusUtil.statusResponse(1, false),
-                                  "", "A server side error has occurred", "", 0);
+    
+                return ContainerOutput
+                        .builder()
+                        .stdOut(stdOut)
+                        .stdErr(stdErr)
+                        .status(status)
+                        .executionDuration(executionEndTime - executionStartTime)
+                        .build();
+                
+            } catch(Exception e) {
+                var errorMessage = "Error during container execution: " + e;
+                throw new ContainerExecutionException(errorMessage);
             }
         });
-    }
-    
-    private String buildErrorOutput(String readOutput) {
-        if (readOutput.length() > MAX_ERROR_LENGTH) {
-            return readOutput.substring(0, MAX_ERROR_LENGTH) + "...";
-        }
-        return readOutput;
     }
     
     /**
@@ -194,16 +164,5 @@ public class ContainerServiceImpl implements ContainerService {
     @Override
     public String deleteImage(String imageName) throws IOException {
         return CmdUtil.runCmd("docker", "rmi", "-f", imageName);
-    }
-    
-    // Remove \n and extra spaces
-    private static boolean compareResult(String containerOutput, String expectedOutput) {
-        return containerOutput
-                .trim()
-                .replaceAll("\\s+", " ")
-                .replaceAll("/n","")
-                .equals(expectedOutput.trim()
-                                      .replaceAll("\\s+", " ")
-                                      .replaceAll("/n", ""));
     }
 }

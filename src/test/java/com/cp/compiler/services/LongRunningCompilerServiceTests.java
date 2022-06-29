@@ -1,9 +1,11 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.executions.ExecutionFactory;
+import com.cp.compiler.models.ContainerOutput;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Result;
 import com.cp.compiler.models.Verdict;
+import com.cp.compiler.utilities.StatusUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -46,10 +48,16 @@ public class LongRunningCompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
     
-        Result result = new Result(Verdict.ACCEPTED, "file.txt", "", "file.txt", 0);
+        Result result = new Result(Verdict.ACCEPTED, "test", "", "test", 0);
     
-        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
-                .thenReturn(result);
+        ContainerOutput containerOutput = ContainerOutput
+                .builder()
+                .stdOut("test")
+                .status(StatusUtil.ACCEPTED_OR_WRONG_ANSWER_STATUS)
+                .build();
+        
+        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
+                .thenReturn(containerOutput);
         
         // When
         var compilationResult = compilerService.compile(execution);

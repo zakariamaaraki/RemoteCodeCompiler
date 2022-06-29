@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * The type Factory not found exception.
  */
-@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+@ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
 public class FactoryNotFoundException extends RuntimeException {
     
     /**

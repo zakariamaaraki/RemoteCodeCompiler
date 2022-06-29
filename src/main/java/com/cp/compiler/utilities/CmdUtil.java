@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
  */
 public abstract class CmdUtil {
     
+    private static final int MAX_ERROR_LENGTH = 200; // number of chars
+    
     private CmdUtil() {}
     
     /**
@@ -45,5 +47,36 @@ public abstract class CmdUtil {
         }
         
         return builder.toString();
+    }
+    
+    /**
+     * Compare output boolean.
+     *
+     * @param output         the output
+     * @param expectedOutput the expected output
+     * @return the boolean
+     */
+    public static boolean compareOutput(String output, String expectedOutput) {
+        // Remove \n and extra spaces
+        return output
+                .trim()
+                .replaceAll("\\s+", " ")
+                .replaceAll("/n","")
+                .equals(expectedOutput.trim()
+                        .replaceAll("\\s+", " ")
+                        .replaceAll("/n", ""));
+    }
+    
+    /**
+     * Build error output string.
+     *
+     * @param readOutput the read output
+     * @return the string
+     */
+    public static String buildErrorOutput(String readOutput) {
+        if (readOutput.length() > MAX_ERROR_LENGTH) {
+            return readOutput.substring(0, MAX_ERROR_LENGTH) + "...";
+        }
+        return readOutput;
     }
 }

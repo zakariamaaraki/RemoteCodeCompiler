@@ -2,11 +2,11 @@ package com.cp.compiler.services;
 
 import com.cp.compiler.exceptions.CompilerServerInternalException;
 import com.cp.compiler.exceptions.ContainerBuildException;
+import com.cp.compiler.exceptions.ContainerFailedDependencyException;
 import com.cp.compiler.executions.Execution;
-import com.cp.compiler.models.Response;
-import com.cp.compiler.models.Result;
-import com.cp.compiler.models.Verdict;
-import com.cp.compiler.models.WellKnownMetrics;
+import com.cp.compiler.models.*;
+import com.cp.compiler.utilities.CmdUtil;
+import com.cp.compiler.utilities.StatusUtil;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
@@ -16,9 +16,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,6 +35,8 @@ import java.util.Map;
 @Slf4j
 @Service("client")
 public class CompilerServiceImpl implements CompilerService {
+    
+    private static final long TIME_OUT = 20000; // in ms
     
     private final ContainerService containerService;
     
@@ -73,8 +78,7 @@ public class CompilerServiceImpl implements CompilerService {
     
         builderImage(execution);
         
-        Result result = containerService.runCode(
-                execution.getImageName(), execution.getExpectedOutputFile(), execution.getTimeLimit());
+        Result result = runCode(execution.getImageName(), execution.getExpectedOutputFile());
         
         if (deleteDockerImage) {
             try {
@@ -95,6 +99,34 @@ public class CompilerServiceImpl implements CompilerService {
                 .body(new Response(result, dateTime));
     }
     
+    private Result runCode(String imageName, MultipartFile outputFile) {
+        try {
+            BufferedReader expectedOutputReader =
+                    new BufferedReader(new InputStreamReader(outputFile.getInputStream()));
+            String expectedOutput = CmdUtil.readOutput(expectedOutputReader);
+            
+            ContainerOutput containerOutput = containerService.runContainer(imageName, TIME_OUT);
+            
+            Verdict verdict = getVerdict(containerOutput, expectedOutput);
+            
+            return new Result(
+                    verdict,
+                    containerOutput.getStdOut(),
+                    containerOutput.getStdErr(),
+                    expectedOutput,
+                    containerOutput.getExecutionDuration());
+            
+        } catch (Exception e) {
+            log.error("Error on the container engine side: {}", e);
+            throw new ContainerFailedDependencyException("Error on the container engine side: " + e.getMessage());
+        }
+    }
+    
+    private Verdict getVerdict(ContainerOutput containerOutput, String expectedOutput) {
+        boolean result = CmdUtil.compareOutput(containerOutput.getStdOut(), expectedOutput);
+        return StatusUtil.statusResponse(containerOutput.getStatus(), result);
+    }
+    
     private void builderImage(Execution execution) throws CompilerServerInternalException {
         try {
             log.info("Creating execution directory: {}", execution.getImageName());
@@ -109,6 +141,7 @@ public class CompilerServiceImpl implements CompilerService {
             if (status == 0) {
                 log.info("Container image has been built");
             } else {
+                log.warn("Error while building container image");
                 throw new ContainerBuildException("Error while building container image, Status Code : "
                         + status);
             }

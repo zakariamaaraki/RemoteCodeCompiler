@@ -48,17 +48,8 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, info, metrics, prometheus, beans
+        include: health, info, metrics, prometheus, beans, logfile
       base-path: /
-
-logging:
-  level:
-    org:
-      springframework:
-        boot:
-          autoconfigure: ERROR
-
-
 
 ---
 # kafka profile
@@ -101,3 +92,23 @@ spring:
     username: ${RABBIT_USERNAME:guest}
     addresses: ${RABBIT_HOSTS:localhost:5672}
 
+---
+# logstash profile (for logging)
+spring:
+  config:
+    activate:
+      on-profile: logstash
+  logstash:
+    server: ${LOGSTASH_SERVER_HOST:localhost}
+    port: ${LOGSTASH_SERVER_PORT:5000}
+
+---
+# rollingFile profile (for logging)
+spring:
+  config:
+    activate:
+      on-profile: rollingFile
+logging:
+  file:
+    path: logs
+    name: ${logging.file.path}/compiler.log

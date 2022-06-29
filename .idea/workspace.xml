@@ -5,12 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="Update endpoints (one endpoint for all languages)">
+      <change afterPath="$PROJECT_DIR$/executions/utility_java/5b49bb47-7370-402b-8789-5653d93723e1/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/loadtests/expected-outputs/Watermelon-1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/loadtests/inputs/Watermelon-1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/loadtests/source-code/Watermelon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/ContainerExecutionException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/ContainerFailedDependencyException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/ContainerOutput.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/entrypoint.sh" beforeDir="false" afterPath="$PROJECT_DIR$/entrypoint.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/loadtests/injection.py" beforeDir="false" afterPath="$PROJECT_DIR$/loadtests/injection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/streams/transformers/CompilerTransformer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/streams/transformers/CompilerTransformer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/ContainerBuildException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/ContainerBuildException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/FactoryNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/FactoryNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utilities/CmdUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utilities/CmdUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceDecoratorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceDecoratorTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/ContainerServiceTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/LongRunningCompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/LongRunningCompilerServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utilities/CmdUtilTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utilities/CmdUtilTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +85,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/executions" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/loadtests/source-code" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
@@ -79,11 +97,11 @@
       <recent name="com.cp.compiler.services" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/loadtests/source-code" />
+      <recent name="$PROJECT_DIR$/loadtests/expected-outputs" />
+      <recent name="$PROJECT_DIR$/loadtests/inputs" />
       <recent name="$PROJECT_DIR$/executions" />
       <recent name="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/haskell" />
-      <recent name="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions" />
-      <recent name="$PROJECT_DIR$/loadtests/inputs" />
-      <recent name="$PROJECT_DIR$/loadtests/expected-outputs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/images" />
@@ -105,7 +123,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ResourcesTests.cleanupShouldReturn0">
+  <component name="RunManager" selected="JUnit.CompilerServiceTests.shouldThrownContainerFailedDependencyException">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -137,54 +155,22 @@
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ExecutionTests.rubyExecutionShouldCreateAnEntrypointFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CmdUtilTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.executions.*" />
+          <option name="PATTERN" value="com.cp.compiler.utilities.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.ExecutionTests" />
-      <option name="METHOD_NAME" value="rubyExecutionShouldCreateAnEntrypointFile" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RegisteredFactoriesTests.rubyExecutionFactoryShouldBeRegistered" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.executions.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.executions" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.executions.RegisteredFactoriesTests" />
-      <option name="METHOD_NAME" value="rubyExecutionFactoryShouldBeRegistered" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ResourcesTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.ResourcesTests" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.utilities" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utilities.CmdUtilTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ResourcesTests.cleanupShouldReturn0" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CompilerServiceDecoratorTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
@@ -193,14 +179,44 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.ResourcesTests" />
-      <option name="METHOD_NAME" value="cleanupShouldReturn0" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerServiceDecoratorTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompilerServiceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerServiceTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompilerServiceTests.shouldThrownContainerFailedDependencyException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerServiceTests" />
+      <option name="METHOD_NAME" value="shouldThrownContainerFailedDependencyException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ThrottlingTests.requestShouldBeThrottled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LongRunningCompilerServiceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
@@ -209,9 +225,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.ThrottlingTests" />
-      <option name="METHOD_NAME" value="requestShouldBeThrottled" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.LongRunningCompilerServiceTests" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -357,11 +372,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ResourcesTests.cleanupShouldReturn0" />
-        <item itemvalue="JUnit.ResourcesTests" />
-        <item itemvalue="JUnit.ThrottlingTests.requestShouldBeThrottled" />
-        <item itemvalue="JUnit.RegisteredFactoriesTests.rubyExecutionFactoryShouldBeRegistered" />
-        <item itemvalue="JUnit.ExecutionTests.rubyExecutionShouldCreateAnEntrypointFile" />
+        <item itemvalue="JUnit.CompilerServiceTests.shouldThrownContainerFailedDependencyException" />
+        <item itemvalue="JUnit.CompilerServiceTests" />
+        <item itemvalue="JUnit.CompilerServiceDecoratorTests" />
+        <item itemvalue="JUnit.LongRunningCompilerServiceTests" />
+        <item itemvalue="JUnit.CmdUtilTests" />
       </list>
     </recent_temporary>
   </component>
@@ -438,7 +453,7 @@
       <workItem from="1655749929924" duration="12214000" />
       <workItem from="1655848371923" duration="17976000" />
       <workItem from="1656106652473" duration="2869000" />
-      <workItem from="1656111891032" duration="25919000" />
+      <workItem from="1656111891032" duration="63083000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>

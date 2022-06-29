@@ -2,6 +2,7 @@ package com.cp.compiler.utilities;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -45,5 +46,52 @@ class CmdUtilTests {
         
         // Then
         Assertions.assertEquals("0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n", output);
+    }
+    
+    /**
+     * When compare expected output and container output should trim both strings.
+     */
+    @Test
+    void whenCompareExpectedOutputAndContainerOutputShouldTrimBothStrings() {
+        // Given
+        String expectedOutput = "abcd";
+        String containerOutput = " abcd ";
+        
+        // When
+        boolean compareResult = CmdUtil.compareOutput(expectedOutput, containerOutput);
+        // Then
+        Assertions.assertEquals(true, compareResult);
+    }
+    
+    /**
+     * When compare expected output and container output should remove extra spaces.
+     */
+    @Test
+    void whenCompareExpectedOutputAndContainerOutputShouldRemoveExtraSpacesInBothStrings() {
+        // Given
+        String expectedOutput = "abcd c";
+        String containerOutput = " abcd  c ";
+        
+        // When
+        boolean compareResult = CmdUtil.compareOutput(expectedOutput, containerOutput);
+        
+        // Then
+        Assertions.assertEquals(true, compareResult);
+    }
+    
+    /**
+     * When compare expected output and container output should remove newline char.
+     */
+    @Test
+    void whenCompareExpectedOutputAndContainerOutputShouldRemoveNewLineCharInBothStrings() {
+        // Given
+        String expectedOutput = "abcd\nc";
+        String containerOutput = " abcd  c\n";
+        
+        // When
+        boolean compareResult = CmdUtil.compareOutput(expectedOutput, containerOutput);
+        
+        // Then
+        Assertions.assertEquals(true, compareResult);
     }
 }

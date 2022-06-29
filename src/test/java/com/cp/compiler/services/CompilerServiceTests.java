@@ -1,12 +1,12 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.exceptions.ContainerBuildException;
+import com.cp.compiler.exceptions.ContainerExecutionException;
+import com.cp.compiler.exceptions.ContainerFailedDependencyException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
-import com.cp.compiler.models.Language;
-import com.cp.compiler.models.Response;
-import com.cp.compiler.models.Result;
-import com.cp.compiler.models.Verdict;
+import com.cp.compiler.models.*;
+import com.cp.compiler.utilities.StatusUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -161,17 +161,26 @@ class CompilerServiceTests {
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
         
-        Result result = new Result(Verdict.ACCEPTED, "file.txt", "", "file.txt", 0);
+        String output = "test";
+        String expectedOutput = "test";
         
-        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
-                .thenReturn(result);
+        Result result = new Result(Verdict.ACCEPTED, output, "", expectedOutput, 0);
         
         MockMultipartFile file = new MockMultipartFile(
                 "file",
                 "hello.txt",
                 MediaType.TEXT_PLAIN_VALUE,
-                "Hello, World!".getBytes()
+                output.getBytes()
         );
+    
+        ContainerOutput containerOutput = ContainerOutput
+                .builder()
+                .stdOut(output)
+                .status(StatusUtil.ACCEPTED_OR_WRONG_ANSWER_STATUS)
+                .build();
+    
+        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
+                .thenReturn(containerOutput);
         
         Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
@@ -197,22 +206,31 @@ class CompilerServiceTests {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
-        
-        Result result = new Result(Verdict.ACCEPTED, "file.txt", "", "file.txt", 0);
-        
-        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
-                .thenReturn(result);
-        
+    
+        String output = "test2";
+        String expectedOutput = "test2";
+    
+        Result result = new Result(Verdict.ACCEPTED, output, "", expectedOutput, 0);
+    
         MockMultipartFile file = new MockMultipartFile(
                 "file",
                 "hello.txt",
                 MediaType.TEXT_PLAIN_VALUE,
-                "Hello, World!".getBytes()
+                output.getBytes()
         );
+    
+        ContainerOutput containerOutput = ContainerOutput
+                .builder()
+                .stdOut(output)
+                .status(StatusUtil.ACCEPTED_OR_WRONG_ANSWER_STATUS)
+                .build();
+    
+        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
+                .thenReturn(containerOutput);
     
         Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
-        
+    
         // When
         ResponseEntity<Object> responseEntity = compilerService.compile(execution);
         
@@ -231,22 +249,38 @@ class CompilerServiceTests {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
-        
-        Result result = new Result(Verdict.WRONG_ANSWER, "file.txt", "", "file.txt", 0);
-        
-        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
-                .thenReturn(result);
-        
-        MockMultipartFile file = new MockMultipartFile(
+    
+        String output = "test";
+        String expectedOutput = "not a test";
+    
+        Result result = new Result(Verdict.ACCEPTED, output, "", expectedOutput, 0);
+    
+        MockMultipartFile sourceCode = new MockMultipartFile(
                 "file",
                 "hello.txt",
                 MediaType.TEXT_PLAIN_VALUE,
-                "Hello, World!".getBytes()
+                output.getBytes()
         );
     
+        MockMultipartFile expectedOutputFile = new MockMultipartFile(
+                "file",
+                "hello.txt",
+                MediaType.TEXT_PLAIN_VALUE,
+                expectedOutput.getBytes()
+        );
+    
+        ContainerOutput containerOutput = ContainerOutput
+                .builder()
+                .stdOut(output)
+                .status(StatusUtil.ACCEPTED_OR_WRONG_ANSWER_STATUS)
+                .build();
+    
+        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
+                .thenReturn(containerOutput);
+    
         Execution execution = ExecutionFactory.createExecution(
-                file, null, file, 10, 100, Language.JAVA);
-        
+                sourceCode, null, expectedOutputFile, 10, 100, Language.JAVA);
+    
         // When
         ResponseEntity<Object> responseEntity = compilerService.compile(execution);
         
@@ -265,23 +299,31 @@ class CompilerServiceTests {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
-        
-        Result result = new Result(
-                Verdict.TIME_LIMIT_EXCEEDED, "file.txt", "error", "file.txt", 0);
-        
-        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
-                .thenReturn(result);
-        
+    
+        String output = "test";
+        String expectedOutput = "not a test";
+    
+        Result result = new Result(Verdict.ACCEPTED, output, "", expectedOutput, 0);
+    
         MockMultipartFile file = new MockMultipartFile(
                 "file",
                 "hello.txt",
                 MediaType.TEXT_PLAIN_VALUE,
-                "Hello, World!".getBytes()
+                output.getBytes()
         );
+    
+        ContainerOutput containerOutput = ContainerOutput
+                .builder()
+                .stdOut(output)
+                .status(StatusUtil.TIME_LIMIT_EXCEEDED_STATUS)
+                .build();
+    
+        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
+                .thenReturn(containerOutput);
     
         Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
-        
+    
         // When
         ResponseEntity<Object> responseEntity = compilerService.compile(execution);
         
@@ -300,24 +342,31 @@ class CompilerServiceTests {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
-        
-        Result result = new Result(
-                Verdict.RUNTIME_ERROR, "file.txt", "runTimeError", "file.txt", 0);
-        
-        Mockito.when(
-                containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
-                .thenReturn(result);
-
+    
+        String output = "test";
+        String expectedOutput = "not a test";
+    
+        Result result = new Result(Verdict.ACCEPTED, output, "", expectedOutput, 0);
+    
         MockMultipartFile file = new MockMultipartFile(
                 "file",
                 "hello.txt",
                 MediaType.TEXT_PLAIN_VALUE,
-                "Hello, World!".getBytes()
+                output.getBytes()
         );
+    
+        ContainerOutput containerOutput = ContainerOutput
+                .builder()
+                .stdOut(output)
+                .status(999) // Runtime error
+                .build();
+    
+        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
+                .thenReturn(containerOutput);
     
         Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
-        
+    
         // When
         ResponseEntity<Object> responseEntity = compilerService.compile(execution);
         
@@ -336,23 +385,31 @@ class CompilerServiceTests {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
-        
-        Result result = new Result(
-                Verdict.OUT_OF_MEMORY, "file.txt", "OutOfMemoryError", "file.txt", 0);
-        
-        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
-                .thenReturn(result);
-
+    
+        String output = "test";
+        String expectedOutput = "not a test";
+    
+        Result result = new Result(Verdict.ACCEPTED, output, "", expectedOutput, 0);
+    
         MockMultipartFile file = new MockMultipartFile(
                 "file",
                 "hello.txt",
                 MediaType.TEXT_PLAIN_VALUE,
-                "Hello, World!".getBytes()
+                output.getBytes()
         );
+    
+        ContainerOutput containerOutput = ContainerOutput
+                .builder()
+                .stdOut(output)
+                .status(StatusUtil.OUT_OF_MEMORY_STATUS)
+                .build();
+    
+        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
+                .thenReturn(containerOutput);
     
         Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
-        
+    
         // When
         ResponseEntity<Object> responseEntity = compilerService.compile(execution);
         
@@ -371,23 +428,31 @@ class CompilerServiceTests {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn(0);
-        
-        Result result = new Result(
-                Verdict.COMPILATION_ERROR, "file.txt", "CompilationError", "file.txt", 0);
-        
-        Mockito.when(containerService.runCode(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt()))
-                .thenReturn(result);
-        
+    
+        String output = "test";
+        String expectedOutput = "not a test";
+    
+        Result result = new Result(Verdict.ACCEPTED, output, "", expectedOutput, 0);
+    
         MockMultipartFile file = new MockMultipartFile(
                 "file",
                 "hello.txt",
                 MediaType.TEXT_PLAIN_VALUE,
-                "Hello, World!".getBytes()
+                output.getBytes()
         );
+    
+        ContainerOutput containerOutput = ContainerOutput
+                .builder()
+                .stdOut(output)
+                .status(StatusUtil.COMPILATION_ERROR_STATUS)
+                .build();
+    
+        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
+                .thenReturn(containerOutput);
     
         Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
-        
+    
         // When
         ResponseEntity<Object> responseEntity = compilerService.compile(execution);
         
@@ -396,4 +461,33 @@ class CompilerServiceTests {
         Assertions.assertEquals(Verdict.COMPILATION_ERROR.getStatusResponse(), response.getResult().getStatusResponse());
     }
     
+    @Test
+    void shouldThrownContainerFailedDependencyException() throws Exception {
+        // Given
+        Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+                .thenReturn(0);
+        
+        String output = "test";
+        String expectedOutput = "not a test";
+        
+        Result result = new Result(Verdict.ACCEPTED, output, "", expectedOutput, 0);
+        
+        MockMultipartFile file = new MockMultipartFile(
+                "file",
+                "hello.txt",
+                MediaType.TEXT_PLAIN_VALUE,
+                output.getBytes()
+        );
+        
+        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
+                .thenThrow(new ContainerExecutionException("internal error"));
+        
+        Execution execution = ExecutionFactory.createExecution(
+                file, null, file, 10, 100, Language.JAVA);
+        
+        // Then
+        Assertions.assertThrows(ContainerFailedDependencyException.class, () -> {
+            compilerService.compile(execution);
+        });
+    }
 }

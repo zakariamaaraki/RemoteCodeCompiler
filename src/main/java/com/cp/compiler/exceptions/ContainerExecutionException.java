@@ -4,19 +4,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Docker Build Exception Class
- *
- * @author Zakaria Maaraki
+ * The type Container execution exception.
  */
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-public class ContainerBuildException extends RuntimeException {
+public class ContainerExecutionException extends RuntimeException {
     
     /**
-     * Instantiates a new Container build exception.
+     * Instantiates a new Container execution exception.
      *
      * @param message the message
      */
-    public ContainerBuildException(String message) {
-        super(message);
-    }
+    public ContainerExecutionException(String message) {super(message);}
 }
