@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="Update endpoints (one endpoint for all languages)">
-      <change afterPath="$PROJECT_DIR$/loadtests/expected-outputs/physEdOnline-1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/loadtests/inputs/physEdOnline-1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/loadtests/source-code/PhysEdOnline.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loadtests/injection.py" beforeDir="false" afterPath="$PROJECT_DIR$/loadtests/injection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loadtests/source-code/Watermelon.java" beforeDir="false" afterPath="$PROJECT_DIR$/loadtests/source-code/Watermelon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/CompilerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/CompilerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/amqp/RabbitConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/amqp/RabbitConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/mappers/JsonMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/mappers/JsonMapper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -432,7 +426,7 @@
       <workItem from="1655848371923" duration="17976000" />
       <workItem from="1656106652473" duration="2869000" />
       <workItem from="1656111891032" duration="74786000" />
-      <workItem from="1656625546124" duration="4055000" />
+      <workItem from="1656625546124" duration="4601000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>

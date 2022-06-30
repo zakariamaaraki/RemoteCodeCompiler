@@ -8,6 +8,7 @@ import com.cp.compiler.models.Response;
 import com.cp.compiler.services.CompilerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.MDC;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -65,15 +66,18 @@ public abstract class JsonMapper {
                                                                 request.getTimeLimit(),
                                                                 request.getMemoryLimit(),
                                                                 request.getLanguage());
-        
-        ResponseEntity responseEntity = compilerService.compile(execution);
-        
-        // Throw an exception if the request has been throttled, to keep the request for retries
-        if (responseEntity.getStatusCode().equals(HttpStatus.TOO_MANY_REQUESTS)) {
-            throw new ThrottlingException("The request has been throttled, maximum number of requests has been reached");
+    
+        try(MDC.MDCCloseable mdc = MDC.putCloseable("compiler.language", execution.getLanguage().toString())) {
+            
+            ResponseEntity responseEntity = compilerService.compile(execution);
+    
+            // Throw an exception if the request has been throttled, to keep the request for retries
+            if (responseEntity.getStatusCode().equals(HttpStatus.TOO_MANY_REQUESTS)) {
+                throw new ThrottlingException("The request has been throttled, maximum number of requests has been reached");
+            }
+    
+            Object body = responseEntity.getBody();
+            return body instanceof Response ? JsonMapper.toJson((Response) body) : null;
         }
-        
-        Object body = responseEntity.getBody();
-        return body instanceof Response ? JsonMapper.toJson((Response) body) : null;
     }
 }

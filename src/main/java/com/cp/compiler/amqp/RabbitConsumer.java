@@ -60,7 +60,7 @@ public class RabbitConsumer {
      * @throws Exception the exception
      */
     @RabbitListener(queues = "${spring.rabbitmq.queues.input}")
-    public void listen(String jsonRequest) throws Exception {
+    public void listen(String jsonRequest) {
         try {
             String jsonResult = transform(jsonRequest);
             rabbitTemplate.convertAndSend(outputQueue, jsonResult);
