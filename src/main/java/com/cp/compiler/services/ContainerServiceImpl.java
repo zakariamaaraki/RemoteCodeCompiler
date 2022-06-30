@@ -2,18 +2,15 @@ package com.cp.compiler.services;
 
 import com.cp.compiler.exceptions.ContainerExecutionException;
 import com.cp.compiler.exceptions.ContainerFailedDependencyException;
-import com.cp.compiler.models.ContainerOutput;
-import com.cp.compiler.models.Result;
-import com.cp.compiler.models.Verdict;
+import com.cp.compiler.exceptions.ProcessExecutionException;
+import com.cp.compiler.models.ProcessOutput;
 import com.cp.compiler.models.WellKnownMetrics;
 import com.cp.compiler.utilities.CmdUtil;
 import com.cp.compiler.utilities.StatusUtil;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
@@ -29,6 +26,8 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Service
 public class ContainerServiceImpl implements ContainerService {
+    
+    private static final long COMMAND_TIMEOUT = 2000;
     
     private final MeterRegistry meterRegistry;
     private Timer buildTimer;
@@ -83,53 +82,14 @@ public class ContainerServiceImpl implements ContainerService {
      * @throws InterruptedException
      */
     @Override
-    public ContainerOutput runContainer(String imageName, long timeout) {
+    public ProcessOutput runContainer(String imageName, long timeout) {
         return runTimer.record(() -> {
             try {
                 var cpus = "--cpus=" + resources.getMaxCpus();
                 String[] dockerCommand = new String[]{"docker", "run", cpus, "--rm", imageName};
-                ProcessBuilder processbuilder = new ProcessBuilder(dockerCommand);
-    
-                Process process = processbuilder.start();
-                long executionStartTime = System.currentTimeMillis();
-    
-                // Do not let the container exceed the timeout
-                process.waitFor(timeout, TimeUnit.MILLISECONDS);
-                long executionEndTime = System.currentTimeMillis();
-    
-                int status = 0;
-                String stdOut = "";
-                String stdErr = "";
-    
-                // Check if the container process is alive,
-                // if it's so then destroy it and return a time limit exceeded status
-                if (process.isAlive()) {
-                    status = StatusUtil.TIME_LIMIT_EXCEEDED_STATUS;
-                    log.info("The container exceed the " + timeout + " Millis allowed for its execution");
-                    process.destroy();
-                    log.info("The container has been destroyed");
-                } else {
-                    status = process.exitValue();
-        
-                    BufferedReader containerOutputReader =
-                            new BufferedReader(new InputStreamReader(process.getInputStream()));
-                    stdOut = CmdUtil.readOutput(containerOutputReader);
-        
-                    BufferedReader containerErrorReader =
-                            new BufferedReader(new InputStreamReader(process.getErrorStream()));
-                    stdErr = CmdUtil.buildErrorOutput(CmdUtil.readOutput(containerErrorReader));
-                }
-    
-                return ContainerOutput
-                        .builder()
-                        .stdOut(stdOut)
-                        .stdErr(stdErr)
-                        .status(status)
-                        .executionDuration(executionEndTime - executionStartTime)
-                        .build();
-                
-            } catch(Exception e) {
-                var errorMessage = "Error during container execution: " + e;
+                return CmdUtil.executeProcess(dockerCommand, timeout, StatusUtil.TIME_LIMIT_EXCEEDED_STATUS);
+            } catch(ProcessExecutionException e) {
+                var errorMessage = "Error during container execution: " + e.getMessage();
                 throw new ContainerExecutionException(errorMessage);
             }
         });
@@ -139,30 +99,44 @@ public class ContainerServiceImpl implements ContainerService {
      * {@inheritDoc}
      */
     @Override
-    public String getRunningContainers() throws IOException {
-        return CmdUtil.runCmd("docker", "ps");
+    public String getRunningContainers() {
+        String[] command = {"docker", "ps"};
+        return executeContainerCommand(command);
     }
     
     @Override
-    public String getContainersStats() throws IOException {
-        return CmdUtil.runCmd("docker", "stats", "--no-stream");
+    public String getContainersStats() {
+        String[] command = {"docker", "stats", "--no-stream"};
+        return executeContainerCommand(command);
     }
     
     @Override
-    public String getAllContainersStats() throws IOException {
-        return CmdUtil.runCmd("docker", "stats", "--no-stream", "--all");
+    public String getAllContainersStats() {
+        String[] command = {"docker", "stats", "--no-stream", "--all"};
+        return executeContainerCommand(command);
     }
     
     /**
      * {@inheritDoc}
      */
     @Override
-    public String getImages() throws IOException {
-        return CmdUtil.runCmd("docker", "images");
+    public String getImages() {
+        String[] command = {"docker", "images"};
+        return executeContainerCommand(command);
     }
     
     @Override
-    public String deleteImage(String imageName) throws IOException {
-        return CmdUtil.runCmd("docker", "rmi", "-f", imageName);
+    public String deleteImage(String imageName) {
+        String[] command = {"docker", "rmi", "-f", imageName};
+        return executeContainerCommand(command);
+    }
+    
+    private String executeContainerCommand(String[] command) {
+        try {
+            ProcessOutput processOutput = CmdUtil.executeProcess(command, COMMAND_TIMEOUT, -1);
+            return processOutput.getStdOut();
+        } catch (ProcessExecutionException e) {
+            throw new ContainerFailedDependencyException(e.getMessage());
+        }
     }
 }

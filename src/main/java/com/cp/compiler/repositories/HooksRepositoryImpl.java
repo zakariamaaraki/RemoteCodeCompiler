@@ -15,22 +15,22 @@ public class HooksRepositoryImpl implements HooksRepository {
     private final Map<String, String> hooks = new ConcurrentHashMap<>();
     
     @Override
-    public String get(String imageName) {
-        return hooks.get(imageName);
+    public String get(String executionId) {
+        return hooks.get(executionId);
     }
     
     @Override
-    public String getAndRemove(String imageName) {
-        return hooks.remove(imageName);
+    public String getAndRemove(String executionId) {
+        return hooks.remove(executionId);
     }
     
     @Override
-    public boolean contains(String imageName) {
-        return hooks.containsKey(imageName);
+    public boolean contains(String executionId) {
+        return hooks.containsKey(executionId);
     }
     
     @Override
-    public void addUrl(String imageName, String url) {
-        hooks.put(imageName, url);
+    public void addUrl(String executionId, String url) {
+        hooks.put(executionId, url);
     }
 }

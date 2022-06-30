@@ -50,7 +50,7 @@ public class LongRunningCompilerService extends CompilerServiceDecorator {
                 log.error("Error : {}", exception);
             }
         }).start();
-        String url = hooksRepository.get(execution.getImageName());
+        String url = hooksRepository.get(execution.getId());
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
                 .body("Executing the request, you'll get the response in the following url : " + url);

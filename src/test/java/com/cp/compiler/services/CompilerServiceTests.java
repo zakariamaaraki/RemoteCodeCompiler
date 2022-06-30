@@ -173,7 +173,7 @@ class CompilerServiceTests {
                 output.getBytes()
         );
     
-        ContainerOutput containerOutput = ContainerOutput
+        ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
                 .status(StatusUtil.ACCEPTED_OR_WRONG_ANSWER_STATUS)
@@ -219,7 +219,7 @@ class CompilerServiceTests {
                 output.getBytes()
         );
     
-        ContainerOutput containerOutput = ContainerOutput
+        ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
                 .status(StatusUtil.ACCEPTED_OR_WRONG_ANSWER_STATUS)
@@ -269,7 +269,7 @@ class CompilerServiceTests {
                 expectedOutput.getBytes()
         );
     
-        ContainerOutput containerOutput = ContainerOutput
+        ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
                 .status(StatusUtil.ACCEPTED_OR_WRONG_ANSWER_STATUS)
@@ -312,7 +312,7 @@ class CompilerServiceTests {
                 output.getBytes()
         );
     
-        ContainerOutput containerOutput = ContainerOutput
+        ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
                 .status(StatusUtil.TIME_LIMIT_EXCEEDED_STATUS)
@@ -355,7 +355,7 @@ class CompilerServiceTests {
                 output.getBytes()
         );
     
-        ContainerOutput containerOutput = ContainerOutput
+        ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
                 .status(999) // Runtime error
@@ -398,7 +398,7 @@ class CompilerServiceTests {
                 output.getBytes()
         );
     
-        ContainerOutput containerOutput = ContainerOutput
+        ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
                 .status(StatusUtil.OUT_OF_MEMORY_STATUS)
@@ -441,7 +441,7 @@ class CompilerServiceTests {
                 output.getBytes()
         );
     
-        ContainerOutput containerOutput = ContainerOutput
+        ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
                 .status(StatusUtil.COMPILATION_ERROR_STATUS)

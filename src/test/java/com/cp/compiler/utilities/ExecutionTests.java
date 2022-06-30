@@ -13,17 +13,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-/**
- * Test Execution directory creation
- */
 @SpringBootTest
 class ExecutionTests {
     
-    /**
-     * Should create execution directory
-     *
-     * @throws IOException the io exception
-     */
     @Test
     void shouldCreateExecutionDirectory() throws IOException {
         // Given
@@ -46,11 +38,6 @@ class ExecutionTests {
         execution.deleteExecutionDirectory();
     }
     
-    /**
-     * Should create an entrypoint file.
-     *
-     * @throws IOException the io exception
-     */
     @Test
     void shouldCreateAnEntrypointFile() throws IOException {
         // Given
@@ -73,11 +60,6 @@ class ExecutionTests {
         execution.deleteExecutionDirectory();
     }
     
-    /**
-     * Should copy docker file.
-     *
-     * @throws IOException the io exception
-     */
     @Test
     void shouldCopyDockerFile() throws IOException {
         // Given
@@ -100,11 +82,6 @@ class ExecutionTests {
         execution.deleteExecutionDirectory();
     }
     
-    /**
-     * Delete execution directory should delete the directory.
-     *
-     * @throws IOException the io exception
-     */
     @Test
     void shouldDeleteTheDirectory() throws IOException {
         // Given

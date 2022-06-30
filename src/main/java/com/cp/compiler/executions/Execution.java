@@ -24,6 +24,10 @@ import java.util.UUID;
 @EqualsAndHashCode
 public abstract class Execution {
     
+    private static final String IMAGE_PREFIX_NAME = "image-";
+    
+    private static final String EXECUTION_FOLDER_PREFIX_NAME = "execution-";
+    
     @NonNull
     private MultipartFile sourceCodeFile;
     
@@ -38,8 +42,9 @@ public abstract class Execution {
     @NonNull
     private int memoryLimit;
     
+    @Getter
     @NonNull
-    private String imageName;
+    private String id;
     
     @Getter
     /**
@@ -61,12 +66,14 @@ public abstract class Execution {
     
     /**
      * Instantiates a new Execution.
-     *  @param sourceCodeFile     the source code
-     * @param inputFile          the inputFile file
-     * @param expectedOutputFile the expected output file
-     * @param timeLimit          the time limit
-     * @param memoryLimit        the memory limit
-     * @param executionCounter   the execution counter
+     *
+     * @param sourceCodeFile          the source code
+     * @param inputFile               the inputFile file
+     * @param expectedOutputFile      the expected output file
+     * @param timeLimit               the time limit
+     * @param memoryLimit             the memory limit
+     * @param language                the language
+     * @param executionCounter        the execution counter
      * @param entrypointFileGenerator the entrypointFile generator
      */
     protected Execution(MultipartFile sourceCodeFile,
@@ -85,8 +92,8 @@ public abstract class Execution {
         this.language = language;
         this.executionCounter = executionCounter;
         this.entrypointFileGenerator = entrypointFileGenerator;
-        this.imageName = UUID.randomUUID().toString();
-        this.path = language.getFolderName() + "/" + imageName;
+        this.id = UUID.randomUUID().toString();
+        this.path = language.getFolderName() + "/" + getExecutionFolderName(); // this should come after the id inits
     }
     
     /**
@@ -125,6 +132,24 @@ public abstract class Execution {
         if (getInputFile() != null) {
             FilesUtil.saveUploadedFiles(getInputFile(), path + "/" + inputFile.getOriginalFilename());
         }
+    }
+    
+    /**
+     * Gets image name.
+     *
+     * @return the image name
+     */
+    public String getImageName() {
+        return IMAGE_PREFIX_NAME + id;
+    }
+    
+    /**
+     * Gets execution folder name.
+     *
+     * @return the execution folder name
+     */
+    public String getExecutionFolderName() {
+        return EXECUTION_FOLDER_PREFIX_NAME + id;
     }
     
     /**

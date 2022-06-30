@@ -8,31 +8,31 @@ public interface HooksRepository {
     /**
      * Get string.
      *
-     * @param imageName the image name
+     * @param executionId the execution id
      * @return the string
      */
-    String get(String imageName);
+    String get(String executionId);
     
     /**
      * Get and remove hook.
      *
-     * @param imageName the image name
+     * @param executionId the execution id
      * @return the url
      */
-    String getAndRemove(String imageName);
+    String getAndRemove(String executionId);
     
     /**
      * Check if it contains a url.
      *
-     * @param imageName the image name
+     * @param executionId the execution id
      * @return the boolean
      */
-    boolean contains(String imageName);
+    boolean contains(String executionId);
     
     /**
      * Add url.
      *
-     * @param imageName the image name
+     * @param executionId the execution id
      */
-    void addUrl(String imageName, String url);
+    void addUrl(String executionId, String url);
 }

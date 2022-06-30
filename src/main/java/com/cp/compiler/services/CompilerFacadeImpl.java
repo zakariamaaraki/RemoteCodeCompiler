@@ -70,7 +70,7 @@ public class CompilerFacadeImpl implements CompilerFacade {
                         .body("url " + url  + " not valid");
             }
             log.info("The execution is long running and the url is valid");
-            hooksRepository.addUrl(execution.getImageName(), url);
+            hooksRepository.addUrl(execution.getId(), url);
         }
         // Short running execution (Long Polling)
         shortRunningExecutionCounter.increment();

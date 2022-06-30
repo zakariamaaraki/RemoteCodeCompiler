@@ -4,10 +4,10 @@ import lombok.Builder;
 import lombok.Getter;
 
 /**
- * The type Container output.
+ * The type Process output.
  */
 @Builder
-public class ContainerOutput {
+public class ProcessOutput {
     
     @Getter
     private String stdOut;

@@ -1,7 +1,7 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.executions.ExecutionFactory;
-import com.cp.compiler.models.ContainerOutput;
+import com.cp.compiler.models.ProcessOutput;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Result;
 import com.cp.compiler.models.Verdict;
@@ -50,7 +50,7 @@ public class LongRunningCompilerServiceTests {
     
         Result result = new Result(Verdict.ACCEPTED, "test", "", "test", 0);
     
-        ContainerOutput containerOutput = ContainerOutput
+        ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut("test")
                 .status(StatusUtil.ACCEPTED_OR_WRONG_ANSWER_STATUS)

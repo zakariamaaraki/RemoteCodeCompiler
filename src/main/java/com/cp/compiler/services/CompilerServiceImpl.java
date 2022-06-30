@@ -9,7 +9,6 @@ import com.cp.compiler.utilities.CmdUtil;
 import com.cp.compiler.utilities.StatusUtil;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Timer;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -83,13 +82,13 @@ public class CompilerServiceImpl implements CompilerService {
         if (deleteDockerImage) {
             try {
                 containerService.deleteImage(execution.getImageName());
-                log.info("Image " + execution.getImageName() + " has been deleted");
+                log.info("Image {} has been deleted", execution.getImageName());
             } catch (Exception e) {
                 log.warn("Error, can't delete image {} : {}", execution.getImageName(), e);
             }
         }
         
-        log.info("Status response is " + result.getStatusResponse());
+        log.info("Status response is {}", result.getStatusResponse());
         
         // update metrics
         verdictsCounters.get(result.getStatusResponse()).increment();
@@ -105,7 +104,7 @@ public class CompilerServiceImpl implements CompilerService {
                     new BufferedReader(new InputStreamReader(outputFile.getInputStream()));
             String expectedOutput = CmdUtil.readOutput(expectedOutputReader);
             
-            ContainerOutput containerOutput = containerService.runContainer(imageName, TIME_OUT);
+            ProcessOutput containerOutput = containerService.runContainer(imageName, TIME_OUT);
             
             Verdict verdict = getVerdict(containerOutput, expectedOutput);
             
@@ -122,14 +121,14 @@ public class CompilerServiceImpl implements CompilerService {
         }
     }
     
-    private Verdict getVerdict(ContainerOutput containerOutput, String expectedOutput) {
+    private Verdict getVerdict(ProcessOutput containerOutput, String expectedOutput) {
         boolean result = CmdUtil.compareOutput(containerOutput.getStdOut(), expectedOutput);
         return StatusUtil.statusResponse(containerOutput.getStatus(), result);
     }
     
     private void builderImage(Execution execution) throws CompilerServerInternalException {
         try {
-            log.info("Creating execution directory: {}", execution.getImageName());
+            log.info("Creating execution directory: {}", execution.getExecutionFolderName());
             execution.createExecutionDirectory();
         } catch (Throwable e) {
             throw new CompilerServerInternalException(e.getMessage());
@@ -148,7 +147,7 @@ public class CompilerServiceImpl implements CompilerService {
         } finally {
             try {
                 execution.deleteExecutionDirectory();
-                log.info("Execution directory {} has been deleted", execution.getImageName());
+                log.info("Execution directory {} has been deleted", execution.getExecutionFolderName());
             } catch (IOException e) {
                 log.warn("Error while trying to delete execution directory, {}", e);
             }

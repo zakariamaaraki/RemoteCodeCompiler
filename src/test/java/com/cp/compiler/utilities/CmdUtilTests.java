@@ -1,5 +1,7 @@
 package com.cp.compiler.utilities;
 
+import com.cp.compiler.exceptions.ProcessExecutionException;
+import com.cp.compiler.models.ProcessOutput;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -8,9 +10,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-/**
- * The type Cmd util tests.
- */
 class CmdUtilTests {
     
     /**
@@ -18,23 +17,7 @@ class CmdUtilTests {
      *
      * @throws IOException the io exception
      */
-    @Test
-    void shouldExecuteACommandAndReturnOutput() throws IOException {
-        // Given
-        String[] cmd = new String[] {"echo", "test"};
-        
-        // When
-        String output  = CmdUtil.runCmd(cmd);
-        
-        // Then
-        Assertions.assertEquals("test\n", output);
-    }
     
-    /**
-     * When read output method is called should return the correct output.
-     *
-     * @throws IOException the io exception
-     */
     @Test
     void whenReadOutputMethodIsCalledShouldReturnTheCorrectOutput() throws IOException {
         // Given
@@ -48,9 +31,6 @@ class CmdUtilTests {
         Assertions.assertEquals("0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n", output);
     }
     
-    /**
-     * When compare expected output and container output should trim both strings.
-     */
     @Test
     void whenCompareExpectedOutputAndContainerOutputShouldTrimBothStrings() {
         // Given
@@ -63,9 +43,6 @@ class CmdUtilTests {
         Assertions.assertEquals(true, compareResult);
     }
     
-    /**
-     * When compare expected output and container output should remove extra spaces.
-     */
     @Test
     void whenCompareExpectedOutputAndContainerOutputShouldRemoveExtraSpacesInBothStrings() {
         // Given
@@ -79,9 +56,6 @@ class CmdUtilTests {
         Assertions.assertEquals(true, compareResult);
     }
     
-    /**
-     * When compare expected output and container output should remove newline char.
-     */
     @Test
     void whenCompareExpectedOutputAndContainerOutputShouldRemoveNewLineCharInBothStrings() {
         // Given
@@ -93,5 +67,64 @@ class CmdUtilTests {
         
         // Then
         Assertions.assertEquals(true, compareResult);
+    }
+    
+    @Test
+    void executeProcessShouldTimeout() throws ProcessExecutionException{
+        // Given
+        String[] cmd = new String[] {"sleep", "2000"};
+        
+        // When
+        ProcessOutput output  = CmdUtil.executeProcess(cmd, 0, StatusUtil.TIME_LIMIT_EXCEEDED_STATUS);
+        
+        // Then
+        Assertions.assertEquals(StatusUtil.TIME_LIMIT_EXCEEDED_STATUS, output.getStatus());
+    }
+    
+    @Test
+    void executeProcessShouldNotTimeout() throws ProcessExecutionException {
+        // Given
+        String[] cmd = new String[] {"sleep", "1"};
+        
+        // When
+        ProcessOutput output  = CmdUtil.executeProcess(cmd, 3000, StatusUtil.TIME_LIMIT_EXCEEDED_STATUS);
+        
+        // Then
+        Assertions.assertNotEquals(StatusUtil.TIME_LIMIT_EXCEEDED_STATUS, output.getStatus());
+    }
+    
+    @Test
+    void executeProcessShouldReturnCorrectOutput() throws ProcessExecutionException {
+        // Given
+        String[] cmd = new String[] {"echo", "test"};
+        
+        // When
+        ProcessOutput output  = CmdUtil.executeProcess(cmd, 3000, StatusUtil.TIME_LIMIT_EXCEEDED_STATUS);
+        
+        // Then
+        Assertions.assertTrue(CmdUtil.compareOutput("test", output.getStdOut()));
+    }
+    
+    @Test
+    void executeProcessShouldNotReturnAnError() throws ProcessExecutionException {
+        // Given
+        String[] cmd = new String[] {"echo", "test"};
+        
+        // When
+        ProcessOutput output  = CmdUtil.executeProcess(cmd, 3000, StatusUtil.TIME_LIMIT_EXCEEDED_STATUS);
+        
+        // Then
+        Assertions.assertEquals("", output.getStdErr());
+    }
+    
+    @Test
+    void executeProcessShouldReturnAnError() {
+        // Given
+        String[] cmd = new String[] {"thisIsNotACmd", "test"};
+        
+        // When
+        Assertions.assertThrows(ProcessExecutionException.class, () -> {
+            CmdUtil.executeProcess(cmd, 3000, StatusUtil.TIME_LIMIT_EXCEEDED_STATUS);
+        });
     }
 }

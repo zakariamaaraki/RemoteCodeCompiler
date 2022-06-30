@@ -33,18 +33,17 @@ fi
 
 if [ ! -z "$PULL_IMAGES_BEFORE_STARTUP" ] && [ "$PULL_IMAGES_BEFORE_STARTUP" = true ];
 then
+
+  images=("gcc" "mono" "golang" "openjdk:11.0.6-jdk-slim" "zenika/kotlin" "python:3" "rust" "denvazh/scala" "ruby" "haskell")
+
   # pull all images before starting the container to make first requests faster
   echo "Pulling all images..."
-  docker pull gcc
-  docker pull mono
-  docker pull golang
-  docker pull openjdk:11.0.6-jdk-slim
-  docker pull zenika/kotlin
-  docker pull python:3
-  docker pull rust
-  docker pull denvazh/scala
-  docker pull ruby
-  docker pull haskell
+
+  for i in "${images[@]}"
+  do
+    docker pull "$i"
+  done
+
 fi
 
 echo "Starting the compiler with the following profiles: "$profiles

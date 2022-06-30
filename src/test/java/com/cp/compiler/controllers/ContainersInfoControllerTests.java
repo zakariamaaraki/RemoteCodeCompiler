@@ -1,5 +1,6 @@
 package com.cp.compiler.controllers;
 
+import com.cp.compiler.exceptions.ContainerFailedDependencyException;
 import com.cp.compiler.services.ContainerService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -28,21 +29,16 @@ class ContainersInfoControllerTests {
     @Mock
     private ContainerService containerService;
     
-    /**
-     * When get running containers throw an exception then the service should return status code 500.
-     *
-     * @throws IOException the io exception
-     */
     @Test
-    void WhenGetRunningContainersThrowAnExceptionThenTheServiceShouldReturnStatusCode500() throws IOException {
+    void WhenGetRunningContainersThrowAnExceptionThenTheServiceShouldThrowContainerFailedDependencyException() {
         // Given
-        Mockito.when(containerService.getRunningContainers()).thenThrow(new IOException("An Exception"));
+        Mockito.when(containerService.getRunningContainers())
+                .thenThrow(new ContainerFailedDependencyException("An Exception"));
         
         // When
-        ResponseEntity<String> result = containersInfoController.getRunningContainers();
-        
-        // Then
-        Assertions.assertEquals(500, result.getStatusCodeValue());
+        Assertions.assertThrows(ContainerFailedDependencyException.class, () -> {
+            containersInfoController.getRunningContainers();
+        });
     }
     
     /**
@@ -51,7 +47,7 @@ class ContainersInfoControllerTests {
      * @throws IOException the io exception
      */
     @Test
-    void WhenGetRunningContainersIsExecutedThenTheServiceShouldReturnStatusCode200() throws IOException {
+    void WhenGetRunningContainersIsExecutedThenTheServiceShouldReturnStatusCode200() {
         // Given
         String returnedAnswer = "value result";
         Mockito.when(containerService.getRunningContainers()).thenReturn(returnedAnswer);
@@ -65,20 +61,20 @@ class ContainersInfoControllerTests {
     }
     
     /**
-     * When get images throw an exception then the service should return status code 500.
+     * When get images throw an exception then the service should throw ContainerFailedDependencyException
      *
      * @throws IOException the io exception
      */
     @Test
-    void WhenGetImagesThrowAnExceptionThenTheServiceShouldReturnStatusCode500() throws IOException {
+    void WhenGetImagesThrowAnExceptionThenTheServiceShouldThrowContainerFailedDependencyException() {
         // Given
-        Mockito.when(containerService.getImages()).thenThrow(new IOException("An Exception"));
-        
+        Mockito.when(containerService.getImages())
+                .thenThrow(new ContainerFailedDependencyException("An Exception"));
+
         // When
-        ResponseEntity<String> result = containersInfoController.getImages();
-        
-        // Then
-        Assertions.assertEquals(500, result.getStatusCodeValue());
+        Assertions.assertThrows(ContainerFailedDependencyException.class, () -> {
+            containersInfoController.getImages();
+        });
     }
     
     /**
@@ -87,7 +83,7 @@ class ContainersInfoControllerTests {
      * @throws IOException the io exception
      */
     @Test
-    void WhenGetImagesIsExecutedThenTheServiceShouldReturnStatusCode200() throws IOException {
+    void WhenGetImagesIsExecutedThenTheServiceShouldReturnStatusCode200() {
         // Given
         String returnedAnswer = "value result";
         Mockito.when(containerService.getImages()).thenReturn(returnedAnswer);
@@ -101,20 +97,20 @@ class ContainersInfoControllerTests {
     }
     
     /**
-     * When get running containers stats throw an exception then the service should return status code 500.
+     * When get running containers stats throw an exception then the service should throw ContainerFailedDependencyException
      *
      * @throws IOException the io exception
      */
     @Test
-    void WhenGetRunningContainersStatsThrowAnExceptionThenTheServiceShouldReturnStatusCode500() throws IOException {
+    void WhenGetRunningContainersStatsThrowAnExceptionThenTheServiceShouldThrowContainerFailedDependencyException() {
         // Given
-        Mockito.when(containerService.getContainersStats()).thenThrow(new IOException("An Exception"));
-        
+        Mockito.when(containerService.getContainersStats())
+                .thenThrow(new ContainerFailedDependencyException("An Exception"));
+    
         // When
-        ResponseEntity<String> result = containersInfoController.getRunningContainersStats();
-        
-        // Then
-        Assertions.assertEquals(500, result.getStatusCodeValue());
+        Assertions.assertThrows(ContainerFailedDependencyException.class, () -> {
+            containersInfoController.getRunningContainersStats();
+        });
     }
     
     /**
@@ -123,7 +119,7 @@ class ContainersInfoControllerTests {
      * @throws IOException the io exception
      */
     @Test
-    void WhenGetRunningContainersStatsIsExecutedThenTheServiceShouldReturnStatusCode200() throws IOException {
+    void WhenGetRunningContainersStatsIsExecutedThenTheServiceShouldReturnStatusCode200() {
         // Given
         String returnedAnswer = "value result";
         Mockito.when(containerService.getContainersStats()).thenReturn(returnedAnswer);
@@ -142,15 +138,15 @@ class ContainersInfoControllerTests {
      * @throws IOException the io exception
      */
     @Test
-    void WhenGetAllContainersStatsThrowAnExceptionThenTheServiceShouldReturnStatusCode500() throws IOException {
+    void WhenGetAllContainersStatsThrowAnExceptionThenTheServiceShouldThrowContainerFailedDependencyException() {
         // Given
-        Mockito.when(containerService.getAllContainersStats()).thenThrow(new IOException("An Exception"));
-        
+        Mockito.when(containerService.getAllContainersStats())
+                .thenThrow(new ContainerFailedDependencyException("An Exception"));
+    
         // When
-        ResponseEntity<String> result = containersInfoController.getAllContainersStats();
-        
-        // Then
-        Assertions.assertEquals(500, result.getStatusCodeValue());
+        Assertions.assertThrows(ContainerFailedDependencyException.class, () -> {
+            containersInfoController.getAllContainersStats();
+        });
     }
     
     /**
@@ -159,7 +155,7 @@ class ContainersInfoControllerTests {
      * @throws IOException the io exception
      */
     @Test
-    void WhenGetAllContainersStatsIsExecutedThenTheServiceShouldReturnStatusCode200() throws IOException {
+    void WhenGetAllContainersStatsIsExecutedThenTheServiceShouldReturnStatusCode200() {
         // Given
         String returnedAnswer = "value result";
         Mockito.when(containerService.getAllContainersStats()).thenReturn(returnedAnswer);

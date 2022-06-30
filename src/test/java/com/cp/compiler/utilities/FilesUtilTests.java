@@ -14,28 +14,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-/**
- * The type Files util tests.
- */
 class FilesUtilTests {
     
-    /**
-     * The Temp dir.
-     */
     @TempDir
     Path tempDir;
     
-    /**
-     * Should delete file.
-     *
-     * @throws IOException the io exception
-     */
-    
-    /**
-     * Should save file.
-     *
-     * @throws IOException the io exception
-     */
     @Test
     void shouldSaveFile() throws IOException {
         // Given
@@ -50,11 +33,6 @@ class FilesUtilTests {
         Assertions.assertTrue(Files.exists(Path.of(path.getParent() + "/test2.txt")));
     }
     
-    /***
-     * Should copy a file from src to dest, the dest path must exist
-     *
-     * @throws IOException
-     */
     @Test
     void shouldCopyFileFromSrcToDest() throws IOException {
         // Given

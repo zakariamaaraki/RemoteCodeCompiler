@@ -19,9 +19,6 @@ import java.time.LocalDateTime;
 
 import static org.mockito.ArgumentMatchers.eq;
 
-/**
- * The type Compiler controller tests.
- */
 @DirtiesContext
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
@@ -39,11 +36,6 @@ class CompilerControllerTests {
     @Mock
     private MultipartFile sourceCode;
     
-    /**
-     * When compiling java code should return a response object in the body.
-     *
-     * @throws Exception the exception
-     */
     @Test
     void whenCompilingACodeShouldReturnAResponseObjectInTheBody() throws Exception {
         // Given
