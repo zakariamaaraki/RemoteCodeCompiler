@@ -15,6 +15,20 @@ cData = {
     "timeLimit": 15
 }
 
+# CPP
+cppInput = open("inputs/physEdOnline-1.txt", "r").read()
+cppExpectedOutput = open("expected-outputs/physEdOnline-1.txt", "r").read()
+cppSourceCode = open("source-code/PhysEdOnline.cpp", "r").read()
+
+cppData = {
+    "expectedOutput": cppExpectedOutput,
+    "input": cppInput,
+    "language": "CPP",
+    "memoryLimit": 1500,
+    "sourceCode": cppSourceCode,
+    "timeLimit": 15
+}
+
 # Java
 javaInput = open("inputs/Watermelon-1.txt", "r").read()
 javaExpectedOutput = open("expected-outputs/Watermelon-1.txt", "r").read()
@@ -54,6 +68,14 @@ class cthread(threading.Thread):
     def run(self):
         requests.post(url = URL, json = cData, headers = headers)
 
+class cppthread(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+
+    # helper function to execute the threads
+    def run(self):
+        requests.post(url = URL, json = cppData, headers = headers)
+
 class pythonthread(threading.Thread):
     def __init__(self):
         threading.Thread.__init__(self)
@@ -72,9 +94,18 @@ class javathread(threading.Thread):
         requests.post(url = URL, json = javaData, headers = headers)
 
 for i in range(10):
+    # C
     cRequestThread = cthread()
     cRequestThread.start()
+
+    # CPP
+    cppRequestThread = cppthread()
+    cppRequestThread.start()
+
+    # Python
     pythonRequestThread = pythonthread()
     pythonRequestThread.start()
+
+    # Java
     javaRequestThread = javathread()
     javaRequestThread.start()

@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 // From Codeforces
-public class Watermelon {
+public class main {
 	private void run() throws IOException {
 		int n = in.nextInt();
 		if (n >= 4 && (n - 2) % 2 == 0) {

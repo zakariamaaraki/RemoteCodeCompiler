@@ -6,6 +6,7 @@ import com.cp.compiler.models.*;
 import com.cp.compiler.services.CompilerFacade;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.slf4j.MDC;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -59,7 +60,10 @@ public class CompilerController {
                 request.getLanguage());
         
         boolean isLongRunning = WellKnownHeaders.PREFER_PUSH.equals(preferPush);
-        return compiler.compile(execution, isLongRunning, url);
+        
+        try(MDC.MDCCloseable mdc = MDC.putCloseable("compiler.language", execution.getLanguage().toString())) {
+            return compiler.compile(execution, isLongRunning, url);
+        }
     }
     
     /**
@@ -109,6 +113,9 @@ public class CompilerController {
                 sourceCode, inputFile, outputFile, timeLimit, memoryLimit, language);
         
         boolean isLongRunning = WellKnownHeaders.PREFER_PUSH.equals(preferPush);
-        return compiler.compile(execution, isLongRunning, url);
+    
+        try(MDC.MDCCloseable mdc = MDC.putCloseable("compiler.language", execution.getLanguage().toString())) {
+            return compiler.compile(execution, isLongRunning, url);
+        }
     }
 }
