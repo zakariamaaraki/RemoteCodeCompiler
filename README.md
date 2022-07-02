@@ -256,7 +256,7 @@ Check out exposed prometheus metrics using the following url : http://<IP:PORT>/
 
 ![Throttling counter](images/throttling-counter-metrics.png?raw=true "Throttling Counter Metrics")
 
-![Java execution counter](images/java_executions.png?raw=true "java execution counter")
+![Java execution counter](images/executions_metrics.png?raw=true "Executions counter")
 
 Other metrics are available.
 

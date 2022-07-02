@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="Update endpoints (one endpoint for all languages)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/amqp/RabbitConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/amqp/RabbitConsumer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/mappers/JsonMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/mappers/JsonMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +63,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/loadtests/expected-outputs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/images" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
@@ -76,11 +75,11 @@
       <recent name="com.cp.compiler.services" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/images" />
       <recent name="$PROJECT_DIR$/loadtests/expected-outputs" />
       <recent name="$PROJECT_DIR$/loadtests/inputs" />
       <recent name="$PROJECT_DIR$/loadtests/source-code" />
       <recent name="$PROJECT_DIR$/executions" />
-      <recent name="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/haskell" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/images" />
@@ -427,6 +426,7 @@
       <workItem from="1656106652473" duration="2869000" />
       <workItem from="1656111891032" duration="74786000" />
       <workItem from="1656625546124" duration="4601000" />
+      <workItem from="1656768225012" duration="2432000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
