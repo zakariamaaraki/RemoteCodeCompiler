@@ -78,6 +78,10 @@ To enable push notifications you must set **ENABLE_PUSH_NOTIFICATION** to true
 For long-running executions, you may want to get the response later and to avoid http timeouts, you can use push notifications,
 to do so you must pass two header values (**url** where you want to get the response and set **preferPush** to prefer-push)
 
+### Multipart request
+
+![multipart-request.png](images/multipart-request.png)
+
 ## Local Run (for dev environment only)
 See the documentation in the [local](https://github.com/zakariamaaraki/RemoteCodeCompiler/tree/master/local) folder, a docker-compose is provided.
 
