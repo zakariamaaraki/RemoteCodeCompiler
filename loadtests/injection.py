@@ -57,7 +57,7 @@ pythonData = {
     "timeLimit": 15
 }
 
-URL = "http://localhost:8080/api/compile/json"
+URL = "http://localhost:8082/api/compile/json"
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 
 class cthread(threading.Thread):
