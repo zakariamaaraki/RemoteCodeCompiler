@@ -8,7 +8,7 @@ data:
     datasources:
     - name: Prometheus
       type: prometheus
-      url: http://prometheus:80
+      url: http://{{ .Release.Name }}-prometheus:80
       isDefault: true
       access: proxy
       editable: true
