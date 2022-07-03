@@ -16,9 +16,10 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 public abstract class CmdUtil {
-    
+
     private static final int MAX_ERROR_LENGTH = 200; // number of chars
-    
+    public static final String LONG_MESSAGE_TRAIL = "...";
+
     private CmdUtil() {}
     
     /**
@@ -48,16 +49,23 @@ public abstract class CmdUtil {
      * @return the boolean
      */
     public static boolean compareOutput(String output, String expectedOutput) {
-        // Remove \n and extra spaces
-        return output
-                .trim()
-                .replaceAll("\\s+", " ")
-                .replaceAll("/n","")
-                .equals(expectedOutput.trim()
-                        .replaceAll("\\s+", " ")
-                        .replaceAll("/n", ""));
+        return trimText(output)
+          .equals(trimText(expectedOutput));
     }
-    
+
+    /**
+     * Remove extra white space and trailing carriage returns
+     *
+     * @param text
+     * @return cleaned text
+     */
+    private static String trimText(String text) {
+        return text
+          .trim()
+          .replaceAll("\\s+", " ")
+          .replaceAll("/n","");
+    }
+
     /**
      * Build error output string.
      *
@@ -66,7 +74,7 @@ public abstract class CmdUtil {
      */
     public static String buildErrorOutput(String readOutput) {
         if (readOutput.length() > MAX_ERROR_LENGTH) {
-            return readOutput.substring(0, MAX_ERROR_LENGTH) + "...";
+            return readOutput.substring(0, MAX_ERROR_LENGTH - LONG_MESSAGE_TRAIL.length()) + LONG_MESSAGE_TRAIL;
         }
         return readOutput;
     }
@@ -96,11 +104,11 @@ public abstract class CmdUtil {
             String stdOut = "";
             String stdErr = "";
     
-            // Check if the process process is alive,
+            // Check if the process is alive,
             // if it's so then destroy it and return a timeout status
             if (process.isAlive()) {
                 status = timeoutStatus;
-                log.info("The process exceed the " + timeout + " Millis allowed for its execution");
+                log.info("The process exceeded the {} Millis allowed for its execution", timeout);
                 process.destroy();
                 log.info("The process has been destroyed");
             } else {
