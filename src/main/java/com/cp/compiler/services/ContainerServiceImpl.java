@@ -13,10 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.concurrent.TimeUnit;
 
 /**
  * This class provides Docker utilities that are used by the compiler
@@ -26,11 +23,15 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Service
 public class ContainerServiceImpl implements ContainerService {
-    
+
     private static final long COMMAND_TIMEOUT = 2000;
-    
+
+    public static final int TIMEOUT_STATUS_CODE = -1;
+
     private final MeterRegistry meterRegistry;
+
     private Timer buildTimer;
+
     private Timer runTimer;
     
     private final Resources resources;
@@ -60,6 +61,7 @@ public class ContainerServiceImpl implements ContainerService {
      */
     @Override
     public int buildImage(String folder, String imageName) {
+        // TODO Refactor by using vavr.Try
         return buildTimer.record(() -> {
             try {
                 String[] dockerCommand = new String[]{"docker", "image", "build", folder, "-t", imageName};
@@ -83,6 +85,7 @@ public class ContainerServiceImpl implements ContainerService {
      */
     @Override
     public ProcessOutput runContainer(String imageName, long timeout) {
+        // TODO Refactor by using vavr.Try
         return runTimer.record(() -> {
             try {
                 var cpus = "--cpus=" + resources.getMaxCpus();
@@ -133,7 +136,7 @@ public class ContainerServiceImpl implements ContainerService {
     
     private String executeContainerCommand(String[] command) {
         try {
-            ProcessOutput processOutput = CmdUtil.executeProcess(command, COMMAND_TIMEOUT, -1);
+            ProcessOutput processOutput = CmdUtil.executeProcess(command, COMMAND_TIMEOUT, TIMEOUT_STATUS_CODE);
             return processOutput.getStdOut();
         } catch (ProcessExecutionException e) {
             throw new ContainerFailedDependencyException(e.getMessage());

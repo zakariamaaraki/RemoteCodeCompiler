@@ -20,27 +20,28 @@ import java.util.Map;
  */
 @Getter
 public class CExecution extends Execution {
-    
+
     /**
-     * Instantiates a new C execution.
+     * Instantiates a new Execution.
      *
-     * @param sourceCode         the source code
-     * @param inputFile          the input file
-     * @param expectedOutputFile the expected output file
-     * @param timeLimit          the time limit
-     * @param memoryLimit        the memory limit
-     * @param executionCounter   the execution counter
+     * @param sourceCodeFile          the source code
+     * @param inputFile               the inputFile file
+     * @param expectedOutputFile      the expected output file
+     * @param timeLimit               the time limit
+     * @param memoryLimit             the memory limit
+     * @param executionCounter        the execution counter
+     * @param entrypointFileGenerator the entrypointFile generator
      */
-    public CExecution(MultipartFile sourceCode,
+    public CExecution(MultipartFile sourceCodeFile,
                       MultipartFile inputFile,
                       MultipartFile expectedOutputFile,
                       int timeLimit,
                       int memoryLimit,
                       Counter executionCounter,
-                      EntrypointFileGenerator entryPointFileGenerator) {
-        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, Language.C, executionCounter, entryPointFileGenerator);
+                      EntrypointFileGenerator entrypointFileGenerator) {
+        super(sourceCodeFile, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entrypointFileGenerator);
     }
-    
+
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
@@ -67,5 +68,10 @@ public class CExecution extends Execution {
         try(OutputStream os = new FileOutputStream(getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME)) {
             os.write(content.getBytes(), 0, content.length());
         }
+    }
+
+    @Override
+    public Language getLanguage() {
+        return Language.C;
     }
 }
