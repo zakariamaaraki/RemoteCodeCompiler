@@ -127,8 +127,7 @@ public abstract class Execution {
      */
     protected void saveUploadedFiles() throws IOException {
         FilesUtil.saveUploadedFiles(sourceCodeFile, path + "/" + language.getSourceCodeFileName());
-        FilesUtil.saveUploadedFiles(
-                expectedOutputFile, path + "/" + expectedOutputFile.getOriginalFilename());
+        FilesUtil.saveUploadedFiles(expectedOutputFile, path + "/" + expectedOutputFile.getOriginalFilename());
         if (getInputFile() != null) {
             FilesUtil.saveUploadedFiles(getInputFile(), path + "/" + inputFile.getOriginalFilename());
         }
