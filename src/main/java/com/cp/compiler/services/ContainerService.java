@@ -14,9 +14,9 @@ public interface ContainerService {
      *
      * @param folder    the folder
      * @param imageName the image name
-     * @return the int the status code
+     * @return The build log
      */
-    int buildImage(String folder, String imageName);
+    String buildImage(String folder, String imageName);
     
     /**
      * Run container container output.

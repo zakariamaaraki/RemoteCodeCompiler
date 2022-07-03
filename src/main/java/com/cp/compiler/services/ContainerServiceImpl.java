@@ -60,18 +60,11 @@ public class ContainerServiceImpl implements ContainerService {
      * {@inheritDoc}
      */
     @Override
-    public int buildImage(String folder, String imageName) {
+    public String buildImage(String folder, String imageName) {
         // TODO Refactor by using vavr.Try
         return buildTimer.record(() -> {
-            try {
-                String[] dockerCommand = new String[]{"docker", "image", "build", folder, "-t", imageName};
-                ProcessBuilder processbuilder = new ProcessBuilder(dockerCommand);
-                Process process = processbuilder.start();
-                return process.waitFor();
-            } catch (Exception e) {
-                log.error("Error during the build process : ", e);
-                return 1;
-            }
+            String[] buildCommand = new String[]{"docker", "image", "build", folder, "-t", imageName};
+            return executeContainerCommand(buildCommand);
         });
     }
     

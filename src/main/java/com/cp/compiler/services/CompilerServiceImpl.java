@@ -3,6 +3,7 @@ package com.cp.compiler.services;
 import com.cp.compiler.exceptions.CompilerServerInternalException;
 import com.cp.compiler.exceptions.ContainerBuildException;
 import com.cp.compiler.exceptions.ContainerFailedDependencyException;
+import com.cp.compiler.exceptions.ProcessExecutionException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.*;
 import com.cp.compiler.utilities.CmdUtil;
@@ -136,13 +137,13 @@ public class CompilerServiceImpl implements CompilerService {
         
         try {
             log.info("Building the docker image: {}", execution.getImageName());
-            int status = containerService.buildImage(execution.getPath(), execution.getImageName());
-            if (status == 0) {
+            try {
+                String buildLogs = containerService.buildImage(execution.getPath(), execution.getImageName());
+                log.debug(buildLogs);
                 log.info("Container image has been built");
-            } else {
-                log.warn("Error while building container image");
-                throw new ContainerBuildException("Error while building container image, Status Code : "
-                        + status);
+            } catch(ContainerFailedDependencyException exception) {
+                log.warn("Error while building container image: {}", exception);
+                throw new ContainerBuildException("Error while building container image: " + exception.getMessage());
             }
         } finally {
             try {
