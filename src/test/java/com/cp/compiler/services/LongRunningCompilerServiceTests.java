@@ -46,7 +46,7 @@ public class LongRunningCompilerServiceTests {
                 file, file, file, 10, 100, Language.JAVA);
     
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
-                .thenReturn(0);
+                .thenReturn("build log");
     
         Result result = new Result(Verdict.ACCEPTED, "test", "", "test", 0);
     

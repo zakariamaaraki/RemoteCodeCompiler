@@ -23,8 +23,10 @@ import java.io.IOException;
 @Slf4j
 @Service
 public class ContainerServiceImpl implements ContainerService {
-
-    private static final long COMMAND_TIMEOUT = 2000;
+    
+    public static final int BUILD_TIMEOUT = 5 * 60000;
+    
+    public static final int COMMAND_TIMEOUT = 2000;
 
     public static final int TIMEOUT_STATUS_CODE = -1;
 
@@ -64,7 +66,7 @@ public class ContainerServiceImpl implements ContainerService {
         // TODO Refactor by using vavr.Try
         return buildTimer.record(() -> {
             String[] buildCommand = new String[]{"docker", "image", "build", folder, "-t", imageName};
-            return executeContainerCommand(buildCommand);
+            return executeContainerCommand(buildCommand, BUILD_TIMEOUT);
         });
     }
     
@@ -97,19 +99,19 @@ public class ContainerServiceImpl implements ContainerService {
     @Override
     public String getRunningContainers() {
         String[] command = {"docker", "ps"};
-        return executeContainerCommand(command);
+        return executeContainerCommand(command, COMMAND_TIMEOUT);
     }
     
     @Override
     public String getContainersStats() {
         String[] command = {"docker", "stats", "--no-stream"};
-        return executeContainerCommand(command);
+        return executeContainerCommand(command, COMMAND_TIMEOUT);
     }
     
     @Override
     public String getAllContainersStats() {
         String[] command = {"docker", "stats", "--no-stream", "--all"};
-        return executeContainerCommand(command);
+        return executeContainerCommand(command, COMMAND_TIMEOUT);
     }
     
     /**
@@ -118,18 +120,18 @@ public class ContainerServiceImpl implements ContainerService {
     @Override
     public String getImages() {
         String[] command = {"docker", "images"};
-        return executeContainerCommand(command);
+        return executeContainerCommand(command, COMMAND_TIMEOUT);
     }
     
     @Override
     public String deleteImage(String imageName) {
         String[] command = {"docker", "rmi", "-f", imageName};
-        return executeContainerCommand(command);
+        return executeContainerCommand(command, COMMAND_TIMEOUT);
     }
     
-    private String executeContainerCommand(String[] command) {
+    private String executeContainerCommand(String[] command, long timeout) {
         try {
-            ProcessOutput processOutput = CmdUtil.executeProcess(command, COMMAND_TIMEOUT, TIMEOUT_STATUS_CODE);
+            ProcessOutput processOutput = CmdUtil.executeProcess(command, timeout, TIMEOUT_STATUS_CODE);
             return processOutput.getStdOut();
         } catch (ProcessExecutionException e) {
             throw new ContainerFailedDependencyException(e.getMessage());

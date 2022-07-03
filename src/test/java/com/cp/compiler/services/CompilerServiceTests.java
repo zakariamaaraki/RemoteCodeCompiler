@@ -159,7 +159,7 @@ class CompilerServiceTests {
     void WhenImageBuildSucceedShouldReturnAResult() throws Exception {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
-                .thenReturn(0);
+                .thenReturn("build log");
         
         String output = "test";
         String expectedOutput = "test";
@@ -205,7 +205,7 @@ class CompilerServiceTests {
     void WhenItsACorrectAnswerCompileMethodShouldReturnAcceptedVerdict() throws Exception {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
-                .thenReturn(0);
+                .thenReturn("build log");
     
         String output = "test2";
         String expectedOutput = "test2";
@@ -248,7 +248,7 @@ class CompilerServiceTests {
     void WhenItsAWrongAnswerCompileMethodShouldReturnWrongAnswerVerdict() throws Exception {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
-                .thenReturn(0);
+                .thenReturn("build log");
     
         String output = "test";
         String expectedOutput = "not a test";
@@ -298,7 +298,7 @@ class CompilerServiceTests {
     void WhenTheExecutionTimeExceedTheLimitCompileMethodShouldReturnTimeLimitExceededVerdict() throws Exception {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
-                .thenReturn(0);
+                .thenReturn("build log");
     
         String output = "test";
         String expectedOutput = "not a test";
@@ -341,7 +341,7 @@ class CompilerServiceTests {
     void WhenThereIsARuntimeErrorCompileMethodShouldReturnRunTimeErrorVerdict() throws Exception {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
-                .thenReturn(0);
+                .thenReturn("build log");
     
         String output = "test";
         String expectedOutput = "not a test";
@@ -384,7 +384,7 @@ class CompilerServiceTests {
     void WhenMemoryLimitExceededCompileMethodShouldReturnOutOfMemoryErrorVerdict() throws Exception {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
-                .thenReturn(0);
+                .thenReturn("build log");
     
         String output = "test";
         String expectedOutput = "not a test";
@@ -427,7 +427,7 @@ class CompilerServiceTests {
     void WhenItIsACompilationErrorCompileMethodShouldReturnCompilationErrorVerdict() throws Exception {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
-                .thenReturn(0);
+                .thenReturn("build log");
     
         String output = "test";
         String expectedOutput = "not a test";
@@ -465,7 +465,7 @@ class CompilerServiceTests {
     void shouldThrownContainerFailedDependencyException() throws Exception {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
-                .thenReturn(0);
+                .thenReturn("build log");
         
         String output = "test";
         String expectedOutput = "not a test";
