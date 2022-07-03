@@ -100,7 +100,7 @@ spring:
       on-profile: logstash
   logstash:
     server: ${LOGSTASH_SERVER_HOST:localhost}
-    port: ${LOGSTASH_SERVER_PORT:5000}
+    port: ${LOGSTASH_SERVER_PORT:5044}
 
 ---
 # rollingFile profile (for logging)

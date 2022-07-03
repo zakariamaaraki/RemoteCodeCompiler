@@ -7,8 +7,8 @@
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="Update endpoints (one endpoint for all languages)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/k8s/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/monitoring/charts/grafana/templates/configmap.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/monitoring/charts/grafana/templates/configmap.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/monitoring/templates/tests/test-connection.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -439,7 +439,7 @@
       <workItem from="1656106652473" duration="2869000" />
       <workItem from="1656111891032" duration="74786000" />
       <workItem from="1656625546124" duration="4601000" />
-      <workItem from="1656768225012" duration="8767000" />
+      <workItem from="1656768225012" duration="13315000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>

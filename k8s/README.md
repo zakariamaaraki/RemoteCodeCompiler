@@ -34,6 +34,7 @@ We also provide you with a helm chart to monitor the compiler using **Prometheus
 ```shell
 helm install monitoring ./monitoring
 ```
+
 * Get prometheus service url:
 ```shell
 minikube service --url monitoring-prometheus
