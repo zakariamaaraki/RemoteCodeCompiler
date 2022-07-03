@@ -38,7 +38,7 @@ public class JavaExecution extends Execution {
                          int memoryLimit,
                          Counter executionCounter,
                          EntrypointFileGenerator entryPointFileGenerator) {
-        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, Language.JAVA, executionCounter, entryPointFileGenerator);
+        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
@@ -70,5 +70,10 @@ public class JavaExecution extends Execution {
         try(OutputStream os = new FileOutputStream(getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME)) {
             os.write(content.getBytes(), 0, content.length());
         }
+    }
+
+    @Override
+    public Language getLanguage() {
+        return Language.JAVA;
     }
 }

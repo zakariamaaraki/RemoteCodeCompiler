@@ -36,7 +36,7 @@ public class GoExecution extends Execution {
                           int memoryLimit,
                           Counter executionCounter,
                           EntrypointFileGenerator entryPointFileGenerator) {
-        super(sourceCodeFile, inputFile, expectedOutputFile, timeLimit, memoryLimit, Language.GO, executionCounter, entryPointFileGenerator);
+        super(sourceCodeFile, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
@@ -64,5 +64,10 @@ public class GoExecution extends Execution {
         try(OutputStream os = new FileOutputStream(getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME)) {
             os.write(content.getBytes(), 0, content.length());
         }
+    }
+
+    @Override
+    public Language getLanguage() {
+        return Language.GO;
     }
 }

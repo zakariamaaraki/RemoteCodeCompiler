@@ -38,7 +38,7 @@ public class PythonExecution extends Execution {
                            int memoryLimit,
                            Counter executionCounter,
                            EntrypointFileGenerator entryPointFileGenerator) {
-        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, Language.PYTHON, executionCounter, entryPointFileGenerator);
+        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
@@ -67,5 +67,10 @@ public class PythonExecution extends Execution {
         try(OutputStream os = new FileOutputStream(getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME)) {
             os.write(content.getBytes(), 0, content.length());
         }
+    }
+
+    @Override
+    public Language getLanguage() {
+        return Language.PYTHON;
     }
 }
