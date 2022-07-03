@@ -51,13 +51,7 @@ public abstract class Execution {
      * The Path of the execution directory
      */
     private String path;
-    
-    @Getter
-    /**
-     * The Language.
-     */
-    private Language language;
-    
+
     // For monitoring purpose it represents the number of executions in parallel for each programming language
     private final Counter executionCounter;
     
@@ -72,16 +66,14 @@ public abstract class Execution {
      * @param expectedOutputFile      the expected output file
      * @param timeLimit               the time limit
      * @param memoryLimit             the memory limit
-     * @param language                the language
      * @param executionCounter        the execution counter
      * @param entrypointFileGenerator the entrypointFile generator
      */
-    protected Execution(MultipartFile sourceCodeFile,
+    public Execution(MultipartFile sourceCodeFile,
                         MultipartFile inputFile,
                         MultipartFile expectedOutputFile,
                         int timeLimit,
                         int memoryLimit,
-                        Language language,
                         Counter executionCounter,
                         EntrypointFileGenerator entrypointFileGenerator) {
         this.sourceCodeFile = sourceCodeFile;
@@ -89,11 +81,10 @@ public abstract class Execution {
         this.expectedOutputFile = expectedOutputFile;
         this.timeLimit = timeLimit;
         this.memoryLimit = memoryLimit;
-        this.language = language;
         this.executionCounter = executionCounter;
         this.entrypointFileGenerator = entrypointFileGenerator;
         this.id = UUID.randomUUID().toString();
-        this.path = language.getFolderName() + "/" + getExecutionFolderName(); // this should come after the id inits
+        this.path = getLanguage().getFolderName() + "/" + getExecutionFolderName(); // this should come after the id inits
     }
     
     /**
@@ -126,7 +117,7 @@ public abstract class Execution {
      * @throws IOException the io exception
      */
     protected void saveUploadedFiles() throws IOException {
-        FilesUtil.saveUploadedFiles(sourceCodeFile, path + "/" + language.getSourceCodeFileName());
+        FilesUtil.saveUploadedFiles(sourceCodeFile, path + "/" + getLanguage().getSourceCodeFileName());
         FilesUtil.saveUploadedFiles(expectedOutputFile, path + "/" + expectedOutputFile.getOriginalFilename());
         if (getInputFile() != null) {
             FilesUtil.saveUploadedFiles(getInputFile(), path + "/" + inputFile.getOriginalFilename());
@@ -157,11 +148,17 @@ public abstract class Execution {
      * @throws IOException the io exception
      */
     protected void copyDockerFileToExecutionDirectory() throws IOException {
-        FilesUtil.copyFile(language.getFolderName().concat("/Dockerfile"), path.concat("/Dockerfile"));
+        FilesUtil.copyFile(getLanguage().getFolderName().concat("/Dockerfile"), path.concat("/Dockerfile"));
     }
     
     /**
      * Creates entrypoint file
      */
     protected abstract void createEntrypointFile();
+
+    /**
+     * Get the language represented by the class
+     */
+    public abstract Language getLanguage();
+
 }
