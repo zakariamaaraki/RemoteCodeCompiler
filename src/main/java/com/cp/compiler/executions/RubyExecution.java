@@ -1,6 +1,5 @@
-package com.cp.compiler.executions.python;
+package com.cp.compiler.executions;
 
-import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.WellKnownFiles;
 import com.cp.compiler.models.WellKnownTemplates;
@@ -16,13 +15,13 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
- * The type Python execution.
+ * The type Ruby execution.
  */
 @Getter
-public class PythonExecution extends Execution {
+public class RubyExecution extends Execution {
     
     /**
-     * Instantiates a new Python execution.
+     * Instantiates a new Ruby execution.
      *
      * @param sourceCode         the source code
      * @param inputFile          the input file
@@ -31,32 +30,31 @@ public class PythonExecution extends Execution {
      * @param memoryLimit        the memory limit
      * @param executionCounter   the execution counter
      */
-    public PythonExecution(MultipartFile sourceCode,
-                           MultipartFile inputFile,
-                           MultipartFile expectedOutputFile,
-                           int timeLimit,
-                           int memoryLimit,
-                           Counter executionCounter,
-                           EntrypointFileGenerator entryPointFileGenerator) {
+    public RubyExecution(MultipartFile sourceCode,
+                         MultipartFile inputFile,
+                         MultipartFile expectedOutputFile,
+                         int timeLimit,
+                         int memoryLimit,
+                         Counter executionCounter,
+                         EntrypointFileGenerator entryPointFileGenerator) {
         super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        final var commandPrefix = Language.PYTHON.getCompilationCommand() + " " + Language.PYTHON.getSourceCodeFileName();
-        final String executionCommand;
-        executionCommand = getInputFile() == null
+        final String commandPrefix = Language.RUBY.getCompilationCommand() + " " + Language.RUBY.getSourceCodeFileName();
+        final String executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
     
         Map<String, String> attributes = Map.of(
                 "rename", "false",
                 "compile", "false",
-                "fileName", Language.PYTHON.getSourceCodeFileName(),
-                "defaultName", Language.PYTHON.getSourceCodeFileName(),
-                "compilationCommand", "",
+                "fileName", Language.RUBY.getSourceCodeFileName(),
+                "defaultName", Language.RUBY.getSourceCodeFileName(),
                 "timeLimit", String.valueOf(getTimeLimit()),
+                "compilationCommand", "",
                 "compilationErrorStatusCode", String.valueOf(StatusUtil.COMPILATION_ERROR_STATUS),
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
@@ -71,6 +69,6 @@ public class PythonExecution extends Execution {
 
     @Override
     public Language getLanguage() {
-        return Language.PYTHON;
+        return Language.RUBY;
     }
 }

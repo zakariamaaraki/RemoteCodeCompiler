@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public abstract class ExecutionFactory {
     
-    private static Map<Language, Supplier<? extends AbstractExecutionFactory>> registeredSuppliers
+    private static Map<Language, Supplier<? extends AbstractLanguageExecutionFactory>> registeredSuppliers
             = new EnumMap<>(Language.class);
     
     private ExecutionFactory() {}
@@ -26,7 +26,7 @@ public abstract class ExecutionFactory {
      * @param language the language
      * @param supplier the supplier
      */
-    public static void register(Language language, Supplier<? extends AbstractExecutionFactory> supplier) {
+    public static void register(Language language, Supplier<? extends AbstractLanguageExecutionFactory> supplier) {
         registeredSuppliers.putIfAbsent(language, supplier);
     }
     
@@ -59,7 +59,7 @@ public abstract class ExecutionFactory {
                                             int timeLimit,
                                             int memoryLimit,
                                             Language language) {
-        Supplier<? extends AbstractExecutionFactory> supplier = registeredSuppliers.get(language);
+        Supplier<? extends AbstractLanguageExecutionFactory> supplier = registeredSuppliers.get(language);
         if (supplier == null) {
             throw new FactoryNotFoundException("No ExecutionFactory registered for the language " + language);
         }

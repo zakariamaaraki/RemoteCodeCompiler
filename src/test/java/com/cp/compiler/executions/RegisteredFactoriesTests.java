@@ -1,16 +1,5 @@
 package com.cp.compiler.executions;
 
-import com.cp.compiler.executions.c.CExecution;
-import com.cp.compiler.executions.cpp.CPPExecution;
-import com.cp.compiler.executions.cs.CSExecution;
-import com.cp.compiler.executions.go.GoExecution;
-import com.cp.compiler.executions.haskell.HaskellExecution;
-import com.cp.compiler.executions.java.JavaExecution;
-import com.cp.compiler.executions.kotlin.KotlinExecution;
-import com.cp.compiler.executions.python.PythonExecution;
-import com.cp.compiler.executions.ruby.RubyExecution;
-import com.cp.compiler.executions.rust.RustExecution;
-import com.cp.compiler.executions.scala.ScalaExecution;
 import com.cp.compiler.models.Language;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

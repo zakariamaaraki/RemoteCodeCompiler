@@ -1,6 +1,5 @@
-package com.cp.compiler.executions.cpp;
+package com.cp.compiler.executions;
 
-import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.WellKnownFiles;
 import com.cp.compiler.models.WellKnownTemplates;
@@ -16,31 +15,32 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
- * The type Cpp execution.
+ * The type C execution.
  */
 @Getter
-public class CPPExecution extends Execution {
-    
+public class CExecution extends Execution {
+
     /**
-     * Instantiates a new Cpp execution.
+     * Instantiates a new Execution.
      *
-     * @param sourceCode         the source code
-     * @param inputFile          the input file
-     * @param expectedOutputFile the expected output file
-     * @param timeLimit          the time limit
-     * @param memoryLimit        the memory limit
-     * @param executionCounter   the execution counter
+     * @param sourceCodeFile          the source code
+     * @param inputFile               the inputFile file
+     * @param expectedOutputFile      the expected output file
+     * @param timeLimit               the time limit
+     * @param memoryLimit             the memory limit
+     * @param executionCounter        the execution counter
+     * @param entrypointFileGenerator the entrypointFile generator
      */
-    public CPPExecution(MultipartFile sourceCode,
-                        MultipartFile inputFile,
-                        MultipartFile expectedOutputFile,
-                        int timeLimit,
-                        int memoryLimit,
-                        Counter executionCounter,
-                        EntrypointFileGenerator entryPointFileGenerator) {
-        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
+    public CExecution(MultipartFile sourceCodeFile,
+                      MultipartFile inputFile,
+                      MultipartFile expectedOutputFile,
+                      int timeLimit,
+                      int memoryLimit,
+                      Counter executionCounter,
+                      EntrypointFileGenerator entrypointFileGenerator) {
+        super(sourceCodeFile, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entrypointFileGenerator);
     }
-    
+
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
@@ -53,10 +53,10 @@ public class CPPExecution extends Execution {
         Map<String, String> attributes = Map.of(
                 "rename", "false",
                 "compile", "true",
-                "fileName", Language.CPP.getSourceCodeFileName() ,
-                "defaultName", Language.CPP.getSourceCodeFileName() ,
+                "fileName", Language.C.getSourceCodeFileName(),
+                "defaultName", Language.C.getSourceCodeFileName(),
                 "timeLimit", String.valueOf(getTimeLimit()),
-                "compilationCommand", Language.CPP.getCompilationCommand() + " " + Language.CPP.getSourceCodeFileName() + " -o exec",
+                "compilationCommand", Language.C.getCompilationCommand() + " " + Language.C.getSourceCodeFileName() + " -o exec",
                 "compilationErrorStatusCode", String.valueOf(StatusUtil.COMPILATION_ERROR_STATUS),
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
@@ -71,6 +71,6 @@ public class CPPExecution extends Execution {
 
     @Override
     public Language getLanguage() {
-        return Language.CPP;
+        return Language.C;
     }
 }

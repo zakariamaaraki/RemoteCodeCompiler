@@ -1,16 +1,5 @@
 package com.cp.compiler.executions;
 
-import com.cp.compiler.executions.c.CExecutionFactory;
-import com.cp.compiler.executions.cpp.CPPExecutionFactory;
-import com.cp.compiler.executions.cs.CSExecutionFactory;
-import com.cp.compiler.executions.go.GoExecutionFactory;
-import com.cp.compiler.executions.haskell.HaskellExecutionFactory;
-import com.cp.compiler.executions.java.JavaExecutionFactory;
-import com.cp.compiler.executions.kotlin.KotlinExecutionFactory;
-import com.cp.compiler.executions.python.PythonExecutionFactory;
-import com.cp.compiler.executions.ruby.RubyExecutionFactory;
-import com.cp.compiler.executions.rust.RustExecutionFactory;
-import com.cp.compiler.executions.scala.ScalaExecutionFactory;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.WellKnownFiles;
 import com.cp.compiler.templates.EntrypointFileGenerator;
@@ -79,7 +68,24 @@ public class ExecutionTests {
     @Test
     void javaExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
-        var javaExecutionFactory = new JavaExecutionFactory(null, entrypointFileGenerator);
+        var javaExecutionFactory = new AbstractLanguageExecutionFactory() {
+            @Override
+            public Execution createExecution(MultipartFile sourceCode,
+                                             MultipartFile inputFile,
+                                             MultipartFile expectedOutputFile,
+                                             int timeLimit,
+                                             int memoryLimit) {
+                return new JavaExecution(
+                        sourceCode,
+                        inputFile,
+                        expectedOutputFile,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
+            }
+        };
+        
         Execution execution = javaExecutionFactory.createExecution(
                 file, file, file, 10, 500);
     
@@ -100,7 +106,24 @@ public class ExecutionTests {
     @Test
     void pythonExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
-        var pythonExecutionFactory = new PythonExecutionFactory(null, entrypointFileGenerator);
+        var pythonExecutionFactory = new AbstractLanguageExecutionFactory() {
+            @Override
+            public Execution createExecution(MultipartFile sourceCode,
+                                             MultipartFile inputFile,
+                                             MultipartFile expectedOutputFile,
+                                             int timeLimit,
+                                             int memoryLimit) {
+                return new PythonExecution(
+                        sourceCode,
+                        inputFile,
+                        expectedOutputFile,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
+            }
+        };
+        
         Execution execution = pythonExecutionFactory.createExecution(
                 file, file, file, 10, 500);
         
@@ -121,7 +144,24 @@ public class ExecutionTests {
     @Test
     void cExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
-        var cExecutionFactory = new CExecutionFactory(null, entrypointFileGenerator);
+        var cExecutionFactory = new AbstractLanguageExecutionFactory() {
+            @Override
+            public Execution createExecution(MultipartFile sourceCode,
+                                             MultipartFile inputFile,
+                                             MultipartFile expectedOutputFile,
+                                             int timeLimit,
+                                             int memoryLimit) {
+                return new CExecution(
+                        sourceCode,
+                        inputFile,
+                        expectedOutputFile,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
+            }
+        };
+        
         Execution execution = cExecutionFactory.createExecution(
                 file, file, file, 10, 500);
         
@@ -142,7 +182,24 @@ public class ExecutionTests {
     @Test
     void cppExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
-        var cppExecutionFactory = new CPPExecutionFactory(null, entrypointFileGenerator);
+        var cppExecutionFactory = new AbstractLanguageExecutionFactory() {
+            @Override
+            public Execution createExecution(MultipartFile sourceCode,
+                                             MultipartFile inputFile,
+                                             MultipartFile expectedOutputFile,
+                                             int timeLimit,
+                                             int memoryLimit) {
+                return new CPPExecution(
+                        sourceCode,
+                        inputFile,
+                        expectedOutputFile,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
+            }
+        };
+        
         Execution execution = cppExecutionFactory.createExecution(
                 file, file, file, 10, 500);
         
@@ -163,7 +220,24 @@ public class ExecutionTests {
     @Test
     void csExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
-        var csExecutionFactory = new CSExecutionFactory(null, entrypointFileGenerator);
+        var csExecutionFactory = new AbstractLanguageExecutionFactory() {
+            @Override
+            public Execution createExecution(MultipartFile sourceCode,
+                                             MultipartFile inputFile,
+                                             MultipartFile expectedOutputFile,
+                                             int timeLimit,
+                                             int memoryLimit) {
+                return new CSExecution(
+                        sourceCode,
+                        inputFile,
+                        expectedOutputFile,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
+            }
+        };
+        
         Execution execution = csExecutionFactory.createExecution(
                 file, file, file, 10, 500);
         
@@ -184,7 +258,24 @@ public class ExecutionTests {
     @Test
     void kotlinExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
-        var kotlinExecutionFactory = new KotlinExecutionFactory(null, entrypointFileGenerator);
+        var kotlinExecutionFactory = new AbstractLanguageExecutionFactory() {
+            @Override
+            public Execution createExecution(MultipartFile sourceCode,
+                                             MultipartFile inputFile,
+                                             MultipartFile expectedOutputFile,
+                                             int timeLimit,
+                                             int memoryLimit) {
+                return new KotlinExecution(
+                        sourceCode,
+                        inputFile,
+                        expectedOutputFile,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
+            }
+        };
+        
         Execution execution = kotlinExecutionFactory.createExecution(
                 file, file, file, 10, 500);
         
@@ -205,7 +296,24 @@ public class ExecutionTests {
     @Test
     void scalaExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
-        var scalaExecutionFactory = new ScalaExecutionFactory(null, entrypointFileGenerator);
+        var scalaExecutionFactory = new AbstractLanguageExecutionFactory() {
+            @Override
+            public Execution createExecution(MultipartFile sourceCode,
+                                             MultipartFile inputFile,
+                                             MultipartFile expectedOutputFile,
+                                             int timeLimit,
+                                             int memoryLimit) {
+                return new ScalaExecution(
+                        sourceCode,
+                        inputFile,
+                        expectedOutputFile,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
+            }
+        };
+        
         Execution execution = scalaExecutionFactory.createExecution(
                 file, file, file, 10, 500);
         
@@ -226,7 +334,24 @@ public class ExecutionTests {
     @Test
     void goExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
-        var goExecutionFactory = new GoExecutionFactory(null, entrypointFileGenerator);
+        var goExecutionFactory = new AbstractLanguageExecutionFactory() {
+            @Override
+            public Execution createExecution(MultipartFile sourceCode,
+                                             MultipartFile inputFile,
+                                             MultipartFile expectedOutputFile,
+                                             int timeLimit,
+                                             int memoryLimit) {
+                return new GoExecution(
+                        sourceCode,
+                        inputFile,
+                        expectedOutputFile,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
+            }
+        };
+        
         Execution execution = goExecutionFactory.createExecution(
                 file, file, file, 10, 500);
         
@@ -247,7 +372,24 @@ public class ExecutionTests {
     @Test
     void rustExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
-        var rustExecutionFactory = new RustExecutionFactory(null, entrypointFileGenerator);
+        var rustExecutionFactory = new AbstractLanguageExecutionFactory() {
+            @Override
+            public Execution createExecution(MultipartFile sourceCode,
+                                             MultipartFile inputFile,
+                                             MultipartFile expectedOutputFile,
+                                             int timeLimit,
+                                             int memoryLimit) {
+                return new RustExecution(
+                        sourceCode,
+                        inputFile,
+                        expectedOutputFile,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
+            }
+        };
+        
         Execution execution = rustExecutionFactory.createExecution(
                 file, file, file, 10, 500);
         
@@ -268,7 +410,24 @@ public class ExecutionTests {
     @Test
     void rubyExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
-        var rubyExecutionFactory = new RubyExecutionFactory(null, entrypointFileGenerator);
+        var rubyExecutionFactory = new AbstractLanguageExecutionFactory() {
+            @Override
+            public Execution createExecution(MultipartFile sourceCode,
+                                             MultipartFile inputFile,
+                                             MultipartFile expectedOutputFile,
+                                             int timeLimit,
+                                             int memoryLimit) {
+                return new RubyExecution(
+                        sourceCode,
+                        inputFile,
+                        expectedOutputFile,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
+            }
+        };
+        
         Execution execution = rubyExecutionFactory.createExecution(
                 file, file, file, 10, 500);
         
@@ -289,7 +448,24 @@ public class ExecutionTests {
     @Test
     void haskellExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
-        var haskellExecutionFactory = new HaskellExecutionFactory(null, entrypointFileGenerator);
+        var haskellExecutionFactory = new AbstractLanguageExecutionFactory() {
+            @Override
+            public Execution createExecution(MultipartFile sourceCode,
+                                             MultipartFile inputFile,
+                                             MultipartFile expectedOutputFile,
+                                             int timeLimit,
+                                             int memoryLimit) {
+                return new HaskellExecution(
+                        sourceCode,
+                        inputFile,
+                        expectedOutputFile,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
+            }
+        };
+        
         Execution execution = haskellExecutionFactory.createExecution(
                 file, file, file, 10, 500);
         
@@ -310,7 +486,24 @@ public class ExecutionTests {
     @Test
     void shouldCopyDockerFileToExecutionDirectory() throws IOException {
         // Given
-        var goExecutionFactory = new GoExecutionFactory(null, entrypointFileGenerator);
+        var goExecutionFactory = new AbstractLanguageExecutionFactory() {
+            @Override
+            public Execution createExecution(MultipartFile sourceCode,
+                                             MultipartFile inputFile,
+                                             MultipartFile expectedOutputFile,
+                                             int timeLimit,
+                                             int memoryLimit) {
+                return new GoExecution(
+                        sourceCode,
+                        inputFile,
+                        expectedOutputFile,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        null);
+            }
+        };
+        
         Execution execution = goExecutionFactory.createExecution(file, file, file, 10, 500);
         
         Files.createDirectory(Path.of(execution.getPath()));

@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * The interface Abstract execution factory.
  */
-public interface AbstractExecutionFactory {
+public interface AbstractLanguageExecutionFactory {
     
     /**
      * Create an instance of class Execution.

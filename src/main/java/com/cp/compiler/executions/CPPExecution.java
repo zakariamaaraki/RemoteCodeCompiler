@@ -1,6 +1,5 @@
-package com.cp.compiler.executions.kotlin;
+package com.cp.compiler.executions;
 
-import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.WellKnownFiles;
 import com.cp.compiler.models.WellKnownTemplates;
@@ -16,13 +15,13 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
- * The type Kotlin execution.
+ * The type Cpp execution.
  */
 @Getter
-public class KotlinExecution extends Execution {
+public class CPPExecution extends Execution {
     
     /**
-     * Instantiates a new Kotlin execution.
+     * Instantiates a new Cpp execution.
      *
      * @param sourceCode         the source code
      * @param inputFile          the input file
@@ -31,35 +30,32 @@ public class KotlinExecution extends Execution {
      * @param memoryLimit        the memory limit
      * @param executionCounter   the execution counter
      */
-    public KotlinExecution(MultipartFile sourceCode,
-                           MultipartFile inputFile,
-                           MultipartFile expectedOutputFile,
-                           int timeLimit,
-                           int memoryLimit,
-                           Counter executionCounter,
-                           EntrypointFileGenerator entryPointFileGenerator) {
+    public CPPExecution(MultipartFile sourceCode,
+                        MultipartFile inputFile,
+                        MultipartFile expectedOutputFile,
+                        int timeLimit,
+                        int memoryLimit,
+                        Counter executionCounter,
+                        EntrypointFileGenerator entryPointFileGenerator) {
         super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        // This case is a bit different, Kotlin and Java files name must be the same as the name of the class
-        // So we will keep the name of the file as it's sent by the user.
-        var fileName = getSourceCodeFile().getOriginalFilename();
-        final var prefixName = fileName.substring(0, fileName.length() - 3); // remove .kt
-        final var commandPrefix = "kotlin " + prefixName;
-        final var executionCommand = getInputFile() == null
+        final var commandPrefix = "./exec";
+        final String executionCommand;
+        executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
     
         Map<String, String> attributes = Map.of(
-                "rename", "true",
+                "rename", "false",
                 "compile", "true",
-                "defaultName", Language.KOTLIN.getSourceCodeFileName(),
-                "fileName", fileName,
+                "fileName", Language.CPP.getSourceCodeFileName() ,
+                "defaultName", Language.CPP.getSourceCodeFileName() ,
                 "timeLimit", String.valueOf(getTimeLimit()),
-                "compilationCommand", Language.KOTLIN.getCompilationCommand() + " " + fileName,
+                "compilationCommand", Language.CPP.getCompilationCommand() + " " + Language.CPP.getSourceCodeFileName() + " -o exec",
                 "compilationErrorStatusCode", String.valueOf(StatusUtil.COMPILATION_ERROR_STATUS),
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
@@ -74,6 +70,6 @@ public class KotlinExecution extends Execution {
 
     @Override
     public Language getLanguage() {
-        return Language.KOTLIN;
+        return Language.CPP;
     }
 }

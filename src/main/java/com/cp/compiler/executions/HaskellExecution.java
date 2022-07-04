@@ -1,6 +1,5 @@
-package com.cp.compiler.executions.scala;
+package com.cp.compiler.executions;
 
-import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.WellKnownFiles;
 import com.cp.compiler.models.WellKnownTemplates;
@@ -16,13 +15,13 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
- * The type Kotlin execution.
+ * The type Haskell execution.
  */
 @Getter
-public class ScalaExecution extends Execution {
+public class HaskellExecution extends Execution {
     
     /**
-     * Instantiates a new Scala execution.
+     * Instantiates a new Haskell execution.
      *
      * @param sourceCode         the source code
      * @param inputFile          the input file
@@ -31,40 +30,41 @@ public class ScalaExecution extends Execution {
      * @param memoryLimit        the memory limit
      * @param executionCounter   the execution counter
      */
-    public ScalaExecution(MultipartFile sourceCode,
-                          MultipartFile inputFile,
-                          MultipartFile expectedOutputFile,
-                          int timeLimit,
-                          int memoryLimit,
-                          Counter executionCounter,
-                          EntrypointFileGenerator entryPointFileGenerator) {
+    public HaskellExecution(MultipartFile sourceCode,
+                            MultipartFile inputFile,
+                            MultipartFile expectedOutputFile,
+                            int timeLimit,
+                            int memoryLimit,
+                            Counter executionCounter,
+                            EntrypointFileGenerator entryPointFileGenerator) {
         super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        // This case is a bit different, Kotlin, Scala and Java files name must be the same as the name of the class
-        // So we will keep the name of the file as it's sent by the user.
-        var fileName = getSourceCodeFile().getOriginalFilename();
-        final var prefixName = fileName.substring(0, fileName.length() - 6); // remove .scala
-        final var commandPrefix = "scala " + prefixName;
+        final var compiledFile = "main";
+        final var commandPrefix = "./" + compiledFile;
         final String executionCommand;
         executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
+        final var compilationCommand = Language.HASKELL.getCompilationCommand() + " -o " + compiledFile + " "
+                + Language.HASKELL.getSourceCodeFileName();
     
         Map<String, String> attributes = Map.of(
-                "defaultName", Language.SCALA.getSourceCodeFileName(),
-                "fileName", fileName,
+                "rename", "false",
+                "compile", "true",
+                "fileName", Language.HASKELL.getSourceCodeFileName(),
+                "defaultName", Language.HASKELL.getSourceCodeFileName(),
                 "timeLimit", String.valueOf(getTimeLimit()),
-                "compilationCommand", Language.SCALA.getCompilationCommand() + " " + fileName,
+                "compilationCommand", compilationCommand,
                 "compilationErrorStatusCode", String.valueOf(StatusUtil.COMPILATION_ERROR_STATUS),
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
     
         String content = getEntrypointFileGenerator()
-                .createEntrypointFile(WellKnownTemplates.SCALA_ENTRYPOINT_TEMPLATE, attributes);
+                .createEntrypointFile(WellKnownTemplates.ENTRYPOINT_TEMPLATE, attributes);
     
         try(OutputStream os = new FileOutputStream(getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME)) {
             os.write(content.getBytes(), 0, content.length());
@@ -73,6 +73,6 @@ public class ScalaExecution extends Execution {
 
     @Override
     public Language getLanguage() {
-        return Language.SCALA;
+        return Language.HASKELL;
     }
 }

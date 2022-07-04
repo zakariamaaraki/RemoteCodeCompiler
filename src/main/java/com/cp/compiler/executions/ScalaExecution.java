@@ -1,6 +1,5 @@
-package com.cp.compiler.executions.ruby;
+package com.cp.compiler.executions;
 
-import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.WellKnownFiles;
 import com.cp.compiler.models.WellKnownTemplates;
@@ -16,13 +15,13 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
- * The type Ruby execution.
+ * The type Kotlin execution.
  */
 @Getter
-public class RubyExecution extends Execution {
+public class ScalaExecution extends Execution {
     
     /**
-     * Instantiates a new Ruby execution.
+     * Instantiates a new Scala execution.
      *
      * @param sourceCode         the source code
      * @param inputFile          the input file
@@ -31,37 +30,40 @@ public class RubyExecution extends Execution {
      * @param memoryLimit        the memory limit
      * @param executionCounter   the execution counter
      */
-    public RubyExecution(MultipartFile sourceCode,
-                         MultipartFile inputFile,
-                         MultipartFile expectedOutputFile,
-                         int timeLimit,
-                         int memoryLimit,
-                         Counter executionCounter,
-                         EntrypointFileGenerator entryPointFileGenerator) {
+    public ScalaExecution(MultipartFile sourceCode,
+                          MultipartFile inputFile,
+                          MultipartFile expectedOutputFile,
+                          int timeLimit,
+                          int memoryLimit,
+                          Counter executionCounter,
+                          EntrypointFileGenerator entryPointFileGenerator) {
         super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        final String commandPrefix = Language.RUBY.getCompilationCommand() + " " + Language.RUBY.getSourceCodeFileName();
-        final String executionCommand = getInputFile() == null
+        // This case is a bit different, Kotlin, Scala and Java files name must be the same as the name of the class
+        // So we will keep the name of the file as it's sent by the user.
+        var fileName = getSourceCodeFile().getOriginalFilename();
+        final var prefixName = fileName.substring(0, fileName.length() - 6); // remove .scala
+        final var commandPrefix = "scala " + prefixName;
+        final String executionCommand;
+        executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
     
         Map<String, String> attributes = Map.of(
-                "rename", "false",
-                "compile", "false",
-                "fileName", Language.RUBY.getSourceCodeFileName(),
-                "defaultName", Language.RUBY.getSourceCodeFileName(),
+                "defaultName", Language.SCALA.getSourceCodeFileName(),
+                "fileName", fileName,
                 "timeLimit", String.valueOf(getTimeLimit()),
-                "compilationCommand", "",
+                "compilationCommand", Language.SCALA.getCompilationCommand() + " " + fileName,
                 "compilationErrorStatusCode", String.valueOf(StatusUtil.COMPILATION_ERROR_STATUS),
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
     
         String content = getEntrypointFileGenerator()
-                .createEntrypointFile(WellKnownTemplates.ENTRYPOINT_TEMPLATE, attributes);
+                .createEntrypointFile(WellKnownTemplates.SCALA_ENTRYPOINT_TEMPLATE, attributes);
     
         try(OutputStream os = new FileOutputStream(getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME)) {
             os.write(content.getBytes(), 0, content.length());
@@ -70,6 +72,6 @@ public class RubyExecution extends Execution {
 
     @Override
     public Language getLanguage() {
-        return Language.RUBY;
+        return Language.SCALA;
     }
 }

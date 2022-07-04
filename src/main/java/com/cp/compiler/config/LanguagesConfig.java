@@ -1,20 +1,21 @@
 package com.cp.compiler.config;
 
 import com.cp.compiler.executions.*;
-import com.cp.compiler.executions.c.CExecutionFactory;
-import com.cp.compiler.executions.cpp.CPPExecutionFactory;
-import com.cp.compiler.executions.cs.CSExecutionFactory;
-import com.cp.compiler.executions.go.GoExecutionFactory;
-import com.cp.compiler.executions.haskell.HaskellExecutionFactory;
-import com.cp.compiler.executions.java.JavaExecutionFactory;
-import com.cp.compiler.executions.kotlin.KotlinExecutionFactory;
-import com.cp.compiler.executions.python.PythonExecutionFactory;
-import com.cp.compiler.executions.ruby.RubyExecutionFactory;
-import com.cp.compiler.executions.rust.RustExecutionFactory;
-import com.cp.compiler.executions.scala.ScalaExecutionFactory;
+import com.cp.compiler.executions.CExecution;
+import com.cp.compiler.executions.CPPExecution;
+import com.cp.compiler.executions.CSExecution;
+import com.cp.compiler.executions.GoExecution;
+import com.cp.compiler.executions.HaskellExecution;
+import com.cp.compiler.executions.JavaExecution;
+import com.cp.compiler.executions.KotlinExecution;
+import com.cp.compiler.executions.PythonExecution;
+import com.cp.compiler.executions.RubyExecution;
+import com.cp.compiler.executions.RustExecution;
+import com.cp.compiler.executions.ScalaExecution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.WellKnownMetrics;
 import com.cp.compiler.templates.EntrypointFileGenerator;
+import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,6 +26,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class LanguagesConfig {
     
+    private EntrypointFileGenerator entrypointFileGenerator;
+    
+    private MeterRegistry meterRegistry;
+    
     /**
      * Instantiates a new Configure languages.
      *
@@ -32,25 +37,160 @@ public class LanguagesConfig {
      * @param entryPointFileGenerator the entry point file generator
      */
     public LanguagesConfig(MeterRegistry meterRegistry, EntrypointFileGenerator entryPointFileGenerator) {
-        configure(meterRegistry, entryPointFileGenerator);
+        this.entrypointFileGenerator = entryPointFileGenerator;
+        this.meterRegistry = meterRegistry;
+        configure();
     }
     
-    private void configure(MeterRegistry meterRegistry, EntrypointFileGenerator entryPointFileGenerator) {
-        // register factories
-        register(Language.JAVA,  new JavaExecutionFactory(meterRegistry.counter(WellKnownMetrics.JAVA_COUNTER_NAME), entryPointFileGenerator));
-        register(Language.PYTHON, new PythonExecutionFactory(meterRegistry.counter(WellKnownMetrics.PYTHON_COUNTER_NAME), entryPointFileGenerator));
-        register(Language.C, new CExecutionFactory(meterRegistry.counter(WellKnownMetrics.C_COUNTER_NAME), entryPointFileGenerator));
-        register(Language.CPP, new CPPExecutionFactory(meterRegistry.counter(WellKnownMetrics.CPP_COUNTER_NAME), entryPointFileGenerator));
-        register(Language.GO, new GoExecutionFactory(meterRegistry.counter(WellKnownMetrics.GO_COUNTER_NAME), entryPointFileGenerator));
-        register(Language.CS, new CSExecutionFactory(meterRegistry.counter(WellKnownMetrics.CS_COUNTER_NAME), entryPointFileGenerator));
-        register(Language.KOTLIN, new KotlinExecutionFactory(meterRegistry.counter(WellKnownMetrics.KOTLIN_COUNTER_NAME), entryPointFileGenerator));
-        register(Language.SCALA, new ScalaExecutionFactory(meterRegistry.counter(WellKnownMetrics.SCALA_COUNTER_NAME), entryPointFileGenerator));
-        register(Language.RUST, new RustExecutionFactory(meterRegistry.counter(WellKnownMetrics.RUST_COUNTER_NAME), entryPointFileGenerator));
-        register(Language.RUBY, new RubyExecutionFactory(meterRegistry.counter(WellKnownMetrics.RUBY_COUNTER_NAME), entryPointFileGenerator));
-        register(Language.HASKELL, new HaskellExecutionFactory(meterRegistry.counter(WellKnownMetrics.HASKELL_COUNTER_NAME), entryPointFileGenerator));
-    }
+    private void configure() {
+        // Register factories
+        register(Language.JAVA,
+                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.JAVA_COUNTER_NAME);
+                    return new JavaExecution(
+                            sourceCode,
+                            inputFile,
+                            expectedOutputFile,
+                            timeLimit,
+                            memoryLimit,
+                            executionsCounter,
+                            entrypointFileGenerator);
+                });
     
-    private void register(Language language, AbstractExecutionFactory executionFactory) {
-        ExecutionFactory.register(language, () -> executionFactory);
+        register(Language.PYTHON,
+                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.PYTHON_COUNTER_NAME);
+                    return new PythonExecution(
+                            sourceCode,
+                            inputFile,
+                            expectedOutputFile,
+                            timeLimit,
+                            memoryLimit,
+                            executionsCounter,
+                            entrypointFileGenerator);
+                });
+    
+        register(Language.C,
+                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.C_COUNTER_NAME);
+                    return new CExecution(
+                            sourceCode,
+                            inputFile,
+                            expectedOutputFile,
+                            timeLimit,
+                            memoryLimit,
+                            executionsCounter,
+                            entrypointFileGenerator);
+                });
+    
+        register(Language.CPP,
+                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.CPP_COUNTER_NAME);
+                    return new CPPExecution(
+                            sourceCode,
+                            inputFile,
+                            expectedOutputFile,
+                            timeLimit,
+                            memoryLimit,
+                            executionsCounter,
+                            entrypointFileGenerator);
+                });
+    
+        register(Language.GO,
+                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.GO_COUNTER_NAME);
+                    return new GoExecution(
+                            sourceCode,
+                            inputFile,
+                            expectedOutputFile,
+                            timeLimit,
+                            memoryLimit,
+                            executionsCounter,
+                            entrypointFileGenerator);
+                });
+    
+        register(Language.CS,
+                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.CS_COUNTER_NAME);
+                    return new CSExecution(
+                            sourceCode,
+                            inputFile,
+                            expectedOutputFile,
+                            timeLimit,
+                            memoryLimit,
+                            executionsCounter,
+                            entrypointFileGenerator);
+                });
+    
+        register(Language.KOTLIN,
+                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.KOTLIN_COUNTER_NAME);
+                    return new KotlinExecution(
+                            sourceCode,
+                            inputFile,
+                            expectedOutputFile,
+                            timeLimit,
+                            memoryLimit,
+                            executionsCounter,
+                            entrypointFileGenerator);
+                });
+    
+        register(Language.SCALA,
+                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.SCALA_COUNTER_NAME);
+                    return new ScalaExecution(
+                            sourceCode,
+                            inputFile,
+                            expectedOutputFile,
+                            timeLimit,
+                            memoryLimit,
+                            executionsCounter,
+                            entrypointFileGenerator);
+                });
+    
+        register(Language.RUST,
+                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.RUST_COUNTER_NAME);
+                    return new RustExecution(
+                            sourceCode,
+                            inputFile,
+                            expectedOutputFile,
+                            timeLimit,
+                            memoryLimit,
+                            executionsCounter,
+                            entrypointFileGenerator);
+                });
+    
+        register(Language.RUBY,
+                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.RUBY_COUNTER_NAME);
+                    return new RubyExecution(
+                            sourceCode,
+                            inputFile,
+                            expectedOutputFile,
+                            timeLimit,
+                            memoryLimit,
+                            executionsCounter,
+                            entrypointFileGenerator);
+                });
+    
+        register(Language.HASKELL,
+                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.HASKELL_COUNTER_NAME);
+                    return new HaskellExecution(
+                            sourceCode,
+                            inputFile,
+                            expectedOutputFile,
+                            timeLimit,
+                            memoryLimit,
+                            executionsCounter,
+                            entrypointFileGenerator);
+                });
+}
+    
+    private void register(Language language,
+                          FunctionalExecutionFactory functionalExecutionFactory) {
+        LanguageExecutionFactory languageExecutionFactory = new LanguageExecutionFactory(functionalExecutionFactory);
+        ExecutionFactory.register(language, () -> languageExecutionFactory);
     }
 }

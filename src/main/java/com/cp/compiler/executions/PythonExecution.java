@@ -1,6 +1,5 @@
-package com.cp.compiler.executions.java;
+package com.cp.compiler.executions;
 
-import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.WellKnownFiles;
 import com.cp.compiler.models.WellKnownTemplates;
@@ -16,13 +15,13 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
- * The type Java execution.
+ * The type Python execution.
  */
 @Getter
-public class JavaExecution extends Execution {
-
+public class PythonExecution extends Execution {
+    
     /**
-     * Instantiates a new Java execution.
+     * Instantiates a new Python execution.
      *
      * @param sourceCode         the source code
      * @param inputFile          the input file
@@ -31,42 +30,39 @@ public class JavaExecution extends Execution {
      * @param memoryLimit        the memory limit
      * @param executionCounter   the execution counter
      */
-    public JavaExecution(MultipartFile sourceCode,
-                         MultipartFile inputFile,
-                         MultipartFile expectedOutputFile,
-                         int timeLimit,
-                         int memoryLimit,
-                         Counter executionCounter,
-                         EntrypointFileGenerator entryPointFileGenerator) {
+    public PythonExecution(MultipartFile sourceCode,
+                           MultipartFile inputFile,
+                           MultipartFile expectedOutputFile,
+                           int timeLimit,
+                           int memoryLimit,
+                           Counter executionCounter,
+                           EntrypointFileGenerator entryPointFileGenerator) {
         super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        // This case is a bit different, Java file name must be the same as the name of the class
-        // So we will keep the name of the file as it's sent by the user.
-        var fileName = getSourceCodeFile().getOriginalFilename();
-        final var prefixName = fileName.substring(0, fileName.length() - 5); // remove ".java"
-        final var commandPrefix = "java " + prefixName;
-        final var executionCommand = getInputFile() == null
+        final var commandPrefix = Language.PYTHON.getCompilationCommand() + " " + Language.PYTHON.getSourceCodeFileName();
+        final String executionCommand;
+        executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
     
         Map<String, String> attributes = Map.of(
-                "rename", "true",
-                "compile", "true",
-                "defaultName", Language.JAVA.getSourceCodeFileName(),
-                "fileName", fileName,
+                "rename", "false",
+                "compile", "false",
+                "fileName", Language.PYTHON.getSourceCodeFileName(),
+                "defaultName", Language.PYTHON.getSourceCodeFileName(),
+                "compilationCommand", "",
                 "timeLimit", String.valueOf(getTimeLimit()),
-                "compilationCommand", Language.JAVA.getCompilationCommand() + " " + fileName,
                 "compilationErrorStatusCode", String.valueOf(StatusUtil.COMPILATION_ERROR_STATUS),
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
-        
+    
         String content = getEntrypointFileGenerator()
                 .createEntrypointFile(WellKnownTemplates.ENTRYPOINT_TEMPLATE, attributes);
-        
+    
         try(OutputStream os = new FileOutputStream(getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME)) {
             os.write(content.getBytes(), 0, content.length());
         }
@@ -74,6 +70,6 @@ public class JavaExecution extends Execution {
 
     @Override
     public Language getLanguage() {
-        return Language.JAVA;
+        return Language.PYTHON;
     }
 }

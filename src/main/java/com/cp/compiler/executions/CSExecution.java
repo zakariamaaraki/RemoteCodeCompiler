@@ -1,6 +1,5 @@
-package com.cp.compiler.executions.haskell;
+package com.cp.compiler.executions;
 
-import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.WellKnownFiles;
 import com.cp.compiler.models.WellKnownTemplates;
@@ -16,13 +15,13 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
- * The type Haskell execution.
+ * The type C# execution.
  */
 @Getter
-public class HaskellExecution extends Execution {
+public class CSExecution extends Execution {
     
     /**
-     * Instantiates a new Haskell execution.
+     * Instantiates a new C# execution.
      *
      * @param sourceCode         the source code
      * @param inputFile          the input file
@@ -31,35 +30,31 @@ public class HaskellExecution extends Execution {
      * @param memoryLimit        the memory limit
      * @param executionCounter   the execution counter
      */
-    public HaskellExecution(MultipartFile sourceCode,
-                            MultipartFile inputFile,
-                            MultipartFile expectedOutputFile,
-                            int timeLimit,
-                            int memoryLimit,
-                            Counter executionCounter,
-                            EntrypointFileGenerator entryPointFileGenerator) {
+    public CSExecution(MultipartFile sourceCode,
+                       MultipartFile inputFile,
+                       MultipartFile expectedOutputFile,
+                       int timeLimit,
+                       int memoryLimit,
+                       Counter executionCounter,
+                       EntrypointFileGenerator entryPointFileGenerator) {
         super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        final var compiledFile = "main";
-        final var commandPrefix = "./" + compiledFile;
-        final String executionCommand;
-        executionCommand = getInputFile() == null
+        final var commandPrefix = "mono main.exe";
+        final String executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
-        final var compilationCommand = Language.HASKELL.getCompilationCommand() + " -o " + compiledFile + " "
-                + Language.HASKELL.getSourceCodeFileName();
     
         Map<String, String> attributes = Map.of(
                 "rename", "false",
                 "compile", "true",
-                "fileName", Language.HASKELL.getSourceCodeFileName(),
-                "defaultName", Language.HASKELL.getSourceCodeFileName(),
+                "defaultName", Language.CS.getSourceCodeFileName(),
+                "fileName", Language.CS.getSourceCodeFileName(),
                 "timeLimit", String.valueOf(getTimeLimit()),
-                "compilationCommand", compilationCommand,
+                "compilationCommand", Language.CS.getCompilationCommand() + " " + Language.CS.getSourceCodeFileName(),
                 "compilationErrorStatusCode", String.valueOf(StatusUtil.COMPILATION_ERROR_STATUS),
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
@@ -74,6 +69,6 @@ public class HaskellExecution extends Execution {
 
     @Override
     public Language getLanguage() {
-        return Language.HASKELL;
+        return Language.CS;
     }
 }
