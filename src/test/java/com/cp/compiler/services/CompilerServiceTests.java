@@ -3,6 +3,7 @@ package com.cp.compiler.services;
 import com.cp.compiler.exceptions.ContainerBuildException;
 import com.cp.compiler.exceptions.ContainerExecutionException;
 import com.cp.compiler.exceptions.ContainerFailedDependencyException;
+import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.*;
@@ -50,7 +51,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenTimeLimitGreaterThanMaxExecutionTimeShouldReturnBadRequest() throws Exception {
+    void WhenTimeLimitGreaterThanMaxExecutionTimeShouldReturnBadRequest() {
         // Given
         int timeLimit = Integer.MAX_VALUE;
     
@@ -70,7 +71,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenTimeLimitLessThanMinExecutionTimeShouldReturnBadRequest() throws Exception {
+    void WhenTimeLimitLessThanMinExecutionTimeShouldReturnBadRequest() {
         // Given
         int timeLimit = -1;
     
@@ -90,7 +91,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenMemoryLimitGreaterThanMaxExecutionMemoryShouldReturnBadRequest() throws Exception {
+    void WhenMemoryLimitGreaterThanMaxExecutionMemoryShouldReturnBadRequest() {
         // Given
         int memoryLimit = Integer.MAX_VALUE;
     
@@ -110,7 +111,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenMemoryLimitLessThanMinExecutionMemoryShouldReturnBadRequest() throws Exception {
+    void WhenMemoryLimitLessThanMinExecutionMemoryShouldReturnBadRequest() {
         // Given
         int memoryLimit = -1;
     
@@ -156,7 +157,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenImageBuildSucceedShouldReturnAResult() throws Exception {
+    void WhenImageBuildSucceedShouldReturnAResult() {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -202,7 +203,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenItsACorrectAnswerCompileMethodShouldReturnAcceptedVerdict() throws Exception {
+    void WhenItsACorrectAnswerCompileMethodShouldReturnAcceptedVerdict() {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -245,7 +246,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenItsAWrongAnswerCompileMethodShouldReturnWrongAnswerVerdict() throws Exception {
+    void WhenItsAWrongAnswerCompileMethodShouldReturnWrongAnswerVerdict() {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -295,7 +296,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenTheExecutionTimeExceedTheLimitCompileMethodShouldReturnTimeLimitExceededVerdict() throws Exception {
+    void WhenTheExecutionTimeExceedTheLimitCompileMethodShouldReturnTimeLimitExceededVerdict() {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -338,7 +339,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenThereIsARuntimeErrorCompileMethodShouldReturnRunTimeErrorVerdict() throws Exception {
+    void WhenThereIsARuntimeErrorCompileMethodShouldReturnRunTimeErrorVerdict() {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -381,7 +382,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenMemoryLimitExceededCompileMethodShouldReturnOutOfMemoryErrorVerdict() throws Exception {
+    void WhenMemoryLimitExceededCompileMethodShouldReturnOutOfMemoryErrorVerdict() {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -424,7 +425,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenItIsACompilationErrorCompileMethodShouldReturnCompilationErrorVerdict() throws Exception {
+    void WhenItIsACompilationErrorCompileMethodShouldReturnCompilationErrorVerdict() {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -462,15 +463,12 @@ class CompilerServiceTests {
     }
     
     @Test
-    void shouldThrownContainerFailedDependencyException() throws Exception {
+    void shouldThrownContainerFailedDependencyException() {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
         
         String output = "test";
-        String expectedOutput = "not a test";
-        
-        Result result = new Result(Verdict.ACCEPTED, output, "", expectedOutput, 0);
         
         MockMultipartFile file = new MockMultipartFile(
                 "file",
@@ -487,6 +485,33 @@ class CompilerServiceTests {
         
         // Then
         Assertions.assertThrows(ContainerFailedDependencyException.class, () -> {
+            compilerService.compile(execution);
+        });
+    }
+    
+    @Test
+    void defaultCompilerShouldThrowContainerOperationTimeoutException() {
+        // Given
+        Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+                .thenThrow(new ContainerOperationTimeoutException());
+    
+        String output = "test";
+    
+        MockMultipartFile file = new MockMultipartFile(
+                "file",
+                "hello.txt",
+                MediaType.TEXT_PLAIN_VALUE,
+                output.getBytes()
+        );
+    
+        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
+                .thenThrow(new ContainerExecutionException("internal error"));
+    
+        Execution execution = ExecutionFactory.createExecution(
+                file, null, file, 10, 100, Language.JAVA);
+    
+        // Then
+        Assertions.assertThrows(ContainerOperationTimeoutException.class, () -> {
             compilerService.compile(execution);
         });
     }

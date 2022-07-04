@@ -29,7 +29,7 @@ public class LongRunningCompilerService extends CompilerServiceDecorator {
      *
      * @param compilerService the compiler service
      * @param restTemplate    the rest template
-     * @param hooksRepository    the hooks storage
+     * @param hooksRepository the hooks storage
      */
     public LongRunningCompilerService(@Qualifier("client") CompilerService compilerService,
                                       RestTemplate restTemplate,
@@ -40,7 +40,7 @@ public class LongRunningCompilerService extends CompilerServiceDecorator {
     }
     
     @Override
-    public ResponseEntity compile(Execution execution) throws Exception {
+    public ResponseEntity compile(Execution execution) {
         new Thread(() -> {
             try {
                 run(execution);

@@ -1,5 +1,7 @@
 package com.cp.compiler.services;
 
+import com.cp.compiler.exceptions.ContainerExecutionException;
+import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.*;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.annotation.DirtiesContext;
@@ -33,7 +36,7 @@ public class CompilerServiceDecoratorTests {
         // When
         var compilerServiceDecorator = new CompilerServiceDecorator(compilerService) {
             @Override
-            public ResponseEntity compile(Execution execution) throws Exception {
+            public ResponseEntity compile(Execution execution) {
                 return compilerService.compile(execution);
             }
         };
@@ -43,7 +46,7 @@ public class CompilerServiceDecoratorTests {
     }
     
     @Test
-    void shouldHaveTheSameBehaviorAsTheCompilerClient() throws Exception {
+    void shouldHaveTheSameBehaviorAsTheCompilerClient() {
         // Given
         MultipartFile file = new MockMultipartFile(
                 "test.txt.c",
@@ -53,7 +56,7 @@ public class CompilerServiceDecoratorTests {
         
         var compilerServiceDecorator = new CompilerServiceDecorator(compilerService) {
             @Override
-            public ResponseEntity compile(Execution execution) throws Exception {
+            public ResponseEntity compile(Execution execution) {
                 return compilerService.compile(execution);
             }
         };
@@ -63,9 +66,7 @@ public class CompilerServiceDecoratorTests {
     
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
-    
-        Result result = new Result(Verdict.ACCEPTED, "test", "", "test", 0);
-    
+        
         ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut("test")
@@ -84,5 +85,33 @@ public class CompilerServiceDecoratorTests {
                 ((Response)compilerService.compile(execution).getBody()).getResult(),
                 ((Response)compilationResult.getBody()).getResult()
         );
+    }
+    
+    @Test
+    void compilerDecoratorShouldThrowContainerOperationTimeoutException() {
+        // Given
+        MultipartFile file = new MockMultipartFile(
+                "test.txt.c",
+                "test.txt",
+                null,
+                (byte[]) null);
+    
+        var compilerServiceDecorator = new CompilerServiceDecorator(compilerService) {
+            @Override
+            public ResponseEntity compile(Execution execution) {
+                return compilerService.compile(execution);
+            }
+        };
+    
+        var execution = ExecutionFactory.createExecution(
+                file, file, file, 10, 100, Language.JAVA);
+    
+        Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+                .thenThrow(new ContainerOperationTimeoutException());
+    
+        // Then
+        Assertions.assertThrows(ContainerOperationTimeoutException.class, () -> {
+            compilerServiceDecorator.compile(execution);
+        });
     }
 }

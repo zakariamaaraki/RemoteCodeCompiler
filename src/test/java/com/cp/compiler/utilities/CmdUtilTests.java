@@ -1,6 +1,7 @@
 package com.cp.compiler.utilities;
 
 import com.cp.compiler.exceptions.ProcessExecutionException;
+import com.cp.compiler.exceptions.ProcessExecutionTimeoutException;
 import com.cp.compiler.models.ProcessOutput;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -70,15 +71,12 @@ class CmdUtilTests {
     }
     
     @Test
-    void executeProcessShouldTimeout() throws ProcessExecutionException{
+    void executeProcessShouldTimeoutAnThrowAProcessExecutionTimeoutException() throws ProcessExecutionException{
         // Given
         String[] cmd = new String[] {"sleep", "2000"};
         
         // When
-        ProcessOutput output  = CmdUtil.executeProcess(cmd, 0, StatusUtil.TIME_LIMIT_EXCEEDED_STATUS);
-        
-        // Then
-        Assertions.assertEquals(StatusUtil.TIME_LIMIT_EXCEEDED_STATUS, output.getStatus());
+        Assertions.assertThrows(ProcessExecutionTimeoutException.class, () -> CmdUtil.executeProcess(cmd, 0));
     }
     
     @Test
@@ -87,10 +85,7 @@ class CmdUtilTests {
         String[] cmd = new String[] {"sleep", "1"};
         
         // When
-        ProcessOutput output  = CmdUtil.executeProcess(cmd, 3000, StatusUtil.TIME_LIMIT_EXCEEDED_STATUS);
-        
-        // Then
-        Assertions.assertNotEquals(StatusUtil.TIME_LIMIT_EXCEEDED_STATUS, output.getStatus());
+        ProcessOutput output  = CmdUtil.executeProcess(cmd, 3000);
     }
     
     @Test
@@ -99,7 +94,7 @@ class CmdUtilTests {
         String[] cmd = new String[] {"echo", "test"};
         
         // When
-        ProcessOutput output  = CmdUtil.executeProcess(cmd, 3000, StatusUtil.TIME_LIMIT_EXCEEDED_STATUS);
+        ProcessOutput output  = CmdUtil.executeProcess(cmd, 3000);
         
         // Then
         Assertions.assertTrue(CmdUtil.compareOutput("test", output.getStdOut()));
@@ -111,7 +106,7 @@ class CmdUtilTests {
         String[] cmd = new String[] {"echo", "test"};
         
         // When
-        ProcessOutput output  = CmdUtil.executeProcess(cmd, 3000, StatusUtil.TIME_LIMIT_EXCEEDED_STATUS);
+        ProcessOutput output  = CmdUtil.executeProcess(cmd, 3000);
         
         // Then
         Assertions.assertEquals("", output.getStdErr());
@@ -124,7 +119,7 @@ class CmdUtilTests {
         
         // When
         Assertions.assertThrows(ProcessExecutionException.class, () -> {
-            CmdUtil.executeProcess(cmd, 3000, StatusUtil.TIME_LIMIT_EXCEEDED_STATUS);
+            CmdUtil.executeProcess(cmd, 3000);
         });
     }
 }

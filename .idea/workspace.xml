@@ -5,11 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="Update endpoints (one endpoint for all languages)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/ContainerOperationTimeoutException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/ProcessExecutionTimeoutException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/CompilerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/CompilerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/CompilerServerInternalException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/CompilerServerInternalException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/ContainerExecutionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/ContainerExecutionException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/ProcessExecutionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/ProcessExecutionException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerFacadeImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerFacadeImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/LongRunningCompilerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/LongRunningCompilerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utilities/CmdUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utilities/CmdUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerFacadeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerFacadeTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerProxyServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerProxyServiceTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceDecoratorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceDecoratorTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/LongRunningCompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/LongRunningCompilerServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utilities/CmdUtilTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utilities/CmdUtilTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +120,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CmdUtilTests.executeProcessShouldReturnAnError">
+  <component name="RunManager" selected="JUnit.CompilerServiceTests.shouldThrowContainerOperationTimeoutException">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -136,7 +152,7 @@
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="CmdUtilTests.executeProcessShouldNotReturnAnError" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CmdUtilTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
@@ -146,24 +162,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.utilities" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utilities.CmdUtilTests" />
-      <option name="METHOD_NAME" value="executeProcessShouldNotReturnAnError" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CmdUtilTests.executeProcessShouldNotTimeout" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.utilities.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.utilities" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utilities.CmdUtilTests" />
-      <option name="METHOD_NAME" value="executeProcessShouldNotTimeout" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -200,7 +199,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CmdUtilTests.executeProcessShouldTimeout" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CmdUtilTests.whenReadOutputMethodIsCalledShouldReturnTheCorrectOutput" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
@@ -210,7 +209,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.utilities" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utilities.CmdUtilTests" />
-      <option name="METHOD_NAME" value="executeProcessShouldTimeout" />
+      <option name="METHOD_NAME" value="whenReadOutputMethodIsCalledShouldReturnTheCorrectOutput" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompilerServiceTests.shouldThrowContainerOperationTimeoutException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerServiceTests" />
+      <option name="METHOD_NAME" value="shouldThrowContainerOperationTimeoutException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -357,11 +372,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CompilerServiceTests.shouldThrowContainerOperationTimeoutException" />
+        <item itemvalue="JUnit.CmdUtilTests" />
+        <item itemvalue="JUnit.CmdUtilTests.whenReadOutputMethodIsCalledShouldReturnTheCorrectOutput" />
         <item itemvalue="JUnit.CmdUtilTests.executeProcessShouldReturnAnError" />
         <item itemvalue="JUnit.CmdUtilTests.executeProcessShouldReturnCorrectOutput" />
-        <item itemvalue="JUnit.CmdUtilTests.executeProcessShouldNotReturnAnError" />
-        <item itemvalue="JUnit.CmdUtilTests.executeProcessShouldTimeout" />
-        <item itemvalue="JUnit.CmdUtilTests.executeProcessShouldNotTimeout" />
       </list>
     </recent_temporary>
   </component>

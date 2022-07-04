@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * The type Hooks repository.
  */
 @Repository
-public class HooksRepositoryImpl implements HooksRepository {
+public class HooksRepositoryDefault implements HooksRepository {
     
     // Full concurrency of retrievals
     private final Map<String, String> hooks = new ConcurrentHashMap<>();

@@ -32,7 +32,7 @@ public class CompilerFacadeTests {
             (byte[]) null);
     
     @Test
-    void whenItsShortRunningOperationShouldReturnOKStatusCode() throws Exception {
+    void whenItsShortRunningOperationShouldReturnOKStatusCode() {
         // Given
         Execution execution = ExecutionFactory.createExecution(
                 file, file, file, 10, 500, Language.JAVA);

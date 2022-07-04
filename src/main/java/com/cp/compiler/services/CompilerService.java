@@ -15,7 +15,6 @@ public interface CompilerService {
      *
      * @param execution the execution
      * @return a ResponseEntity containing the result of the execution
-     * @throws Exception the exception
      */
-    ResponseEntity compile(Execution execution) throws Exception;
+    ResponseEntity compile(Execution execution);
 }

@@ -12,7 +12,7 @@ import java.util.Map;
  */
 @Component
 @AllArgsConstructor
-public class EntrypointFileGeneratorImpl implements EntrypointFileGenerator {
+public class EntrypointFileGeneratorDefault implements EntrypointFileGenerator {
     
     private final SpringTemplateEngine templateEngine;
     

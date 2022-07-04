@@ -1,6 +1,7 @@
 package com.cp.compiler.utilities;
 
 import com.cp.compiler.exceptions.ProcessExecutionException;
+import com.cp.compiler.exceptions.ProcessExecutionTimeoutException;
 import com.cp.compiler.models.ProcessOutput;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,6 +19,9 @@ import java.util.concurrent.TimeUnit;
 public abstract class CmdUtil {
 
     private static final int MAX_ERROR_LENGTH = 200; // number of chars
+    /**
+     * The constant LONG_MESSAGE_TRAIL.
+     */
     public static final String LONG_MESSAGE_TRAIL = "...";
 
     private CmdUtil() {}
@@ -65,7 +69,7 @@ public abstract class CmdUtil {
           .replaceAll("\\s+", " ")
           .replaceAll("/n","");
     }
-
+    
     /**
      * Build error output string.
      *
@@ -83,14 +87,14 @@ public abstract class CmdUtil {
     /**
      * Execute process process output.
      *
-     * @param commands      the commands
-     * @param timeout       the timeout
-     * @param timeoutStatus the timeout status
+     * @param commands the commands
+     * @param timeout  the timeout
      * @return the process output
-     * @throws ProcessExecutionException the process execution exception
+     * @throws ProcessExecutionException        the process execution exception
+     * @throws ProcessExecutionTimeoutException the process execution timeout exception
      */
-    public static ProcessOutput executeProcess(String[] commands, long timeout, int timeoutStatus)
-            throws ProcessExecutionException {
+    public static ProcessOutput executeProcess(String[] commands, long timeout)
+            throws ProcessExecutionException, ProcessExecutionTimeoutException {
         try {
             ProcessBuilder processbuilder = new ProcessBuilder(commands);
             Process process = processbuilder.start();
@@ -107,10 +111,10 @@ public abstract class CmdUtil {
             // Check if the process is alive,
             // if it's so then destroy it and return a timeout status
             if (process.isAlive()) {
-                status = timeoutStatus;
                 log.info("The process exceeded the {} Millis allowed for its execution", timeout);
                 process.destroy();
                 log.info("The process has been destroyed");
+                throw new ProcessExecutionTimeoutException();
             } else {
                 status = process.exitValue();
         
@@ -130,8 +134,11 @@ public abstract class CmdUtil {
                     .status(status)
                     .executionDuration(executionEndTime - executionStartTime)
                     .build();
-        } catch(Exception e) {
-            throw new ProcessExecutionException("Fatal error: " + e.getMessage());
+            
+        } catch(ProcessExecutionTimeoutException processExecutionTimeoutException) {
+            throw processExecutionTimeoutException;
+        } catch(Exception exception) {
+            throw new ProcessExecutionException("Fatal error: " + exception.getMessage());
         }
     }
 }

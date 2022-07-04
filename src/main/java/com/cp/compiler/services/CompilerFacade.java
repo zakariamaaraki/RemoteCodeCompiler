@@ -17,5 +17,5 @@ public interface CompilerFacade {
      * @return the response entity
      * @throws Exception the exception
      */
-    ResponseEntity compile(Execution execution, boolean isLongRunning, String url) throws Exception;
+    ResponseEntity compile(Execution execution, boolean isLongRunning, String url);
 }

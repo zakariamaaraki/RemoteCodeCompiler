@@ -1,9 +1,6 @@
 package com.cp.compiler.services;
 
-import com.cp.compiler.exceptions.CompilerServerInternalException;
-import com.cp.compiler.exceptions.ContainerBuildException;
-import com.cp.compiler.exceptions.ContainerFailedDependencyException;
-import com.cp.compiler.exceptions.ProcessExecutionException;
+import com.cp.compiler.exceptions.*;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.*;
 import com.cp.compiler.utilities.CmdUtil;
@@ -34,7 +31,7 @@ import java.util.Map;
  */
 @Slf4j
 @Service("client")
-public class CompilerServiceImpl implements CompilerService {
+public class CompilerServiceDefault implements CompilerService {
     
     private static final long TIME_OUT = 20000; // in ms
     
@@ -53,7 +50,7 @@ public class CompilerServiceImpl implements CompilerService {
      * @param containerService the container service
      * @param meterRegistry    the meter registry
      */
-    public CompilerServiceImpl(ContainerService containerService, MeterRegistry meterRegistry) {
+    public CompilerServiceDefault(ContainerService containerService, MeterRegistry meterRegistry) {
         this.containerService = containerService;
         this.meterRegistry = meterRegistry;
     }
@@ -72,7 +69,7 @@ public class CompilerServiceImpl implements CompilerService {
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity compile(Execution execution) throws Exception {
+    public ResponseEntity compile(Execution execution) {
         
         LocalDateTime dateTime = LocalDateTime.now();
     
@@ -104,18 +101,27 @@ public class CompilerServiceImpl implements CompilerService {
             BufferedReader expectedOutputReader =
                     new BufferedReader(new InputStreamReader(outputFile.getInputStream()));
             String expectedOutput = CmdUtil.readOutput(expectedOutputReader);
-            
-            ProcessOutput containerOutput = containerService.runContainer(imageName, TIME_OUT);
-            
-            Verdict verdict = getVerdict(containerOutput, expectedOutput);
-            
-            return new Result(
-                    verdict,
-                    containerOutput.getStdOut(),
-                    containerOutput.getStdErr(),
-                    expectedOutput,
-                    containerOutput.getExecutionDuration());
-            
+    
+            ProcessOutput containerOutput;
+            try {
+                containerOutput = containerService.runContainer(imageName, TIME_OUT);
+                Verdict verdict = getVerdict(containerOutput, expectedOutput);
+    
+                return new Result(
+                        verdict,
+                        containerOutput.getStdOut(),
+                        containerOutput.getStdErr(),
+                        expectedOutput,
+                        containerOutput.getExecutionDuration());
+                
+            } catch(ContainerOperationTimeoutException exception) {
+                return new Result(
+                        Verdict.TIME_LIMIT_EXCEEDED,
+                        "",
+                        "The execution exceeded the time limit",
+                        expectedOutput,
+                        0);
+            }
         } catch (Exception e) {
             log.error("Error on the container engine side: {}", e);
             throw new ContainerFailedDependencyException("Error on the container engine side: " + e.getMessage());
@@ -127,7 +133,7 @@ public class CompilerServiceImpl implements CompilerService {
         return StatusUtil.statusResponse(containerOutput.getStatus(), result);
     }
     
-    private void builderImage(Execution execution) throws CompilerServerInternalException {
+    private void builderImage(Execution execution) {
         try {
             log.info("Creating execution directory: {}", execution.getExecutionFolderName());
             execution.createExecutionDirectory();

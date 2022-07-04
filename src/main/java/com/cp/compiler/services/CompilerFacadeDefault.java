@@ -19,7 +19,7 @@ import javax.annotation.PostConstruct;
  */
 @Slf4j
 @Service
-public class CompilerFacadeImpl implements CompilerFacade {
+public class CompilerFacadeDefault implements CompilerFacade {
     
     private final CompilerService compilerService;
     
@@ -48,18 +48,18 @@ public class CompilerFacadeImpl implements CompilerFacade {
      *
      * @param compilerService the compiler service
      * @param meterRegistry   the meter registry
-     * @param hooksRepository    the hooks storage
+     * @param hooksRepository the hooks storage
      */
-    public CompilerFacadeImpl(@Qualifier("proxy") CompilerService compilerService,
-                              MeterRegistry meterRegistry,
-                              HooksRepository hooksRepository) {
+    public CompilerFacadeDefault(@Qualifier("proxy") CompilerService compilerService,
+                                 MeterRegistry meterRegistry,
+                                 HooksRepository hooksRepository) {
         this.compilerService = compilerService;
         this.meterRegistry = meterRegistry;
         this.hooksRepository = hooksRepository;
     }
     
     @Override
-    public ResponseEntity compile(Execution execution, boolean isLongRunning, String url) throws Exception {
+    public ResponseEntity compile(Execution execution, boolean isLongRunning, String url) {
         if (isPushNotificationEnabled && isLongRunning) {
             // Long running execution (Push notification)
             longRunningExecutionCounter.increment();

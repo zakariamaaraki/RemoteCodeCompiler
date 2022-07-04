@@ -34,7 +34,7 @@ public class LongRunningCompilerServiceTests {
     }
     
     @Test
-    void shouldReturnedAcceptedStatusCode() throws Exception {
+    void shouldReturnedAcceptedStatusCode() {
         // Given
         MultipartFile file = new MockMultipartFile(
                 "test.txt.c",

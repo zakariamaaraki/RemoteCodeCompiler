@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * The type Container execution exception.
  */
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-public class ContainerExecutionException extends RuntimeException {
+public class ContainerExecutionException extends ProcessExecutionException {
     
     /**
      * Instantiates a new Container execution exception.

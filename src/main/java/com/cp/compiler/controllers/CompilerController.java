@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 /**
  * Compiler Controller Class, this class exposes 4 endpoints for (Java, C, CPP, and Python)
  *
@@ -38,7 +40,7 @@ public class CompilerController {
      * @param preferPush the prefer push
      * @param url        the url
      * @return The verdict of the execution (Accepted, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded, Compilation Error, RunTime Error)
-     * @throws Exception the exception
+     * @throws IOException the io exception
      */
     @PostMapping("/compile/json")
     @ApiOperation(
@@ -49,7 +51,7 @@ public class CompilerController {
     public ResponseEntity<Object> compile(@ApiParam(value = "request") @RequestBody Request request,
                                           @RequestHeader(value = WellKnownParams.PREFER_PUSH, required = false) String preferPush,
                                           @RequestHeader(value = WellKnownParams.URL, required = false) String url)
-            throws Exception {
+            throws IOException {
         
         Execution execution = ExecutionFactory.createExecution(
                 request.getSourceCode(),
@@ -107,7 +109,7 @@ public class CompilerController {
             @RequestParam(value = WellKnownParams.MEMORY_LIMIT) int memoryLimit,
 
             @RequestHeader(value = WellKnownParams.PREFER_PUSH, required = false) String preferPush,
-            @RequestHeader(value = WellKnownParams.URL, required = false) String url) throws Exception {
+            @RequestHeader(value = WellKnownParams.URL, required = false) String url) {
         
         Execution execution = ExecutionFactory.createExecution(
                 sourceCode, inputFile, outputFile, timeLimit, memoryLimit, language);

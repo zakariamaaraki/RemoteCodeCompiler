@@ -78,7 +78,7 @@ public class CompilerProxy implements CompilerService {
     }
     
     @Override
-    public ResponseEntity compile(Execution execution) throws Exception {
+    public ResponseEntity compile(Execution execution) {
         Optional<ResponseEntity> requestValidationError = validateRequest(execution);
         if (requestValidationError.isPresent()) {
             // the request is not valid
@@ -106,7 +106,7 @@ public class CompilerProxy implements CompilerService {
                 .body("Request has been throttled, service reached maximum resources");
     }
     
-    private ResponseEntity compileFacade(Execution execution) throws Exception {
+    private ResponseEntity compileFacade(Execution execution) {
         // If the storage contains the imageName that means we registered the url before
         // and the client want a push notification.
         String imageName = execution.getImageName();

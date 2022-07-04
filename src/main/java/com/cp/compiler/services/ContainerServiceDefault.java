@@ -1,12 +1,9 @@
 package com.cp.compiler.services;
 
-import com.cp.compiler.exceptions.ContainerExecutionException;
-import com.cp.compiler.exceptions.ContainerFailedDependencyException;
-import com.cp.compiler.exceptions.ProcessExecutionException;
+import com.cp.compiler.exceptions.*;
 import com.cp.compiler.models.ProcessOutput;
 import com.cp.compiler.models.WellKnownMetrics;
 import com.cp.compiler.utilities.CmdUtil;
-import com.cp.compiler.utilities.StatusUtil;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +19,7 @@ import java.io.IOException;
  */
 @Slf4j
 @Service
-public class ContainerServiceImpl implements ContainerService {
+public class ContainerServiceDefault implements ContainerService {
     
     public static final int BUILD_TIMEOUT = 5 * 60000;
     
@@ -44,7 +41,7 @@ public class ContainerServiceImpl implements ContainerService {
      * @param meterRegistry the meter registry
      * @param resources     the resources
      */
-    public ContainerServiceImpl(MeterRegistry meterRegistry, Resources resources) {
+    public ContainerServiceDefault(MeterRegistry meterRegistry, Resources resources) {
         this.meterRegistry = meterRegistry;
         this.resources = resources;
     }
@@ -85,10 +82,11 @@ public class ContainerServiceImpl implements ContainerService {
             try {
                 var cpus = "--cpus=" + resources.getMaxCpus();
                 String[] dockerCommand = new String[]{"docker", "run", cpus, "--rm", imageName};
-                return CmdUtil.executeProcess(dockerCommand, timeout, StatusUtil.TIME_LIMIT_EXCEEDED_STATUS);
-            } catch(ProcessExecutionException e) {
-                var errorMessage = "Error during container execution: " + e.getMessage();
-                throw new ContainerExecutionException(errorMessage);
+                return CmdUtil.executeProcess(dockerCommand, timeout);
+            } catch(ProcessExecutionTimeoutException processExecutionTimeoutException) {
+                throw new ContainerOperationTimeoutException();
+            } catch(ProcessExecutionException processExecutionException) {
+                throw new ContainerExecutionException("Error during container execution: " + processExecutionException);
             }
         });
     }
@@ -131,7 +129,7 @@ public class ContainerServiceImpl implements ContainerService {
     
     private String executeContainerCommand(String[] command, long timeout) {
         try {
-            ProcessOutput processOutput = CmdUtil.executeProcess(command, timeout, TIMEOUT_STATUS_CODE);
+            ProcessOutput processOutput = CmdUtil.executeProcess(command, timeout);
             return processOutput.getStdOut();
         } catch (ProcessExecutionException e) {
             throw new ContainerFailedDependencyException(e.getMessage());

@@ -38,7 +38,7 @@ public class CompilerProxyServiceTests {
             (byte[]) null);
     
     @Test
-    void WhenInputFileNameIsInvalidShouldReturnBadRequest() throws Exception {
+    void WhenInputFileNameIsInvalidShouldReturnBadRequest() {
         // Given
         Execution execution = ExecutionFactory.createExecution(
                 validFileName, invalidFileName, validFileName, 10, 500, Language.JAVA);
@@ -64,7 +64,7 @@ public class CompilerProxyServiceTests {
     }
     
     @Test
-    void WhenExpectedOutputFileNameIsInvalidShouldReturnBadRequest() throws Exception {
+    void WhenExpectedOutputFileNameIsInvalidShouldReturnBadRequest() {
         // Given
         Execution execution = ExecutionFactory.createExecution(
                 validFileName, validFileName, invalidFileName, 10, 500, Language.JAVA);
