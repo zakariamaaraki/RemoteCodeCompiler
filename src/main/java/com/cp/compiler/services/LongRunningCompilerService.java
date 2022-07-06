@@ -62,14 +62,9 @@ public class LongRunningCompilerService extends CompilerServiceDecorator {
     }
     
     private void run(Execution execution) throws URISyntaxException {
-        ResponseEntity response;
-        try {
-            response = getCompilerService().compile(execution);
-        } catch (Exception exception) {
-            response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception);
-        }
-        String imageName = execution.getImageName();
-        String url = hooksRepository.get(imageName);
+        ResponseEntity response = getCompilerService().compile(execution);
+        String requestId = execution.getId();
+        String url = hooksRepository.get(requestId);
         log.info("Sending response to {}", url);
         sendResponse(url, response);
     }

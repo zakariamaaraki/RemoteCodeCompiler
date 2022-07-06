@@ -6,6 +6,7 @@ import com.cp.compiler.wellknownconstants.WellKnownMetrics;
 import com.cp.compiler.utils.CmdUtil;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
+import io.vavr.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -77,7 +78,6 @@ public class ContainerServiceDefault implements ContainerService {
      */
     @Override
     public ProcessOutput runContainer(String imageName, long timeout) {
-        // TODO Refactor by using vavr.Try
         return runTimer.record(() -> {
             try {
                 var cpus = "--cpus=" + resources.getMaxCpus();
