@@ -5,22 +5,22 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * The interface Abstract execution factory.
  */
-public interface AbstractLanguageExecutionFactory {
+@FunctionalInterface
+public interface AbstractExecutionFactory {
     
     /**
-     * Create an instance of class Execution.
+     * Create execution.
      *
      * @param sourceCode         the source code
      * @param inputFile          the input file
      * @param expectedOutputFile the expected output file
      * @param timeLimit          the time limit
      * @param memoryLimit        the memory limit
-     * @param executionCounter   the execution counter
      * @return the execution
      */
     Execution createExecution(MultipartFile sourceCode,
-                              MultipartFile inputFile,
-                              MultipartFile expectedOutputFile,
-                              int timeLimit,
-                              int memoryLimit);
+                     MultipartFile inputFile,
+                     MultipartFile expectedOutputFile,
+                     int timeLimit,
+                     int memoryLimit);
 }

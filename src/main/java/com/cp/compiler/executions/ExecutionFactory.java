@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -15,7 +14,7 @@ import java.util.stream.Collectors;
  */
 public abstract class ExecutionFactory {
     
-    private static Map<Language, Supplier<? extends AbstractLanguageExecutionFactory>> registeredSuppliers
+    private static Map<Language, AbstractExecutionFactory> registeredFactories
             = new EnumMap<>(Language.class);
     
     private ExecutionFactory() {}
@@ -24,10 +23,10 @@ public abstract class ExecutionFactory {
      * Register.
      *
      * @param language the language
-     * @param supplier the supplier
+     * @param factory  the factory
      */
-    public static void register(Language language, Supplier<? extends AbstractLanguageExecutionFactory> supplier) {
-        registeredSuppliers.putIfAbsent(language, supplier);
+    public static void register(Language language, AbstractExecutionFactory factory) {
+        registeredFactories.putIfAbsent(language, factory);
     }
     
     /**
@@ -36,7 +35,7 @@ public abstract class ExecutionFactory {
      * @return the registered factories
      */
     public static Set<Language> getRegisteredFactories() {
-        return registeredSuppliers
+        return registeredFactories
                 .keySet()
                 .stream()
                 .collect(Collectors.toSet());
@@ -59,12 +58,12 @@ public abstract class ExecutionFactory {
                                             int timeLimit,
                                             int memoryLimit,
                                             Language language) {
-        Supplier<? extends AbstractLanguageExecutionFactory> supplier = registeredSuppliers.get(language);
-        if (supplier == null) {
+        AbstractExecutionFactory factory = registeredFactories.get(language);
+        if (factory == null) {
             throw new FactoryNotFoundException("No ExecutionFactory registered for the language " + language);
         }
         
-        return supplier.get().createExecution(
+        return factory.createExecution(
                 sourceCode,
                 inputFile,
                 expectedOutputFile,

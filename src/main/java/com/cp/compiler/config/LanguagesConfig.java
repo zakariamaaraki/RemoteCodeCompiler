@@ -13,7 +13,6 @@ import com.cp.compiler.executions.RubyExecution;
 import com.cp.compiler.executions.RustExecution;
 import com.cp.compiler.executions.ScalaExecution;
 import com.cp.compiler.models.Language;
-import com.cp.compiler.models.WellKnownMetrics;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -46,7 +45,7 @@ public class LanguagesConfig {
         // Register factories
         register(Language.JAVA,
                 (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
-                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.JAVA_COUNTER_NAME);
+                    Counter executionsCounter = meterRegistry.counter(Language.JAVA.getExecutionCounter());
                     return new JavaExecution(
                             sourceCode,
                             inputFile,
@@ -59,7 +58,7 @@ public class LanguagesConfig {
     
         register(Language.PYTHON,
                 (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
-                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.PYTHON_COUNTER_NAME);
+                    Counter executionsCounter = meterRegistry.counter(Language.PYTHON.getExecutionCounter());
                     return new PythonExecution(
                             sourceCode,
                             inputFile,
@@ -72,7 +71,7 @@ public class LanguagesConfig {
     
         register(Language.C,
                 (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
-                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.C_COUNTER_NAME);
+                    Counter executionsCounter = meterRegistry.counter(Language.C.getExecutionCounter());
                     return new CExecution(
                             sourceCode,
                             inputFile,
@@ -85,7 +84,7 @@ public class LanguagesConfig {
     
         register(Language.CPP,
                 (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
-                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.CPP_COUNTER_NAME);
+                    Counter executionsCounter = meterRegistry.counter(Language.CPP.getExecutionCounter());
                     return new CPPExecution(
                             sourceCode,
                             inputFile,
@@ -98,7 +97,7 @@ public class LanguagesConfig {
     
         register(Language.GO,
                 (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
-                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.GO_COUNTER_NAME);
+                    Counter executionsCounter = meterRegistry.counter(Language.GO.getExecutionCounter());
                     return new GoExecution(
                             sourceCode,
                             inputFile,
@@ -111,7 +110,7 @@ public class LanguagesConfig {
     
         register(Language.CS,
                 (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
-                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.CS_COUNTER_NAME);
+                    Counter executionsCounter = meterRegistry.counter(Language.CS.getExecutionCounter());
                     return new CSExecution(
                             sourceCode,
                             inputFile,
@@ -124,7 +123,7 @@ public class LanguagesConfig {
     
         register(Language.KOTLIN,
                 (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
-                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.KOTLIN_COUNTER_NAME);
+                    Counter executionsCounter = meterRegistry.counter(Language.KOTLIN.getExecutionCounter());
                     return new KotlinExecution(
                             sourceCode,
                             inputFile,
@@ -137,7 +136,7 @@ public class LanguagesConfig {
     
         register(Language.SCALA,
                 (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
-                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.SCALA_COUNTER_NAME);
+                    Counter executionsCounter = meterRegistry.counter(Language.SCALA.getExecutionCounter());
                     return new ScalaExecution(
                             sourceCode,
                             inputFile,
@@ -150,7 +149,7 @@ public class LanguagesConfig {
     
         register(Language.RUST,
                 (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
-                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.RUST_COUNTER_NAME);
+                    Counter executionsCounter = meterRegistry.counter(Language.RUST.getExecutionCounter());
                     return new RustExecution(
                             sourceCode,
                             inputFile,
@@ -163,7 +162,7 @@ public class LanguagesConfig {
     
         register(Language.RUBY,
                 (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
-                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.RUBY_COUNTER_NAME);
+                    Counter executionsCounter = meterRegistry.counter(Language.RUBY.getExecutionCounter());
                     return new RubyExecution(
                             sourceCode,
                             inputFile,
@@ -176,7 +175,7 @@ public class LanguagesConfig {
     
         register(Language.HASKELL,
                 (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
-                    Counter executionsCounter = meterRegistry.counter(WellKnownMetrics.HASKELL_COUNTER_NAME);
+                    Counter executionsCounter = meterRegistry.counter(Language.HASKELL.getExecutionCounter());
                     return new HaskellExecution(
                             sourceCode,
                             inputFile,
@@ -186,11 +185,10 @@ public class LanguagesConfig {
                             executionsCounter,
                             entrypointFileGenerator);
                 });
-}
+    }
     
     private void register(Language language,
-                          FunctionalExecutionFactory functionalExecutionFactory) {
-        LanguageExecutionFactory languageExecutionFactory = new LanguageExecutionFactory(functionalExecutionFactory);
-        ExecutionFactory.register(language, () -> languageExecutionFactory);
+                          AbstractExecutionFactory executionFactory) {
+        ExecutionFactory.register(language, executionFactory );
     }
 }

@@ -24,22 +24,17 @@ public class ExecutionFactoryTests {
     void shouldRegisterAProgrammingLanguage() {
         
         // Given
-        ExecutionFactory.register(Language.JAVA, () -> new AbstractLanguageExecutionFactory() {
-            @Override
-            public Execution createExecution(MultipartFile sourceCode,
-                                             MultipartFile inputFile,
-                                             MultipartFile expectedOutputFile,
-                                             int timeLimit,
-                                             int memoryLimit) {
-                return new JavaExecution(
-                        sourceCode,
-                        inputFile,
-                        expectedOutputFile,
-                        timeLimit,
-                        memoryLimit,
-                        null,
-                        null);
-            }
+        ExecutionFactory.register(
+                Language.JAVA,
+                (MultipartFile sourceCode, MultipartFile inputFile, MultipartFile expectedOutputFile, int timeLimit, int memoryLimit) -> {
+                    return new JavaExecution(
+                            sourceCode,
+                            inputFile,
+                            expectedOutputFile,
+                            timeLimit,
+                            memoryLimit,
+                            null,
+                            null);
         });
         
         // When
