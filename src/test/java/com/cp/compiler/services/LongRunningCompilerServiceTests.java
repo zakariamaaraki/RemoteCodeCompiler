@@ -5,7 +5,7 @@ import com.cp.compiler.models.ProcessOutput;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Result;
 import com.cp.compiler.models.Verdict;
-import com.cp.compiler.utilities.StatusUtil;
+import com.cp.compiler.utils.StatusUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;

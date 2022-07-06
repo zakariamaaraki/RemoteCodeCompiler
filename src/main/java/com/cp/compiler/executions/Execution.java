@@ -2,7 +2,7 @@ package com.cp.compiler.executions;
 
 import com.cp.compiler.models.Language;
 import com.cp.compiler.templates.EntrypointFileGenerator;
-import com.cp.compiler.utilities.FilesUtil;
+import com.cp.compiler.utils.FilesUtil;
 import io.micrometer.core.instrument.Counter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

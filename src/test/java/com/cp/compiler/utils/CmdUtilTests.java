@@ -1,11 +1,10 @@
-package com.cp.compiler.utilities;
+package com.cp.compiler.utils;
 
 import com.cp.compiler.exceptions.ProcessExecutionException;
 import com.cp.compiler.exceptions.ProcessExecutionTimeoutException;
 import com.cp.compiler.models.ProcessOutput;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

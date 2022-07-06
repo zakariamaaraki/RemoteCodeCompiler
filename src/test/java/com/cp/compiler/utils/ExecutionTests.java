@@ -1,4 +1,4 @@
-package com.cp.compiler.utilities;
+package com.cp.compiler.utils;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
