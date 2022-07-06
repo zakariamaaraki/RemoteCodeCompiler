@@ -1,8 +1,8 @@
 package com.cp.compiler.executions;
 
 import com.cp.compiler.models.Language;
-import com.cp.compiler.models.WellKnownFiles;
-import com.cp.compiler.models.WellKnownTemplates;
+import com.cp.compiler.wellknownconstants.WellKnownFiles;
+import com.cp.compiler.wellknownconstants.WellKnownTemplates;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import com.cp.compiler.utilities.StatusUtil;
 import io.micrometer.core.instrument.Counter;

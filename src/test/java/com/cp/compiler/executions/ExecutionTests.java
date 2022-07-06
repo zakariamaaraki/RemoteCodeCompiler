@@ -1,7 +1,7 @@
 package com.cp.compiler.executions;
 
 import com.cp.compiler.models.Language;
-import com.cp.compiler.models.WellKnownFiles;
+import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

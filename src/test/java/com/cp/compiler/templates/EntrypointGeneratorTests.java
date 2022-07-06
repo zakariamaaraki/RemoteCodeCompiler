@@ -1,6 +1,6 @@
 package com.cp.compiler.templates;
 
-import com.cp.compiler.models.WellKnownTemplates;
+import com.cp.compiler.wellknownconstants.WellKnownTemplates;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.cp.compiler.models;
+package com.cp.compiler.wellknownconstants;
 
 /**
  * The type Well known metrics.

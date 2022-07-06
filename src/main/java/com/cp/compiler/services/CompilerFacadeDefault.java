@@ -1,8 +1,8 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.executions.Execution;
-import com.cp.compiler.models.WellKnownMetrics;
-import com.cp.compiler.models.WellKnownUrls;
+import com.cp.compiler.wellknownconstants.WellKnownMetrics;
+import com.cp.compiler.wellknownconstants.WellKnownUrls;
 import com.cp.compiler.repositories.HooksRepository;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;

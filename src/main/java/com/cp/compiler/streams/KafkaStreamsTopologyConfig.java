@@ -1,10 +1,9 @@
 package com.cp.compiler.streams;
 
-import com.cp.compiler.models.WellKnownMetrics;
+import com.cp.compiler.wellknownconstants.WellKnownMetrics;
 import com.cp.compiler.services.CompilerService;
 import com.cp.compiler.streams.transformers.CompilerTransformer;
 import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serde;

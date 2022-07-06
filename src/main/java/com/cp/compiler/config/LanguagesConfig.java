@@ -187,8 +187,7 @@ public class LanguagesConfig {
                 });
     }
     
-    private void register(Language language,
-                          AbstractExecutionFactory executionFactory) {
+    private void register(Language language, AbstractExecutionFactory executionFactory) {
         ExecutionFactory.register(language, executionFactory );
     }
 }

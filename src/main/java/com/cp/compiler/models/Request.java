@@ -1,5 +1,6 @@
 package com.cp.compiler.models;
 
+import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.mock.web.MockMultipartFile;

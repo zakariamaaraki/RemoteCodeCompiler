@@ -1,5 +1,9 @@
 package com.cp.compiler.models;
 
+import com.cp.compiler.wellknownconstants.WellKnownCommands;
+import com.cp.compiler.wellknownconstants.WellKnownFiles;
+import com.cp.compiler.wellknownconstants.WellKnownFolders;
+import com.cp.compiler.wellknownconstants.WellKnownMetrics;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
