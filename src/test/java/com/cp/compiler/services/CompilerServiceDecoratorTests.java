@@ -4,7 +4,7 @@ import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.*;
-import com.cp.compiler.utils.StatusUtil;
+import com.cp.compiler.utils.StatusUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -68,7 +68,7 @@ public class CompilerServiceDecoratorTests {
         ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut("test")
-                .status(StatusUtil.ACCEPTED_OR_WRONG_ANSWER_STATUS)
+                .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
         
         Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))

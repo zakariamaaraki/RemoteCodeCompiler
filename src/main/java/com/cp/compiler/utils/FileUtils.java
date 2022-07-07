@@ -15,9 +15,9 @@ import java.nio.file.StandardCopyOption;
  * @author Zakaria Maaraki
  */
 @Slf4j
-public abstract class FilesUtil {
+public abstract class FileUtils {
     
-    private FilesUtil() {
+    private FileUtils() {
     }
     
     /**

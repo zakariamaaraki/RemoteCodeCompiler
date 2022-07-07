@@ -6,7 +6,7 @@ import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.*;
-import com.cp.compiler.utils.StatusUtil;
+import com.cp.compiler.utils.StatusUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -176,7 +176,7 @@ class CompilerServiceTests {
         ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
-                .status(StatusUtil.ACCEPTED_OR_WRONG_ANSWER_STATUS)
+                .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
     
         Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
@@ -222,7 +222,7 @@ class CompilerServiceTests {
         ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
-                .status(StatusUtil.ACCEPTED_OR_WRONG_ANSWER_STATUS)
+                .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
     
         Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
@@ -272,7 +272,7 @@ class CompilerServiceTests {
         ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
-                .status(StatusUtil.ACCEPTED_OR_WRONG_ANSWER_STATUS)
+                .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
     
         Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
@@ -315,7 +315,7 @@ class CompilerServiceTests {
         ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
-                .status(StatusUtil.TIME_LIMIT_EXCEEDED_STATUS)
+                .status(StatusUtils.TIME_LIMIT_EXCEEDED_STATUS)
                 .build();
     
         Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
@@ -401,7 +401,7 @@ class CompilerServiceTests {
         ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
-                .status(StatusUtil.OUT_OF_MEMORY_STATUS)
+                .status(StatusUtils.OUT_OF_MEMORY_STATUS)
                 .build();
     
         Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
@@ -444,7 +444,7 @@ class CompilerServiceTests {
         ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
-                .status(StatusUtil.COMPILATION_ERROR_STATUS)
+                .status(StatusUtils.COMPILATION_ERROR_STATUS)
                 .build();
     
         Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))

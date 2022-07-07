@@ -3,8 +3,8 @@ package com.cp.compiler.services;
 import com.cp.compiler.exceptions.*;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.*;
-import com.cp.compiler.utils.CmdUtil;
-import com.cp.compiler.utils.StatusUtil;
+import com.cp.compiler.utils.CmdUtils;
+import com.cp.compiler.utils.StatusUtils;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
@@ -102,7 +102,7 @@ public class CompilerServiceDefault implements CompilerService {
         String expectedOutput;
         try {
             expectedOutputReader = new BufferedReader(new InputStreamReader(outputFile.getInputStream()));
-            expectedOutput = CmdUtil.readOutput(expectedOutputReader);
+            expectedOutput = CmdUtils.readOutput(expectedOutputReader);
         } catch (Exception e) {
             throw new CompilerServerInternalException("Unexpected error while reading the expected output file");
         }
@@ -131,8 +131,8 @@ public class CompilerServiceDefault implements CompilerService {
     }
     
     private Verdict getVerdict(ProcessOutput containerOutput, String expectedOutput) {
-        boolean result = CmdUtil.compareOutput(containerOutput.getStdOut(), expectedOutput);
-        return StatusUtil.statusResponse(containerOutput.getStatus(), result);
+        boolean result = CmdUtils.compareOutput(containerOutput.getStdOut(), expectedOutput);
+        return StatusUtils.statusResponse(containerOutput.getStatus(), result);
     }
     
     private void builderImage(Execution execution) {

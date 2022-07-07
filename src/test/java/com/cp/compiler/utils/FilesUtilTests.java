@@ -24,7 +24,7 @@ class FilesUtilTests {
         MultipartFile multipartFile = new MockMultipartFile("test.txt", new FileInputStream(path.toFile()));
         
         // When
-        FilesUtil.saveUploadedFiles(multipartFile, path.getParent() + "/test2.txt");
+        FileUtils.saveUploadedFiles(multipartFile, path.getParent() + "/test2.txt");
         
         // Then
         Assertions.assertTrue(Files.exists(Path.of(path.getParent() + "/test2.txt")));
@@ -38,10 +38,10 @@ class FilesUtilTests {
         String dest = path.getParent() + "/test2.txt";
         Files.write(path, "test file".getBytes());
         MultipartFile multipartFile = new MockMultipartFile(src, new FileInputStream(path.toFile()));
-        FilesUtil.saveUploadedFiles(multipartFile, path.getParent() + "/" + src);
+        FileUtils.saveUploadedFiles(multipartFile, path.getParent() + "/" + src);
         
         // When
-        FilesUtil.copyFile(path.getParent() + "/" + src, dest);
+        FileUtils.copyFile(path.getParent() + "/" + src, dest);
         
         // Then
         Assertions.assertTrue(Files.exists(Path.of(dest)));

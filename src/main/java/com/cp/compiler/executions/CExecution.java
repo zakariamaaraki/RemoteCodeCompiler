@@ -4,7 +4,7 @@ import com.cp.compiler.models.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownTemplates;
 import com.cp.compiler.templates.EntrypointFileGenerator;
-import com.cp.compiler.utils.StatusUtil;
+import com.cp.compiler.utils.StatusUtils;
 import io.micrometer.core.instrument.Counter;
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -57,7 +57,7 @@ public class CExecution extends Execution {
                 "defaultName", Language.C.getSourceCodeFileName(),
                 "timeLimit", String.valueOf(getTimeLimit()),
                 "compilationCommand", Language.C.getCompilationCommand() + " " + Language.C.getSourceCodeFileName() + " -o exec",
-                "compilationErrorStatusCode", String.valueOf(StatusUtil.COMPILATION_ERROR_STATUS),
+                "compilationErrorStatusCode", String.valueOf(StatusUtils.COMPILATION_ERROR_STATUS),
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
     

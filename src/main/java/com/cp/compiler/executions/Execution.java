@@ -2,7 +2,7 @@ package com.cp.compiler.executions;
 
 import com.cp.compiler.models.Language;
 import com.cp.compiler.templates.EntrypointFileGenerator;
-import com.cp.compiler.utils.FilesUtil;
+import com.cp.compiler.utils.FileUtils;
 import io.micrometer.core.instrument.Counter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -117,10 +117,10 @@ public abstract class Execution {
      * @throws IOException the io exception
      */
     protected void saveUploadedFiles() throws IOException {
-        FilesUtil.saveUploadedFiles(sourceCodeFile, path + "/" + getLanguage().getSourceCodeFileName());
-        FilesUtil.saveUploadedFiles(expectedOutputFile, path + "/" + expectedOutputFile.getOriginalFilename());
+        FileUtils.saveUploadedFiles(sourceCodeFile, path + "/" + getLanguage().getSourceCodeFileName());
+        FileUtils.saveUploadedFiles(expectedOutputFile, path + "/" + expectedOutputFile.getOriginalFilename());
         if (getInputFile() != null) {
-            FilesUtil.saveUploadedFiles(getInputFile(), path + "/" + inputFile.getOriginalFilename());
+            FileUtils.saveUploadedFiles(getInputFile(), path + "/" + inputFile.getOriginalFilename());
         }
     }
     
@@ -148,7 +148,7 @@ public abstract class Execution {
      * @throws IOException the io exception
      */
     protected void copyDockerFileToExecutionDirectory() throws IOException {
-        FilesUtil.copyFile(getLanguage().getFolderName().concat("/Dockerfile"), path.concat("/Dockerfile"));
+        FileUtils.copyFile(getLanguage().getFolderName().concat("/Dockerfile"), path.concat("/Dockerfile"));
     }
     
     /**

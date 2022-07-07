@@ -3,14 +3,13 @@ package com.cp.compiler.services;
 import com.cp.compiler.exceptions.*;
 import com.cp.compiler.models.ProcessOutput;
 import com.cp.compiler.wellknownconstants.WellKnownMetrics;
-import com.cp.compiler.utils.CmdUtil;
+import com.cp.compiler.utils.CmdUtils;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.io.IOException;
 
 /**
  * This class provides Docker utilities that are used by the compiler
@@ -83,7 +82,7 @@ public class ContainerServiceDefault implements ContainerService {
             try {
                 var cpus = "--cpus=" + resources.getMaxCpus();
                 String[] dockerCommand = new String[]{"docker", "run", cpus, "--rm", imageName};
-                return CmdUtil.executeProcess(dockerCommand, timeout);
+                return CmdUtils.executeProcess(dockerCommand, timeout);
             } catch(ProcessExecutionTimeoutException processExecutionTimeoutException) {
                 throw new ContainerOperationTimeoutException(processExecutionTimeoutException.getMessage());
             } catch(ProcessExecutionException processExecutionException) {
@@ -130,7 +129,7 @@ public class ContainerServiceDefault implements ContainerService {
     
     private String executeContainerCommand(String[] command, long timeout) {
         try {
-            ProcessOutput processOutput = CmdUtil.executeProcess(command, timeout);
+            ProcessOutput processOutput = CmdUtils.executeProcess(command, timeout);
             if (!processOutput.getStdErr().isEmpty()) {
                 log.error("Fatal error : {}", processOutput.getStdErr());
                 throw new ContainerFailedDependencyException();

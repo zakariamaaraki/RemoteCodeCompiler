@@ -25,7 +25,7 @@ class CmdUtilTests {
                 new FileReader("src/test/resources/outputs/Test1.txt"));
         
         // When
-        String output = CmdUtil.readOutput(bufferedReader);
+        String output = CmdUtils.readOutput(bufferedReader);
         
         // Then
         Assertions.assertEquals("0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n", output);
@@ -38,7 +38,7 @@ class CmdUtilTests {
         String containerOutput = " abcd ";
         
         // When
-        boolean compareResult = CmdUtil.compareOutput(expectedOutput, containerOutput);
+        boolean compareResult = CmdUtils.compareOutput(expectedOutput, containerOutput);
         // Then
         Assertions.assertEquals(true, compareResult);
     }
@@ -50,7 +50,7 @@ class CmdUtilTests {
         String containerOutput = " abcd  c ";
         
         // When
-        boolean compareResult = CmdUtil.compareOutput(expectedOutput, containerOutput);
+        boolean compareResult = CmdUtils.compareOutput(expectedOutput, containerOutput);
         
         // Then
         Assertions.assertEquals(true, compareResult);
@@ -63,7 +63,7 @@ class CmdUtilTests {
         String containerOutput = " abcd  c\n";
         
         // When
-        boolean compareResult = CmdUtil.compareOutput(expectedOutput, containerOutput);
+        boolean compareResult = CmdUtils.compareOutput(expectedOutput, containerOutput);
         
         // Then
         Assertions.assertEquals(true, compareResult);
@@ -75,7 +75,7 @@ class CmdUtilTests {
         String[] cmd = new String[] {"sleep", "2000"};
         
         // When
-        Assertions.assertThrows(ProcessExecutionTimeoutException.class, () -> CmdUtil.executeProcess(cmd, 0));
+        Assertions.assertThrows(ProcessExecutionTimeoutException.class, () -> CmdUtils.executeProcess(cmd, 1));
     }
     
     @Test
@@ -84,7 +84,7 @@ class CmdUtilTests {
         String[] cmd = new String[] {"sleep", "1"};
         
         // When
-        ProcessOutput output  = CmdUtil.executeProcess(cmd, 3000);
+        ProcessOutput output  = CmdUtils.executeProcess(cmd, 3000);
     }
     
     @Test
@@ -93,10 +93,10 @@ class CmdUtilTests {
         String[] cmd = new String[] {"echo", "test"};
         
         // When
-        ProcessOutput output  = CmdUtil.executeProcess(cmd, 3000);
+        ProcessOutput output  = CmdUtils.executeProcess(cmd, 3000);
         
         // Then
-        Assertions.assertTrue(CmdUtil.compareOutput("test", output.getStdOut()));
+        Assertions.assertTrue(CmdUtils.compareOutput("test", output.getStdOut()));
     }
     
     @Test
@@ -105,7 +105,7 @@ class CmdUtilTests {
         String[] cmd = new String[] {"echo", "test"};
         
         // When
-        ProcessOutput output  = CmdUtil.executeProcess(cmd, 3000);
+        ProcessOutput output  = CmdUtils.executeProcess(cmd, 3000);
         
         // Then
         Assertions.assertEquals("", output.getStdErr());
@@ -118,7 +118,7 @@ class CmdUtilTests {
         
         // When
         Assertions.assertThrows(ProcessExecutionException.class, () -> {
-            CmdUtil.executeProcess(cmd, 3000);
+            CmdUtils.executeProcess(cmd, 3000);
         });
     }
     
@@ -129,7 +129,7 @@ class CmdUtilTests {
         
         // When
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            CmdUtil.executeProcess(cmd, 0);
+            CmdUtils.executeProcess(cmd, 0);
         });
     }
     
@@ -137,7 +137,7 @@ class CmdUtilTests {
     void shouldThrowIllegalArgumentExceptionIfCommandIsNull() {
         // When
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            CmdUtil.executeProcess(null, 100);
+            CmdUtils.executeProcess(null, 100);
         });
     }
     
@@ -148,7 +148,7 @@ class CmdUtilTests {
         
         // When
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            CmdUtil.executeProcess(cmd, 100);
+            CmdUtils.executeProcess(cmd, 100);
         });
     }
 }

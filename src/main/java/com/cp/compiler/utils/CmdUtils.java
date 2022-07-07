@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @author Zakaria Maaraki
  */
 @Slf4j
-public abstract class CmdUtil {
+public abstract class CmdUtils {
 
     private static final int MAX_ERROR_LENGTH = 200; // number of chars
     /**
@@ -24,7 +24,7 @@ public abstract class CmdUtil {
      */
     public static final String LONG_MESSAGE_TRAIL = "...";
 
-    private CmdUtil() {}
+    private CmdUtils() {}
     
     /**
      * Read output string.
@@ -129,11 +129,11 @@ public abstract class CmdUtil {
         
                 BufferedReader containerOutputReader =
                         new BufferedReader(new InputStreamReader(process.getInputStream()));
-                stdOut = CmdUtil.readOutput(containerOutputReader);
+                stdOut = CmdUtils.readOutput(containerOutputReader);
         
                 BufferedReader containerErrorReader =
                         new BufferedReader(new InputStreamReader(process.getErrorStream()));
-                stdErr = CmdUtil.buildErrorOutput(CmdUtil.readOutput(containerErrorReader));
+                stdErr = CmdUtils.buildErrorOutput(CmdUtils.readOutput(containerErrorReader));
             }
     
             return ProcessOutput

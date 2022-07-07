@@ -4,7 +4,7 @@ import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.ProcessOutput;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.repositories.HooksRepository;
-import com.cp.compiler.utils.StatusUtil;
+import com.cp.compiler.utils.StatusUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -57,7 +57,7 @@ public class LongRunningCompilerServiceTests {
         ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut("test")
-                .status(StatusUtil.ACCEPTED_OR_WRONG_ANSWER_STATUS)
+                .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
         
         Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
@@ -88,7 +88,7 @@ public class LongRunningCompilerServiceTests {
         ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut("test")
-                .status(StatusUtil.ACCEPTED_OR_WRONG_ANSWER_STATUS)
+                .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
         
         Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
@@ -125,7 +125,7 @@ public class LongRunningCompilerServiceTests {
         ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut("test")
-                .status(StatusUtil.ACCEPTED_OR_WRONG_ANSWER_STATUS)
+                .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
         
         Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))

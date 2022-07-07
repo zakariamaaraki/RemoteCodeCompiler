@@ -7,7 +7,7 @@ import com.cp.compiler.models.Verdict;
  *
  * @author Zakaria Maaraki
  */
-public abstract class StatusUtil {
+public abstract class StatusUtils {
     
     public static final int ACCEPTED_OR_WRONG_ANSWER_STATUS = 0;
     
@@ -17,7 +17,7 @@ public abstract class StatusUtil {
     
     public static final int TIME_LIMIT_EXCEEDED_STATUS = 124;
     
-    private StatusUtil() {
+    private StatusUtils() {
     }
     
     /**
