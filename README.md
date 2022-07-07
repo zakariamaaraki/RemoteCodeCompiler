@@ -4,8 +4,16 @@
 
 # Remote Code Compiler
 
-![Supported languages](images/logo.png?raw=true "remote code compiler logo")
+<pre>
 
+ ____                               _               ____               _             ____                               _   _
+ |  _ \    ___   _ __ ___     ___   | |_    ___     / ___|   ___     __| |   ___     / ___|   ___    _ __ ___    _ __   (_) | |   ___   _ __
+ | |_) |  / _ \ | '_ ` _ \   / _ \  | __|  / _ \   | |      / _ \   / _` |  / _ \   | |      / _ \  | '_ ` _ \  | '_ \  | | | |  / _ \ | '__|
+ |  _ <  |  __/ | | | | | | | (_) | | |_  |  __/   | |___  | (_) | | (_| | |  __/   | |___  | (_) | | | | | | | | |_) | | | | | |  __/ | |
+ |_| \_\  \___| |_| |_| |_|  \___/   \__|  \___|    \____|  \___/   \__,_|  \___|    \____|  \___/  |_| |_| |_| | .__/  |_| |_|  \___| |_|
+                                                                                                                |_|
+
+</pre>
 
 An online code compiler supporting 11 languages (**Java**, **Kotlin**, **C**, **C++**, **C#**, **Golang**, **Python**, **Scala**, **Ruby**, **Rust** and **Haskell**) for competitive programming and coding interviews.
 This service execute your code remotely using docker containers to separate environments of execution.
