@@ -30,8 +30,8 @@ Supports **Rest Calls (Long Polling and [Push Notification](https://en.wikipedia
     "expectedOutput": "0 1 2 3 4 5 6 7 8 9",
     "sourceCode": "<YOUR_SOURCE_CODE>",
     "language": "JAVA",
-    "timeLimit": 15, // in seconds
-    "memoryLimit": 500 // in MB
+    "timeLimit": 15,  
+    "memoryLimit": 500 
 }
 ```
 
