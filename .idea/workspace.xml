@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="Update endpoints (one endpoint for all languages)">
-      <change afterPath="$PROJECT_DIR$/executions/utility_java/execution-4b6e2559-444c-4fdf-bf7c-5e395e3ab042/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_java/execution-815ecfcd-21b5-4a6d-8ef3-f8e2dfce8a52/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_java/execution-a84d2255-2ed7-43ce-8ef3-dd875ce12edf/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/ContainerServiceTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/LongRunningCompilerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/LongRunningCompilerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/LongRunningCompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/LongRunningCompilerServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceDefault.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,8 +34,8 @@
       <list>
         <option value="Python Script" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -106,7 +105,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.LongRunningCompilerServiceTests.getUrlShouldBeCalled">
+  <component name="RunManager" selected="JUnit.ContainerServiceTests.shouldThrowContainerFailedDependencyException">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -140,21 +139,6 @@
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="CmdUtilTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.utils" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utils.CmdUtilTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="CompilerServiceTests.shouldThrowContainerOperationTimeoutException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
@@ -166,6 +150,22 @@
       <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerServiceTests" />
       <option name="METHOD_NAME" value="shouldThrowContainerOperationTimeoutException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ContainerServiceTests.shouldThrowContainerFailedDependencyException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.ContainerServiceTests" />
+      <option name="METHOD_NAME" value="shouldThrowContainerFailedDependencyException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -359,11 +359,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ContainerServiceTests.shouldThrowContainerFailedDependencyException" />
         <item itemvalue="JUnit.LongRunningCompilerServiceTests.getUrlShouldBeCalled" />
         <item itemvalue="JUnit.LongRunningCompilerServiceTests.shouldSendTheResponseToTheCaller" />
         <item itemvalue="JUnit.LongRunningCompilerServiceTests" />
         <item itemvalue="JUnit.CompilerServiceTests.shouldThrowContainerOperationTimeoutException" />
-        <item itemvalue="JUnit.CmdUtilTests" />
       </list>
     </recent_temporary>
   </component>
@@ -445,7 +445,7 @@
       <workItem from="1656768225012" duration="13315000" />
       <workItem from="1657131849890" duration="12872000" />
       <workItem from="1657213387750" duration="5122000" />
-      <workItem from="1657223674433" duration="1405000" />
+      <workItem from="1657223674433" duration="5649000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>

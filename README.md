@@ -286,15 +286,19 @@ Other metrics are available.
 
 ## Logging
 
-By default, only console logging enabled.\
-You can store logs in a file and access to it using /logfile endpoint by setting this environment variable to true **ROLLING_FILE_LOGGING**
+<p>By default, only console logging is enabled.</p>
+
+<p>You can store logs in a file and access to it using /logfile endpoint by setting the environment variable **ROLLING_FILE_LOGGING** to true. 
+All logs will be kept for 7 days with a maximum size of 1 GB.</p>
 
 <p align="center">
 <img height="100px" width="100px" src="https://iconape.com/wp-content/png_logo_vector/elastic-logstash.png" alt="logstash logo"/>
 </p>
 
+<p>
 You can also send logs to logstash pipeline by setting these environment variables **LOGSTASH_LOGGING** to true and 
 **LOGSTASH_SERVER_HOST**, **LOGSTASH_SERVER_PORT** to logstash and port values respectively.
+</p>
 
 ## Author
 

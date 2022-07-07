@@ -22,11 +22,9 @@ import java.io.IOException;
 @Service
 public class ContainerServiceDefault implements ContainerService {
     
-    public static final int BUILD_TIMEOUT = 5 * 60000;
+    public static final int BUILD_TIMEOUT = 5 * 60000; // 5 minutes
     
     public static final int COMMAND_TIMEOUT = 2000;
-
-    public static final int TIMEOUT_STATUS_CODE = -1;
 
     private final MeterRegistry meterRegistry;
 
@@ -130,6 +128,9 @@ public class ContainerServiceDefault implements ContainerService {
     private String executeContainerCommand(String[] command, long timeout) {
         try {
             ProcessOutput processOutput = CmdUtil.executeProcess(command, timeout);
+            if (!processOutput.getStdErr().isEmpty()) {
+                throw new ContainerFailedDependencyException(processOutput.getStdErr());
+            }
             return processOutput.getStdOut();
         } catch (ProcessExecutionException e) {
             throw new ContainerFailedDependencyException(e.getMessage());
