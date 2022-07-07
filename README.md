@@ -4,6 +4,9 @@
 
 # Remote Code Compiler
 
+![Supported languages](images/logo.png?raw=true "remote code compiler logo")
+
+
 An online code compiler supporting 11 languages (**Java**, **Kotlin**, **C**, **C++**, **C#**, **Golang**, **Python**, **Scala**, **Ruby**, **Rust** and **Haskell**) for competitive programming and coding interviews.
 This service execute your code remotely using docker containers to separate environments of execution.
 
@@ -251,7 +254,7 @@ To enable Rabbit MQ mode you must pass to the container the following env variab
 docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -e DELETE_DOCKER_IMAGE=true -e EXECUTION_MEMORY_MAX=10000 -e EXECUTION_MEMORY_MIN=0 -e EXECUTION_TIME_MAX=15 -e EXECUTION_TIME_MIN=0 -e ENABLE_RABBITMQ_MODE=true -e RABBIT_QUEUE_INPUT=queue.input -e RABBIT_QUEUE_OUTPUT=queue.output -e RABBIT_USERNAME=username -e RABBIT_PASSWORD=password -e RABBIT_HOSTS=ip_broker1,ip_broker2,ip_broker3 -t compiler
 ```
 
-## Metrics
+## Monitoring
 
 <p align="center">
 <img height="100px" width="100px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Prometheus_software_logo.svg/1200px-Prometheus_software_logo.svg.png" alt="prometheus logo"/>
@@ -259,13 +262,25 @@ docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -
 
 Check out exposed prometheus metrics using the following url : http://<IP:PORT>/prometheus
 
+![Java execution counter](images/executions_metrics.png?raw=true "Executions counter")
+
 ![Parallel executions](images/parallel-executions-metrics.png?raw=true "Parallel Executions Metrics")
 
 ![Throttling counter](images/throttling-counter-metrics.png?raw=true "Throttling Counter Metrics")
 
-![Java execution counter](images/executions_metrics.png?raw=true "Executions counter")
-
 Other metrics are available.
+
+## Logging
+
+By default, only console logging enabled.\
+You can store logs in a file and access to it using /logfile endpoint by setting this environment variable to true **ROLLING_FILE_LOGGING**
+
+<p align="center">
+<img height="100px" width="100px" src="https://iconape.com/wp-content/png_logo_vector/elastic-logstash.png" alt="logstash logo"/>
+</p>
+
+You can also send logs to logstash pipeline by setting these environment variables **LOGSTASH_LOGGING** to true and 
+**LOGSTASH_SERVER_HOST**, **LOGSTASH_SERVER_PORT** to logstash and port values respectively.
 
 ## Author
 
