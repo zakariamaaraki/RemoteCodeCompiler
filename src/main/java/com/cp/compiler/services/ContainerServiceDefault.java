@@ -6,7 +6,6 @@ import com.cp.compiler.wellknownconstants.WellKnownMetrics;
 import com.cp.compiler.utils.CmdUtil;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
-import io.vavr.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +21,14 @@ import java.io.IOException;
 @Service
 public class ContainerServiceDefault implements ContainerService {
     
+    /**
+     * The constant BUILD_TIMEOUT.
+     */
     public static final int BUILD_TIMEOUT = 5 * 60000; // 5 minutes
     
+    /**
+     * The constant COMMAND_TIMEOUT.
+     */
     public static final int COMMAND_TIMEOUT = 2000;
 
     private final MeterRegistry meterRegistry;
@@ -70,9 +75,7 @@ public class ContainerServiceDefault implements ContainerService {
      * Run an instance of an image
      * @param imageName the image name
      * @param timeout   the timeout after which the container will be destroyed
-     * @return
-     * @throws IOException
-     * @throws InterruptedException
+     * @return ProcessOutput
      */
     @Override
     public ProcessOutput runContainer(String imageName, long timeout) {
@@ -82,9 +85,9 @@ public class ContainerServiceDefault implements ContainerService {
                 String[] dockerCommand = new String[]{"docker", "run", cpus, "--rm", imageName};
                 return CmdUtil.executeProcess(dockerCommand, timeout);
             } catch(ProcessExecutionTimeoutException processExecutionTimeoutException) {
-                throw new ContainerOperationTimeoutException();
+                throw new ContainerOperationTimeoutException(processExecutionTimeoutException.getMessage());
             } catch(ProcessExecutionException processExecutionException) {
-                throw new ContainerExecutionException("Error during container execution: " + processExecutionException);
+                throw new ContainerFailedDependencyException();
             }
         });
     }
@@ -129,11 +132,14 @@ public class ContainerServiceDefault implements ContainerService {
         try {
             ProcessOutput processOutput = CmdUtil.executeProcess(command, timeout);
             if (!processOutput.getStdErr().isEmpty()) {
-                throw new ContainerFailedDependencyException(processOutput.getStdErr());
+                log.error("Fatal error : {}", processOutput.getStdErr());
+                throw new ContainerFailedDependencyException();
             }
             return processOutput.getStdOut();
         } catch (ProcessExecutionException e) {
-            throw new ContainerFailedDependencyException(e.getMessage());
+            throw new ContainerFailedDependencyException();
+        } catch (ProcessExecutionTimeoutException e) {
+            throw new ContainerOperationTimeoutException(e.getMessage());
         }
     }
 }

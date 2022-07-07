@@ -4,15 +4,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * The type Container execution timeout exception.
+ * The type Container operation timeout exception.
  */
 @ResponseStatus(HttpStatus.GATEWAY_TIMEOUT)
 public class ContainerOperationTimeoutException extends ProcessExecutionTimeoutException {
     
     /**
-     * Instantiates a new Container execution timeout exception.
+     * Instantiates a new Container operation timeout exception.
+     *
+     * @param message the message
      */
-    public ContainerOperationTimeoutException() {
-        super("The container execution exceeded the maximum time allowed for its execution");
+    public ContainerOperationTimeoutException(String message) {
+        super(message);
     }
 }

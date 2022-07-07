@@ -88,7 +88,7 @@ public class CompilerServiceDefault implements CompilerService {
         
         log.info("Status response is {}", result.getStatusResponse());
         
-        // update metrics
+        // Update metrics
         verdictsCounters.get(result.getStatusResponse()).increment();
         
         return ResponseEntity
@@ -97,34 +97,36 @@ public class CompilerServiceDefault implements CompilerService {
     }
     
     private Result runCode(String imageName, MultipartFile outputFile) {
+    
+        BufferedReader expectedOutputReader;
+        String expectedOutput;
         try {
-            BufferedReader expectedOutputReader =
-                    new BufferedReader(new InputStreamReader(outputFile.getInputStream()));
-            String expectedOutput = CmdUtil.readOutput(expectedOutputReader);
-    
-            ProcessOutput containerOutput;
-            try {
-                containerOutput = containerService.runContainer(imageName, TIME_OUT);
-                Verdict verdict = getVerdict(containerOutput, expectedOutput);
-    
-                return new Result(
-                        verdict,
-                        containerOutput.getStdOut(),
-                        containerOutput.getStdErr(),
-                        expectedOutput,
-                        containerOutput.getExecutionDuration());
-                
-            } catch(ContainerOperationTimeoutException exception) {
-                return new Result(
-                        Verdict.TIME_LIMIT_EXCEEDED,
-                        "",
-                        "The execution exceeded the time limit",
-                        expectedOutput,
-                        0);
-            }
+            expectedOutputReader = new BufferedReader(new InputStreamReader(outputFile.getInputStream()));
+            expectedOutput = CmdUtil.readOutput(expectedOutputReader);
         } catch (Exception e) {
-            log.error("Error on the container engine side: {}", e);
-            throw new ContainerFailedDependencyException("Error on the container engine side: " + e.getMessage());
+            throw new CompilerServerInternalException("Unexpected error while reading the expected output file");
+        }
+    
+        ProcessOutput containerOutput;
+        try {
+            containerOutput = containerService.runContainer(imageName, TIME_OUT);
+            Verdict verdict = getVerdict(containerOutput, expectedOutput);
+        
+            return new Result(
+                    verdict,
+                    containerOutput.getStdOut(),
+                    containerOutput.getStdErr(),
+                    expectedOutput,
+                    containerOutput.getExecutionDuration());
+        
+        } catch(ContainerOperationTimeoutException exception) {
+            log.info("{}", exception);
+            return new Result(
+                    Verdict.TIME_LIMIT_EXCEEDED,
+                    "",
+                    "The execution exceeded the time limit",
+                    expectedOutput,
+                    0);
         }
     }
     

@@ -33,7 +33,7 @@ class ContainersInfoControllerTests {
     void WhenGetRunningContainersThrowAnExceptionThenTheServiceShouldThrowContainerFailedDependencyException() {
         // Given
         Mockito.when(containerService.getRunningContainers())
-                .thenThrow(new ContainerFailedDependencyException("An Exception"));
+                .thenThrow(new ContainerFailedDependencyException());
         
         // When
         Assertions.assertThrows(ContainerFailedDependencyException.class, () -> {
@@ -69,7 +69,7 @@ class ContainersInfoControllerTests {
     void WhenGetImagesThrowAnExceptionThenTheServiceShouldThrowContainerFailedDependencyException() {
         // Given
         Mockito.when(containerService.getImages())
-                .thenThrow(new ContainerFailedDependencyException("An Exception"));
+                .thenThrow(new ContainerFailedDependencyException());
 
         // When
         Assertions.assertThrows(ContainerFailedDependencyException.class, () -> {
@@ -105,7 +105,7 @@ class ContainersInfoControllerTests {
     void WhenGetRunningContainersStatsThrowAnExceptionThenTheServiceShouldThrowContainerFailedDependencyException() {
         // Given
         Mockito.when(containerService.getContainersStats())
-                .thenThrow(new ContainerFailedDependencyException("An Exception"));
+                .thenThrow(new ContainerFailedDependencyException());
     
         // When
         Assertions.assertThrows(ContainerFailedDependencyException.class, () -> {
@@ -141,7 +141,7 @@ class ContainersInfoControllerTests {
     void WhenGetAllContainersStatsThrowAnExceptionThenTheServiceShouldThrowContainerFailedDependencyException() {
         // Given
         Mockito.when(containerService.getAllContainersStats())
-                .thenThrow(new ContainerFailedDependencyException("An Exception"));
+                .thenThrow(new ContainerFailedDependencyException());
     
         // When
         Assertions.assertThrows(ContainerFailedDependencyException.class, () -> {

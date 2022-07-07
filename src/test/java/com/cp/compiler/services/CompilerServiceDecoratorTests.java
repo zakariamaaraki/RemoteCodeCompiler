@@ -105,7 +105,7 @@ public class CompilerServiceDecoratorTests {
                 file, file, file, 10, 100, Language.JAVA);
     
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
-                .thenThrow(new ContainerOperationTimeoutException());
+                .thenThrow(new ContainerOperationTimeoutException("exception"));
     
         // Then
         Assertions.assertThrows(ContainerOperationTimeoutException.class, () -> {

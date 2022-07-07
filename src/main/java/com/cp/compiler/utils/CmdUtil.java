@@ -95,6 +95,15 @@ public abstract class CmdUtil {
      */
     public static ProcessOutput executeProcess(String[] commands, long timeout)
             throws ProcessExecutionException, ProcessExecutionTimeoutException {
+        
+        if (timeout <= 0) {
+            throw new IllegalArgumentException("timeout should be a positive value");
+        }
+        
+        if (commands == null || commands.length < 1) {
+            throw new IllegalArgumentException("commands should have at least one element");
+        }
+        
         try {
             ProcessBuilder processbuilder = new ProcessBuilder(commands);
             Process process = processbuilder.start();
@@ -114,7 +123,7 @@ public abstract class CmdUtil {
                 log.info("The process exceeded the {} Millis allowed for its execution", timeout);
                 process.destroy();
                 log.info("The process has been destroyed");
-                throw new ProcessExecutionTimeoutException();
+                throw new ProcessExecutionTimeoutException(timeout);
             } else {
                 status = process.exitValue();
         
@@ -138,7 +147,7 @@ public abstract class CmdUtil {
         } catch(ProcessExecutionTimeoutException processExecutionTimeoutException) {
             throw processExecutionTimeoutException;
         } catch(Exception exception) {
-            throw new ProcessExecutionException("Fatal error: " + exception.getMessage());
+            throw new ProcessExecutionException("Fatal error for command " + commands + " : " + exception.getMessage());
         }
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  *
  * @author Zakaria Maaraki
  */
-@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+@ResponseStatus(HttpStatus.FAILED_DEPENDENCY)
 public class ContainerBuildException extends RuntimeException {
     
     /**

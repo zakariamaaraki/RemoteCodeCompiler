@@ -12,8 +12,8 @@ public class ProcessExecutionTimeoutException extends RuntimeException {
     /**
      * Instantiates a new Process execution timeout exception.
      */
-    public ProcessExecutionTimeoutException() {
-        super("The process execution exceeded the maximum time allowed for its execution");
+    public ProcessExecutionTimeoutException(long timeout) {
+        super("The process execution exceeded the maximum time allowed for its execution " + timeout + " seconds");
     }
     
     /**

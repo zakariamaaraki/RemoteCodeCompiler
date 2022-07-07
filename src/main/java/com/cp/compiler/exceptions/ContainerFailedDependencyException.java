@@ -11,8 +11,6 @@ public class ContainerFailedDependencyException extends RuntimeException {
     
     /**
      * Instantiates a new Container dependency exception.
-     *
-     * @param message the message
      */
-    public ContainerFailedDependencyException(String message) { super(message); }
+    public ContainerFailedDependencyException() { super("Error in a dependency : Container Engine"); }
 }

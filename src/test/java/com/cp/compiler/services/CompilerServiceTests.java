@@ -1,7 +1,6 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.exceptions.ContainerBuildException;
-import com.cp.compiler.exceptions.ContainerExecutionException;
 import com.cp.compiler.exceptions.ContainerFailedDependencyException;
 import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
 import com.cp.compiler.executions.Execution;
@@ -478,22 +477,20 @@ class CompilerServiceTests {
         );
         
         Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
-                .thenThrow(new ContainerExecutionException("internal error"));
+                .thenThrow(new ContainerFailedDependencyException());
         
         Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
         
         // Then
-        Assertions.assertThrows(ContainerFailedDependencyException.class, () -> {
-            compilerService.compile(execution);
-        });
+        Assertions.assertThrows(ContainerFailedDependencyException.class, () -> compilerService.compile(execution));
     }
     
     @Test
     void defaultCompilerShouldThrowContainerOperationTimeoutException() {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
-                .thenThrow(new ContainerOperationTimeoutException());
+                .thenThrow(new ContainerOperationTimeoutException("exception"));
     
         String output = "test";
     
@@ -504,15 +501,10 @@ class CompilerServiceTests {
                 output.getBytes()
         );
     
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
-                .thenThrow(new ContainerExecutionException("internal error"));
-    
         Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
     
         // Then
-        Assertions.assertThrows(ContainerOperationTimeoutException.class, () -> {
-            compilerService.compile(execution);
-        });
+        Assertions.assertThrows(ContainerOperationTimeoutException.class, () -> compilerService.compile(execution));
     }
 }

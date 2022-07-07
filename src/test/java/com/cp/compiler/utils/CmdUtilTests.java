@@ -121,4 +121,34 @@ class CmdUtilTests {
             CmdUtil.executeProcess(cmd, 3000);
         });
     }
+    
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfTimeoutIsLessThan1() {
+        // Given
+        String[] cmd = new String[] {"thisIsNotACmd", "test"};
+        
+        // When
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            CmdUtil.executeProcess(cmd, 0);
+        });
+    }
+    
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfCommandIsNull() {
+        // When
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            CmdUtil.executeProcess(null, 100);
+        });
+    }
+    
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfCommandIsEmpty() {
+        // Given
+        String[] cmd = new String[] {};
+        
+        // When
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            CmdUtil.executeProcess(cmd, 100);
+        });
+    }
 }
