@@ -41,16 +41,16 @@ public class LongRunningCompilerService extends CompilerServiceDecorator {
     
     @Override
     public ResponseEntity compile(Execution execution) {
+        String url = hooksRepository.get(execution.getId());
         new Thread(() -> {
             try {
-                run(execution);
+                run(execution, url);
             } catch (Exception exception) {
                 // Other exception not expected
                 // In this case the error will not be returned to the client
                 log.error("Error : {}", exception);
             }
         }).start();
-        String url = hooksRepository.get(execution.getId());
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
                 .body("Executing the request, you'll get the response in the following url : " + url);
@@ -61,10 +61,8 @@ public class LongRunningCompilerService extends CompilerServiceDecorator {
         restTemplate.postForEntity(new URI(url), responseEntity, Object.class);
     }
     
-    private void run(Execution execution) throws URISyntaxException {
+    private void run(Execution execution, String url) throws URISyntaxException {
         ResponseEntity response = getCompilerService().compile(execution);
-        String requestId = execution.getId();
-        String url = hooksRepository.get(requestId);
         log.info("Sending response to {}", url);
         sendResponse(url, response);
     }
