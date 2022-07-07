@@ -7,7 +7,6 @@
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="Update endpoints (one endpoint for all languages)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/bannername.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/bannername.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -440,7 +439,7 @@
       <workItem from="1656625546124" duration="4601000" />
       <workItem from="1656768225012" duration="13315000" />
       <workItem from="1657131849890" duration="12872000" />
-      <workItem from="1657213387750" duration="4193000" />
+      <workItem from="1657213387750" duration="5056000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
