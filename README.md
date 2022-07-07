@@ -122,7 +122,7 @@ The compiler creates a container for each execution to separate the execution en
 ![Architecture](images/compiler-logo.png?raw=true "Compiler")
 
 <p>
-    Each container has a CPU number (the same for all containers, we recommand to use 0.1 CPUs for each execution), 
+    Each container has a number of CPUs (the same value for all containers, we recommend to use 0.1 CPUs for each execution), 
 a memory limit and execution time limit, once the memory limit or the maximum time granted to this container is reached 
 the container is destroyed automatically and an error explaining the cause is returned to the user.
 </p>
