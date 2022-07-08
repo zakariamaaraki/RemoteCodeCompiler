@@ -110,8 +110,8 @@ public class CompilerProxy implements CompilerService {
         // If the storage contains the imageName that means we registered the url before
         // and the client want a push notification.
         String imageName = execution.getImageName();
-        if (hooksRepository.contains(imageName)) {
-            log.info("Start long running execution, the answer will be pushed to : {}", hooksRepository.get(imageName));
+        if (hooksRepository.contains(execution.getId())) {
+            log.info("Start long running execution, the answer will be pushed to : {}", hooksRepository.get(execution.getId()));
             return longRunningCompilerService.compile(execution);
         }
         log.info("Start short running execution");

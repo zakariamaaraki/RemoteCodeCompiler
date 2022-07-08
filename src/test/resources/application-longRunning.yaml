@@ -1,0 +1,4 @@
+compiler:
+  features:
+    push-notification:
+      enabled: true

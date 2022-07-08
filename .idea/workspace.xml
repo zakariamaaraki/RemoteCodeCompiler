@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="Update endpoints (one endpoint for all languages)">
+      <change afterPath="$PROJECT_DIR$/src/test/resources/application-longRunning.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utils/CmdUtilTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utils/CmdUtilTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerFacadeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerFacadeTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerProxyServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerProxyServiceTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +105,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CmdUtilTests.executeProcessShouldTimeoutAnThrowAProcessExecutionTimeoutException">
+  <component name="RunManager" selected="JUnit.CompilerProxyServiceTests.shouldCallDefaultCompiler">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -137,71 +139,7 @@
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="CmdUtilTests.executeProcessShouldTimeoutAnThrowAProcessExecutionTimeoutException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.utils" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utils.CmdUtilTests" />
-      <option name="METHOD_NAME" value="executeProcessShouldTimeoutAnThrowAProcessExecutionTimeoutException" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CmdUtilTests.shouldThrowIllegalArgumentExceptionIfCommandIsEmpty" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.utils" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utils.CmdUtilTests" />
-      <option name="METHOD_NAME" value="shouldThrowIllegalArgumentExceptionIfCommandIsEmpty" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CmdUtilTests.shouldThrowIllegalArgumentExceptionIfCommandIsNull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.utils" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utils.CmdUtilTests" />
-      <option name="METHOD_NAME" value="shouldThrowIllegalArgumentExceptionIfCommandIsNull" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CmdUtilTests.shouldThrowIllegalArgumentExceptionIfTimeoutIsLessThan1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.utils" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.utils.CmdUtilTests" />
-      <option name="METHOD_NAME" value="shouldThrowIllegalArgumentExceptionIfTimeoutIsLessThan1" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ContainerServiceTests.shouldThrowContainerTimeoutException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CompilerFacadeTests.shouldAddUrlToTheRepository" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
@@ -210,8 +148,72 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.ContainerServiceTests" />
-      <option name="METHOD_NAME" value="shouldThrowContainerTimeoutException" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerFacadeTests" />
+      <option name="METHOD_NAME" value="shouldAddUrlToTheRepository" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompilerFacadeTests.shouldNotAddUrlToTheRepository" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerFacadeTests" />
+      <option name="METHOD_NAME" value="shouldNotAddUrlToTheRepository" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompilerFacadeTests.shouldReturnBadRequest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerFacadeTests" />
+      <option name="METHOD_NAME" value="shouldReturnBadRequest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompilerProxyServiceTests.shouldCallDefaultCompiler" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerProxyServiceTests" />
+      <option name="METHOD_NAME" value="shouldCallDefaultCompiler" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompilerProxyServiceTests.shouldCallLongRunningOperation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerProxyServiceTests" />
+      <option name="METHOD_NAME" value="shouldCallLongRunningOperation" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -358,11 +360,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CmdUtilTests.executeProcessShouldTimeoutAnThrowAProcessExecutionTimeoutException" />
-        <item itemvalue="JUnit.CmdUtilTests.shouldThrowIllegalArgumentExceptionIfTimeoutIsLessThan1" />
-        <item itemvalue="JUnit.CmdUtilTests.shouldThrowIllegalArgumentExceptionIfCommandIsNull" />
-        <item itemvalue="JUnit.CmdUtilTests.shouldThrowIllegalArgumentExceptionIfCommandIsEmpty" />
-        <item itemvalue="JUnit.ContainerServiceTests.shouldThrowContainerTimeoutException" />
+        <item itemvalue="JUnit.CompilerProxyServiceTests.shouldCallDefaultCompiler" />
+        <item itemvalue="JUnit.CompilerProxyServiceTests.shouldCallLongRunningOperation" />
+        <item itemvalue="JUnit.CompilerFacadeTests.shouldReturnBadRequest" />
+        <item itemvalue="JUnit.CompilerFacadeTests.shouldNotAddUrlToTheRepository" />
+        <item itemvalue="JUnit.CompilerFacadeTests.shouldAddUrlToTheRepository" />
       </list>
     </recent_temporary>
   </component>
@@ -444,7 +446,7 @@
       <workItem from="1656768225012" duration="13315000" />
       <workItem from="1657131849890" duration="12872000" />
       <workItem from="1657213387750" duration="5122000" />
-      <workItem from="1657223674433" duration="11874000" />
+      <workItem from="1657223674433" duration="14078000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
@@ -540,21 +542,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerFacadeTests.java</url>
-          <line>42</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerFacadeTests.java</url>
-          <line>36</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerFacadeTests.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java</url>
           <line>98</line>
           <option name="timeStamp" value="21" />
@@ -578,6 +565,46 @@
           <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java</url>
           <line>134</line>
           <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java</url>
+          <line>82</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java</url>
+          <line>87</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java</url>
+          <line>88</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java</url>
+          <line>89</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java</url>
+          <line>91</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java</url>
+          <line>94</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java</url>
+          <line>111</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java</url>
+          <line>112</line>
+          <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/Execution.java</url>
