@@ -224,7 +224,8 @@
 				</executions>
 				<configuration>
 					<excludes>
-						<exclude>**/config/*</exclude>
+						<exclude>**/config/SwaggerConfig.class</exclude>
+						<exclude>**/controllers/*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
