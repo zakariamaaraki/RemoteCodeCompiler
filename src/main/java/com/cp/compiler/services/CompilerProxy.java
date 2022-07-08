@@ -87,7 +87,7 @@ public class CompilerProxy implements CompilerService {
         }
         if (resources.allowNewExecution()) {
             int counter = resources.reserveResources();
-            log.info("New request, total: {}, maxRequests: {}, language: {}", counter, resources.getMaxRequests(), execution.getLanguage());
+            log.info("New request, total: {}, maxRequests: {}", counter, resources.getMaxRequests());
             
             ResponseEntity response;
             
@@ -111,7 +111,7 @@ public class CompilerProxy implements CompilerService {
         // and the client want a push notification.
         String imageName = execution.getImageName();
         if (hooksRepository.contains(execution.getId())) {
-            log.info("Start long running execution, the answer will be pushed to : {}", hooksRepository.get(execution.getId()));
+            log.info("Start long running execution, the result will be pushed to : {}", hooksRepository.get(execution.getId()));
             return longRunningCompilerService.compile(execution);
         }
         log.info("Start short running execution");
@@ -121,14 +121,12 @@ public class CompilerProxy implements CompilerService {
     private Optional<ResponseEntity> validateRequest(Execution execution) {
         if (!checkFileName(execution.getSourceCodeFile().getOriginalFilename())) {
             return Optional.of(buildOutputError(
-                    execution,
                     "Bad request, source code file must match the following regex "
                             + WellKnownFiles.FILE_NAME_REGEX));
         }
     
         if (!checkFileName(execution.getExpectedOutputFile().getOriginalFilename())) {
             return Optional.of(buildOutputError(
-                    execution,
                     "Bad request, expected output file must match the following regex "
                             + WellKnownFiles.FILE_NAME_REGEX));
         }
@@ -138,7 +136,7 @@ public class CompilerProxy implements CompilerService {
         // Input files can be null
         if (inputFile != null && !checkFileName(inputFile.getOriginalFilename())) {
             return Optional.of(buildOutputError(
-                    execution, "Bad request, input file must match the following regex "
+                    "Bad request, input file must match the following regex "
                             + WellKnownFiles.FILE_NAME_REGEX));
         }
         
@@ -147,7 +145,7 @@ public class CompilerProxy implements CompilerService {
                     + minExecutionTime + " Sec and " + maxExecutionTime + " Sec, provided : "
                     + execution.getTimeLimit();
     
-            return Optional.of(buildOutputError(execution, errorMessage));
+            return Optional.of(buildOutputError(errorMessage));
         }
     
         if (execution.getMemoryLimit() < minExecutionMemory || execution.getMemoryLimit() > maxExecutionMemory) {
@@ -155,12 +153,12 @@ public class CompilerProxy implements CompilerService {
                     + minExecutionMemory + " MB and " + maxExecutionMemory + " MB, provided : "
                     + execution.getMemoryLimit();
     
-            return Optional.of(buildOutputError(execution, errorMessage));
+            return Optional.of(buildOutputError(errorMessage));
         }
         return Optional.ofNullable(null);
     }
     
-    private ResponseEntity buildOutputError(Execution execution, String errorMessage) {
+    private ResponseEntity buildOutputError(String errorMessage) {
         log.info(errorMessage);
         return ResponseEntity.badRequest()
                              .body(errorMessage);
