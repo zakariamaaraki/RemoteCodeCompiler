@@ -225,7 +225,6 @@
 				<configuration>
 					<excludes>
 						<exclude>**/config/SwaggerConfig.class</exclude>
-						<exclude>**/controllers/*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
