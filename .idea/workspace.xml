@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="Update endpoints (one endpoint for all languages)">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/healths/KafkaStreamsHealthIndicatorTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/controllers/CompilerControllerTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/controllers/ContainersInfoControllerTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/controllers/IndexControllerTests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +106,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CompilerProxyServiceTests.shouldCallDefaultCompiler">
+  <component name="RunManager" selected="JUnit.KafkaStreamsHealthIndicatorTests">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -136,54 +140,6 @@
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="CompilerFacadeTests.shouldAddUrlToTheRepository" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerFacadeTests" />
-      <option name="METHOD_NAME" value="shouldAddUrlToTheRepository" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CompilerFacadeTests.shouldNotAddUrlToTheRepository" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerFacadeTests" />
-      <option name="METHOD_NAME" value="shouldNotAddUrlToTheRepository" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CompilerFacadeTests.shouldReturnBadRequest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerFacadeTests" />
-      <option name="METHOD_NAME" value="shouldReturnBadRequest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="CompilerProxyServiceTests.shouldCallDefaultCompiler" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
@@ -200,17 +156,64 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CompilerProxyServiceTests.shouldCallLongRunningOperation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="KafkaStreamsHealthIndicatorTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
+          <option name="PATTERN" value="com.cp.compiler.healths.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerProxyServiceTests" />
-      <option name="METHOD_NAME" value="shouldCallLongRunningOperation" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.healths" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.healths.KafkaStreamsHealthIndicatorTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KafkaStreamsHealthIndicatorTests.shouldReturnHealthDownWhenKafkaStreamsIsInNotRunningState" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.healths.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.healths" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.healths.KafkaStreamsHealthIndicatorTests" />
+      <option name="METHOD_NAME" value="shouldReturnHealthDownWhenKafkaStreamsIsInNotRunningState" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KafkaStreamsHealthIndicatorTests.shouldReturnHealthDownWhenKafkaStreamsIsInPendingState" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.healths.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.healths" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.healths.KafkaStreamsHealthIndicatorTests" />
+      <option name="METHOD_NAME" value="shouldReturnHealthDownWhenKafkaStreamsIsInPendingState" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KafkaStreamsHealthIndicatorTests.shouldReturnHealthUpWhenKafkaStreamsIsInRunningState" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.healths.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.healths" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.healths.KafkaStreamsHealthIndicatorTests" />
+      <option name="METHOD_NAME" value="shouldReturnHealthUpWhenKafkaStreamsIsInRunningState" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -357,11 +360,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.KafkaStreamsHealthIndicatorTests" />
+        <item itemvalue="JUnit.KafkaStreamsHealthIndicatorTests.shouldReturnHealthDownWhenKafkaStreamsIsInNotRunningState" />
+        <item itemvalue="JUnit.KafkaStreamsHealthIndicatorTests.shouldReturnHealthDownWhenKafkaStreamsIsInPendingState" />
+        <item itemvalue="JUnit.KafkaStreamsHealthIndicatorTests.shouldReturnHealthUpWhenKafkaStreamsIsInRunningState" />
         <item itemvalue="JUnit.CompilerProxyServiceTests.shouldCallDefaultCompiler" />
-        <item itemvalue="JUnit.CompilerProxyServiceTests.shouldCallLongRunningOperation" />
-        <item itemvalue="JUnit.CompilerFacadeTests.shouldReturnBadRequest" />
-        <item itemvalue="JUnit.CompilerFacadeTests.shouldNotAddUrlToTheRepository" />
-        <item itemvalue="JUnit.CompilerFacadeTests.shouldAddUrlToTheRepository" />
       </list>
     </recent_temporary>
   </component>
@@ -443,7 +446,7 @@
       <workItem from="1656768225012" duration="13315000" />
       <workItem from="1657131849890" duration="12872000" />
       <workItem from="1657213387750" duration="5122000" />
-      <workItem from="1657223674433" duration="17749000" />
+      <workItem from="1657223674433" duration="23986000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
