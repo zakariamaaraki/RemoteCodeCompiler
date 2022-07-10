@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Docker Build Exception Class
+ * Container Build Exception Class
  *
  * @author Zakaria Maaraki
  */

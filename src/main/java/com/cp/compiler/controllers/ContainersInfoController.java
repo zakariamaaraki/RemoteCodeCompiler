@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 /**
- * Docker Info Rest Controller
+ * Container Info Rest Controller
  *
  * @author Zakaria Maaraki
  */
 @RestController
-@RequestMapping("/docker")
+@RequestMapping("/container")
 public class ContainersInfoController {
     
     private ContainerService containerService;
@@ -48,7 +48,7 @@ public class ContainersInfoController {
     /**
      * Gets images.
      *
-     * @return docker images
+     * @return container images
      */
     @GetMapping("/images")
     @ApiOperation(
@@ -67,7 +67,7 @@ public class ContainersInfoController {
      */
     @GetMapping("/stats")
     @ApiOperation(
-            value = "Docker Stats Memory and CPU Usage",
+            value = "Container Stats Memory and CPU Usage",
             notes = "Display Stats about running containers (Memory and CPU usage)",
             response = Response.class
     )
@@ -82,7 +82,7 @@ public class ContainersInfoController {
      */
     @GetMapping("stats/all")
     @ApiOperation(
-            value = "Docker Stats Memory and CPU Usage for all containers",
+            value = "Stats of Memory and CPU Usage for all containers",
             notes = "Display Stats about all containers (Memory and CPU usage)",
             response = Response.class
     )
