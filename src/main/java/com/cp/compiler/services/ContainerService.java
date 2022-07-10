@@ -70,4 +70,10 @@ public interface ContainerService {
      */
     String deleteImage(String imageName);
     
+    /**
+     * Is up boolean.
+     *
+     * @return the boolean if the container Engine is up and running
+     */
+    boolean isUp();
 }

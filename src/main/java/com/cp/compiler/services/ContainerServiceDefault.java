@@ -127,6 +127,13 @@ public class ContainerServiceDefault implements ContainerService {
         return executeContainerCommand(command, COMMAND_TIMEOUT);
     }
     
+    @Override
+    public boolean isUp() {
+        String[] command = {"docker", "ps"};
+        ProcessOutput processOutput = CmdUtils.executeProcess(command, COMMAND_TIMEOUT);
+        return processOutput.getStdErr().isEmpty();
+    }
+    
     private String executeContainerCommand(String[] command, long timeout) {
         try {
             ProcessOutput processOutput = CmdUtils.executeProcess(command, timeout);
