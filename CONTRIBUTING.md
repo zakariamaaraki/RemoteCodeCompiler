@@ -4,6 +4,13 @@ Thank you for investing your time in contributing to our project!
 
 Reading and following these guidelines will help us make the contribution process easy and effective for everyone involved. 
 
+## Add support for new language
+All you need to do is to follow these steps:
+1. Create a class in [execution](/src/main/java/com/cp/compiler/executions) folder that extends [Execution](/src/main/java/com/cp/compiler/executions/Execution.java) class (naming: **<Language_Name>Execution**, exp: CExecution or CPPExecution)
+2. Register this execution class in the [LanguageConfig](/src/main/java/com/cp/compiler/config/LanguagesConfig.java) class.
+3. Create a Dockerfile (in [execution](/executions) folder) containing the official image of the language.
+4. Add E2E tests for this language (**Note**: your PR will not be merged without E2E tests).
+
 
 ## Project structure
 
@@ -29,13 +36,6 @@ All exceptions should be inside this folder.
 
 #### AMQP folder
 This folder contains code related to RabbitMq.
-
-## Add support for new language
-All you need to do is to follow these steps:
-1. Create a class in [execution](/src/main/java/com/cp/compiler/executions) folder that extends [Execution](/src/main/java/com/cp/compiler/executions/Execution.java) class (naming: **<Language_Name>Execution**, exp: CExecution or CPPExecution) 
-2. Register this execution class in the [LanguageConfig](/src/main/java/com/cp/compiler/config/LanguagesConfig.java) class.
-3. Create a Dockerfile (in [execution](/executions) folder) containing the official image of the language.
-4. Add E2E tests for this language (**Note**: your PR will not be merged without E2E tests).
 
 ## Issues
 
