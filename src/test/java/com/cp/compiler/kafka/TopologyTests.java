@@ -70,7 +70,7 @@ public class TopologyTests {
     }
     
     @Test
-    public void shouldConsumeMessageFromInputTopicAndProduceMessageToOutputTopic() throws Exception {
+    public void shouldConsumeMessageFromInputTopicAndProduceMessageToOutputTopic() {
 
         // Given
         String jsonRequest = "{\n\"expectedOutput\": \"0\\n1\\n2\\n3\\n4\\n5\\n6\\n7\\n8\\n9\\n\",\n\"sourceCode\": " +
@@ -97,7 +97,7 @@ public class TopologyTests {
     }
     
     @Test
-    public void     ifInputMessageIsNotAValidRequestShouldPublishNullValueToOutputTopic() {
+    public void ifInputMessageIsNotAValidRequestShouldPublishNullValueToOutputTopic() {
         
         // Given
         String jsonRequest = "This is a non valid json";

@@ -5,11 +5,19 @@ import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
 
+/**
+ * The type Container health indicator.
+ */
 @Component
 public class ContainerHealthIndicator implements HealthIndicator {
     
     private ContainerService containerService;
     
+    /**
+     * Instantiates a new Container health indicator.
+     *
+     * @param containerService the container service
+     */
     public ContainerHealthIndicator(ContainerService containerService) {
         super();
         this.containerService = containerService;
