@@ -134,6 +134,11 @@ public class ContainerServiceDefault implements ContainerService {
         return processOutput.getStdErr().isEmpty();
     }
     
+    @Override
+    public String getContainerizationName() {
+        return "Docker";
+    }
+    
     private String executeContainerCommand(String[] command, long timeout) {
         try {
             ProcessOutput processOutput = CmdUtils.executeProcess(command, timeout);

@@ -39,6 +39,6 @@ public class KafkaStreamsHealthIndicator implements HealthIndicator {
         }
         
         // ERROR, NOT_RUNNING, PENDING_SHUTDOWN,
-        return Health.down().withDetail("state", kafkaStreamsState.name()).build();
+        return Health.down().withDetail("State", kafkaStreamsState.name()).build();
     }
 }

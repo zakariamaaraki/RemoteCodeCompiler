@@ -26,8 +26,13 @@ public class ContainerHealthIndicator implements HealthIndicator {
     @Override
     public Health health() {
         if (containerService.isUp()) {
-            return Health.up().build();
+            return Health.up()
+                    .withDetail("Containerization", containerService.getContainerizationName())
+                    .build();
         }
-        return Health.down().withDetail("state", "Container Down").build();
+        return Health.down()
+                .withDetail("Containerization", containerService.getContainerizationName())
+                .withDetail("State", "Container Down")
+                .build();
     }
 }

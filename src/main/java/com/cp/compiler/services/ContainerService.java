@@ -76,4 +76,11 @@ public interface ContainerService {
      * @return the boolean if the container Engine is up and running
      */
     boolean isUp();
+    
+    /**
+     * Gets containerization name.
+     *
+     * @return the containerization name
+     */
+    String getContainerizationName();
 }
