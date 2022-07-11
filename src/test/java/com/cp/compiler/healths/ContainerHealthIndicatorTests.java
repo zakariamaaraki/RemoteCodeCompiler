@@ -24,6 +24,7 @@ class ContainerHealthIndicatorTests {
         // Given
         var healthIndicator = new ContainerHealthIndicator(containerService);
         Mockito.when(containerService.isUp()).thenReturn(true);
+        Mockito.when(containerService.getContainerizationName()).thenReturn("Docker");
         
         // When
         Health health = healthIndicator.health();
@@ -37,6 +38,7 @@ class ContainerHealthIndicatorTests {
         // Given
         var healthIndicator = new ContainerHealthIndicator(containerService);
         Mockito.when(containerService.isUp()).thenReturn(false);
+        Mockito.when(containerService.getContainerizationName()).thenReturn("Docker");
         
         // When
         Health health = healthIndicator.health();

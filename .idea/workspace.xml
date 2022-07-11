@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="Update endpoints (one endpoint for all languages)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CONTRIBUTING.md" beforeDir="false" afterPath="$PROJECT_DIR$/CONTRIBUTING.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/ContainersInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/ContainersInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/ContainerBuildException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/exceptions/ContainerBuildException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/healths/ContainerHealthIndicatorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/healths/ContainerHealthIndicatorTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +103,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CompilerTransformerTests">
+  <component name="RunManager" selected="JUnit.ContainerHealthIndicatorTests.shouldReturnHealthDown">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -185,7 +183,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="KafkaStreamsHealthIndicatorTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ContainerHealthIndicatorTests.shouldReturnHealthDown" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
@@ -194,13 +192,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.healths" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.healths.KafkaStreamsHealthIndicatorTests" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.healths.ContainerHealthIndicatorTests" />
+      <option name="METHOD_NAME" value="shouldReturnHealthDown" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="KafkaStreamsHealthIndicatorTests.shouldReturnHealthDownWhenKafkaStreamsIsInNotRunningState" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ContainerHealthIndicatorTests.shouldReturnHealthUp" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
@@ -209,8 +208,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.healths" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.healths.KafkaStreamsHealthIndicatorTests" />
-      <option name="METHOD_NAME" value="shouldReturnHealthDownWhenKafkaStreamsIsInNotRunningState" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.healths.ContainerHealthIndicatorTests" />
+      <option name="METHOD_NAME" value="shouldReturnHealthUp" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -357,11 +356,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ContainerHealthIndicatorTests.shouldReturnHealthDown" />
+        <item itemvalue="JUnit.ContainerHealthIndicatorTests.shouldReturnHealthUp" />
         <item itemvalue="JUnit.CompilerTransformerTests" />
         <item itemvalue="JUnit.CompilerTransformerTests.shouldNotRetry" />
         <item itemvalue="JUnit.ContainerHealthIndicatorTests" />
-        <item itemvalue="JUnit.KafkaStreamsHealthIndicatorTests" />
-        <item itemvalue="JUnit.KafkaStreamsHealthIndicatorTests.shouldReturnHealthDownWhenKafkaStreamsIsInNotRunningState" />
       </list>
     </recent_temporary>
   </component>
@@ -443,7 +442,7 @@
       <workItem from="1656768225012" duration="13315000" />
       <workItem from="1657131849890" duration="12872000" />
       <workItem from="1657213387750" duration="5122000" />
-      <workItem from="1657223674433" duration="35472000" />
+      <workItem from="1657223674433" duration="36198000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
