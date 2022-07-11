@@ -9,12 +9,12 @@ We provide you with a helm chart that will let you run the compiler in a distrib
 helm install compiler ./compiler
 ```
 
-### Enable Kafka
+### With Kafka enabled
 ```shell
 helm install -f compiler/values.yaml -f compiler/kafka-values.yaml  compiler ./compiler
 ```
 
-### Enable RabbitMq
+### With RabbitMq enabled
 ```shell
 helm install -f compiler/values.yaml -f compiler/rabbitmq-values.yaml  compiler ./compiler
 ```
