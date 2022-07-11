@@ -35,8 +35,16 @@ compiler:
   minExecutionMemory: 100
   maxExecutionTime: 15
   minExecutionTime: 1
-  maxRequests: 1000
+  maxRequests: 40
   enablePushNotification: true
+  pull_images_before_startup: false
+  cpus: 0.2
+
+kafka:
+  enabled: false
+
+rabbitmq:
+  enabled: false
 
 service:
   type: NodePort
@@ -75,7 +83,7 @@ resources:
 autoscaling:
   enabled: true
   minReplicas: 1
-  maxReplicas: 100
+  maxReplicas: 10
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 

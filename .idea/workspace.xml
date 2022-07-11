@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="Update endpoints (one endpoint for all languages)">
+      <change afterPath="$PROJECT_DIR$/k8s/compiler/kafka-values.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/compiler/rabbitmq-values.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/compiler/templates/kafka-egress.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/compiler/templates/rabbitmq-egress.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k8s/compiler/templates/secrets.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/compiler/templates/configmap.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/compiler/templates/configmap.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/compiler/templates/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/compiler/templates/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/compiler/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/compiler/values.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -82,11 +90,11 @@
       <recent name="$PROJECT_DIR$/executions" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/k8s/compiler/templates" />
+      <recent name="$PROJECT_DIR$/k8s/compiler" />
       <recent name="$PROJECT_DIR$/images" />
       <recent name="$PROJECT_DIR$/baseimages/scala" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src/main/resources/templates" />
-      <recent name="$PROJECT_DIR$/executions" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.cp.compiler.amqp" />
@@ -442,7 +450,7 @@
       <workItem from="1656768225012" duration="13315000" />
       <workItem from="1657131849890" duration="12872000" />
       <workItem from="1657213387750" duration="5122000" />
-      <workItem from="1657223674433" duration="38369000" />
+      <workItem from="1657223674433" duration="41657000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>

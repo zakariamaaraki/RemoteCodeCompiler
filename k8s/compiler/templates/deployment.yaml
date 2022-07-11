@@ -39,6 +39,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ .Release.Name }}-config
+            - secretRef:
+                name: {{ .Release.Name }}-secrets
           volumeMounts:
             - mountPath: /var/run
               name: executions-volume

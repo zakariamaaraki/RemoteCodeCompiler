@@ -226,8 +226,6 @@
 					<excludes>
 						<exclude>**/config/SwaggerConfig.class</exclude>
 						<exclude>**/controllers/*</exclude>
-						<exclude>**/amqp/*</exclude>
-						<exclude>**/streams/*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>

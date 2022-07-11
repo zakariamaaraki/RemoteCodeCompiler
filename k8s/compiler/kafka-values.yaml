@@ -1,0 +1,11 @@
+kafka:
+  enabled: true
+  egress:
+    cidr: 10.0.0.0/24
+  input_topic: "compiler.input"
+  output_topic: "compiler.output"
+  consumer_group: "compilerId"
+  brokers: "kafka1:9092,kafka2:9092,kafka3:9092"
+  throttling_duration: 2000
+  cluster_api_key: ""
+  cluster_api_secret: ""

@@ -1,0 +1,10 @@
+rabbitmq:
+  enabled: true
+  egress:
+    cidr: 10.0.0.0/24
+  input_queue: "compiler.input"
+  output_queue: "compiler.output"
+  hosts: "rabbitmq:5672"
+  throttling_duration: 2000
+  username: ""
+  password: ""

@@ -10,3 +10,24 @@ data:
   "EXECUTION_TIME_MIN": "{{ .Values.compiler.minExecutionTime }}"
   "MAX_REQUESTS": "{{ .Values.compiler.maxRequests }}"
   "ENABLE_PUSH_NOTIFICATION": "{{ .Values.compiler.enablePushNotification }}"
+  "PULL_IMAGES_BEFORE_STARTUP": "{{ .Values.compiler.pull_images_before_startup }}"
+  "MAX_EXECUTION_CPUS": "{{ .Values.compiler.cpus }}"
+
+  # Kafka
+  {{ if .Values.kafka.enabled }}
+  "ENABLE_KAFKA_MODE": "{{ .Values.kafka.enabled }}"
+  "KAFKA_INPUT_TOPIC": "{{ .Values.kafka.input_topic }}"
+  "KAFKA_OUTPUT_TOPIC": "{{ .Values.kafka.output_topic }}"
+  "KAFKA_CONSUMER_GROUP_ID": "{{ .Values.kafka.consumer_group }}"
+  "KAFKA_HOSTS": "{{ .Values.kafka.brokers }}"
+  "KAFKA_THROTTLING_DURATION": "{{ .Values.kafka.throttling_duration }}"
+  {{ end }}
+
+  # RabbitMq
+  {{ if .Values.rabbitmq.enabled }}
+  "ENABLE_RABBITMQ_MODE": {{ .Values.rabbitmq.enabled }}
+  "RABBIT_QUEUE_INPUT": {{ .Values.rabbitmq.input_queue }}
+  "RABBIT_QUEUE_OUTPUT": {{ .Values.rabbitmq.output_queue }}
+  "RABBIT_HOSTS": {{ .Values.rabbitmq.hosts }}
+  "RABBIT_THROTTLING_DURATION": {{ .Values.rabbitmq.throttling_duration }}
+  {{ end }}
