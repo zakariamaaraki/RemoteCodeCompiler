@@ -2,13 +2,22 @@
 <img height="150px" width="150px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/1200px-Kubernetes_logo_without_workmark.svg.png" alt="k8s logo"/>
 </p>
 
-# K8s
+# Remote Code Compiler
 We provide you with a helm chart that will let you run the compiler in a distributed way on K8s.
 
 ```shell
 helm install compiler ./compiler
 ```
 
+### Enable Kafka
+```shell
+helm install -f compiler/values.yaml -f compiler/kafka-values.yaml  compiler ./compiler
+```
+
+### Enable RabbitMq
+```shell
+helm install -f compiler/values.yaml -f compiler/rabbitmq-values.yaml  compiler ./compiler
+```
 
 ### Minikube
 Note if you are running k8s using Minikube :
