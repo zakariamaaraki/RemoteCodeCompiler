@@ -57,8 +57,23 @@ pythonData = {
     "timeLimit": 15
 }
 
-URL = "http://localhost:8082/api/compile/json"
+URL = "http://localhost:8080/api/compile/json"
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+
+class Result:
+    def __init__(self, statusResponse, statusCode, output, error, expectedOutput, executionDuration):
+        self.statusResponse = statusResponse
+        self.statusCode = statusCode
+        self.output = output
+        self.error = error
+        self.expectedOutput = expectedOutput
+        self.executionDuration = executionDuration
+
+class Response:
+    def __init__(self, result, dateTime):
+        self.result = result,
+        self.dateTime = dateTime
+
 
 class cthread(threading.Thread):
     def __init__(self):

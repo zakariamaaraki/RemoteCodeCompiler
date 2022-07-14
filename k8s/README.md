@@ -2,7 +2,8 @@
 <img height="150px" width="150px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/1200px-Kubernetes_logo_without_workmark.svg.png" alt="k8s logo"/>
 </p>
 
-# Remote Code Compiler
+# K8s Helm charts
+For provisioning see [ARM provisioning folder](/provisioning/arm).\
 We provide you with a helm chart that will let you run the compiler in a distributed way on K8s.
 
 ```shell
