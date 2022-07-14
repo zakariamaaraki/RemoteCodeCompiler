@@ -1,9 +1,10 @@
 # Azure Resource Management
 
-## Provisioning of an AKS cluster
+## Provisioning of ACR and AKS cluster
 
 <p align="center">
-<img height="150px" width="150px" src="https://www.turbonomic.com/wp-content/uploads/2020/11/Azure-Kubernetes.png" alt="k8s logo"/>
+<img height="150px" width="150px" src="https://www.turbonomic.com/wp-content/uploads/2020/11/Azure-Kubernetes.png" alt="aks logo" />
+<img height="150px" width="250px" src ="https://sysadminas.eu/assets/images/post16/ACR.png" alt="Acr logo" />
 </p>
 
 
@@ -33,15 +34,27 @@ you'll get as an output something that looks like this:
 }
 ```
 
-3 - update **servicePrincipalProfile** section in **aks.json** file and specify the following values:
+3 - Update **servicePrincipalProfile** section in **deployment.sh** file and specify the following values:
 * Service principal client ID is your appId.
 * Service principal client secret is the password value.
 </P>
 
-4 - update the ssh publicKey in **aks.json** file (put yours)
+4 - Update the ssh publicKey in **deployment.sh** file (put yours)
 
-5 - run the deployment.sh script
+5 - Run the deployment.sh script
 
 ```shell
 ./deployment.sh
+```
+
+6 - Connect to ACR using the following command
+
+```shell
+az acr login --name remotecodecompileracr
+```
+
+7 - Connect to AKS cluster using the following command
+
+```shell
+az aks get-credentials --resource-group remote-code-compiler --name remote-code-compiler-aks
 ```

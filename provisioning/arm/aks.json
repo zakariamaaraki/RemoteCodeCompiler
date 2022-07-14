@@ -1,12 +1,37 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {},
+    "parameters": {
+        "clusterName": {
+            "type": "string",
+            "defaultValue": "remote-code-compiler-aks"
+        },
+        "publicSshKey": {
+            "type": "string",
+            "defaultValue": null
+        },
+        "principalClientId": {
+            "type": "string",
+            "defaultValue": null
+        },
+        "principalClientSecret": {
+            "type": "string",
+            "defaultValue": null
+        },
+        "nbVmNodes": {
+            "type": "int",
+            "defaultValue": 1
+        },
+        "vmSize": {
+            "type": "string",
+            "defaultValue": "Standard_A2_v2"
+        }
+    },
     "functions": [],
     "variables": {},
     "resources": [
         {
-            "name": "aksCluster",
+            "name": "[parameters('clusterName')]",
             "type": "Microsoft.ContainerService/managedClusters",
             "apiVersion": "2021-05-01",
             "location": "[resourceGroup().location]",
@@ -16,8 +41,8 @@
                 "agentPoolProfiles": [
                     {
                         "name": "agentpool",
-                        "count": 1,
-                        "vmSize": "Standard_A2_v2",
+                        "count": "[parameters('nbVmNodes')]",
+                        "vmSize": "[parameters('vmSize')]",
                         "osType": "Linux",
                         "storageProfile": "ManagedDisks",
                         "maxPods": 31,
@@ -33,14 +58,14 @@
                     "ssh": {
                         "publicKeys": [
                             {
-                                "keyData": "sshPubKey"
+                                "keyData": "[parameters('publicSshKey')]"
                             }
                         ]
                     }
                 },
                 "servicePrincipalProfile": {
-                    "clientId": "principalId",
-                    "secret": "password"
+                    "clientId": "[parameters('principalClientId')]",
+                    "secret": "[parameters('principalClientSecret')]"
                 }
             }
         }
