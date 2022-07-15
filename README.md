@@ -22,7 +22,7 @@ This service execute your code remotely using docker containers to separate envi
 
 Supports **Rest Calls (Long Polling and [Push Notification](https://en.wikipedia.org/wiki/Push_technology))**, **Apache Kafka** and **Rabbit MQ Messages**.
 
-### Example of an input
+**Example of an input**
 
 ```json
 {
@@ -35,7 +35,7 @@ Supports **Rest Calls (Long Polling and [Push Notification](https://en.wikipedia
 }
 ```
 
-### Example of an ouput
+**Example of an ouput**
 
 The compiler cleans up your output, so having extra spaces or line breaks does not affect the status of the response.
 
@@ -133,7 +133,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 
 ### Verdicts
 
-#### :tada: Accepted 
+:tada: **Accepted**
 ```json
 {
   "result": {
@@ -148,7 +148,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 }
 ```
 
-#### :x: Wrong Answer 
+:x: **Wrong Answer**
 
 ```json
 {
@@ -164,7 +164,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 }
 ```
 
-#### :shit: Compilation Error 
+:shit: **Compilation Error**
 
 ```json
 {
@@ -180,7 +180,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 }
 ```
 
-#### :clock130: Time Limit Exceeded 
+:clock130: **Time Limit Exceeded** 
 ```json
 {
   "result": {
@@ -195,7 +195,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 }
 ```
 
-#### :boom: Runtime Error 
+:boom: **Runtime Error** 
 ```json
 {
   "result": {
@@ -210,7 +210,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 }
 ```
 
-#### :minidisc: Out Of Memory 
+:minidisc: **Out Of Memory** 
 ```json
 {
   "result": {
