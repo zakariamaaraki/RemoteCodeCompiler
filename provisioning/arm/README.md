@@ -58,3 +58,6 @@ az acr login --name remotecodecompileracr
 ```shell
 az aks get-credentials --resource-group remote-code-compiler --name remote-code-compiler-aks
 ```
+
+**Now you have everything you need to deploy the application using k8s. Use the given [Helm charts](https://github.com/zakariamaaraki/RemoteCodeCompiler/tree/master/k8s) for deployment.**
+.
