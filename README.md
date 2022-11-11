@@ -117,12 +117,12 @@ We provide you with a script to provision an AKS cluster to ease your deployment
 
 ## How It Works
 
-The compiler creates a container for each execution to separate the execution environments.
+When a request comes in, the compiler creates a container responsible of compiling the given sourcecode (this container shares the same volume with the main application). After a successful compilation, an execution container (with it's own execution environment and totally isolated from other containers) is created for each test case.
 
-![Architecture](images/compiler-logo.png?raw=true "Compiler")
+![Architecture](images/remote_code_compiler_architecture.png?raw=true "Compiler")
 
 <p>
-    Each container has a number of CPUs (the same value for all containers, we recommend to use 0.1 CPUs for each execution), 
+    Each container running in the execution step has a number of CPUs (the same value for all containers, we recommend to use 0.1 CPUs for each execution), 
 a memory limit and execution time limit, once the memory limit or the maximum time granted to this container is reached 
 the container is destroyed automatically and an error explaining the cause is returned to the user.
 </p>
