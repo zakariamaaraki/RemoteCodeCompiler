@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class ContainerServiceTests {
+class ContainerServiceTests {
     
     @Autowired
     private ContainerServiceDefault containerService;
@@ -18,7 +18,7 @@ public class ContainerServiceTests {
         // Then
         Assertions.assertThrows(
                 ContainerFailedDependencyException.class,
-                () -> containerService.buildImage("test", "does not exists"));
+                () -> containerService.buildImage("test", "does not exists", "test"));
     }
     
     @Test
@@ -26,6 +26,6 @@ public class ContainerServiceTests {
         // Then
         Assertions.assertThrows(
                 ContainerOperationTimeoutException.class,
-                () -> containerService.runContainer("does not exists", 1));
+                () -> containerService.runContainer("does not exists", 1, 0.2f));
     }
 }

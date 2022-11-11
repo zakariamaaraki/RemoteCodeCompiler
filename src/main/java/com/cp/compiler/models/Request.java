@@ -39,8 +39,8 @@ public class Request {
     
     public MultipartFile getSourceCode() throws IOException {
         return new MockMultipartFile(
-                language.getSourceCodeFileName(),
-                language.getSourceCodeFileName(),
+                language.getDefaultSourceCodeFileName(),
+                language.getDefaultSourceCodeFileName(),
                 null,
                 new ByteArrayInputStream(this.sourceCode.getBytes()));
     }
@@ -84,6 +84,6 @@ public class Request {
                 && this.expectedOutput.equals(request.expectedOutput)
                 && this.memoryLimit == request.memoryLimit
                 && this.timeLimit == request.timeLimit
-                && this.sourceCode.equals(this.sourceCode);
+                && this.sourceCode.equals(request.sourceCode);
     }
 }

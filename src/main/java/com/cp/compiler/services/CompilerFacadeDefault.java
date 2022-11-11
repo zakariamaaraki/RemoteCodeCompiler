@@ -74,7 +74,7 @@ public class CompilerFacadeDefault implements CompilerFacade {
         }
         // Short running execution (Long Polling)
         shortRunningExecutionCounter.increment();
-        return compilerService.compile(execution);
+        return compilerService.execute(execution);
     }
     
     private boolean isUrlValid(String url) {

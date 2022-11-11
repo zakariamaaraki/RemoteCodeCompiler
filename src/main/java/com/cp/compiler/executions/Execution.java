@@ -3,6 +3,7 @@ package com.cp.compiler.executions;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import com.cp.compiler.utils.FileUtils;
+import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import io.micrometer.core.instrument.Counter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -69,7 +70,7 @@ public abstract class Execution {
      * @param executionCounter        the execution counter
      * @param entrypointFileGenerator the entrypointFile generator
      */
-    public Execution(MultipartFile sourceCodeFile,
+    protected Execution(MultipartFile sourceCodeFile,
                         MultipartFile inputFile,
                         MultipartFile expectedOutputFile,
                         int timeLimit,
@@ -97,8 +98,9 @@ public abstract class Execution {
         Files.createDirectory(Path.of(path));
         log.debug("Saving uploaded files");
         saveUploadedFiles();
-        log.debug("Copying Dockerfile to execution directory");
-        copyDockerFileToExecutionDirectory();
+        log.debug("Copying execution Dockerfile to execution directory");
+        copyDockerFilesToExecutionDirectory();
+        log.debug("Creating an entrypoint file");
         createEntrypointFile();
     }
     
@@ -117,7 +119,10 @@ public abstract class Execution {
      * @throws IOException the io exception
      */
     protected void saveUploadedFiles() throws IOException {
-        FileUtils.saveUploadedFiles(sourceCodeFile, path + "/" + getLanguage().getSourceCodeFileName());
+        String sourceCodeFileName = getLanguage() == Language.JAVA
+                                                        ? sourceCodeFile.getOriginalFilename()
+                                                        : getLanguage().getDefaultSourceCodeFileName();
+        FileUtils.saveUploadedFiles(sourceCodeFile, path + "/" + sourceCodeFileName);
         FileUtils.saveUploadedFiles(expectedOutputFile, path + "/" + expectedOutputFile.getOriginalFilename());
         if (getInputFile() != null) {
             FileUtils.saveUploadedFiles(getInputFile(), path + "/" + inputFile.getOriginalFilename());
@@ -147,17 +152,23 @@ public abstract class Execution {
      *
      * @throws IOException the io exception
      */
-    protected void copyDockerFileToExecutionDirectory() throws IOException {
-        FileUtils.copyFile(getLanguage().getFolderName().concat("/Dockerfile"), path.concat("/Dockerfile"));
+    protected void copyDockerFilesToExecutionDirectory() throws IOException {
+        // Execution Dockerfile
+        FileUtils.copyFile(getLanguage()
+                        .getFolderName()
+                        .concat("/" + WellKnownFiles.EXECUTION_DOCKERFILE_NAME),
+                path.concat("/" + WellKnownFiles.EXECUTION_DOCKERFILE_NAME));
     }
     
     /**
      * Creates entrypoint file
      */
     protected abstract void createEntrypointFile();
-
+    
     /**
      * Get the language represented by the class
+     *
+     * @return the language
      */
     public abstract Language getLanguage();
 

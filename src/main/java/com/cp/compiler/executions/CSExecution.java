@@ -4,10 +4,10 @@ import com.cp.compiler.models.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownTemplates;
 import com.cp.compiler.templates.EntrypointFileGenerator;
-import com.cp.compiler.utils.StatusUtils;
 import io.micrometer.core.instrument.Counter;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import lombok.val;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
@@ -43,19 +43,13 @@ public class CSExecution extends Execution {
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        final var commandPrefix = "mono main.exe";
-        final String executionCommand = getInputFile() == null
+        val commandPrefix = "mono main.exe";
+        val executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
     
-        Map<String, String> attributes = Map.of(
-                "rename", "false",
-                "compile", "true",
-                "defaultName", Language.CS.getSourceCodeFileName(),
-                "fileName", Language.CS.getSourceCodeFileName(),
+        val attributes = Map.of(
                 "timeLimit", String.valueOf(getTimeLimit()),
-                "compilationCommand", Language.CS.getCompilationCommand() + " " + Language.CS.getSourceCodeFileName(),
-                "compilationErrorStatusCode", String.valueOf(StatusUtils.COMPILATION_ERROR_STATUS),
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
     

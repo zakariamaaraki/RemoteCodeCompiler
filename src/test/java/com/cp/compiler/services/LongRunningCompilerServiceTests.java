@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @DirtiesContext
 @SpringBootTest
-public class LongRunningCompilerServiceTests {
+class LongRunningCompilerServiceTests {
 
     @Autowired
     private LongRunningCompilerService compilerService;
@@ -51,7 +51,7 @@ public class LongRunningCompilerServiceTests {
         var execution = ExecutionFactory.createExecution(
                 file, file, file, 10, 100, Language.JAVA);
     
-        Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+        Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
 
         ProcessOutput containerOutput = ProcessOutput
@@ -60,11 +60,11 @@ public class LongRunningCompilerServiceTests {
                 .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
         
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
+        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(),ArgumentMatchers.anyFloat()))
                 .thenReturn(containerOutput);
         
         // When
-        var compilationResult = compilerService.compile(execution);
+        var compilationResult = compilerService.execute(execution);
         
         // Then
         Assertions.assertEquals(HttpStatus.ACCEPTED, compilationResult.getStatusCode());
@@ -82,7 +82,7 @@ public class LongRunningCompilerServiceTests {
         var execution = ExecutionFactory.createExecution(
                 file, file, file, 10, 100, Language.JAVA);
         
-        Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+        Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
         
         ProcessOutput containerOutput = ProcessOutput
@@ -91,13 +91,13 @@ public class LongRunningCompilerServiceTests {
                 .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
         
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
+        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat()))
                 .thenReturn(containerOutput);
     
         Mockito.when(hooksRepository.get(ArgumentMatchers.any())).thenReturn("http://localhost/post");
         
         // When
-        var compilationResult = compilerService.compile(execution);
+        var compilationResult = compilerService.execute(execution);
         
         // Wait for the end of execution
         Thread.sleep(2000);
@@ -119,7 +119,7 @@ public class LongRunningCompilerServiceTests {
         var execution = ExecutionFactory.createExecution(
                 file, file, file, 10, 100, Language.JAVA);
         
-        Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+        Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
         
         ProcessOutput containerOutput = ProcessOutput
@@ -128,13 +128,16 @@ public class LongRunningCompilerServiceTests {
                 .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
         
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
+        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat()))
+                .thenReturn(containerOutput);
+    
+        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyString()))
                 .thenReturn(containerOutput);
     
         Mockito.when(hooksRepository.get(ArgumentMatchers.any())).thenReturn("http://localhost/post");
         
         // When
-        var compilationResult = compilerService.compile(execution);
+        var compilationResult = compilerService.execute(execution);
         
         // Wait for the end of execution
         Thread.sleep(2000);

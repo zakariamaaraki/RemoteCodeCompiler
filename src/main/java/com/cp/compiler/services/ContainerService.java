@@ -12,22 +12,34 @@ public interface ContainerService {
     /**
      * Build image int.
      *
-     * @param folder    the folder
-     * @param imageName the image name
+     * @param contextPath    the context path
+     * @param imageName      the image name
+     * @param dockerfileName the dockerfile path
      * @return The build log
      */
-    String buildImage(String folder, String imageName);
+    String buildImage(String contextPath, String imageName, String dockerfileName);
     
     /**
      * Run container container output.
      *
      * @param imageName the image name
      * @param timeout   the timeout
+     * @param maxCpus   the max cpus
      * @return the container output
      * @throws IOException          the io exception
      * @throws InterruptedException the interrupted exception
      */
-    ProcessOutput runContainer(String imageName, long timeout);
+    ProcessOutput runContainer(String imageName, long timeout, float maxCpus);
+    
+    /**
+     * Run container process output.
+     *
+     * @param imageName      the image name
+     * @param timeout        the timeout
+     * @param volumeMounting the volume mounting
+     * @return the process output
+     */
+    ProcessOutput runContainer(String imageName, long timeout, String volumeMounting);
     
     /**
      * Gets running containers.

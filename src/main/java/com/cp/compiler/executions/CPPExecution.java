@@ -4,10 +4,10 @@ import com.cp.compiler.models.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownTemplates;
 import com.cp.compiler.templates.EntrypointFileGenerator;
-import com.cp.compiler.utils.StatusUtils;
 import io.micrometer.core.instrument.Counter;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import lombok.val;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
@@ -43,20 +43,13 @@ public class CPPExecution extends Execution {
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        final var commandPrefix = "./exec";
-        final String executionCommand;
-        executionCommand = getInputFile() == null
+        val commandPrefix = "./exec";
+        val executionCommand= getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
     
-        Map<String, String> attributes = Map.of(
-                "rename", "false",
-                "compile", "true",
-                "fileName", Language.CPP.getSourceCodeFileName() ,
-                "defaultName", Language.CPP.getSourceCodeFileName() ,
+        val attributes = Map.of(
                 "timeLimit", String.valueOf(getTimeLimit()),
-                "compilationCommand", Language.CPP.getCompilationCommand() + " " + Language.CPP.getSourceCodeFileName() + " -o exec",
-                "compilationErrorStatusCode", String.valueOf(StatusUtils.COMPILATION_ERROR_STATUS),
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
     

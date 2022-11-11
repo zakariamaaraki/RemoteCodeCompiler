@@ -4,10 +4,10 @@ import com.cp.compiler.models.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownTemplates;
 import com.cp.compiler.templates.EntrypointFileGenerator;
-import com.cp.compiler.utils.StatusUtils;
 import io.micrometer.core.instrument.Counter;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import lombok.val;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
@@ -45,21 +45,15 @@ public class JavaExecution extends Execution {
     protected void createEntrypointFile() {
         // This case is a bit different, Java file name must be the same as the name of the class
         // So we will keep the name of the file as it's sent by the user.
-        var fileName = getSourceCodeFile().getOriginalFilename();
-        final var prefixName = fileName.substring(0, fileName.length() - 5); // remove ".java"
-        final var commandPrefix = "java " + prefixName;
-        final var executionCommand = getInputFile() == null
+        val fileName = getSourceCodeFile().getOriginalFilename();
+        val prefixName = fileName.substring(0, fileName.length() - 5); // remove ".java"
+        val commandPrefix = "java " + prefixName;
+        val executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
     
-        Map<String, String> attributes = Map.of(
-                "rename", "true",
-                "compile", "true",
-                "defaultName", Language.JAVA.getSourceCodeFileName(),
-                "fileName", fileName,
+        val attributes = Map.of(
                 "timeLimit", String.valueOf(getTimeLimit()),
-                "compilationCommand", Language.JAVA.getCompilationCommand() + " " + fileName,
-                "compilationErrorStatusCode", String.valueOf(StatusUtils.COMPILATION_ERROR_STATUS),
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
         

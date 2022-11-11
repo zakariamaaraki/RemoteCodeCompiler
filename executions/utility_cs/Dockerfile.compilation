@@ -1,0 +1,5 @@
+FROM mono
+
+WORKDIR /app
+
+ENTRYPOINT ["/bin/sh", "-c", "csc *.cs && rm *.cs"]

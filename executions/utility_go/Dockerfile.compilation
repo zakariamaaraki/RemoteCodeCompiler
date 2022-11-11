@@ -1,0 +1,5 @@
+FROM golang
+
+WORKDIR /app
+
+ENTRYPOINT ["/bin/sh", "-c", "go build -o exec *.go && rm *.go"]

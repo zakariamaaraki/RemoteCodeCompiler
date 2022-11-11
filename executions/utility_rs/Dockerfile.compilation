@@ -1,0 +1,5 @@
+FROM rust
+
+WORKDIR /app
+
+ENTRYPOINT ["/bin/sh", "-c", "rustc *.rs && rm *.rs"]

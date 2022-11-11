@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.Arrays;
 
 /**
  * This class provides Docker utilities that are used by the compiler
@@ -36,17 +37,14 @@ public class ContainerServiceDefault implements ContainerService {
 
     private Timer runTimer;
     
-    private final Resources resources;
-    
     /**
      * Instantiates a new Container service.
      *
      * @param meterRegistry the meter registry
      * @param resources     the resources
      */
-    public ContainerServiceDefault(MeterRegistry meterRegistry, Resources resources) {
+    public ContainerServiceDefault(MeterRegistry meterRegistry) {
         this.meterRegistry = meterRegistry;
-        this.resources = resources;
     }
     
     /**
@@ -62,10 +60,12 @@ public class ContainerServiceDefault implements ContainerService {
      * {@inheritDoc}
      */
     @Override
-    public String buildImage(String folder, String imageName) {
+    public String buildImage(String contextPath, String imageName, String dockerfileName) {
         // TODO Refactor by using vavr.Try
         return buildTimer.record(() -> {
-            String[] buildCommand = new String[]{"docker", "image", "build", folder, "-t", imageName};
+            String dockerfilePath = contextPath + "/" + dockerfileName;
+            String[] buildCommand =
+                    new String[]{"docker", "image", "build", "-f", dockerfilePath, "-t", imageName, contextPath};
             return executeContainerCommand(buildCommand, BUILD_TIMEOUT);
         });
     }
@@ -77,16 +77,31 @@ public class ContainerServiceDefault implements ContainerService {
      * @return ProcessOutput
      */
     @Override
-    public ProcessOutput runContainer(String imageName, long timeout) {
+    public ProcessOutput runContainer(String imageName, long timeout, float maxCpus) {
         return runTimer.record(() -> {
             try {
-                var cpus = "--cpus=" + resources.getMaxCpus();
+                var cpus = "--cpus=" + maxCpus;
                 String[] dockerCommand = new String[]{"docker", "run", cpus, "--rm", imageName};
                 return CmdUtils.executeProcess(dockerCommand, timeout);
             } catch(ProcessExecutionTimeoutException processExecutionTimeoutException) {
                 throw new ContainerOperationTimeoutException(processExecutionTimeoutException.getMessage());
             } catch(ProcessExecutionException processExecutionException) {
-                throw new ContainerFailedDependencyException();
+                throw new ContainerFailedDependencyException(processExecutionException.getMessage());
+            }
+        });
+    }
+    
+    @Override
+    public ProcessOutput runContainer(String imageName, long timeout, String volumeMounting) {
+        return runTimer.record(() -> {
+            try {
+                String[] dockerCommand =
+                        new String[]{"docker", "run", "-v", volumeMounting, "--rm", imageName};
+                return CmdUtils.executeProcess(dockerCommand, timeout);
+            } catch(ProcessExecutionTimeoutException processExecutionTimeoutException) {
+                throw new ContainerOperationTimeoutException(processExecutionTimeoutException.getMessage());
+            } catch(ProcessExecutionException processExecutionException) {
+                throw new ContainerFailedDependencyException(processExecutionException.getMessage());
             }
         });
     }
@@ -143,12 +158,11 @@ public class ContainerServiceDefault implements ContainerService {
         try {
             ProcessOutput processOutput = CmdUtils.executeProcess(command, timeout);
             if (!processOutput.getStdErr().isEmpty()) {
-                log.error("Fatal error : {}", processOutput.getStdErr());
-                throw new ContainerFailedDependencyException();
+                throw new ContainerFailedDependencyException("Fatal error: " + processOutput.getStdErr());
             }
             return processOutput.getStdOut();
         } catch (ProcessExecutionException e) {
-            throw new ContainerFailedDependencyException();
+            throw new ContainerFailedDependencyException(e.getMessage());
         } catch (ProcessExecutionTimeoutException e) {
             throw new ContainerOperationTimeoutException(e.getMessage());
         }

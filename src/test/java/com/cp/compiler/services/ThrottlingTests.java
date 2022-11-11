@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 @ActiveProfiles("throttling")
 @DirtiesContext
 @SpringBootTest
-public class ThrottlingTests {
+class ThrottlingTests {
     
     @Autowired
     private CompilerProxy compilerProxy;
@@ -35,7 +35,7 @@ public class ThrottlingTests {
                 file, file, file, 10, 500, Language.JAVA);
     
         // When
-        ResponseEntity responseEntity = compilerProxy.compile(execution);
+        ResponseEntity responseEntity = compilerProxy.execute(execution);
         
         // Then
         Assertions.assertEquals(HttpStatus.TOO_MANY_REQUESTS, responseEntity.getStatusCode());

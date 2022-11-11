@@ -29,7 +29,7 @@ import java.util.Properties;
 @EmbeddedKafka(bootstrapServersProperty = "localhost:9092")
 @DirtiesContext
 @SpringBootTest
-public class TopologyTests {
+class TopologyTests {
     
     @Autowired
     private Topology topology;
@@ -70,14 +70,14 @@ public class TopologyTests {
     }
     
     @Test
-    public void shouldConsumeMessageFromInputTopicAndProduceMessageToOutputTopic() {
+    void shouldConsumeMessageFromInputTopicAndProduceMessageToOutputTopic() {
 
         // Given
         String jsonRequest = "{\n\"expectedOutput\": \"0\\n1\\n2\\n3\\n4\\n5\\n6\\n7\\n8\\n9\\n\",\n\"sourceCode\": " +
                 "\"public class Test1 {\\npublic static void main(String[] args) {\\nint i = 0;\\nwhile (i < 10) " +
                 "{\\nSystem.out.println(i++);\\n}}}\",\n\"language\": \"JAVA\",\"timeLimit\": 15,\"memoryLimit\": 500\n}";
         
-        Mockito.when(compilerService.compile(Mockito.any()))
+        Mockito.when(compilerService.execute(Mockito.any()))
                 .thenReturn(ResponseEntity
                         .status(HttpStatus.OK)
                         .body(new Response(
@@ -93,11 +93,11 @@ public class TopologyTests {
         inputTopic.pipeInput(jsonRequest);
         
         // Then
-        Assertions.assertThat(!outputTopic.isEmpty());
+        Assertions.assertThat(!outputTopic.isEmpty()).isTrue();
     }
     
     @Test
-    public void ifInputMessageIsNotAValidRequestShouldPublishNullValueToOutputTopic() {
+    void ifInputMessageIsNotAValidRequestShouldPublishNullValueToOutputTopic() {
         
         // Given
         String jsonRequest = "This is a non valid json";
@@ -106,7 +106,7 @@ public class TopologyTests {
         inputTopic.pipeInput(jsonRequest);
         
         // Then
-        Assertions.assertThat(!outputTopic.isEmpty());
-        Assertions.assertThat(outputTopic.readValue() == null);
+        Assertions.assertThat(!outputTopic.isEmpty()).isTrue();
+        Assertions.assertThat(outputTopic.readValue() == null).isTrue();
     }
 }

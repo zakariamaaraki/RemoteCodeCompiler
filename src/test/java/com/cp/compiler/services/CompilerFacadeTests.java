@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 @ActiveProfiles("longRunning")
 @DirtiesContext
 @SpringBootTest
-public class CompilerFacadeTests {
+class CompilerFacadeTests {
     
     @MockBean(name = "proxy")
     private CompilerService compilerService;
@@ -43,7 +43,7 @@ public class CompilerFacadeTests {
         Execution execution = ExecutionFactory.createExecution(
                 file, file, file, 10, 500, Language.JAVA);
     
-        Mockito.when(compilerService.compile(execution)).thenReturn(ResponseEntity.ok("ok test"));
+        Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok("ok test"));
     
         // When
         ResponseEntity responseEntity = compilerFacade.compile(execution, false, null);
@@ -60,7 +60,7 @@ public class CompilerFacadeTests {
         
         String url = "http://localhost";
     
-        Mockito.when(compilerService.compile(execution)).thenReturn(ResponseEntity.ok("ok test"));
+        Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok("ok test"));
     
         // When
         ResponseEntity responseEntity = compilerFacade.compile(execution, true, url);
@@ -77,7 +77,7 @@ public class CompilerFacadeTests {
         
         String url = "http://localhost";
         
-        Mockito.when(compilerService.compile(execution)).thenReturn(ResponseEntity.ok("ok test"));
+        Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok("ok test"));
         
         // When
         ResponseEntity responseEntity = compilerFacade.compile(execution, false, url);
@@ -94,7 +94,7 @@ public class CompilerFacadeTests {
     
         String url = "bad-url";
     
-        Mockito.when(compilerService.compile(execution)).thenReturn(ResponseEntity.ok("ok test"));
+        Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok("ok test"));
     
         // When
         ResponseEntity responseEntity = compilerFacade.compile(execution, true, url);

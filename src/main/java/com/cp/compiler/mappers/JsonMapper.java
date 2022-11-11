@@ -69,7 +69,7 @@ public abstract class JsonMapper {
     
         try(MDC.MDCCloseable mdc = MDC.putCloseable("compiler.language", execution.getLanguage().toString())) {
             
-            ResponseEntity responseEntity = compilerService.compile(execution);
+            ResponseEntity<Object> responseEntity = compilerService.execute(execution);
     
             // Throw an exception if the request has been throttled, to keep the request for retries
             if (responseEntity.getStatusCode().equals(HttpStatus.TOO_MANY_REQUESTS)) {

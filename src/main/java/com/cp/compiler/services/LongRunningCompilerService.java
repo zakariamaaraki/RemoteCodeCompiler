@@ -40,7 +40,7 @@ public class LongRunningCompilerService extends CompilerServiceDecorator {
     }
     
     @Override
-    public ResponseEntity compile(Execution execution) {
+    public ResponseEntity execute(Execution execution) {
         String url = hooksRepository.get(execution.getId());
         new Thread(() -> {
             try {
@@ -57,12 +57,12 @@ public class LongRunningCompilerService extends CompilerServiceDecorator {
     }
     
     // The check of URI syntax is done before the compilation.
-    private void sendResponse(String url, ResponseEntity responseEntity) throws URISyntaxException {
+    private void sendResponse(String url, ResponseEntity<Object> responseEntity) throws URISyntaxException {
         restTemplate.postForEntity(new URI(url), responseEntity, Object.class);
     }
     
     private void run(Execution execution, String url) throws URISyntaxException {
-        ResponseEntity response = getCompilerService().compile(execution);
+        ResponseEntity<Object> response = getCompilerService().execute(execution);
         log.info("Sending response to {}", url);
         sendResponse(url, response);
     }

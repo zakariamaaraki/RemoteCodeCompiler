@@ -1,0 +1,5 @@
+FROM gcc
+
+WORKDIR /app
+
+ENTRYPOINT ["/bin/sh", "-c", "g++ *.cpp -o exec && rm *.cpp"]

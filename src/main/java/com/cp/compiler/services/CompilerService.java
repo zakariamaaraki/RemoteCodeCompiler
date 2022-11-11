@@ -16,5 +16,5 @@ public interface CompilerService {
      * @param execution the execution
      * @return a ResponseEntity containing the result of the execution
      */
-    ResponseEntity compile(Execution execution);
+    ResponseEntity<Object> execute(Execution execution);
 }

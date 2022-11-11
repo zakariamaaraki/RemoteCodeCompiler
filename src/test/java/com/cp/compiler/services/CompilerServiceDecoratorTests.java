@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @DirtiesContext
 @SpringBootTest
-public class CompilerServiceDecoratorTests {
+class CompilerServiceDecoratorTests {
     
     @Autowired
     @Qualifier("client")
@@ -34,8 +34,8 @@ public class CompilerServiceDecoratorTests {
         // When
         var compilerServiceDecorator = new CompilerServiceDecorator(compilerService) {
             @Override
-            public ResponseEntity compile(Execution execution) {
-                return compilerService.compile(execution);
+            public ResponseEntity execute(Execution execution) {
+                return compilerService.execute(execution);
             }
         };
         
@@ -54,15 +54,15 @@ public class CompilerServiceDecoratorTests {
         
         var compilerServiceDecorator = new CompilerServiceDecorator(compilerService) {
             @Override
-            public ResponseEntity compile(Execution execution) {
-                return compilerService.compile(execution);
+            public ResponseEntity execute(Execution execution) {
+                return compilerService.execute(execution);
             }
         };
     
         var execution = ExecutionFactory.createExecution(
                 file, file, file, 10, 100, Language.JAVA);
     
-        Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+        Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
         
         ProcessOutput containerOutput = ProcessOutput
@@ -71,16 +71,21 @@ public class CompilerServiceDecoratorTests {
                 .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
         
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
+        // Execution Container
+        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat()))
+                .thenReturn(containerOutput);
+    
+        // Compilation Container
+        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyString()))
                 .thenReturn(containerOutput);
         
         // When
-        var compilationResult = compilerServiceDecorator.compile(execution);
+        var compilationResult = compilerServiceDecorator.execute(execution);
         
         // Then
         Assertions.assertNotNull(compilationResult);
         Assertions.assertEquals(
-                ((Response)compilerService.compile(execution).getBody()).getResult(),
+                ((Response)compilerService.execute(execution).getBody()).getResult(),
                 ((Response)compilationResult.getBody()).getResult()
         );
     }
@@ -96,20 +101,24 @@ public class CompilerServiceDecoratorTests {
     
         var compilerServiceDecorator = new CompilerServiceDecorator(compilerService) {
             @Override
-            public ResponseEntity compile(Execution execution) {
-                return compilerService.compile(execution);
+            public ResponseEntity execute(Execution execution) {
+                return compilerService.execute(execution);
             }
         };
     
         var execution = ExecutionFactory.createExecution(
                 file, file, file, 10, 100, Language.JAVA);
     
-        Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any()))
+        Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenThrow(new ContainerOperationTimeoutException("exception"));
     
+        // Should compile
+        Mockito.when(containerService.runContainer(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyString()))
+                .thenReturn(ProcessOutput.builder().status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS).build());
+        
         // Then
         Assertions.assertThrows(ContainerOperationTimeoutException.class, () -> {
-            compilerServiceDecorator.compile(execution);
+            compilerServiceDecorator.execute(execution);
         });
     }
 }

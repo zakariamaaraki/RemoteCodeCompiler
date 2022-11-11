@@ -3,7 +3,6 @@ package com.cp.compiler.mappers;
 import com.cp.compiler.exceptions.ThrottlingException;
 import com.cp.compiler.models.*;
 import com.cp.compiler.services.CompilerService;
-import com.cp.compiler.services.ContainerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
@@ -11,10 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
@@ -24,7 +20,7 @@ import java.time.LocalDateTime;
 
 @DirtiesContext
 @SpringBootTest
-public class JsonMapperTests {
+class JsonMapperTests {
     
     @Mock
     private CompilerService compilerService;
@@ -78,7 +74,7 @@ public class JsonMapperTests {
     @Test
     void givenJsonRequestShouldCompileTheRequestAndReturnJsonResponse() throws Exception {
         // Given
-        Mockito.when(compilerService.compile(ArgumentMatchers.any()))
+        Mockito.when(compilerService.execute(ArgumentMatchers.any()))
                 .thenReturn(ResponseEntity.ok(
                         new Response(
                             new Result(Verdict.ACCEPTED, "aaa", "", "aaa", 100),
@@ -96,7 +92,7 @@ public class JsonMapperTests {
         // Given
         final var result = new Result(Verdict.ACCEPTED, "aaa", "", "aaa", 100);
     
-        Mockito.when(compilerService.compile(ArgumentMatchers.any()))
+        Mockito.when(compilerService.execute(ArgumentMatchers.any()))
                 .thenReturn(ResponseEntity.ok(new Response(result, LocalDateTime.now())));
         
         // When
@@ -111,7 +107,7 @@ public class JsonMapperTests {
         // Given
         final var result = new Result(Verdict.ACCEPTED, "aaa", "", "aaa", 100);
     
-        Mockito.when(compilerService.compile(ArgumentMatchers.any()))
+        Mockito.when(compilerService.execute(ArgumentMatchers.any()))
                 .thenReturn(new ResponseEntity(HttpStatus.TOO_MANY_REQUESTS));
         
         // Then
@@ -122,7 +118,7 @@ public class JsonMapperTests {
     void shouldReturnNullValueIfTheReturnedObjectIsNotAnInstanceOfResponseClass() throws Exception {
 
         // Given
-        Mockito.when(compilerService.compile(ArgumentMatchers.any()))
+        Mockito.when(compilerService.execute(ArgumentMatchers.any()))
                 .thenReturn(ResponseEntity.ok("test"));
     
         // When

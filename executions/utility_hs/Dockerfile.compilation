@@ -1,0 +1,5 @@
+FROM haskell
+
+WORKDIR /app
+
+ENTRYPOINT ["/bin/sh", "-c", "ghc -o main *.hs && rm *.hs"]

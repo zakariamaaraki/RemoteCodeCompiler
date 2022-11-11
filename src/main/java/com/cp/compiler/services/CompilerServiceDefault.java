@@ -5,6 +5,7 @@ import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.*;
 import com.cp.compiler.utils.CmdUtils;
 import com.cp.compiler.utils.StatusUtils;
+import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,12 @@ public class CompilerServiceDefault implements CompilerService {
     
     private static final long TIME_OUT = 20000; // in ms
     
+    // Note: this value should not be updated, once update don't forget to update build.sh script used to build these images.
+    private static final String IMAGE_PREFIX_NAME = "compiler.";
+    
+    // Note: this value should not be updated, once update don't forget to update it also in all Dockerfiles.
+    private static final String EXECUTION_PATH_INSIDE_CONTAINER = "/app";
+    
     private final ContainerService containerService;
     
     private final MeterRegistry meterRegistry;
@@ -44,15 +51,20 @@ public class CompilerServiceDefault implements CompilerService {
     @Value("${compiler.docker.image.delete:true}")
     private boolean deleteDockerImage;
     
+    private final Resources resources;
+    
     /**
      * Instantiates a new Compiler service.
-     *
-     * @param containerService the container service
+     *  @param containerService the container service
      * @param meterRegistry    the meter registry
+     * @param resources
      */
-    public CompilerServiceDefault(ContainerService containerService, MeterRegistry meterRegistry) {
+    public CompilerServiceDefault(ContainerService containerService,
+                                  MeterRegistry meterRegistry,
+                                  Resources resources) {
         this.containerService = containerService;
         this.meterRegistry = meterRegistry;
+        this.resources = resources;
     }
     
     /**
@@ -69,47 +81,99 @@ public class CompilerServiceDefault implements CompilerService {
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity compile(Execution execution) {
+    public ResponseEntity execute(Execution execution) {
         
         LocalDateTime dateTime = LocalDateTime.now();
-    
-        builderImage(execution);
         
-        Result result = runCode(execution.getImageName(), execution.getExpectedOutputFile());
+        // 1- Build execution environment (create directory, upload files, ...)
+        buildExecutionEnvironment(execution);
         
-        if (deleteDockerImage) {
-            try {
-                containerService.deleteImage(execution.getImageName());
-                log.info("Image {} has been deleted", execution.getImageName());
-            } catch (Exception e) {
-                log.warn("Error, can't delete image {} : {}", execution.getImageName(), e);
+        try {
+            String expectedOutput = getExpectedOutput(execution.getExpectedOutputFile());
+            
+            // 2- Compile the source code if the language is a compiled language
+            if (execution.getLanguage().isCompiled()) {
+                String compilationImageName = IMAGE_PREFIX_NAME + execution.getLanguage().toString().toLowerCase(); // repository name must be lowercase
+                final String executionPath = System.getProperty("user.dir") + "/" + execution.getPath();
+                ProcessOutput processOutput = compile(executionPath, compilationImageName);
+                if (processOutput.getStatus() != StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS) {
+                    Result result = new Result(
+                            Verdict.COMPILATION_ERROR,
+                            "",
+                            processOutput.getStdErr(),
+                            expectedOutput,
+                            0);
+                    
+                    // Will return compilation Error Status
+                    return ResponseEntity.ok(new Response(result, dateTime));
+                }
             }
+            
+            // 2 - Build the execution container
+            buildContainerImage(execution.getPath(), execution.getImageName(), WellKnownFiles.EXECUTION_DOCKERFILE_NAME);
+            
+            // 3 - Run the execution container
+            Result result = runContainer(execution.getImageName(), expectedOutput);
+    
+            // 4 - Clean up
+            if (deleteDockerImage) {
+                try {
+                    containerService.deleteImage(execution.getImageName());
+                    log.info("Image {} has been deleted", execution.getImageName());
+                } catch (Exception e) {
+                    log.warn("Error, can't delete image {} : {}", execution.getImageName(), e);
+                }
+            }
+    
+            log.info("Status response is {}", result.getStatusResponse());
+    
+            // Update metrics
+            verdictsCounters.get(result.getStatusResponse()).increment();
+    
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new Response(result, dateTime));
+        } finally {
+            deleteExecutionEnvironment(execution);
         }
-        
-        log.info("Status response is {}", result.getStatusResponse());
-        
-        // Update metrics
-        verdictsCounters.get(result.getStatusResponse()).increment();
-        
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(new Response(result, dateTime));
     }
     
-    private Result runCode(String imageName, MultipartFile outputFile) {
-    
-        BufferedReader expectedOutputReader;
-        String expectedOutput;
+    private void buildExecutionEnvironment(Execution execution) {
         try {
-            expectedOutputReader = new BufferedReader(new InputStreamReader(outputFile.getInputStream()));
-            expectedOutput = CmdUtils.readOutput(expectedOutputReader);
+            log.info("Creating execution directory: {}", execution.getExecutionFolderName());
+            execution.createExecutionDirectory();
+        } catch (Throwable e) {
+            throw new CompilerServerInternalException(e.getMessage());
+        }
+    }
+    
+    private void deleteExecutionEnvironment(Execution execution) {
+        try {
+            execution.deleteExecutionDirectory();
+            log.info("Execution directory {} has been deleted", execution.getExecutionFolderName());
+        } catch (IOException e) {
+            log.warn("Error while trying to delete execution directory, {}", e);
+        }
+    }
+    
+    private ProcessOutput compile(String executionPath, String imageName) {
+        String volumeMounting = executionPath + ":" + EXECUTION_PATH_INSIDE_CONTAINER;
+        return containerService.runContainer(imageName, TIME_OUT, volumeMounting);
+    }
+    
+    private String getExpectedOutput(MultipartFile outputFile) {
+        try {
+            var expectedOutputReader = new BufferedReader(new InputStreamReader(outputFile.getInputStream()));
+            return CmdUtils.readOutput(expectedOutputReader);
         } catch (Exception e) {
             throw new CompilerServerInternalException("Unexpected error while reading the expected output file");
         }
+    }
     
-        ProcessOutput containerOutput;
+    private Result runContainer(String imageName, String expectedOutput) {
+        
         try {
-            containerOutput = containerService.runContainer(imageName, TIME_OUT);
+            ProcessOutput containerOutput = containerService.runContainer(imageName, TIME_OUT, resources.getMaxCpus());
             Verdict verdict = getVerdict(containerOutput, expectedOutput);
         
             return new Result(
@@ -135,31 +199,14 @@ public class CompilerServiceDefault implements CompilerService {
         return StatusUtils.statusResponse(containerOutput.getStatus(), result);
     }
     
-    private void builderImage(Execution execution) {
+    private void  buildContainerImage(String path, String imageName, String dockerfileName) {
+        log.info("Building the docker image: {}", imageName);
         try {
-            log.info("Creating execution directory: {}", execution.getExecutionFolderName());
-            execution.createExecutionDirectory();
-        } catch (Throwable e) {
-            throw new CompilerServerInternalException(e.getMessage());
-        }
-        
-        try {
-            log.info("Building the docker image: {}", execution.getImageName());
-            try {
-                String buildLogs = containerService.buildImage(execution.getPath(), execution.getImageName());
-                log.debug(buildLogs);
-                log.info("Container image has been built");
-            } catch(ContainerFailedDependencyException exception) {
-                log.warn("Error while building container image: {}", exception);
-                throw new ContainerBuildException("Error while building container image: " + exception.getMessage());
-            }
-        } finally {
-            try {
-                execution.deleteExecutionDirectory();
-                log.info("Execution directory {} has been deleted", execution.getExecutionFolderName());
-            } catch (IOException e) {
-                log.warn("Error while trying to delete execution directory, {}", e);
-            }
+            String buildLogs = containerService.buildImage(path, imageName, dockerfileName);
+            log.info("Build logs: {}", buildLogs);
+        } catch(ContainerFailedDependencyException exception) {
+            log.warn("Error while building container image: {}", exception);
+            throw new ContainerBuildException("Error while building compilation image: " + exception.getMessage());
         }
     }
 }

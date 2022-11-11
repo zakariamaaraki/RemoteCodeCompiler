@@ -81,4 +81,14 @@ public abstract class WellKnownFiles {
      * The constant FILE_NAME_REGEX.
      */
     public static final String FILE_NAME_REGEX = "^[a-zA-Z0-9_-]*\\.[a-zA-Z0-9_-]*$";
+    
+    /**
+     * The constant COMPILATION_DOCKERFILE_NAME.
+     */
+    public static final String COMPILATION_DOCKERFILE_NAME ="Dockerfile.compilation";
+    
+    /**
+     * The constant EXECUTION_DOCKERFILE_NAME.
+     */
+    public static final String EXECUTION_DOCKERFILE_NAME ="Dockerfile.execution";
 }

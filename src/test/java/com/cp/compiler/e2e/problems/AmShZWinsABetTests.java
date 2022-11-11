@@ -4,6 +4,7 @@ import com.cp.compiler.controllers.CompilerController;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.models.Verdict;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,9 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileInputStream;
 
+@Slf4j
 @DirtiesContext
 @SpringBootTest
-public class AmShZWinsABetTests {
+class AmShZWinsABetTests {
     
     @Autowired
     private CompilerController compilerController;
@@ -56,6 +58,8 @@ public class AmShZWinsABetTests {
                 2000,
                 null,
                 null);
+    
+        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
         
         // Then
         Assertions.assertEquals(
@@ -95,6 +99,8 @@ public class AmShZWinsABetTests {
                 2000,
                 null,
                 null);
+    
+        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
         
         // Then
         Assertions.assertEquals(
@@ -133,6 +139,8 @@ public class AmShZWinsABetTests {
                 2000,
                 null,
                 null);
+    
+        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
         
         // Then
         Assertions.assertEquals(

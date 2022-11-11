@@ -31,20 +31,7 @@ then
   addProfile "rollingFile"
 fi
 
-if [ ! -z "$PULL_IMAGES_BEFORE_STARTUP" ] && [ "$PULL_IMAGES_BEFORE_STARTUP" = true ];
-then
-
-  images=("gcc" "mono" "golang" "openjdk:11.0.6-jdk-slim" "zenika/kotlin" "python:3" "rust" "denvazh/scala" "ruby" "haskell")
-
-  # pull all images before starting the container to make first requests faster
-  echo "Pulling all images..."
-
-  for i in "${images[@]}"
-  do
-    docker pull "$i"
-  done
-
-fi
+./build.sh
 
 echo "Starting the compiler with the following profiles: "$profiles
 

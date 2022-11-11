@@ -17,5 +17,4 @@ public class ProcessOutput {
     private long executionDuration;
     
     private int status;
-
 }

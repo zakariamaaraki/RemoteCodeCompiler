@@ -4,6 +4,7 @@ import com.cp.compiler.controllers.CompilerController;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.models.Verdict;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,9 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileInputStream;
 
+@Slf4j
 @DirtiesContext
 @SpringBootTest
-public class RustE2ETests {
+class RustE2ETests {
     
     @Autowired
     private CompilerController compilerController;
@@ -55,6 +57,8 @@ public class RustE2ETests {
                 500,
                 null,
                 null);
+    
+        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
         
         // Then
         Assertions.assertEquals(Verdict.ACCEPTED.getStatusResponse(),
@@ -92,6 +96,8 @@ public class RustE2ETests {
                 500,
                 null,
                 null);
+    
+        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
         
         // Then
         Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getStatusResponse(),
@@ -129,10 +135,12 @@ public class RustE2ETests {
                 500,
                 null,
                 null);
+    
+        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
         
         // Then
-        Assertions.assertEquals(Verdict.COMPILATION_ERROR.getStatusResponse()
-                , ((Response)responseEntity.getBody()).getResult().getStatusResponse());
+        Assertions.assertEquals(Verdict.COMPILATION_ERROR.getStatusResponse(),
+                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
     }
     
     /**
@@ -166,6 +174,8 @@ public class RustE2ETests {
                 500,
                 null,
                 null);
+    
+        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
         
         // Then
         Assertions.assertEquals(Verdict.WRONG_ANSWER.getStatusResponse(),
@@ -203,6 +213,8 @@ public class RustE2ETests {
                 1,
                 null,
                 null);
+    
+        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
         
         // Then
         Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getStatusResponse(),

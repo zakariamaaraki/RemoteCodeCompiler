@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 @ActiveProfiles("longRunning")
 @DirtiesContext
 @SpringBootTest
-public class CompilerProxyServiceTests {
+class CompilerProxyServiceTests {
     
     private static final int BAD_REQUEST = 400;
     
@@ -54,7 +54,7 @@ public class CompilerProxyServiceTests {
                 validFileName, invalidFileName, validFileName, 10, 500, Language.JAVA);
         
         // When
-        ResponseEntity responseEntity = compilerProxy.compile(execution);
+        ResponseEntity responseEntity = compilerProxy.execute(execution);
         
         // Then
         Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
@@ -67,7 +67,7 @@ public class CompilerProxyServiceTests {
                 invalidFileName, validFileName, validFileName, 10, 500, Language.JAVA);
         
         // When
-        ResponseEntity responseEntity = compilerProxy.compile(execution);
+        ResponseEntity responseEntity = compilerProxy.execute(execution);
         
         // Then
         Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
@@ -80,7 +80,7 @@ public class CompilerProxyServiceTests {
                 validFileName, validFileName, invalidFileName, 10, 500, Language.JAVA);
         
         // When
-        ResponseEntity responseEntity = compilerProxy.compile(execution);
+        ResponseEntity responseEntity = compilerProxy.execute(execution);
         
         // Then
         Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
@@ -95,10 +95,10 @@ public class CompilerProxyServiceTests {
         hooksRepository.addUrl(execution.getId(), "http://localhost");
         
         // When
-        ResponseEntity responseEntity = compilerProxy.compile(execution);
+        ResponseEntity responseEntity = compilerProxy.execute(execution);
     
         // Then
-        Mockito.verify(longRunningCompilerService, Mockito.times(1)).compile(execution);
+        Mockito.verify(longRunningCompilerService, Mockito.times(1)).execute(execution);
     }
     
     @Test
@@ -108,9 +108,9 @@ public class CompilerProxyServiceTests {
                 validFileName, null, validFileName, 10, 500, Language.JAVA);
         
         // When
-        ResponseEntity responseEntity = compilerProxy.compile(execution);
+        ResponseEntity responseEntity = compilerProxy.execute(execution);
         
         // Then
-        Mockito.verify(compilerServiceDefault, Mockito.times(1)).compile(execution);
+        Mockito.verify(compilerServiceDefault, Mockito.times(1)).execute(execution);
     }
 }

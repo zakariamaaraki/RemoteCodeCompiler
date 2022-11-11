@@ -78,8 +78,8 @@ public class CompilerProxy implements CompilerService {
     }
     
     @Override
-    public ResponseEntity compile(Execution execution) {
-        Optional<ResponseEntity> requestValidationError = validateRequest(execution);
+    public ResponseEntity execute(Execution execution) {
+        Optional<ResponseEntity<Object>> requestValidationError = validateRequest(execution);
         if (requestValidationError.isPresent()) {
             // the request is not valid
             log.info("Invalid input data: '{}'", requestValidationError.get().getBody());
@@ -89,7 +89,7 @@ public class CompilerProxy implements CompilerService {
             int counter = resources.reserveResources();
             log.info("New request, total: {}, maxRequests: {}", counter, resources.getMaxRequests());
             
-            ResponseEntity response;
+            ResponseEntity<Object> response;
             
             try {
                 response = compileFacade(execution);
@@ -106,19 +106,17 @@ public class CompilerProxy implements CompilerService {
                 .body("Request has been throttled, service reached maximum resources");
     }
     
-    private ResponseEntity compileFacade(Execution execution) {
-        // If the storage contains the imageName that means we registered the url before
-        // and the client want a push notification.
-        String imageName = execution.getImageName();
+    private ResponseEntity<Object> compileFacade(Execution execution) {
+        // If the storage contains the id, it means we registered the url before and the client want a push notification.
         if (hooksRepository.contains(execution.getId())) {
             log.info("Start long running execution, the result will be pushed to : {}", hooksRepository.get(execution.getId()));
-            return longRunningCompilerService.compile(execution);
+            return longRunningCompilerService.execute(execution);
         }
         log.info("Start short running execution");
-        return compilerService.compile(execution);
+        return compilerService.execute(execution);
     }
     
-    private Optional<ResponseEntity> validateRequest(Execution execution) {
+    private Optional<ResponseEntity<Object>> validateRequest(Execution execution) {
         if (!checkFileName(execution.getSourceCodeFile().getOriginalFilename())) {
             return Optional.of(buildOutputError(
                     "Bad request, source code file must match the following regex "

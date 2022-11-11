@@ -1,0 +1,6 @@
+FROM openjdk:11.0.6-jdk-slim
+
+WORKDIR /app
+
+ENTRYPOINT ["/bin/sh", "-c", "javac *.java && rm *.java"]
+

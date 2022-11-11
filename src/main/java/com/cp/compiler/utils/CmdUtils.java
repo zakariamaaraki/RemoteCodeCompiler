@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public abstract class CmdUtils {
 
-    private static final int MAX_ERROR_LENGTH = 200; // number of chars
+    private static final int MAX_ERROR_LENGTH = 500; // number of chars
     /**
      * The constant LONG_MESSAGE_TRAIL.
      */
@@ -67,7 +67,7 @@ public abstract class CmdUtils {
         return text
           .trim()
           .replaceAll("\\s+", " ")
-          .replaceAll("/n","");
+          .replace("/n","");
     }
     
     /**

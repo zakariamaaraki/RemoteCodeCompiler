@@ -1,0 +1,5 @@
+FROM zenika/kotlin
+
+WORKDIR /app
+
+ENTRYPOINT ["/bin/sh", "-c", "kotlinc *.kt && rm *.kt"]

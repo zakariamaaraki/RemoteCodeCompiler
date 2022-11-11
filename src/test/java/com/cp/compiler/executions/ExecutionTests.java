@@ -18,12 +18,10 @@ import java.nio.file.Path;
 
 @DirtiesContext
 @SpringBootTest
-public class ExecutionTests {
+class ExecutionTests {
     
     @Autowired
     private EntrypointFileGenerator entrypointFileGenerator;
-    
-    private static final String DOCKERFILE = "Dockerfile";
     
     private MultipartFile file = new MockMultipartFile(
             "test.txt",
@@ -418,7 +416,7 @@ public class ExecutionTests {
     }
     
     @Test
-    void shouldCopyDockerFileToExecutionDirectory() throws IOException {
+    void shouldCopyExecutionDockerFileToExecutionDirectory() throws IOException {
         // Given
         AbstractExecutionFactory goExecutionFactory =
                 (MultipartFile sourceCode, MultipartFile inputFile, MultipartFile expectedOutputFile, int timeLimit, int memoryLimit) -> {
@@ -437,13 +435,14 @@ public class ExecutionTests {
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.copyDockerFileToExecutionDirectory();
+        execution.copyDockerFilesToExecutionDirectory();
         
         // Then
-        File dockerfileCopy = new File(execution.getPath() + "/" + DOCKERFILE);
+        File executionDockerfileCopy =
+                new File(execution.getPath() + "/" + WellKnownFiles.EXECUTION_DOCKERFILE_NAME);
         
-        Assertions.assertTrue(dockerfileCopy.exists());
-        Assertions.assertTrue(dockerfileCopy.isFile());
+        Assertions.assertTrue(executionDockerfileCopy.exists());
+        Assertions.assertTrue(executionDockerfileCopy.isFile());
         
         // Clean up
         execution.deleteExecutionDirectory();

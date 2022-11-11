@@ -4,6 +4,7 @@ import com.cp.compiler.controllers.CompilerController;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.models.Verdict;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,7 @@ import java.io.FileInputStream;
 /**
  * Java e2e tests.
  */
+@Slf4j
 @DirtiesContext
 @SpringBootTest
 class JavaE2ETests {
@@ -59,6 +61,8 @@ class JavaE2ETests {
                 null,
                 null);
     
+        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
+        
         // Then
         Assertions.assertEquals(Verdict.ACCEPTED.getStatusResponse(),
                 ((Response)responseEntity.getBody()).getResult().getStatusResponse());
@@ -95,6 +99,8 @@ class JavaE2ETests {
                 500,
                 null,
                 null);
+    
+        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
         
         // Then
         Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getStatusResponse(),
@@ -132,6 +138,8 @@ class JavaE2ETests {
                 500,
                 null,
                 null);
+    
+        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
         
         // Then
         Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getStatusResponse(),
@@ -169,10 +177,12 @@ class JavaE2ETests {
                 500,
                 null,
                 null);
+    
+        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
         
         // Then
-        Assertions.assertEquals(Verdict.COMPILATION_ERROR.getStatusResponse()
-                , ((Response)responseEntity.getBody()).getResult().getStatusResponse());
+        Assertions.assertEquals(Verdict.COMPILATION_ERROR.getStatusResponse(),
+                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
     }
     
     /**
@@ -206,6 +216,8 @@ class JavaE2ETests {
                 500,
                 null,
                 null);
+    
+        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
         
         // Then
         Assertions.assertEquals(Verdict.WRONG_ANSWER.getStatusResponse(),
@@ -243,6 +255,8 @@ class JavaE2ETests {
                 1,
                 null,
                 null);
+    
+        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
         
         // Then
         Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getStatusResponse(),
@@ -280,6 +294,8 @@ class JavaE2ETests {
                 500,
                 null,
                 null);
+    
+        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
         
         // Then
         Assertions.assertEquals(Verdict.RUNTIME_ERROR.getStatusResponse(),

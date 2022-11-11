@@ -1,0 +1,5 @@
+FROM denvazh/scala
+
+WORKDIR /app
+
+ENTRYPOINT ["/bin/sh", "-c", "scalac *.scala && rm *.scala"]
