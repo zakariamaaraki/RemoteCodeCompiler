@@ -58,16 +58,22 @@ To run this project you need a docker engine running on your machine.
 
 ## Getting Started
 
-Build docker image by typing the following command :
+1- Build docker image by running the following command:
 
 ```shell
 docker image build . -t compiler
 ```
 
-Run the container by typing the following command
+2- Create a volume by running the following command:
 
 ```shell
-docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -e DELETE_DOCKER_IMAGE=true -e EXECUTION_MEMORY_MAX=10000 -e EXECUTION_MEMORY_MIN=0 -e EXECUTION_TIME_MAX=15 -e EXECUTION_TIME_MIN=0 -e MAX_REQUESTS=1000 -e MAX_EXECUTION_CPUS=0.2 -t compiler
+docker volume create compiler
+```
+
+3- Run the container by running the following command
+
+```shell
+docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -v compiler:/compiler -e DELETE_DOCKER_IMAGE=true -e EXECUTION_MEMORY_MAX=10000 -e EXECUTION_MEMORY_MIN=0 -e EXECUTION_TIME_MAX=15 -e EXECUTION_TIME_MIN=0 -e MAX_REQUESTS=1000 -e MAX_EXECUTION_CPUS=0.2 -e COMPILATION_CONTAINER_VOLUME=compiler -t compiler
 ```
 * The value of the env variable **DELETE_DOCKER_IMAGE** is by default set to true, and that means that each docker image is deleted after the execution of the container. 
 * The value of the env variable **EXECUTION_MEMORY_MAX** is by default set to 10 000 MB, and represents the maximum value of memory limit that we can pass in the request. **EXECUTION_MEMORY_MIN** is by default set to 0.
@@ -75,11 +81,10 @@ docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -
 * **MAX_REQUESTS** represents the number of requests that can be executed in parallel. When this value is reached all incoming requests will be throttled, and the user will get 429 HTTP status code (there will be a retry in queue mode).
 * **MAX_EXECUTION_CPUS** represents the maximum number of cpus to use for each execution (by default the maximum available cpus). If this value is set, then all requests will be throttled when the reach the maximum.
 * **PULL_IMAGES_BEFORE_STARTUP** if it's set to true then the compiler will pull all images before starting the container to make first requests faster.
-
+* **COMPILATION_CONTAINER_VOLUME** It should be the same as the volume created in step 2.
 
 
 ### Push Notifications
-
 
 ![push-notifications.png](images/webhooks.png)
 
