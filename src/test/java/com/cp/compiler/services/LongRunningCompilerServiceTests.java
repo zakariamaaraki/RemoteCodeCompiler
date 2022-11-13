@@ -124,6 +124,7 @@ class LongRunningCompilerServiceTests {
         
         ProcessOutput containerOutput = ProcessOutput
                 .builder()
+                .stdErr("")
                 .stdOut("test")
                 .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
@@ -141,7 +142,7 @@ class LongRunningCompilerServiceTests {
         Mockito.when(hooksRepository.get(ArgumentMatchers.any())).thenReturn("http://localhost/post");
         
         // When
-        var compilationResult = compilerService.execute(execution);
+        compilerService.execute(execution);
         
         // Wait for the end of execution
         Thread.sleep(2000);
