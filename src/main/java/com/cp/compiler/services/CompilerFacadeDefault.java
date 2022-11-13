@@ -71,9 +71,10 @@ public class CompilerFacadeDefault implements CompilerFacade {
             }
             log.info("The execution is long running and the url is valid");
             hooksRepository.addUrl(execution.getId(), url);
+        } else {
+            // Short running execution (Long Polling)
+            shortRunningExecutionCounter.increment();
         }
-        // Short running execution (Long Polling)
-        shortRunningExecutionCounter.increment();
         return compilerService.execute(execution);
     }
     

@@ -2,4 +2,4 @@ FROM mono
 
 WORKDIR /app
 
-ENTRYPOINT ["/bin/sh", "-c", "csc *.cs && rm *.cs"]
+ENTRYPOINT ["/bin/sh", "-c", "csc -out:$EXECUTION_PATH/main.exe  $EXECUTION_PATH/$SOURCE_CODE_FILE_NAME && rm $EXECUTION_PATH/$SOURCE_CODE_FILE_NAME"]

@@ -37,9 +37,15 @@ public interface ContainerService {
      * @param imageName      the image name
      * @param timeout        the timeout
      * @param volumeMounting the volume mounting
+     * @param executionPath  the execution path
      * @return the process output
      */
-    ProcessOutput runContainer(String imageName, long timeout, String volumeMounting);
+    ProcessOutput runContainer(
+            String imageName,
+            long timeout,
+            String volumeMounting,
+            String executionPath,
+            String sourceCodeFileName);
     
     /**
      * Gets running containers.

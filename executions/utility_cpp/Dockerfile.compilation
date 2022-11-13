@@ -2,4 +2,4 @@ FROM gcc
 
 WORKDIR /app
 
-ENTRYPOINT ["/bin/sh", "-c", "g++ *.cpp -o exec && rm *.cpp"]
+ENTRYPOINT ["/bin/sh", "-c", "g++ $EXECUTION_PATH/$SOURCE_CODE_FILE_NAME -o $EXECUTION_PATH/exec && rm $EXECUTION_PATH/$SOURCE_CODE_FILE_NAME"]

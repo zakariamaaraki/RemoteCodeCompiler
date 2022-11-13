@@ -81,7 +81,7 @@ public class CompilerProxy implements CompilerService {
     public ResponseEntity execute(Execution execution) {
         Optional<ResponseEntity<Object>> requestValidationError = validateRequest(execution);
         if (requestValidationError.isPresent()) {
-            // the request is not valid
+            // The request is not valid
             log.info("Invalid input data: '{}'", requestValidationError.get().getBody());
             return requestValidationError.get();
         }
@@ -92,22 +92,21 @@ public class CompilerProxy implements CompilerService {
             ResponseEntity<Object> response;
             
             try {
-                response = compileFacade(execution);
+                response = compileAndExecute(execution);
             } finally {
-                // in all cases this is the end of the request, then we should decrement the counter
                 resources.cleanup();
             }
             return response;
         }
         // The request has been throttled
         throttlingCounterMetric.increment();
-        log.info("Request has been throttled, service reached maximum resources");
+        log.info("Request has been throttled, service reached maximum resources usage");
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
-                .body("Request has been throttled, service reached maximum resources");
+                .body("Request has been throttled, service reached maximum resources usage");
     }
     
-    private ResponseEntity<Object> compileFacade(Execution execution) {
-        // If the storage contains the id, it means we registered the url before and the client want a push notification.
+    private ResponseEntity<Object> compileAndExecute(Execution execution) {
+        // If the storage contains the id, it means we registered the url before and the client wants a push notification.
         if (hooksRepository.contains(execution.getId())) {
             log.info("Start long running execution, the result will be pushed to : {}", hooksRepository.get(execution.getId()));
             return longRunningCompilerService.execute(execution);

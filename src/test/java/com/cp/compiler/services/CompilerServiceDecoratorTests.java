@@ -76,8 +76,12 @@ class CompilerServiceDecoratorTests {
                 .thenReturn(containerOutput);
     
         // Compilation Container
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyString()))
-                .thenReturn(containerOutput);
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString())).thenReturn(containerOutput);
         
         // When
         var compilationResult = compilerServiceDecorator.execute(execution);
@@ -113,7 +117,12 @@ class CompilerServiceDecoratorTests {
                 .thenThrow(new ContainerOperationTimeoutException("exception"));
     
         // Should compile
-        Mockito.when(containerService.runContainer(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyString()))
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString()))
                 .thenReturn(ProcessOutput.builder().status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS).build());
         
         // Then

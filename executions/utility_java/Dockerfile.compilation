@@ -2,5 +2,5 @@ FROM openjdk:11.0.6-jdk-slim
 
 WORKDIR /app
 
-ENTRYPOINT ["/bin/sh", "-c", "javac *.java && rm *.java"]
+ENTRYPOINT ["/bin/sh", "-c", "javac -d $EXECUTION_PATH $EXECUTION_PATH/$SOURCE_CODE_FILE_NAME && rm $EXECUTION_PATH/$SOURCE_CODE_FILE_NAME"]
 

@@ -43,7 +43,7 @@ public class RubyExecution extends Execution {
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        val commandPrefix = Language.RUBY.getCompilationCommand() + " " + Language.RUBY.getDefaultSourceCodeFileName();
+        val commandPrefix = Language.RUBY.getCompilationCommand() + " " + getSourceCodeFile().getOriginalFilename();;
         val executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";

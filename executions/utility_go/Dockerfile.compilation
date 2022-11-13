@@ -2,4 +2,4 @@ FROM golang
 
 WORKDIR /app
 
-ENTRYPOINT ["/bin/sh", "-c", "go build -o exec *.go && rm *.go"]
+ENTRYPOINT ["/bin/sh", "-c", "go build -o $EXECUTION_PATH/exec $EXECUTION_PATH/$SOURCE_CODE_FILE_NAME && rm $EXECUTION_PATH/$SOURCE_CODE_FILE_NAME"]

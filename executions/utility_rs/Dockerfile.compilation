@@ -2,4 +2,4 @@ FROM rust
 
 WORKDIR /app
 
-ENTRYPOINT ["/bin/sh", "-c", "rustc *.rs && rm *.rs"]
+ENTRYPOINT ["/bin/sh", "-c", "rustc -o $EXECUTION_PATH/main $EXECUTION_PATH/$SOURCE_CODE_FILE_NAME && rm $EXECUTION_PATH/$SOURCE_CODE_FILE_NAME"]

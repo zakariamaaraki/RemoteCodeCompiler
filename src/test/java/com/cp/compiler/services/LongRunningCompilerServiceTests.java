@@ -131,8 +131,12 @@ class LongRunningCompilerServiceTests {
         Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat()))
                 .thenReturn(containerOutput);
     
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyString()))
-                .thenReturn(containerOutput);
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString())).thenReturn(containerOutput);
     
         Mockito.when(hooksRepository.get(ArgumentMatchers.any())).thenReturn("http://localhost/post");
         

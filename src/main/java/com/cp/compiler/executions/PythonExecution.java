@@ -43,7 +43,7 @@ public class PythonExecution extends Execution {
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        val commandPrefix = Language.PYTHON.getCompilationCommand() + " " + Language.PYTHON.getDefaultSourceCodeFileName();
+        val commandPrefix = Language.PYTHON.getCompilationCommand() + " " + getSourceCodeFile().getOriginalFilename();
         val executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";

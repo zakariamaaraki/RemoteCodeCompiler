@@ -2,4 +2,4 @@ FROM haskell
 
 WORKDIR /app
 
-ENTRYPOINT ["/bin/sh", "-c", "ghc -o main *.hs && rm *.hs"]
+ENTRYPOINT ["/bin/sh", "-c", "ghc -o $EXECUTION_PATH/main $EXECUTION_PATH/$SOURCE_CODE_FILE_NAME && rm $EXECUTION_PATH/$SOURCE_CODE_FILE_NAME"]

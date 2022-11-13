@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.Arrays;
 
 /**
  * This class provides Docker utilities that are used by the compiler
@@ -30,6 +29,16 @@ public class ContainerServiceDefault implements ContainerService {
      * The constant COMMAND_TIMEOUT.
      */
     public static final int COMMAND_TIMEOUT = 2000;
+    
+    /**
+     * The constant EXECUTION_PATH_ENV_VARIABLE.
+     */
+    public static final String EXECUTION_PATH_ENV_VARIABLE = "EXECUTION_PATH";
+    
+    /**
+     * The constant SOURCE_CODE_ENV_VARIABLE.
+     */
+    public static final String SOURCE_CODE_FILE_NAME_ENV_VARIABLE = "SOURCE_CODE_FILE_NAME";
 
     private final MeterRegistry meterRegistry;
 
@@ -41,7 +50,6 @@ public class ContainerServiceDefault implements ContainerService {
      * Instantiates a new Container service.
      *
      * @param meterRegistry the meter registry
-     * @param resources     the resources
      */
     public ContainerServiceDefault(MeterRegistry meterRegistry) {
         this.meterRegistry = meterRegistry;
@@ -84,6 +92,7 @@ public class ContainerServiceDefault implements ContainerService {
                 String[] dockerCommand = new String[]{"docker", "run", cpus, "--rm", imageName};
                 return CmdUtils.executeProcess(dockerCommand, timeout);
             } catch(ProcessExecutionTimeoutException processExecutionTimeoutException) {
+                // TLE
                 throw new ContainerOperationTimeoutException(processExecutionTimeoutException.getMessage());
             } catch(ProcessExecutionException processExecutionException) {
                 throw new ContainerFailedDependencyException(processExecutionException.getMessage());
@@ -92,11 +101,25 @@ public class ContainerServiceDefault implements ContainerService {
     }
     
     @Override
-    public ProcessOutput runContainer(String imageName, long timeout, String volumeMounting) {
+    public ProcessOutput runContainer(
+            String imageName,
+            long timeout,
+            String volumeMounting,
+            String executionPath,
+            String sourceCodeFileName) {
+        
         return runTimer.record(() -> {
+            log.info("Execution path {}", executionPath);
             try {
                 String[] dockerCommand =
-                        new String[]{"docker", "run", "-v", volumeMounting, "--rm", imageName};
+                        new String[]{
+                                "docker",
+                                "run",
+                                "-v", volumeMounting,
+                                "-e", EXECUTION_PATH_ENV_VARIABLE + "=" + executionPath,
+                                "-e", SOURCE_CODE_FILE_NAME_ENV_VARIABLE + "=" + sourceCodeFileName,
+                                "--rm",
+                                imageName};
                 return CmdUtils.executeProcess(dockerCommand, timeout);
             } catch(ProcessExecutionTimeoutException processExecutionTimeoutException) {
                 throw new ContainerOperationTimeoutException(processExecutionTimeoutException.getMessage());

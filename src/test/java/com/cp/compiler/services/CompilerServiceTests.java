@@ -144,7 +144,12 @@ class CompilerServiceTests {
                 .thenThrow(new ContainerBuildException("Error Building image"));
     
         // Should compile
-        Mockito.when(containerService.runContainer(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyString()))
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString()))
                 .thenReturn(ProcessOutput.builder().status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS).build());
         
         // When / Then
@@ -187,7 +192,12 @@ class CompilerServiceTests {
                 .thenReturn(containerOutput);
     
         // Compilation Container
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyString()))
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString()))
                 .thenReturn(containerOutput);
         
         Execution execution = ExecutionFactory.createExecution(
@@ -235,7 +245,12 @@ class CompilerServiceTests {
                 .thenReturn(containerOutput);
     
         // Compilation Container
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyString()))
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString()))
                 .thenReturn(containerOutput);
     
         Execution execution = ExecutionFactory.createExecution(
@@ -288,7 +303,12 @@ class CompilerServiceTests {
                 .thenReturn(containerOutput);
     
         // Compilation Container
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyString()))
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString()))
                 .thenReturn(containerOutput);
     
         Execution execution = ExecutionFactory.createExecution(
@@ -342,8 +362,12 @@ class CompilerServiceTests {
                 .thenReturn(executionContainerOutput);
     
         // Compilation Container
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyString()))
-                .thenReturn(compilationContainerOutput);
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString())).thenReturn(compilationContainerOutput);
     
         Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
@@ -393,8 +417,12 @@ class CompilerServiceTests {
                 .thenReturn(executionContainerOutput);
     
         // Compilation Container
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyString()))
-                .thenReturn(compilationContainerOutput);
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString())).thenReturn(compilationContainerOutput);
     
         Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
@@ -447,8 +475,12 @@ class CompilerServiceTests {
                 .thenReturn(executionContainerOutput);
     
         // Compilation Container
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyString()))
-                .thenReturn(compilationContainerOutput);
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString())).thenReturn(compilationContainerOutput);
     
         Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
@@ -473,9 +505,7 @@ class CompilerServiceTests {
                 .thenReturn("build log");
     
         String output = "test";
-        String expectedOutput = "not a test";
-    
-        Result result = new Result(Verdict.ACCEPTED, output, "", expectedOutput, 0);
+        String error = "compilation error";
     
         MockMultipartFile file = new MockMultipartFile(
                 "file",
@@ -486,7 +516,7 @@ class CompilerServiceTests {
     
         ProcessOutput containerOutput = ProcessOutput
                 .builder()
-                .stdOut(output)
+                .stdErr(error)
                 .status(StatusUtils.COMPILATION_ERROR_STATUS)
                 .build();
     
@@ -495,8 +525,12 @@ class CompilerServiceTests {
                 .thenReturn(containerOutput);
     
         // Compilation container
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyString()))
-                .thenReturn(containerOutput);
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString())).thenReturn(containerOutput);
     
         Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
@@ -529,8 +563,12 @@ class CompilerServiceTests {
                 .thenThrow(new ContainerFailedDependencyException("Docker engine error"));
     
         // Compilation container
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyString()))
-                .thenThrow(new ContainerFailedDependencyException("Docker engine error"));
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString())).thenThrow(new ContainerFailedDependencyException("Docker engine error"));
         
         Execution execution = ExecutionFactory.createExecution(
                 file, null, file, 10, 100, Language.JAVA);
@@ -558,7 +596,12 @@ class CompilerServiceTests {
                 .thenThrow(new ContainerOperationTimeoutException("exception"));
         
         // Should compile
-        Mockito.when(containerService.runContainer(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyString()))
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString()))
                 .thenReturn(ProcessOutput.builder().status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS).build());
         
         // When / Then

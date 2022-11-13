@@ -2,6 +2,8 @@ server:
   port: 8082
 
 compiler:
+  compilation-container:
+    volume: ${COMPILATION_CONTAINER_VOLUME:} # only when running the app inside a container
   execution:
     max-cpus: ${MAX_EXECUTION_CPUS:0}
   features:
@@ -9,7 +11,7 @@ compiler:
       enabled: ${ENABLE_PUSH_NOTIFICATION:false}
   docker:
     image:
-      delete: ${DELETE_DOCKER_IMAGE:true} # delete the docker image at the end of the execution of the container, by default it's set to true.
+      delete: ${DELETE_DOCKER_IMAGE:true} # delete the docker image at the end of the execution of the container, by default it is set to true.
   execution-memory:
     max: ${EXECUTION_MEMORY_MAX:10000}
     min: ${EXECUTION_MEMORY_MIN:0}

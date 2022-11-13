@@ -2,4 +2,4 @@ FROM denvazh/scala
 
 WORKDIR /app
 
-ENTRYPOINT ["/bin/sh", "-c", "scalac *.scala && rm *.scala"]
+ENTRYPOINT ["/bin/sh", "-c", "scalac -d $EXECUTION_PATH $EXECUTION_PATH/$SOURCE_CODE_FILE_NAME && rm $EXECUTION_PATH/$SOURCE_CODE_FILE_NAME"]

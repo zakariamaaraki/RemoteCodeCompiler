@@ -119,9 +119,7 @@ public abstract class Execution {
      * @throws IOException the io exception
      */
     protected void saveUploadedFiles() throws IOException {
-        String sourceCodeFileName = getLanguage() == Language.JAVA
-                                                        ? sourceCodeFile.getOriginalFilename()
-                                                        : getLanguage().getDefaultSourceCodeFileName();
+        String sourceCodeFileName = sourceCodeFile.getOriginalFilename();
         FileUtils.saveUploadedFiles(sourceCodeFile, path + "/" + sourceCodeFileName);
         FileUtils.saveUploadedFiles(expectedOutputFile, path + "/" + expectedOutputFile.getOriginalFilename());
         if (getInputFile() != null) {

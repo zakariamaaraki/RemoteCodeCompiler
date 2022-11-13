@@ -39,7 +39,7 @@ public class CompilerServiceDefault implements CompilerService {
     // Note: this value should not be updated, once update don't forget to update build.sh script used to build these images.
     private static final String IMAGE_PREFIX_NAME = "compiler.";
     
-    // Note: this value should not be updated, once update don't forget to update it also in all Dockerfiles.
+    // Note: this value should not be updated, once update don't forget to update it also in all compilation Dockerfiles.
     private static final String EXECUTION_PATH_INSIDE_CONTAINER = "/app";
     
     private final ContainerService containerService;
@@ -50,6 +50,9 @@ public class CompilerServiceDefault implements CompilerService {
 
     @Value("${compiler.docker.image.delete:true}")
     private boolean deleteDockerImage;
+    
+    @Value("${compiler.compilation-container.volume:}")
+    private String compilationContainerVolume;
     
     private final Resources resources;
     
@@ -82,9 +85,7 @@ public class CompilerServiceDefault implements CompilerService {
      */
     @Override
     public ResponseEntity execute(Execution execution) {
-        
         LocalDateTime dateTime = LocalDateTime.now();
-        
         // 1- Build execution environment (create directory, upload files, ...)
         buildExecutionEnvironment(execution);
         
@@ -94,9 +95,18 @@ public class CompilerServiceDefault implements CompilerService {
             // 2- Compile the source code if the language is a compiled language
             if (execution.getLanguage().isCompiled()) {
                 String compilationImageName = IMAGE_PREFIX_NAME + execution.getLanguage().toString().toLowerCase(); // repository name must be lowercase
-                final String executionPath = System.getProperty("user.dir") + "/" + execution.getPath();
-                ProcessOutput processOutput = compile(executionPath, compilationImageName);
+                // If the app is running inside a container, we should share the same volume with the compilation container.
+                final String volume = compilationContainerVolume.isEmpty()
+                                            ? System.getProperty("user.dir")
+                                            : compilationContainerVolume;
+
+                String sourceCodeFileName = execution.getSourceCodeFile().getOriginalFilename();
+                ProcessOutput processOutput =
+                        compile(volume, compilationImageName, execution.getPath(), sourceCodeFileName);
+                
                 if (processOutput.getStatus() != StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS) {
+
+                    cleanStdErrOutput(processOutput, execution);
                     Result result = new Result(
                             Verdict.COMPILATION_ERROR,
                             "",
@@ -107,6 +117,7 @@ public class CompilerServiceDefault implements CompilerService {
                     // Will return compilation Error Status
                     return ResponseEntity.ok(new Response(result, dateTime));
                 }
+                log.info("Compilation succeeded!");
             }
             
             // 2 - Build the execution container
@@ -138,11 +149,17 @@ public class CompilerServiceDefault implements CompilerService {
         }
     }
     
+    private void cleanStdErrOutput(ProcessOutput processOutput, Execution execution) {
+        // Don't return the absolut path to the user
+        processOutput.setStdErr(processOutput.getStdErr().replace(execution.getPath(), ""));
+    }
+    
     private void buildExecutionEnvironment(Execution execution) {
         try {
             log.info("Creating execution directory: {}", execution.getExecutionFolderName());
             execution.createExecutionDirectory();
         } catch (Throwable e) {
+            log.error("Error while building execution environment: {}", e);
             throw new CompilerServerInternalException(e.getMessage());
         }
     }
@@ -156,16 +173,17 @@ public class CompilerServiceDefault implements CompilerService {
         }
     }
     
-    private ProcessOutput compile(String executionPath, String imageName) {
-        String volumeMounting = executionPath + ":" + EXECUTION_PATH_INSIDE_CONTAINER;
-        return containerService.runContainer(imageName, TIME_OUT, volumeMounting);
+    private ProcessOutput compile(String volume, String imageName, String executionPath, String sourceCodeFileName) {
+        String volumeMounting = volume + ":" + EXECUTION_PATH_INSIDE_CONTAINER;
+        return containerService.runContainer(imageName, TIME_OUT, volumeMounting, executionPath, sourceCodeFileName);
     }
     
     private String getExpectedOutput(MultipartFile outputFile) {
         try {
             var expectedOutputReader = new BufferedReader(new InputStreamReader(outputFile.getInputStream()));
             return CmdUtils.readOutput(expectedOutputReader);
-        } catch (Exception e) {
+        } catch (Exception exception) {
+            log.error("Unexpected error while reading the expected output file: {}", exception);
             throw new CompilerServerInternalException("Unexpected error while reading the expected output file");
         }
     }
@@ -176,6 +194,8 @@ public class CompilerServiceDefault implements CompilerService {
             ProcessOutput containerOutput = containerService.runContainer(imageName, TIME_OUT, resources.getMaxCpus());
             Verdict verdict = getVerdict(containerOutput, expectedOutput);
         
+            // TODO: clean stderr output
+            
             return new Result(
                     verdict,
                     containerOutput.getStdOut(),
@@ -184,13 +204,14 @@ public class CompilerServiceDefault implements CompilerService {
                     containerOutput.getExecutionDuration());
         
         } catch(ContainerOperationTimeoutException exception) {
-            log.info("{}", exception);
+            log.warn("Tme limit exceeded during the execution: {}", exception); // Should be caught inside the container
+            // TODO: set the correct value of time limit, the one given by the user
             return new Result(
                     Verdict.TIME_LIMIT_EXCEEDED,
                     "",
                     "The execution exceeded the time limit",
                     expectedOutput,
-                    0);
+                    TIME_OUT);
         }
     }
     
@@ -200,10 +221,10 @@ public class CompilerServiceDefault implements CompilerService {
     }
     
     private void  buildContainerImage(String path, String imageName, String dockerfileName) {
-        log.info("Building the docker image: {}", imageName);
+        log.info("Start building the docker image: {}", imageName);
         try {
             String buildLogs = containerService.buildImage(path, imageName, dockerfileName);
-            log.info("Build logs: {}", buildLogs);
+            log.debug("Build logs: {}", buildLogs);
         } catch(ContainerFailedDependencyException exception) {
             log.warn("Error while building container image: {}", exception);
             throw new ContainerBuildException("Error while building compilation image: " + exception.getMessage());
