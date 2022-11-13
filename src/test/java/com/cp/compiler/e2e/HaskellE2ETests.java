@@ -58,7 +58,7 @@ class HaskellE2ETests {
                 null,
                 null);
     
-        log.info("Result: {}", ((Response)responseEntity.getBody()).getResult());
+        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
         
         // Then
         Assertions.assertEquals(Verdict.ACCEPTED.getStatusResponse(),

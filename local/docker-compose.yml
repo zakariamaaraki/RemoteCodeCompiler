@@ -10,6 +10,7 @@ services:
       - rabbitmq
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - compiler:/compiler
     ports:
       - 8082:8082
     environment:
@@ -19,6 +20,7 @@ services:
       EXECUTION_TIME_MAX: 15
       EXECUTION_TIME_MIN: 0
       MAX_REQUESTS: 1000
+      COMPILATION_CONTAINER_VOLUME: 'local_compiler' # volume name = folderName_volumeName
 
       # Push notifications
       ENABLE_PUSH_NOTIFICATION: 'true'
@@ -120,3 +122,6 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: 'guest'
       RABBITMQ_DEFAULT_PASS: 'guest'
+volumes:
+  compiler:
+    driver: local

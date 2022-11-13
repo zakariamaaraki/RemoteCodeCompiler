@@ -5,49 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Test1$$anonfun$main$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test1$.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test1.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test2$.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test2.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test4$$anonfun$main$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test4$.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test4.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test5$$anonfun$main$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test5$.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test5.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test6$.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test6.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_kt/execution-46162971-c79c-4b0e-8e97-1d5f78f31adc/Dockerfile.execution" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_kt/execution-46162971-c79c-4b0e-8e97-1d5f78f31adc/META-INF/main.kotlin_module" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_kt/execution-46162971-c79c-4b0e-8e97-1d5f78f31adc/Test1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_kt/execution-46162971-c79c-4b0e-8e97-1d5f78f31adc/Test1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_kt/execution-46162971-c79c-4b0e-8e97-1d5f78f31adc/entrypoint.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_c/Dockerfile.compilation" beforeDir="false" afterPath="$PROJECT_DIR$/executions/utility_c/Dockerfile.compilation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_cpp/Dockerfile.compilation" beforeDir="false" afterPath="$PROJECT_DIR$/executions/utility_cpp/Dockerfile.compilation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_cs/Dockerfile.compilation" beforeDir="false" afterPath="$PROJECT_DIR$/executions/utility_cs/Dockerfile.compilation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_go/Dockerfile.compilation" beforeDir="false" afterPath="$PROJECT_DIR$/executions/utility_go/Dockerfile.compilation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_hs/Dockerfile.compilation" beforeDir="false" afterPath="$PROJECT_DIR$/executions/utility_hs/Dockerfile.compilation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_java/Dockerfile.compilation" beforeDir="false" afterPath="$PROJECT_DIR$/executions/utility_java/Dockerfile.compilation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_kt/Dockerfile.compilation" beforeDir="false" afterPath="$PROJECT_DIR$/executions/utility_kt/Dockerfile.compilation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_rs/Dockerfile.compilation" beforeDir="false" afterPath="$PROJECT_DIR$/executions/utility_rs/Dockerfile.compilation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_scala/Dockerfile.compilation" beforeDir="false" afterPath="$PROJECT_DIR$/executions/utility_scala/Dockerfile.compilation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/Execution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/Execution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/PythonExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/PythonExecution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/RubyExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/RubyExecution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/ProcessOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/ProcessOutput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerFacadeDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerFacadeDefault.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceDefault.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceDefault.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceDecoratorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceDecoratorTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/LongRunningCompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/LongRunningCompilerServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/local/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/CompilerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/CompilerApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CE2ETests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/HaskellE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/HaskellE2ETests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +110,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CompilerServiceTests.WhenItIsACompilationErrorCompileMethodShouldReturnCompilationErrorVerdict">
+  <component name="RunManager" selected="Spring Boot.CompilerApplication (1)">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -199,6 +161,21 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="CE2ETests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.e2e.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.e2e" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.e2e.CE2ETests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CompilerServiceTests.WhenItIsACompilationErrorCompileMethodShouldReturnCompilationErrorVerdict" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
@@ -226,22 +203,6 @@
       <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerServiceTests" />
       <option name="METHOD_NAME" value="defaultCompilerShouldThrowContainerOperationTimeoutException" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CompilerServiceTests.shouldThrownContainerFailedDependencyException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerServiceTests" />
-      <option name="METHOD_NAME" value="shouldThrownContainerFailedDependencyException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -403,11 +364,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CE2ETests" />
         <item itemvalue="JUnit.CompilerServiceTests.WhenItIsACompilationErrorCompileMethodShouldReturnCompilationErrorVerdict" />
         <item itemvalue="Gradle./home/zakaria/Desktop/projects/RemoteCodeCompiler" />
         <item itemvalue="JUnit.ThrottlingTests" />
         <item itemvalue="JUnit.CompilerServiceTests.defaultCompilerShouldThrowContainerOperationTimeoutException" />
-        <item itemvalue="JUnit.CompilerServiceTests.shouldThrownContainerFailedDependencyException" />
       </list>
     </recent_temporary>
   </component>
@@ -500,7 +461,7 @@
       <workItem from="1667740159432" duration="28067000" />
       <workItem from="1668115930148" duration="20338000" />
       <workItem from="1668181256383" duration="4740000" />
-      <workItem from="1668255844173" duration="43805000" />
+      <workItem from="1668255844173" duration="54034000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
@@ -565,7 +526,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668125610237</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Use local volume for local executions, and same volume as the compilation containers when the app is running inside a container.">
+      <created>1668353703337</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1668353703337</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -598,7 +566,8 @@
     <MESSAGE value="Implementation of Push Notification" />
     <MESSAGE value="Update endpoints (one endpoint for all languages)" />
     <MESSAGE value="Improve efficiency during the compilation, splitting compilation part from execution part" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve efficiency during the compilation, splitting compilation part from execution part" />
+    <MESSAGE value="Use local volume for local executions, and same volume as the compilation containers when the app is running inside a container." />
+    <option name="LAST_COMMIT_MESSAGE" value="Use local volume for local executions, and same volume as the compilation containers when the app is running inside a container." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
