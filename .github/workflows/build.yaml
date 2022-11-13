@@ -33,8 +33,8 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: 11
-          
-      - run: sudo mvn -B verify -P coverage --no-transfer-progress
+              
+      - run: ./build.sh && sudo mvn -B verify -P coverage --no-transfer-progress
       
       - name: jacoco-badge-generator
         uses: cicirello/jacoco-badge-generator@v2.4.1
