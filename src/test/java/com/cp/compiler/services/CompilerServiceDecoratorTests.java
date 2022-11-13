@@ -67,6 +67,7 @@ class CompilerServiceDecoratorTests {
         
         ProcessOutput containerOutput = ProcessOutput
                 .builder()
+                .stdErr("")
                 .stdOut("test")
                 .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
