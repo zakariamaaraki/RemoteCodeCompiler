@@ -6,10 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/local/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/CompilerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/CompilerApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CE2ETests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/HaskellE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/HaskellE2ETests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceDefault.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/LongRunningCompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/LongRunningCompilerServiceTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +39,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="KubernetesApiPersistence">
@@ -110,7 +114,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.CompilerApplication (1)">
+  <component name="RunManager" selected="JUnit.LongRunningCompilerServiceTests">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -192,7 +196,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CompilerServiceTests.defaultCompilerShouldThrowContainerOperationTimeoutException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CompilerServiceTests.defaultCompilerShouldCleanStderrOutput" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
@@ -202,13 +206,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerServiceTests" />
-      <option name="METHOD_NAME" value="defaultCompilerShouldThrowContainerOperationTimeoutException" />
+      <option name="METHOD_NAME" value="defaultCompilerShouldCleanStderrOutput" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ThrottlingTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LongRunningCompilerServiceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
@@ -217,7 +221,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.ThrottlingTests" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.LongRunningCompilerServiceTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -364,11 +368,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.LongRunningCompilerServiceTests" />
+        <item itemvalue="JUnit.CompilerServiceTests.defaultCompilerShouldCleanStderrOutput" />
         <item itemvalue="JUnit.CE2ETests" />
         <item itemvalue="JUnit.CompilerServiceTests.WhenItIsACompilationErrorCompileMethodShouldReturnCompilationErrorVerdict" />
         <item itemvalue="Gradle./home/zakaria/Desktop/projects/RemoteCodeCompiler" />
-        <item itemvalue="JUnit.ThrottlingTests" />
-        <item itemvalue="JUnit.CompilerServiceTests.defaultCompilerShouldThrowContainerOperationTimeoutException" />
       </list>
     </recent_temporary>
   </component>
@@ -461,7 +465,7 @@
       <workItem from="1667740159432" duration="28067000" />
       <workItem from="1668115930148" duration="20338000" />
       <workItem from="1668181256383" duration="4740000" />
-      <workItem from="1668255844173" duration="54034000" />
+      <workItem from="1668255844173" duration="58375000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
@@ -533,7 +537,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668353703337</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Update local execution to use a volume">
+      <created>1668364279962</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1668364279962</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -567,7 +578,8 @@
     <MESSAGE value="Update endpoints (one endpoint for all languages)" />
     <MESSAGE value="Improve efficiency during the compilation, splitting compilation part from execution part" />
     <MESSAGE value="Use local volume for local executions, and same volume as the compilation containers when the app is running inside a container." />
-    <option name="LAST_COMMIT_MESSAGE" value="Use local volume for local executions, and same volume as the compilation containers when the app is running inside a container." />
+    <MESSAGE value="Update local execution to use a volume" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update local execution to use a volume" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

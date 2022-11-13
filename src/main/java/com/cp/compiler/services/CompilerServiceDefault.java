@@ -124,7 +124,7 @@ public class CompilerServiceDefault implements CompilerService {
             buildContainerImage(execution.getPath(), execution.getImageName(), WellKnownFiles.EXECUTION_DOCKERFILE_NAME);
             
             // 3 - Run the execution container
-            Result result = runContainer(execution.getImageName(), expectedOutput);
+            Result result = runContainer(execution, expectedOutput);
     
             // 4 - Clean up
             if (deleteDockerImage) {
@@ -188,13 +188,13 @@ public class CompilerServiceDefault implements CompilerService {
         }
     }
     
-    private Result runContainer(String imageName, String expectedOutput) {
+    private Result runContainer(Execution execution, String expectedOutput) {
         
         try {
-            ProcessOutput containerOutput = containerService.runContainer(imageName, TIME_OUT, resources.getMaxCpus());
+            ProcessOutput containerOutput = containerService.runContainer(execution.getImageName(), TIME_OUT, resources.getMaxCpus());
             Verdict verdict = getVerdict(containerOutput, expectedOutput);
         
-            // TODO: clean stderr output
+            cleanStdErrOutput(containerOutput, execution);
             
             return new Result(
                     verdict,
@@ -205,13 +205,12 @@ public class CompilerServiceDefault implements CompilerService {
         
         } catch(ContainerOperationTimeoutException exception) {
             log.warn("Tme limit exceeded during the execution: {}", exception); // Should be caught inside the container
-            // TODO: set the correct value of time limit, the one given by the user
             return new Result(
                     Verdict.TIME_LIMIT_EXCEEDED,
                     "",
                     "The execution exceeded the time limit",
                     expectedOutput,
-                    TIME_OUT);
+                    execution.getTimeLimit() + 1);
         }
     }
     

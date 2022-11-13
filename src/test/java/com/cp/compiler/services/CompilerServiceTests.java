@@ -184,6 +184,7 @@ class CompilerServiceTests {
         ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
+                .stdErr("")
                 .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
     
@@ -237,6 +238,7 @@ class CompilerServiceTests {
         ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
+                .stdErr("")
                 .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
     
@@ -295,6 +297,7 @@ class CompilerServiceTests {
         ProcessOutput containerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
+                .stdErr("")
                 .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
     
@@ -348,6 +351,7 @@ class CompilerServiceTests {
         ProcessOutput executionContainerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
+                .stdErr("")
                 .status(StatusUtils.TIME_LIMIT_EXCEEDED_STATUS)
                 .build();
     
@@ -403,12 +407,14 @@ class CompilerServiceTests {
         ProcessOutput executionContainerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
+                .stdErr("")
                 .status(999) // Runtime error
                 .build();
     
         ProcessOutput compilationContainerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
+                .stdErr("")
                 .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
     
@@ -461,6 +467,7 @@ class CompilerServiceTests {
         ProcessOutput executionContainerOutput = ProcessOutput
                 .builder()
                 .stdOut(output)
+                .stdErr("")
                 .status(StatusUtils.OUT_OF_MEMORY_STATUS)
                 .build();
     
@@ -606,5 +613,45 @@ class CompilerServiceTests {
         
         // When / Then
         Assertions.assertThrows(ContainerOperationTimeoutException.class, () -> compilerService.execute(execution));
+    }
+    
+    @Test
+    void defaultCompilerShouldCleanStderrOutput() {
+        
+        MockMultipartFile file = new MockMultipartFile(
+                "file",
+                "hello.txt",
+                MediaType.TEXT_PLAIN_VALUE,
+                "output".getBytes()
+        );
+        
+        Execution execution = ExecutionFactory.createExecution(
+                file, null, file, 10, 100, Language.JAVA);
+        
+        var processOutput =
+                ProcessOutput
+                        .builder()
+                        .stdOut("")
+                        .stdErr(execution.getPath() + "/mockFile")
+                        .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
+                        .build();
+        
+        Mockito.when(containerService.runContainer(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat()))
+                .thenReturn(processOutput);
+        
+        // Should compile
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString()))
+                .thenReturn(ProcessOutput.builder().status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS).build());
+        
+        // When
+        ResponseEntity<Object> response = compilerService.execute(execution);
+        
+        // Then
+        Assertions.assertEquals("/mockFile", ((Response)response.getBody()).getResult().getError());
     }
 }
