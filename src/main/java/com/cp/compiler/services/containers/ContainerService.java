@@ -1,4 +1,4 @@
-package com.cp.compiler.services;
+package com.cp.compiler.services.containers;
 
 import com.cp.compiler.models.ProcessOutput;
 
@@ -16,8 +16,9 @@ public interface ContainerService {
      * @param imageName      the image name
      * @param dockerfileName the dockerfile path
      * @return The build log
+     * @throws Exception the exception
      */
-    String buildImage(String contextPath, String imageName, String dockerfileName);
+    String buildImage(String contextPath, String imageName, String dockerfileName) throws Exception;
     
     /**
      * Run container container output.
@@ -34,18 +35,18 @@ public interface ContainerService {
     /**
      * Run container process output.
      *
-     * @param imageName      the image name
-     * @param timeout        the timeout
-     * @param volumeMounting the volume mounting
-     * @param executionPath  the execution path
+     * @param imageName          the image name
+     * @param timeout            the timeout
+     * @param volumeMounting     the volume mounting
+     * @param executionPath      the execution path
+     * @param sourceCodeFileName the source code file name
      * @return the process output
      */
-    ProcessOutput runContainer(
-            String imageName,
-            long timeout,
-            String volumeMounting,
-            String executionPath,
-            String sourceCodeFileName);
+    ProcessOutput runContainer(String imageName,
+                               long timeout,
+                               String volumeMounting,
+                               String executionPath,
+                               String sourceCodeFileName);
     
     /**
      * Gets running containers.

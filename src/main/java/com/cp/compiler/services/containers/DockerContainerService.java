@@ -1,4 +1,4 @@
-package com.cp.compiler.services;
+package com.cp.compiler.services.containers;
 
 import com.cp.compiler.exceptions.*;
 import com.cp.compiler.models.ProcessOutput;
@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 
 /**
- * This class provides Docker utilities that are used by the compiler
+ * This class provides Docker utilities
  *
  * @author Zakaria Maaraki
  */
 @Slf4j
-@Service
-public class ContainerServiceDefault implements ContainerService {
+@Service("docker")
+public class DockerContainerService implements ContainerService {
     
     /**
      * The constant BUILD_TIMEOUT.
@@ -51,7 +51,7 @@ public class ContainerServiceDefault implements ContainerService {
      *
      * @param meterRegistry the meter registry
      */
-    public ContainerServiceDefault(MeterRegistry meterRegistry) {
+    public DockerContainerService(MeterRegistry meterRegistry) {
         this.meterRegistry = meterRegistry;
     }
     
@@ -68,12 +68,17 @@ public class ContainerServiceDefault implements ContainerService {
      * {@inheritDoc}
      */
     @Override
-    public String buildImage(String contextPath, String imageName, String dockerfileName) {
-        // TODO Refactor by using vavr.Try
+    public String buildImage(String contextPath, String imageName, String dockerfileName) throws Exception {
         return buildTimer.record(() -> {
             String dockerfilePath = contextPath + "/" + dockerfileName;
             String[] buildCommand =
-                    new String[]{"docker", "image", "build", "-f", dockerfilePath, "-t", imageName, contextPath};
+                    new String[]{
+                            "docker",
+                            "image",
+                            "build",
+                            "-f", dockerfilePath,
+                            "-t", imageName,
+                            contextPath};
             return executeContainerCommand(buildCommand, BUILD_TIMEOUT);
         });
     }
@@ -87,16 +92,9 @@ public class ContainerServiceDefault implements ContainerService {
     @Override
     public ProcessOutput runContainer(String imageName, long timeout, float maxCpus) {
         return runTimer.record(() -> {
-            try {
-                var cpus = "--cpus=" + maxCpus;
-                String[] dockerCommand = new String[]{"docker", "run", cpus, "--rm", imageName};
-                return CmdUtils.executeProcess(dockerCommand, timeout);
-            } catch(ProcessExecutionTimeoutException processExecutionTimeoutException) {
-                // TLE
-                throw new ContainerOperationTimeoutException(processExecutionTimeoutException.getMessage());
-            } catch(ProcessExecutionException processExecutionException) {
-                throw new ContainerFailedDependencyException(processExecutionException.getMessage());
-            }
+            var cpus = "--cpus=" + maxCpus;
+            String[] dockerCommand = new String[]{"docker", "run", cpus, "--rm", imageName};
+            return CmdUtils.executeProcess(dockerCommand, timeout);
         });
     }
     
@@ -109,23 +107,17 @@ public class ContainerServiceDefault implements ContainerService {
             String sourceCodeFileName) {
         
         return runTimer.record(() -> {
-            log.info("Execution path {}", executionPath);
-            try {
-                String[] dockerCommand =
-                        new String[]{
-                                "docker",
-                                "run",
-                                "-v", volumeMounting,
-                                "-e", EXECUTION_PATH_ENV_VARIABLE + "=" + executionPath,
-                                "-e", SOURCE_CODE_FILE_NAME_ENV_VARIABLE + "=" + sourceCodeFileName,
-                                "--rm",
-                                imageName};
-                return CmdUtils.executeProcess(dockerCommand, timeout);
-            } catch(ProcessExecutionTimeoutException processExecutionTimeoutException) {
-                throw new ContainerOperationTimeoutException(processExecutionTimeoutException.getMessage());
-            } catch(ProcessExecutionException processExecutionException) {
-                throw new ContainerFailedDependencyException(processExecutionException.getMessage());
-            }
+            String[] dockerCommand =
+                    new String[]{
+                            "docker",
+                            "run",
+                            "-v", volumeMounting,
+                            "-e", EXECUTION_PATH_ENV_VARIABLE + "=" + executionPath,
+                            "-e", SOURCE_CODE_FILE_NAME_ENV_VARIABLE + "=" + sourceCodeFileName,
+                            "--rm",
+                            imageName};
+    
+            return CmdUtils.executeProcess(dockerCommand, timeout);
         });
     }
     
@@ -181,12 +173,14 @@ public class ContainerServiceDefault implements ContainerService {
         try {
             ProcessOutput processOutput = CmdUtils.executeProcess(command, timeout);
             if (!processOutput.getStdErr().isEmpty()) {
-                throw new ContainerFailedDependencyException("Fatal error: " + processOutput.getStdErr());
+                throw new ContainerFailedDependencyException("Error: " + processOutput.getStdErr());
             }
             return processOutput.getStdOut();
         } catch (ProcessExecutionException e) {
+            log.error("Error: {}", e);
             throw new ContainerFailedDependencyException(e.getMessage());
         } catch (ProcessExecutionTimeoutException e) {
+            log.error("Error: {}", e);
             throw new ContainerOperationTimeoutException(e.getMessage());
         }
     }

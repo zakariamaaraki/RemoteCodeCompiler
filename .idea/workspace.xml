@@ -5,8 +5,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/executions/utility_c/execution-12497ef6-230e-43bf-9747-3a8716a99792/Dockerfile.execution" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executions/utility_c/execution-12497ef6-230e-43bf-9747-3a8716a99792/Test1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executions/utility_c/execution-12497ef6-230e-43bf-9747-3a8716a99792/Test4.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executions/utility_c/execution-12497ef6-230e-43bf-9747-3a8716a99792/entrypoint.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executions/utility_c/execution-12497ef6-230e-43bf-9747-3a8716a99792/exec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executions/utility_cs/execution-ff7498f5-69cb-4cf2-8466-85ae8f6be379/Dockerfile.execution" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executions/utility_cs/execution-ff7498f5-69cb-4cf2-8466-85ae8f6be379/Test1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executions/utility_cs/execution-ff7498f5-69cb-4cf2-8466-85ae8f6be379/entrypoint.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executions/utility_cs/execution-ff7498f5-69cb-4cf2-8466-85ae8f6be379/main.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executions/utility_rs/execution-0261bca2-ea26-4cb9-a890-2dc745c9cb19/Dockerfile.execution" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executions/utility_rs/execution-0261bca2-ea26-4cb9-a890-2dc745c9cb19/Test1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executions/utility_rs/execution-0261bca2-ea26-4cb9-a890-2dc745c9cb19/entrypoint.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/executions/utility_rs/execution-0261bca2-ea26-4cb9-a890-2dc745c9cb19/main" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/containers/ContainerServiceDecorator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/containers/DefaultContainerService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utils/retries/RetryHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utils/retries/RetryableExecution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/containers/DefaultContainerServiceTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/containers/DockerServiceTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/utils/RetryHelperTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/compiler/templates/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/compiler/templates/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/ContainersInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/ContainersInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/healthchecks/ContainerHealthIndicator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/healthchecks/ContainerHealthIndicator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceDefault.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/containers/ContainerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ContainerServiceDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/containers/DockerContainerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/LongRunningCompilerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/LongRunningCompilerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utils/CmdUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utils/CmdUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/RegistrationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/RegistrationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/healths/ContainerHealthIndicatorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/healths/ContainerHealthIndicatorTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceDecoratorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceDecoratorTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/ContainerServiceTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/LongRunningCompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/LongRunningCompilerServiceTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,6 +132,8 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.cp.compiler.services.containers" />
+      <recent name="com.cp.compiler.utils" />
       <recent name="com.cp.compiler.amqp" />
       <recent name="com.cp.compiler.executions" />
       <recent name="com.cp.compiler" />
@@ -112,14 +148,16 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CompilerServiceDecoratorTests">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.DefaultContainerServiceTests.runContainerWithVolumeShouldRetry3TimesIfItFailsWithProcessExecutionTimeoutException">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -144,79 +182,82 @@
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="CE2ETests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DefaultContainerServiceTests.buildImageShouldRetries3TimesIfItFails" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.e2e.*" />
+          <option name="PATTERN" value="com.cp.compiler.services.containers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.e2e" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.e2e.CE2ETests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CompilerServiceDecoratorTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerServiceDecoratorTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CompilerServiceTests.WhenItIsACompilationErrorCompileMethodShouldReturnCompilationErrorVerdict" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerServiceTests" />
-      <option name="METHOD_NAME" value="WhenItIsACompilationErrorCompileMethodShouldReturnCompilationErrorVerdict" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services.containers" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.containers.DefaultContainerServiceTests" />
+      <option name="METHOD_NAME" value="buildImageShouldRetries3TimesIfItFails" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CompilerServiceTests.defaultCompilerShouldCleanStderrOutput" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DefaultContainerServiceTests.runContainerShouldNotRetryIfItFailsWithProcessExecutionTimeoutException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
+          <option name="PATTERN" value="com.cp.compiler.services.containers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerServiceTests" />
-      <option name="METHOD_NAME" value="defaultCompilerShouldCleanStderrOutput" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services.containers" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.containers.DefaultContainerServiceTests" />
+      <option name="METHOD_NAME" value="runContainerShouldNotRetryIfItFailsWithProcessExecutionTimeoutException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LongRunningCompilerServiceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DefaultContainerServiceTests.runContainerWithVolumeShouldRetry3TimesIfItFailsWithProcessExecutionException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
+          <option name="PATTERN" value="com.cp.compiler.services.containers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.LongRunningCompilerServiceTests" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services.containers" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.containers.DefaultContainerServiceTests" />
+      <option name="METHOD_NAME" value="runContainerWithVolumeShouldRetry3TimesIfItFailsWithProcessExecutionException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DefaultContainerServiceTests.runContainerWithVolumeShouldRetry3TimesIfItFailsWithProcessExecutionTimeoutException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.services.containers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services.containers" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.containers.DefaultContainerServiceTests" />
+      <option name="METHOD_NAME" value="runContainerWithVolumeShouldRetry3TimesIfItFailsWithProcessExecutionTimeoutException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DefaultContainerServiceTests.runShouldRetries3TimesIfItFailsWithProcessExecutionException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.services.containers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services.containers" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.containers.DefaultContainerServiceTests" />
+      <option name="METHOD_NAME" value="runShouldRetries3TimesIfItFailsWithProcessExecutionException" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -362,11 +403,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CompilerServiceDecoratorTests" />
-        <item itemvalue="JUnit.LongRunningCompilerServiceTests" />
-        <item itemvalue="JUnit.CompilerServiceTests.defaultCompilerShouldCleanStderrOutput" />
-        <item itemvalue="JUnit.CE2ETests" />
-        <item itemvalue="JUnit.CompilerServiceTests.WhenItIsACompilationErrorCompileMethodShouldReturnCompilationErrorVerdict" />
+        <item itemvalue="JUnit.DefaultContainerServiceTests.runContainerWithVolumeShouldRetry3TimesIfItFailsWithProcessExecutionTimeoutException" />
+        <item itemvalue="JUnit.DefaultContainerServiceTests.runContainerWithVolumeShouldRetry3TimesIfItFailsWithProcessExecutionException" />
+        <item itemvalue="JUnit.DefaultContainerServiceTests.runContainerShouldNotRetryIfItFailsWithProcessExecutionTimeoutException" />
+        <item itemvalue="JUnit.DefaultContainerServiceTests.runShouldRetries3TimesIfItFailsWithProcessExecutionException" />
+        <item itemvalue="JUnit.DefaultContainerServiceTests.buildImageShouldRetries3TimesIfItFails" />
       </list>
     </recent_temporary>
   </component>
@@ -460,6 +501,9 @@
       <workItem from="1668115930148" duration="20338000" />
       <workItem from="1668181256383" duration="4740000" />
       <workItem from="1668255844173" duration="58375000" />
+      <workItem from="1668619024380" duration="8131000" />
+      <workItem from="1668721260660" duration="3985000" />
+      <workItem from="1668774134806" duration="19162000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>

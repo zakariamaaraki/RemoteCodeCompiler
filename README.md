@@ -79,21 +79,21 @@ docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -
 * The value of the env variable **EXECUTION_MEMORY_MAX** is by default set to 10 000 MB, and represents the maximum value of memory limit that we can pass in the request. **EXECUTION_MEMORY_MIN** is by default set to 0.
 * The value of the env variable **EXECUTION_TIME_MAX** is by default set to 15 sec, and represents the maximum value of time limit that we can pass in the request. **EXECUTION_TIME_MIN** is by default set to 0.  
 * **MAX_REQUESTS** represents the number of requests that can be executed in parallel. When this value is reached all incoming requests will be throttled, and the user will get 429 HTTP status code (there will be a retry in queue mode).
-* **MAX_EXECUTION_CPUS** represents the maximum number of cpus to use for each execution (by default the maximum available cpus). If this value is set, then all requests will be throttled when the reach the maximum.
-* **PULL_IMAGES_BEFORE_STARTUP** if it's set to true then the compiler will pull all images before starting the container to make first requests faster.
+* **MAX_EXECUTION_CPUS** represents the maximum number of cpus to use for each execution (by default the maximum available cpus). If this value is set, then all requests will be throttled when the service reaches the maximum.
 * **COMPILATION_CONTAINER_VOLUME** It should be the same as the volume created in step 2.
 
 
 ### Push Notifications
+You may want to get the response later and to avoid http timeouts, you can use push notifications,
+to do so you must pass two header values (**url** where you want to get the response and set **preferPush** to prefer-push)
 
 ![push-notifications.png](images/webhooks.png)
 
 To enable push notifications you must set **ENABLE_PUSH_NOTIFICATION** to true
 
-For long-running executions, you may want to get the response later and to avoid http timeouts, you can use push notifications,
-to do so you must pass two header values (**url** where you want to get the response and set **preferPush** to prefer-push)
-
 ### Multipart request
+
+You have also the possibility to use multipart requests, you typically can use these requests for file uploads and for transferring data of several types in a single request.
 
 ![multipart-request.png](images/multipart-request.png)
 

@@ -1,0 +1,45 @@
+package com.cp.compiler.services.containers;
+
+import com.cp.compiler.exceptions.ContainerFailedDependencyException;
+import com.cp.compiler.exceptions.ProcessExecutionException;
+import com.cp.compiler.exceptions.ProcessExecutionTimeoutException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class DockerServiceTests {
+    
+    @Autowired
+    private DockerContainerService containerService;
+    
+    @Test
+    void shouldThrowContainerFailedDependencyExecutionException() {
+        // When / Then
+        Assertions.assertThrows(
+                ContainerFailedDependencyException.class,
+                () -> containerService.buildImage("test", "does not exists", "test"));
+    }
+    
+    @Test
+    void shouldThrowProcessTimeoutException() {
+        // When / Then
+        Assertions.assertThrows(
+                ProcessExecutionTimeoutException.class,
+                () -> containerService.runContainer("does not exists", 1, 0.2f));
+    }
+    
+    @Test
+    void runContainerWithVolumeShouldThrowProcessTimeoutException() {
+        // When / Then
+        Assertions.assertThrows(
+                ProcessExecutionTimeoutException.class,
+                () -> containerService.runContainer(
+                        "does not exists",
+                        1,
+                        "volume",
+                        "executionPath",
+                        "sourceCode"));
+    }
+}

@@ -6,7 +6,7 @@ import com.cp.compiler.controllers.IndexController;
 import com.cp.compiler.repositories.HooksRepository;
 import com.cp.compiler.services.CompilerFacade;
 import com.cp.compiler.services.CompilerService;
-import com.cp.compiler.services.ContainerService;
+import com.cp.compiler.services.containers.ContainerService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -6,6 +6,7 @@ import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.*;
+import com.cp.compiler.services.containers.ContainerService;
 import com.cp.compiler.utils.StatusUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -128,7 +129,7 @@ class CompilerServiceTests {
      * When image build failed should throw container build exception.
      */
     @Test
-    void WhenImageBuildFailShouldThrowContainerBuildException() {
+    void WhenImageBuildFailShouldThrowContainerBuildException() throws Exception {
         // Given
         MockMultipartFile file = new MockMultipartFile(
                 "file",
@@ -164,7 +165,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenImageBuildSucceedShouldReturnAResult() {
+    void WhenImageBuildSucceedShouldReturnAResult() throws Exception {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -221,7 +222,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenItsACorrectAnswerCompileMethodShouldReturnAcceptedVerdict() {
+    void WhenItsACorrectAnswerCompileMethodShouldReturnAcceptedVerdict() throws Exception {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -272,7 +273,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenItsAWrongAnswerCompileMethodShouldReturnWrongAnswerVerdict() {
+    void WhenItsAWrongAnswerCompileMethodShouldReturnWrongAnswerVerdict() throws Exception {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -331,7 +332,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenTheExecutionTimeExceedTheLimitCompileMethodShouldReturnTimeLimitExceededVerdict() {
+    void WhenTheExecutionTimeExceedTheLimitCompileMethodShouldReturnTimeLimitExceededVerdict() throws Exception {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -390,7 +391,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenThereIsARuntimeErrorCompileMethodShouldReturnRunTimeErrorVerdict() {
+    void WhenThereIsARuntimeErrorCompileMethodShouldReturnRunTimeErrorVerdict() throws Exception {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -447,7 +448,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenMemoryLimitExceededCompileMethodShouldReturnOutOfMemoryErrorVerdict() {
+    void WhenMemoryLimitExceededCompileMethodShouldReturnOutOfMemoryErrorVerdict() throws Exception {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -506,7 +507,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenItIsACompilationErrorCompileMethodShouldReturnCompilationErrorVerdict() {
+    void WhenItIsACompilationErrorCompileMethodShouldReturnCompilationErrorVerdict() throws Exception {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -551,7 +552,7 @@ class CompilerServiceTests {
     }
     
     @Test
-    void shouldThrownContainerFailedDependencyException() {
+    void shouldThrownContainerFailedDependencyException() throws Exception {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -585,7 +586,7 @@ class CompilerServiceTests {
     }
     
     @Test
-    void defaultCompilerShouldThrowContainerOperationTimeoutException() {
+    void defaultCompilerShouldThrowContainerOperationTimeoutException() throws Exception {
         // Given
         String output = "test";
     
@@ -612,7 +613,7 @@ class CompilerServiceTests {
                 .thenReturn(ProcessOutput.builder().status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS).build());
         
         // When / Then
-        Assertions.assertThrows(ContainerOperationTimeoutException.class, () -> compilerService.execute(execution));
+        Assertions.assertThrows(ContainerBuildException.class, () -> compilerService.execute(execution));
     }
     
     @Test

@@ -46,7 +46,7 @@ public class LongRunningCompilerService extends CompilerServiceDecorator {
             try {
                 run(execution, url);
             } catch (Exception exception) {
-                // Other exception not expected
+                // Unexpected error
                 // In this case the error will not be returned to the client
                 log.error("Error : {}", exception);
             }

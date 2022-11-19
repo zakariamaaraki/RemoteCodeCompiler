@@ -1,6 +1,6 @@
 package com.cp.compiler.healthchecks;
 
-import com.cp.compiler.services.ContainerService;
+import com.cp.compiler.services.containers.ContainerService;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;

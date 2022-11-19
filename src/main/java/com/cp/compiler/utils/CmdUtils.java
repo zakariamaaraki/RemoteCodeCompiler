@@ -122,7 +122,6 @@ public abstract class CmdUtils {
             if (process.isAlive()) {
                 log.info("The process exceeded the {} Millis allowed for its execution", timeout);
                 process.destroy();
-                log.info("The process has been destroyed");
                 throw new ProcessExecutionTimeoutException(timeout);
             } else {
                 status = process.exitValue();
@@ -144,9 +143,11 @@ public abstract class CmdUtils {
                     .executionDuration(executionEndTime - executionStartTime)
                     .build();
             
-        } catch(ProcessExecutionTimeoutException processExecutionTimeoutException) {
-            throw processExecutionTimeoutException;
-        } catch(Exception exception) {
+        } catch(RuntimeException | InterruptedException | IOException exception) {
+            if (exception instanceof ProcessExecutionTimeoutException) {
+                throw (ProcessExecutionTimeoutException) exception;
+            }
+            log.error("Unexpected error: {}", exception);
             throw new ProcessExecutionException("Fatal error for command " + commands + " : " + exception.getMessage());
         }
     }

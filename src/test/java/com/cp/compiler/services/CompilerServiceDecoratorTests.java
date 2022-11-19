@@ -1,9 +1,11 @@
 package com.cp.compiler.services;
 
+import com.cp.compiler.exceptions.ContainerBuildException;
 import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.*;
+import com.cp.compiler.services.containers.ContainerService;
 import com.cp.compiler.utils.StatusUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -44,7 +46,7 @@ class CompilerServiceDecoratorTests {
     }
     
     @Test
-    void shouldHaveTheSameBehaviorAsTheCompilerClient() {
+    void shouldHaveTheSameBehaviorAsTheCompilerClient() throws Exception {
         // Given
         MultipartFile file = new MockMultipartFile(
                 "test.txt.c",
@@ -96,7 +98,7 @@ class CompilerServiceDecoratorTests {
     }
     
     @Test
-    void compilerDecoratorShouldThrowContainerOperationTimeoutException() {
+    void compilerDecoratorShouldThrowContainerOperationTimeoutException() throws Exception {
         // Given
         MultipartFile file = new MockMultipartFile(
                 "test.txt.c",
@@ -127,7 +129,7 @@ class CompilerServiceDecoratorTests {
                 .thenReturn(ProcessOutput.builder().status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS).build());
         
         // Then
-        Assertions.assertThrows(ContainerOperationTimeoutException.class, () -> {
+        Assertions.assertThrows(ContainerBuildException.class, () -> {
             compilerServiceDecorator.execute(execution);
         });
     }
