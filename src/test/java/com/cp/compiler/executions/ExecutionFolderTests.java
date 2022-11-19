@@ -31,17 +31,6 @@ class ExecutionFolderTests {
     }
     
     @Test
-    void javaExecutionFolderShouldContainsCompilationDockerfile() {
-        // Given
-        File dockerfile =
-                new File(Language.JAVA.getFolderName() + "/" + WellKnownFiles.COMPILATION_DOCKERFILE_NAME);
-        
-        // Then
-        Assertions.assertTrue(dockerfile.exists());
-        Assertions.assertTrue(dockerfile.isFile());
-    }
-    
-    @Test
     void pythonExecutionFolderShouldExist() {
         // Given
         File pythonExecutionFolder = new File(Language.PYTHON.getFolderName());
@@ -84,17 +73,6 @@ class ExecutionFolderTests {
     }
     
     @Test
-    void kotlinExecutionFolderShouldContainsCompilationDockerfile() {
-        // Given
-        File dockerfile =
-                new File(Language.KOTLIN.getFolderName() + "/" + WellKnownFiles.COMPILATION_DOCKERFILE_NAME);
-        
-        // Then
-        Assertions.assertTrue(dockerfile.exists());
-        Assertions.assertTrue(dockerfile.isFile());
-    }
-    
-    @Test
     void cExecutionFolderShouldExist() {
         // Given
         File cExecutionFolder = new File(Language.C.getFolderName());
@@ -109,17 +87,6 @@ class ExecutionFolderTests {
         // Given
         File dockerfile =
                 new File(Language.C.getFolderName() + "/" + WellKnownFiles.EXECUTION_DOCKERFILE_NAME);
-        
-        // Then
-        Assertions.assertTrue(dockerfile.exists());
-        Assertions.assertTrue(dockerfile.isFile());
-    }
-    
-    @Test
-    void cExecutionFolderShouldContainsCompilationDockerfile() {
-        // Given
-        File dockerfile =
-                new File(Language.C.getFolderName() + "/" + WellKnownFiles.COMPILATION_DOCKERFILE_NAME);
         
         // Then
         Assertions.assertTrue(dockerfile.exists());
@@ -148,17 +115,6 @@ class ExecutionFolderTests {
     }
     
     @Test
-    void cppExecutionFolderShouldContainsCompilationDockerfile() {
-        // Given
-        File dockerfile =
-                new File(Language.CPP.getFolderName() + "/" + WellKnownFiles.COMPILATION_DOCKERFILE_NAME);
-        
-        // Then
-        Assertions.assertTrue(dockerfile.exists());
-        Assertions.assertTrue(dockerfile.isFile());
-    }
-    
-    @Test
     void csExecutionFolderShouldExist() {
         // Given
         File csExecutionFolder = new File(Language.CS.getFolderName());
@@ -173,17 +129,6 @@ class ExecutionFolderTests {
         // Given
         File dockerfile =
                 new File(Language.CS.getFolderName() + "/" + WellKnownFiles.EXECUTION_DOCKERFILE_NAME);
-        
-        // Then
-        Assertions.assertTrue(dockerfile.exists());
-        Assertions.assertTrue(dockerfile.isFile());
-    }
-    
-    @Test
-    void csExecutionFolderShouldContainsCompilationDockerfile() {
-        // Given
-        File dockerfile =
-                new File(Language.CS.getFolderName() + "/" + WellKnownFiles.COMPILATION_DOCKERFILE_NAME);
         
         // Then
         Assertions.assertTrue(dockerfile.exists());
@@ -212,17 +157,6 @@ class ExecutionFolderTests {
     }
     
     @Test
-    void goExecutionFolderShouldContainsCompilationDockerfile() {
-        // Given
-        File dockerfile =
-                new File(Language.GO.getFolderName() + "/" + WellKnownFiles.COMPILATION_DOCKERFILE_NAME);
-        
-        // Then
-        Assertions.assertTrue(dockerfile.exists());
-        Assertions.assertTrue(dockerfile.isFile());
-    }
-    
-    @Test
     void scalaExecutionFolderShouldExist() {
         // Given
         File scalaExecutionFolder = new File(Language.SCALA.getFolderName());
@@ -244,17 +178,6 @@ class ExecutionFolderTests {
     }
     
     @Test
-    void scalaExecutionFolderShouldContainsCompilationDockerfile() {
-        // Given
-        File dockerfile =
-                new File(Language.SCALA.getFolderName() + "/" + WellKnownFiles.COMPILATION_DOCKERFILE_NAME);
-        
-        // Then
-        Assertions.assertTrue(dockerfile.exists());
-        Assertions.assertTrue(dockerfile.isFile());
-    }
-    
-    @Test
     void rustExecutionFolderShouldExist() {
         // Given
         File rustExecutionFolder = new File(Language.RUST.getFolderName());
@@ -269,17 +192,6 @@ class ExecutionFolderTests {
         // Given
         File dockerfile =
                 new File(Language.RUST.getFolderName() + "/" + WellKnownFiles.EXECUTION_DOCKERFILE_NAME);
-        
-        // Then
-        Assertions.assertTrue(dockerfile.exists());
-        Assertions.assertTrue(dockerfile.isFile());
-    }
-    
-    @Test
-    void rustExecutionFolderShouldContainsCompilationDockerfile() {
-        // Given
-        File dockerfile =
-                new File(Language.RUST.getFolderName() + "/" + WellKnownFiles.COMPILATION_DOCKERFILE_NAME);
         
         // Then
         Assertions.assertTrue(dockerfile.exists());
@@ -322,17 +234,6 @@ class ExecutionFolderTests {
         // Given
         File dockerfile =
                 new File(Language.HASKELL.getFolderName() + "/" + WellKnownFiles.EXECUTION_DOCKERFILE_NAME);
-        
-        // Then
-        Assertions.assertTrue(dockerfile.exists());
-        Assertions.assertTrue(dockerfile.isFile());
-    }
-    
-    @Test
-    void haskellExecutionFolderShouldContainsCompilationDockerfile() {
-        // Given
-        File dockerfile =
-                new File(Language.HASKELL.getFolderName() + "/" + WellKnownFiles.COMPILATION_DOCKERFILE_NAME);
         
         // Then
         Assertions.assertTrue(dockerfile.exists());

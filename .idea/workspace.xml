@@ -4,37 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/environment/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_c/execution-12497ef6-230e-43bf-9747-3a8716a99792/Dockerfile.execution" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_c/execution-12497ef6-230e-43bf-9747-3a8716a99792/Test1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_c/execution-12497ef6-230e-43bf-9747-3a8716a99792/Test4.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_c/execution-12497ef6-230e-43bf-9747-3a8716a99792/entrypoint.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_c/execution-12497ef6-230e-43bf-9747-3a8716a99792/exec" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/execution-ff7498f5-69cb-4cf2-8466-85ae8f6be379/Dockerfile.execution" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/execution-ff7498f5-69cb-4cf2-8466-85ae8f6be379/Test1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/execution-ff7498f5-69cb-4cf2-8466-85ae8f6be379/entrypoint.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_cs/execution-ff7498f5-69cb-4cf2-8466-85ae8f6be379/main.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_rs/execution-0261bca2-ea26-4cb9-a890-2dc745c9cb19/Dockerfile.execution" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_rs/execution-0261bca2-ea26-4cb9-a890-2dc745c9cb19/Test1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_rs/execution-0261bca2-ea26-4cb9-a890-2dc745c9cb19/entrypoint.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/executions/utility_rs/execution-0261bca2-ea26-4cb9-a890-2dc745c9cb19/main" afterDir="false" />
+    <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="[Helm k8s] use init container to build the environment">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.sh" beforeDir="false" afterPath="$PROJECT_DIR$/environment/build.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entrypoint.sh" beforeDir="false" afterPath="$PROJECT_DIR$/entrypoint.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_c/Dockerfile.compilation" beforeDir="false" afterPath="$PROJECT_DIR$/environment/dockerfiles/Dockerfile.c.compilation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_cpp/Dockerfile.compilation" beforeDir="false" afterPath="$PROJECT_DIR$/environment/dockerfiles/Dockerfile.cpp.compilation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_cs/Dockerfile.compilation" beforeDir="false" afterPath="$PROJECT_DIR$/environment/dockerfiles/Dockerfile.cs.compilation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_go/Dockerfile.compilation" beforeDir="false" afterPath="$PROJECT_DIR$/environment/dockerfiles/Dockerfile.go.compilation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_hs/Dockerfile.compilation" beforeDir="false" afterPath="$PROJECT_DIR$/environment/dockerfiles/Dockerfile.hs.compilation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_java/Dockerfile.compilation" beforeDir="false" afterPath="$PROJECT_DIR$/environment/dockerfiles/Dockerfile.java.compilation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_kt/Dockerfile.compilation" beforeDir="false" afterPath="$PROJECT_DIR$/environment/dockerfiles/Dockerfile.kt.compilation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_rs/Dockerfile.compilation" beforeDir="false" afterPath="$PROJECT_DIR$/environment/dockerfiles/Dockerfile.rs.compilation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executions/utility_scala/Dockerfile.compilation" beforeDir="false" afterPath="$PROJECT_DIR$/environment/dockerfiles/Dockerfile.scala.compilation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/compiler/templates/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/compiler/templates/deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/compiler/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/compiler/values.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/executions/utility_c/execution-12497ef6-230e-43bf-9747-3a8716a99792/Dockerfile.execution" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/executions/utility_c/execution-12497ef6-230e-43bf-9747-3a8716a99792/Test1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/executions/utility_c/execution-12497ef6-230e-43bf-9747-3a8716a99792/Test4.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/executions/utility_c/execution-12497ef6-230e-43bf-9747-3a8716a99792/entrypoint.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/executions/utility_c/execution-12497ef6-230e-43bf-9747-3a8716a99792/exec" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/executions/utility_cs/execution-ff7498f5-69cb-4cf2-8466-85ae8f6be379/Dockerfile.execution" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/executions/utility_cs/execution-ff7498f5-69cb-4cf2-8466-85ae8f6be379/Test1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/executions/utility_cs/execution-ff7498f5-69cb-4cf2-8466-85ae8f6be379/entrypoint.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/executions/utility_cs/execution-ff7498f5-69cb-4cf2-8466-85ae8f6be379/main.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/executions/utility_rs/execution-0261bca2-ea26-4cb9-a890-2dc745c9cb19/Dockerfile.execution" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/executions/utility_rs/execution-0261bca2-ea26-4cb9-a890-2dc745c9cb19/Test1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/executions/utility_rs/execution-0261bca2-ea26-4cb9-a890-2dc745c9cb19/entrypoint.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/executions/utility_rs/execution-0261bca2-ea26-4cb9-a890-2dc745c9cb19/main" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/wellknownconstants/WellKnownFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/wellknownconstants/WellKnownFiles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFolderTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFolderTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -500,7 +486,7 @@
       <workItem from="1668255844173" duration="58375000" />
       <workItem from="1668619024380" duration="8131000" />
       <workItem from="1668721260660" duration="3985000" />
-      <workItem from="1668774134806" duration="41855000" />
+      <workItem from="1668774134806" duration="44270000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
@@ -593,7 +579,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668875033281</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="[Helm k8s] use init container to build the environment">
+      <created>1668881814155</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1668881814155</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -630,7 +623,8 @@
     <MESSAGE value="Update local execution to use a volume" />
     <MESSAGE value="Add retries to the container service" />
     <MESSAGE value="[Helm k8s] Fix compiler volume during compilation time" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Helm k8s] Fix compiler volume during compilation time" />
+    <MESSAGE value="[Helm k8s] use init container to build the environment" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Helm k8s] use init container to build the environment" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
