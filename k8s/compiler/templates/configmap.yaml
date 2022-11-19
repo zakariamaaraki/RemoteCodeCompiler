@@ -12,6 +12,7 @@ data:
   "ENABLE_PUSH_NOTIFICATION": "{{ .Values.compiler.enablePushNotification }}"
   "PULL_IMAGES_BEFORE_STARTUP": "{{ .Values.compiler.pull_images_before_startup }}"
   "MAX_EXECUTION_CPUS": "{{ .Values.compiler.cpus }}"
+  "COMPILATION_CONTAINER_VOLUME": "/compiler"
 
   # Kafka
   {{ if .Values.kafka.enabled }}

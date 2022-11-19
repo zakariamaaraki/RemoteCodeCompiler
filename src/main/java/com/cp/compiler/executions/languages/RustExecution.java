@@ -1,5 +1,6 @@
-package com.cp.compiler.executions;
+package com.cp.compiler.executions.languages;
 
+import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownTemplates;
@@ -15,13 +16,13 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
- * The type Kotlin execution.
+ * The type Rust execution.
  */
 @Getter
-public class KotlinExecution extends Execution {
+public class RustExecution extends Execution {
     
     /**
-     * Instantiates a new Kotlin execution.
+     * Instantiates a new Rust execution.
      *
      * @param sourceCode         the source code
      * @param inputFile          the input file
@@ -30,24 +31,20 @@ public class KotlinExecution extends Execution {
      * @param memoryLimit        the memory limit
      * @param executionCounter   the execution counter
      */
-    public KotlinExecution(MultipartFile sourceCode,
-                           MultipartFile inputFile,
-                           MultipartFile expectedOutputFile,
-                           int timeLimit,
-                           int memoryLimit,
-                           Counter executionCounter,
-                           EntrypointFileGenerator entryPointFileGenerator) {
+    public RustExecution(MultipartFile sourceCode,
+                         MultipartFile inputFile,
+                         MultipartFile expectedOutputFile,
+                         int timeLimit,
+                         int memoryLimit,
+                         Counter executionCounter,
+                         EntrypointFileGenerator entryPointFileGenerator) {
         super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        // This case is a bit different, Kotlin and Java files name must be the same as the name of the class
-        // So we will keep the name of the file as it's sent by the user.
-        val fileName = getSourceCodeFile().getOriginalFilename();
-        val prefixName = fileName.substring(0, fileName.length() - 3); // remove .kt
-        val commandPrefix = "kotlin " + prefixName;
+        val commandPrefix = "./main";
         val executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
@@ -67,6 +64,6 @@ public class KotlinExecution extends Execution {
 
     @Override
     public Language getLanguage() {
-        return Language.KOTLIN;
+        return Language.RUST;
     }
 }

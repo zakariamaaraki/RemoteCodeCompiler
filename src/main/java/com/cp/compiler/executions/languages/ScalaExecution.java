@@ -1,5 +1,6 @@
-package com.cp.compiler.executions;
+package com.cp.compiler.executions.languages;
 
+import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownTemplates;
@@ -15,13 +16,13 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
- * The type Java execution.
+ * The type Kotlin execution.
  */
 @Getter
-public class JavaExecution extends Execution {
-
+public class ScalaExecution extends Execution {
+    
     /**
-     * Instantiates a new Java execution.
+     * Instantiates a new Scala execution.
      *
      * @param sourceCode         the source code
      * @param inputFile          the input file
@@ -30,24 +31,24 @@ public class JavaExecution extends Execution {
      * @param memoryLimit        the memory limit
      * @param executionCounter   the execution counter
      */
-    public JavaExecution(MultipartFile sourceCode,
-                         MultipartFile inputFile,
-                         MultipartFile expectedOutputFile,
-                         int timeLimit,
-                         int memoryLimit,
-                         Counter executionCounter,
-                         EntrypointFileGenerator entryPointFileGenerator) {
+    public ScalaExecution(MultipartFile sourceCode,
+                          MultipartFile inputFile,
+                          MultipartFile expectedOutputFile,
+                          int timeLimit,
+                          int memoryLimit,
+                          Counter executionCounter,
+                          EntrypointFileGenerator entryPointFileGenerator) {
         super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        // This case is a bit different, Java file name must be the same as the name of the class
+        // This case is a bit different, Kotlin, Scala and Java files name must be the same as the name of the class
         // So we will keep the name of the file as it's sent by the user.
         val fileName = getSourceCodeFile().getOriginalFilename();
-        val prefixName = fileName.substring(0, fileName.length() - 5); // remove ".java"
-        val commandPrefix = "java " + prefixName;
+        val prefixName = fileName.substring(0, fileName.length() - 6); // remove .scala
+        val commandPrefix = "scala " + prefixName;
         val executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
@@ -56,10 +57,10 @@ public class JavaExecution extends Execution {
                 "timeLimit", String.valueOf(getTimeLimit()),
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
-        
+    
         String content = getEntrypointFileGenerator()
-                .createEntrypointFile(WellKnownTemplates.ENTRYPOINT_TEMPLATE, attributes);
-        
+                .createEntrypointFile(WellKnownTemplates.SCALA_ENTRYPOINT_TEMPLATE, attributes);
+    
         try(OutputStream os = new FileOutputStream(getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME)) {
             os.write(content.getBytes(), 0, content.length());
         }
@@ -67,6 +68,6 @@ public class JavaExecution extends Execution {
 
     @Override
     public Language getLanguage() {
-        return Language.JAVA;
+        return Language.SCALA;
     }
 }

@@ -44,6 +44,8 @@ spec:
           volumeMounts:
             - mountPath: /var/run
               name: executions-volume
+            - mountPath: /compiler
+              name: compilation-volume
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
@@ -51,7 +53,10 @@ spec:
           hostPath:
             # directory location on host
             path: /var/run
-            # this field is optional
+            type: DirectoryOrCreate
+        - name: compilation-volume
+          hostPath:
+            path: /compiler
             type: DirectoryOrCreate
       {{- with .Values.nodeSelector }}
       nodeSelector:

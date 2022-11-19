@@ -1,5 +1,6 @@
-package com.cp.compiler.executions;
+package com.cp.compiler.executions.languages;
 
+import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownTemplates;
@@ -15,37 +16,36 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
- * The type C execution.
+ * The type Cpp execution.
  */
 @Getter
-public class CExecution extends Execution {
-
+public class CPPExecution extends Execution {
+    
     /**
-     * Instantiates a new Execution.
+     * Instantiates a new Cpp execution.
      *
-     * @param sourceCodeFile          the source code
-     * @param inputFile               the inputFile file
-     * @param expectedOutputFile      the expected output file
-     * @param timeLimit               the time limit
-     * @param memoryLimit             the memory limit
-     * @param executionCounter        the execution counter
-     * @param entrypointFileGenerator the entrypointFile generator
+     * @param sourceCode         the source code
+     * @param inputFile          the input file
+     * @param expectedOutputFile the expected output file
+     * @param timeLimit          the time limit
+     * @param memoryLimit        the memory limit
+     * @param executionCounter   the execution counter
      */
-    public CExecution(MultipartFile sourceCodeFile,
-                      MultipartFile inputFile,
-                      MultipartFile expectedOutputFile,
-                      int timeLimit,
-                      int memoryLimit,
-                      Counter executionCounter,
-                      EntrypointFileGenerator entrypointFileGenerator) {
-        super(sourceCodeFile, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entrypointFileGenerator);
+    public CPPExecution(MultipartFile sourceCode,
+                        MultipartFile inputFile,
+                        MultipartFile expectedOutputFile,
+                        int timeLimit,
+                        int memoryLimit,
+                        Counter executionCounter,
+                        EntrypointFileGenerator entryPointFileGenerator) {
+        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
-
+    
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
         val commandPrefix = "./exec";
-        val executionCommand = getInputFile() == null
+        val executionCommand= getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
     
@@ -64,6 +64,6 @@ public class CExecution extends Execution {
 
     @Override
     public Language getLanguage() {
-        return Language.C;
+        return Language.CPP;
     }
 }

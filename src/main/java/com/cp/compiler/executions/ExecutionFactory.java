@@ -14,8 +14,7 @@ import java.util.stream.Collectors;
  */
 public abstract class ExecutionFactory {
     
-    private static Map<Language, AbstractExecutionFactory> registeredFactories
-            = new EnumMap<>(Language.class);
+    private static Map<Language, AbstractExecutionFactory> registeredFactories = new EnumMap<>(Language.class);
     
     private ExecutionFactory() {}
     

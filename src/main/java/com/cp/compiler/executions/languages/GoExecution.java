@@ -1,11 +1,11 @@
-package com.cp.compiler.executions;
+package com.cp.compiler.executions.languages;
 
+import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownTemplates;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import io.micrometer.core.instrument.Counter;
-import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.val;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,39 +15,34 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
- * The type Kotlin execution.
+ * The type Go execution.
  */
-@Getter
-public class ScalaExecution extends Execution {
+public class GoExecution extends Execution {
     
     /**
-     * Instantiates a new Scala execution.
+     * Instantiates a new Go Execution.
      *
-     * @param sourceCode         the source code
-     * @param inputFile          the input file
+     * @param sourceCodeFile     the source code
+     * @param inputFile          the inputFile file
      * @param expectedOutputFile the expected output file
      * @param timeLimit          the time limit
      * @param memoryLimit        the memory limit
      * @param executionCounter   the execution counter
      */
-    public ScalaExecution(MultipartFile sourceCode,
+    public GoExecution(MultipartFile sourceCodeFile,
                           MultipartFile inputFile,
                           MultipartFile expectedOutputFile,
                           int timeLimit,
                           int memoryLimit,
                           Counter executionCounter,
                           EntrypointFileGenerator entryPointFileGenerator) {
-        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
+        super(sourceCodeFile, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        // This case is a bit different, Kotlin, Scala and Java files name must be the same as the name of the class
-        // So we will keep the name of the file as it's sent by the user.
-        val fileName = getSourceCodeFile().getOriginalFilename();
-        val prefixName = fileName.substring(0, fileName.length() - 6); // remove .scala
-        val commandPrefix = "scala " + prefixName;
+        val commandPrefix = "./exec";
         val executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
@@ -58,7 +53,7 @@ public class ScalaExecution extends Execution {
                 "executionCommand", executionCommand);
     
         String content = getEntrypointFileGenerator()
-                .createEntrypointFile(WellKnownTemplates.SCALA_ENTRYPOINT_TEMPLATE, attributes);
+                .createEntrypointFile(WellKnownTemplates.ENTRYPOINT_TEMPLATE, attributes);
     
         try(OutputStream os = new FileOutputStream(getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME)) {
             os.write(content.getBytes(), 0, content.length());
@@ -67,6 +62,6 @@ public class ScalaExecution extends Execution {
 
     @Override
     public Language getLanguage() {
-        return Language.SCALA;
+        return Language.GO;
     }
 }

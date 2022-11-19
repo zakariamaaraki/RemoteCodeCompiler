@@ -1,5 +1,6 @@
-package com.cp.compiler.executions;
+package com.cp.compiler.executions.languages;
 
+import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownTemplates;
@@ -15,13 +16,13 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
- * The type C# execution.
+ * The type Java execution.
  */
 @Getter
-public class CSExecution extends Execution {
-    
+public class JavaExecution extends Execution {
+
     /**
-     * Instantiates a new C# execution.
+     * Instantiates a new Java execution.
      *
      * @param sourceCode         the source code
      * @param inputFile          the input file
@@ -30,20 +31,24 @@ public class CSExecution extends Execution {
      * @param memoryLimit        the memory limit
      * @param executionCounter   the execution counter
      */
-    public CSExecution(MultipartFile sourceCode,
-                       MultipartFile inputFile,
-                       MultipartFile expectedOutputFile,
-                       int timeLimit,
-                       int memoryLimit,
-                       Counter executionCounter,
-                       EntrypointFileGenerator entryPointFileGenerator) {
+    public JavaExecution(MultipartFile sourceCode,
+                         MultipartFile inputFile,
+                         MultipartFile expectedOutputFile,
+                         int timeLimit,
+                         int memoryLimit,
+                         Counter executionCounter,
+                         EntrypointFileGenerator entryPointFileGenerator) {
         super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        val commandPrefix = "mono main.exe";
+        // This case is a bit different, Java file name must be the same as the name of the class
+        // So we will keep the name of the file as it's sent by the user.
+        val fileName = getSourceCodeFile().getOriginalFilename();
+        val prefixName = fileName.substring(0, fileName.length() - 5); // remove ".java"
+        val commandPrefix = "java " + prefixName;
         val executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
@@ -52,10 +57,10 @@ public class CSExecution extends Execution {
                 "timeLimit", String.valueOf(getTimeLimit()),
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
-    
+        
         String content = getEntrypointFileGenerator()
                 .createEntrypointFile(WellKnownTemplates.ENTRYPOINT_TEMPLATE, attributes);
-    
+        
         try(OutputStream os = new FileOutputStream(getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME)) {
             os.write(content.getBytes(), 0, content.length());
         }
@@ -63,6 +68,6 @@ public class CSExecution extends Execution {
 
     @Override
     public Language getLanguage() {
-        return Language.CS;
+        return Language.JAVA;
     }
 }

@@ -1,5 +1,6 @@
-package com.cp.compiler.executions;
+package com.cp.compiler.executions.languages;
 
+import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownTemplates;
@@ -15,13 +16,13 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
- * The type Cpp execution.
+ * The type C# execution.
  */
 @Getter
-public class CPPExecution extends Execution {
+public class CSExecution extends Execution {
     
     /**
-     * Instantiates a new Cpp execution.
+     * Instantiates a new C# execution.
      *
      * @param sourceCode         the source code
      * @param inputFile          the input file
@@ -30,21 +31,21 @@ public class CPPExecution extends Execution {
      * @param memoryLimit        the memory limit
      * @param executionCounter   the execution counter
      */
-    public CPPExecution(MultipartFile sourceCode,
-                        MultipartFile inputFile,
-                        MultipartFile expectedOutputFile,
-                        int timeLimit,
-                        int memoryLimit,
-                        Counter executionCounter,
-                        EntrypointFileGenerator entryPointFileGenerator) {
+    public CSExecution(MultipartFile sourceCode,
+                       MultipartFile inputFile,
+                       MultipartFile expectedOutputFile,
+                       int timeLimit,
+                       int memoryLimit,
+                       Counter executionCounter,
+                       EntrypointFileGenerator entryPointFileGenerator) {
         super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        val commandPrefix = "./exec";
-        val executionCommand= getInputFile() == null
+        val commandPrefix = "mono main.exe";
+        val executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
     
@@ -63,6 +64,6 @@ public class CPPExecution extends Execution {
 
     @Override
     public Language getLanguage() {
-        return Language.CPP;
+        return Language.CS;
     }
 }

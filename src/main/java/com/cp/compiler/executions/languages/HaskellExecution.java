@@ -1,10 +1,12 @@
-package com.cp.compiler.executions;
+package com.cp.compiler.executions.languages;
 
+import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownTemplates;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import io.micrometer.core.instrument.Counter;
+import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.val;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,34 +16,36 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
- * The type Go execution.
+ * The type Haskell execution.
  */
-public class GoExecution extends Execution {
+@Getter
+public class HaskellExecution extends Execution {
     
     /**
-     * Instantiates a new Go Execution.
+     * Instantiates a new Haskell execution.
      *
-     * @param sourceCodeFile     the source code
-     * @param inputFile          the inputFile file
+     * @param sourceCode         the source code
+     * @param inputFile          the input file
      * @param expectedOutputFile the expected output file
      * @param timeLimit          the time limit
      * @param memoryLimit        the memory limit
      * @param executionCounter   the execution counter
      */
-    public GoExecution(MultipartFile sourceCodeFile,
-                          MultipartFile inputFile,
-                          MultipartFile expectedOutputFile,
-                          int timeLimit,
-                          int memoryLimit,
-                          Counter executionCounter,
-                          EntrypointFileGenerator entryPointFileGenerator) {
-        super(sourceCodeFile, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
+    public HaskellExecution(MultipartFile sourceCode,
+                            MultipartFile inputFile,
+                            MultipartFile expectedOutputFile,
+                            int timeLimit,
+                            int memoryLimit,
+                            Counter executionCounter,
+                            EntrypointFileGenerator entryPointFileGenerator) {
+        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        val commandPrefix = "./exec";
+        val compiledFile = "main";
+        val commandPrefix = "./" + compiledFile;
         val executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
@@ -61,6 +65,6 @@ public class GoExecution extends Execution {
 
     @Override
     public Language getLanguage() {
-        return Language.GO;
+        return Language.HASKELL;
     }
 }

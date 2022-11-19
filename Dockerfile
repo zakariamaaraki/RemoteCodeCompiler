@@ -13,18 +13,18 @@ WORKDIR /compiler
 
 USER root
 
-COPY --from=BUILD_STAGE /compiler/target/*.jar compiler.jar
+COPY --from=BUILD_STAGE /compiler/target/*.jar ../compiler.jar
 
 RUN apt update && apt install -y docker.io
     
-ADD executions executions
+ADD executions ../executions
 
-ADD build.sh build.sh
-ADD entrypoint.sh entrypoint.sh
+ADD build.sh ../build.sh
+ADD entrypoint.sh ../entrypoint.sh
 
-RUN chmod a+x ./build.sh
-RUN chmod a+x ./entrypoint.sh
+RUN chmod a+x ../build.sh
+RUN chmod a+x ../entrypoint.sh
 
 EXPOSE 8082
 
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["../entrypoint.sh"]

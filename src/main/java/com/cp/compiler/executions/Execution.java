@@ -153,9 +153,9 @@ public abstract class Execution {
     protected void copyDockerFilesToExecutionDirectory() throws IOException {
         // Execution Dockerfile
         FileUtils.copyFile(getLanguage()
-                        .getFolderName()
-                        .concat("/" + WellKnownFiles.EXECUTION_DOCKERFILE_NAME),
-                path.concat("/" + WellKnownFiles.EXECUTION_DOCKERFILE_NAME));
+                                .getFolderName()
+                                .concat("/" + WellKnownFiles.EXECUTION_DOCKERFILE_NAME),
+                           path.concat("/" + WellKnownFiles.EXECUTION_DOCKERFILE_NAME));
     }
     
     /**

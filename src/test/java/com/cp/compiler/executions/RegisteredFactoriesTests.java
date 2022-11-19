@@ -1,5 +1,6 @@
 package com.cp.compiler.executions;
 
+import com.cp.compiler.executions.languages.*;
 import com.cp.compiler.models.Language;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

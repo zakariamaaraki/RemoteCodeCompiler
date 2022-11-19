@@ -1,5 +1,6 @@
-package com.cp.compiler.executions;
+package com.cp.compiler.executions.languages;
 
+import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownTemplates;
@@ -15,35 +16,36 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
- * The type Rust execution.
+ * The type C execution.
  */
 @Getter
-public class RustExecution extends Execution {
-    
+public class CExecution extends Execution {
+
     /**
-     * Instantiates a new Rust execution.
+     * Instantiates a new Execution.
      *
-     * @param sourceCode         the source code
-     * @param inputFile          the input file
-     * @param expectedOutputFile the expected output file
-     * @param timeLimit          the time limit
-     * @param memoryLimit        the memory limit
-     * @param executionCounter   the execution counter
+     * @param sourceCodeFile          the source code
+     * @param inputFile               the inputFile file
+     * @param expectedOutputFile      the expected output file
+     * @param timeLimit               the time limit
+     * @param memoryLimit             the memory limit
+     * @param executionCounter        the execution counter
+     * @param entrypointFileGenerator the entrypointFile generator
      */
-    public RustExecution(MultipartFile sourceCode,
-                         MultipartFile inputFile,
-                         MultipartFile expectedOutputFile,
-                         int timeLimit,
-                         int memoryLimit,
-                         Counter executionCounter,
-                         EntrypointFileGenerator entryPointFileGenerator) {
-        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
+    public CExecution(MultipartFile sourceCodeFile,
+                      MultipartFile inputFile,
+                      MultipartFile expectedOutputFile,
+                      int timeLimit,
+                      int memoryLimit,
+                      Counter executionCounter,
+                      EntrypointFileGenerator entrypointFileGenerator) {
+        super(sourceCodeFile, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entrypointFileGenerator);
     }
-    
+
     @SneakyThrows
     @Override
     protected void createEntrypointFile() {
-        val commandPrefix = "./main";
+        val commandPrefix = "./exec";
         val executionCommand = getInputFile() == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
@@ -63,6 +65,6 @@ public class RustExecution extends Execution {
 
     @Override
     public Language getLanguage() {
-        return Language.RUST;
+        return Language.C;
     }
 }
