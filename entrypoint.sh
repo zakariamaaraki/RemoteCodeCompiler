@@ -33,8 +33,6 @@ fi
 
 mv /executions /compiler/executions
 
-/build.sh
-
 echo "Starting the compiler with the following profiles: "$profiles
 
 java -jar -Dspring.profiles.active=$profiles /compiler.jar

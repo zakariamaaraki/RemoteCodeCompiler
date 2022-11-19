@@ -19,10 +19,8 @@ RUN apt update && apt install -y docker.io
     
 ADD executions ../executions
 
-ADD build.sh ../build.sh
 ADD entrypoint.sh ../entrypoint.sh
 
-RUN chmod a+x ../build.sh
 RUN chmod a+x ../entrypoint.sh
 
 EXPOSE 8082
