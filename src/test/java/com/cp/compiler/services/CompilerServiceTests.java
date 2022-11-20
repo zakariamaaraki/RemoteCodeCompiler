@@ -40,8 +40,8 @@ class CompilerServiceTests {
     private CompilerService compilerService;
 
     private MultipartFile file = new MockMultipartFile(
-            "test.txt.c",
-            "test.txt",
+            "test.java",
+            "test.java",
             null,
             (byte[]) null);
     
@@ -132,8 +132,8 @@ class CompilerServiceTests {
     void WhenImageBuildFailShouldThrowContainerBuildException() throws Exception {
         // Given
         MockMultipartFile file = new MockMultipartFile(
-                "file",
-                "hello.txt",
+                "file.java",
+                "hello.java",
                 MediaType.TEXT_PLAIN_VALUE,
                 "Hello, World!".getBytes()
         );
@@ -177,7 +177,7 @@ class CompilerServiceTests {
         
         MockMultipartFile file = new MockMultipartFile(
                 "file",
-                "hello.txt",
+                "hello.java",
                 MediaType.TEXT_PLAIN_VALUE,
                 output.getBytes()
         );
@@ -231,7 +231,7 @@ class CompilerServiceTests {
     
         MockMultipartFile file = new MockMultipartFile(
                 "file",
-                "hello.txt",
+                "hello.java",
                 MediaType.TEXT_PLAIN_VALUE,
                 output.getBytes()
         );
@@ -283,14 +283,14 @@ class CompilerServiceTests {
     
         MockMultipartFile sourceCode = new MockMultipartFile(
                 "file",
-                "hello.txt",
+                "hello.java",
                 MediaType.TEXT_PLAIN_VALUE,
                 output.getBytes()
         );
     
         MockMultipartFile expectedOutputFile = new MockMultipartFile(
                 "file",
-                "hello.txt",
+                "hello.java",
                 MediaType.TEXT_PLAIN_VALUE,
                 expectedOutput.getBytes()
         );
@@ -344,7 +344,7 @@ class CompilerServiceTests {
     
         MockMultipartFile file = new MockMultipartFile(
                 "file",
-                "hello.txt",
+                "hello.java",
                 MediaType.TEXT_PLAIN_VALUE,
                 output.getBytes()
         );
@@ -400,7 +400,7 @@ class CompilerServiceTests {
     
         MockMultipartFile file = new MockMultipartFile(
                 "file",
-                "hello.txt",
+                "hello.java",
                 MediaType.TEXT_PLAIN_VALUE,
                 output.getBytes()
         );
@@ -460,7 +460,7 @@ class CompilerServiceTests {
     
         MockMultipartFile file = new MockMultipartFile(
                 "file",
-                "hello.txt",
+                "hello.java",
                 MediaType.TEXT_PLAIN_VALUE,
                 output.getBytes()
         );
@@ -517,7 +517,7 @@ class CompilerServiceTests {
     
         MockMultipartFile file = new MockMultipartFile(
                 "file",
-                "hello.txt",
+                "hello.java",
                 MediaType.TEXT_PLAIN_VALUE,
                 output.getBytes()
         );
@@ -561,7 +561,7 @@ class CompilerServiceTests {
         
         MockMultipartFile file = new MockMultipartFile(
                 "file",
-                "hello.txt",
+                "hello.java",
                 MediaType.TEXT_PLAIN_VALUE,
                 output.getBytes()
         );
@@ -592,7 +592,7 @@ class CompilerServiceTests {
     
         MockMultipartFile file = new MockMultipartFile(
                 "file",
-                "hello.txt",
+                "hello.java",
                 MediaType.TEXT_PLAIN_VALUE,
                 output.getBytes()
         );
@@ -621,7 +621,7 @@ class CompilerServiceTests {
         
         MockMultipartFile file = new MockMultipartFile(
                 "file",
-                "hello.txt",
+                "hello.java",
                 MediaType.TEXT_PLAIN_VALUE,
                 "output".getBytes()
         );

@@ -32,6 +32,9 @@ build/
 ### VS Code ###
 .vscode/
 
+### Executions ###
+/executions/utility_*/execution*
+
 ### idea ###
 .idea
 
