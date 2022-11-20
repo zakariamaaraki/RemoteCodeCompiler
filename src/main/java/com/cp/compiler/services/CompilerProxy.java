@@ -1,6 +1,7 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.executions.Execution;
+import com.cp.compiler.models.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownMetrics;
 import com.cp.compiler.repositories.HooksRepository;
@@ -116,10 +117,18 @@ public class CompilerProxy implements CompilerService {
     }
     
     private Optional<ResponseEntity<Object>> validateRequest(Execution execution) {
+        
         if (!checkFileName(execution.getSourceCodeFile().getOriginalFilename())) {
             return Optional.of(buildOutputError(
-                    "Bad request, source code file must match the following regex "
+                    "Bad request, sourcecode file must match the following regex "
                             + WellKnownFiles.FILE_NAME_REGEX));
+        }
+        
+        // sourcecode file format is correct, lets check the extension
+        if (!checkFileExtension(execution.getSourceCodeFile().getOriginalFilename(), execution.getLanguage())) {
+            return Optional.of(buildOutputError(
+                    "Bad request, sourcecode file extension is not correct, it should be: "
+                            + execution.getLanguage().getSourcecodeExtension()));
         }
     
         if (!checkFileName(execution.getExpectedOutputFile().getOriginalFilename())) {
@@ -152,7 +161,12 @@ public class CompilerProxy implements CompilerService {
     
             return Optional.of(buildOutputError(errorMessage));
         }
+        
         return Optional.ofNullable(null);
+    }
+    
+    private boolean checkFileExtension(String originalFilename, Language language) {
+        return originalFilename.endsWith(language.getSourcecodeExtension());
     }
     
     private ResponseEntity buildOutputError(String errorMessage) {
