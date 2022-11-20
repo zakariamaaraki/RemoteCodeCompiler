@@ -23,8 +23,8 @@ class ThrottlingTests {
     private CompilerProxy compilerProxy;
     
     private MultipartFile file = new MockMultipartFile(
-            "test.txt",
-            "test.txt",
+            "test.java",
+            "test.java",
             null,
             (byte[]) null);
     
