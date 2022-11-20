@@ -75,7 +75,7 @@ public class DefaultContainerService extends ContainerServiceDecorator {
         try {
             return RetryHelper.executeWithRetries(
                     () -> getContainerService().runContainer(imageName, timeout, volumeMounting, executionPath, sourceCodeFileName),
-                    null, // We should retry always here, this method is used currently only during compilation of the source code
+                    Set.of(ProcessExecutionTimeoutException.class.getName()), // do not retry on timeout
                     MAX_RETRIES,
                     DURATION_BETWEEN_EACH_RETRY);
         } catch(Exception processExecutionException) {

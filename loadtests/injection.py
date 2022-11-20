@@ -108,7 +108,7 @@ class javathread(threading.Thread):
     def run(self):
         requests.post(url = URL, json = javaData, headers = headers)
 
-for i in range(10):
+for i in range(20):
     # C
     cRequestThread = cthread()
     cRequestThread.start()

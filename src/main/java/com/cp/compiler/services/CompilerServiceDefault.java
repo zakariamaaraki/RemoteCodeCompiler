@@ -25,6 +25,8 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Compiler Service Class, this class provides compilation utilities for several programing languages
@@ -35,7 +37,10 @@ import java.util.Map;
 @Service("client")
 public class CompilerServiceDefault implements CompilerService {
     
-    private static final long TIME_OUT = 20000; // in ms
+    // Note: changing this value is critical, it has a lot of impact on the compilation step
+    private static final long COMPILATION_TIME_OUT = 60000; // in ms
+    
+    private static final long EXECUTION_TIME_OUT = 20000; // in ms
     
     // Note: this value should not be updated, once update don't forget to update build.sh script used to build these images.
     private static final String IMAGE_PREFIX_NAME = "compiler.";
@@ -57,6 +62,8 @@ public class CompilerServiceDefault implements CompilerService {
     
     private final Resources resources;
     
+    private final ExecutorService threadPool;
+    
     /**
      * Instantiates a new Compiler service.
      *  @param containerService the container service
@@ -69,6 +76,7 @@ public class CompilerServiceDefault implements CompilerService {
         this.containerService = containerService;
         this.meterRegistry = meterRegistry;
         this.resources = resources;
+        this.threadPool = Executors.newCachedThreadPool();
     }
     
     /**
@@ -127,14 +135,21 @@ public class CompilerServiceDefault implements CompilerService {
             // 3 - Run the execution container
             Result result = runContainer(execution, expectedOutput);
     
-            // 4 - Clean up
+            // 4 - Clean up asynchronously
             if (deleteDockerImage) {
-                try {
-                    containerService.deleteImage(execution.getImageName());
-                    log.info("Image {} has been deleted", execution.getImageName());
-                } catch (Exception e) {
-                    log.warn("Error, can't delete image {} : {}", execution.getImageName(), e);
-                }
+                threadPool.execute(() -> {
+                    try {
+                        containerService.deleteImage(execution.getImageName());
+                        log.info("image {} has been deleted", execution.getImageName());
+                    } catch (Exception e) {
+                        if (e instanceof ContainerOperationTimeoutException) {
+                            log.warn("Timeout, didn't get the response at time from container engine if the image {} was deleted",
+                                    execution.getImageName());
+                        } else {
+                            log.warn("Error, can't delete image {} : {}", execution.getImageName(), e);
+                        }
+                    }
+                });
             }
     
             log.info("Status response is {}", result.getStatusResponse());
@@ -146,7 +161,8 @@ public class CompilerServiceDefault implements CompilerService {
                     .status(HttpStatus.OK)
                     .body(new Response(result, dateTime));
         } finally {
-            deleteExecutionEnvironment(execution);
+            // 5 - Clean up asynchronously
+            threadPool.execute(() -> deleteExecutionEnvironment(execution));
         }
     }
     
@@ -176,7 +192,7 @@ public class CompilerServiceDefault implements CompilerService {
     
     private ProcessOutput compile(String volume, String imageName, String executionPath, String sourceCodeFileName) {
         String volumeMounting = volume + ":" + EXECUTION_PATH_INSIDE_CONTAINER;
-        return containerService.runContainer(imageName, TIME_OUT, volumeMounting, executionPath, sourceCodeFileName);
+        return containerService.runContainer(imageName, COMPILATION_TIME_OUT, volumeMounting, executionPath, sourceCodeFileName);
     }
     
     private String getExpectedOutput(MultipartFile outputFile) {
@@ -192,7 +208,7 @@ public class CompilerServiceDefault implements CompilerService {
     private Result runContainer(Execution execution, String expectedOutput) {
         
         try {
-            ProcessOutput containerOutput = containerService.runContainer(execution.getImageName(), TIME_OUT, resources.getMaxCpus());
+            ProcessOutput containerOutput = containerService.runContainer(execution.getImageName(), EXECUTION_TIME_OUT, resources.getMaxCpus());
             Verdict verdict = getVerdict(containerOutput, expectedOutput);
         
             cleanStdErrOutput(containerOutput, execution);

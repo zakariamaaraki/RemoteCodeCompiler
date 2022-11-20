@@ -23,12 +23,12 @@ public class DockerContainerService implements ContainerService {
     /**
      * The constant BUILD_TIMEOUT.
      */
-    public static final int BUILD_TIMEOUT = 5 * 60000; // 5 minutes
+    public static final int BUILD_TIMEOUT = 60000; // 1 minute
     
     /**
      * The constant COMMAND_TIMEOUT.
      */
-    public static final int COMMAND_TIMEOUT = 2000;
+    public static final int COMMAND_TIMEOUT = 10000; // 10 sec
     
     /**
      * The constant EXECUTION_PATH_ENV_VARIABLE.
@@ -68,7 +68,7 @@ public class DockerContainerService implements ContainerService {
      * {@inheritDoc}
      */
     @Override
-    public String buildImage(String contextPath, String imageName, String dockerfileName) throws Exception {
+    public String buildImage(String contextPath, String imageName, String dockerfileName) {
         return buildTimer.record(() -> {
             String dockerfilePath = contextPath + "/" + dockerfileName;
             String[] buildCommand =
@@ -177,10 +177,8 @@ public class DockerContainerService implements ContainerService {
             }
             return processOutput.getStdOut();
         } catch (ProcessExecutionException e) {
-            log.error("Error: {}", e);
             throw new ContainerFailedDependencyException(e.getMessage());
         } catch (ProcessExecutionTimeoutException e) {
-            log.error("Error: {}", e);
             throw new ContainerOperationTimeoutException(e.getMessage());
         }
     }
