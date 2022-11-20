@@ -6,6 +6,7 @@ import com.cp.compiler.models.Language;
 import com.cp.compiler.repositories.HooksRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,10 +43,37 @@ class CompilerProxyServiceTests {
             (byte[]) null);
     
     private MultipartFile validFileName = new MockMultipartFile(
-            "test.txt",
-            "test.txt",
+            "test.java",
+            "test.java",
             null,
             (byte[]) null);
+    
+    @Test
+    void extensionsInLanguageEnumAreCorrect() {
+        for (Language language : Language.values()) {
+            String expectedExtension = "." + language.getDefaultSourcecodeFileName().split("\\.")[1];
+            Assertions.assertEquals(expectedExtension, language.getSourcecodeExtension());
+        }
+    }
+    
+    @Test
+    void shouldReturnBadRequestIfTheExtensionIsNotValid() {
+        // Given
+        MultipartFile invalidExtension = new MockMultipartFile(
+                "test.c",
+                "test.c",
+                null,
+                (byte[]) null);
+        
+        Execution execution = ExecutionFactory.createExecution(
+                invalidExtension, validFileName, validFileName, 10, 500, Language.JAVA);
+    
+        // When
+        ResponseEntity responseEntity = compilerProxy.execute(execution);
+    
+        // Then
+        Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
+    }
     
     @Test
     void WhenInputFileNameIsInvalidShouldReturnBadRequest() {
