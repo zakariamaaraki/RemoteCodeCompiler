@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="[Helm k8s] use init container to build the environment">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/containers/ContainerServiceDecoratorTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loadtests/injection.py" beforeDir="false" afterPath="$PROJECT_DIR$/loadtests/injection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceDefault.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/containers/DefaultContainerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/containers/DefaultContainerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/containers/DockerContainerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/containers/DockerContainerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/containers/DefaultContainerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/containers/DefaultContainerServiceTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +114,7 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.DefaultContainerServiceTests">
+  <component name="RunManager" selected="JUnit.ContainerServiceDecoratorTests">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -152,25 +148,6 @@
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="/home/zakaria/Desktop/projects/RemoteCodeCompiler" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list />
-        </option>
-        <option name="vmOptions" value="" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
     <configuration name="CompilerProxyServiceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
@@ -202,17 +179,32 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CompilerProxyServiceTests.shouldReturnBadRequestIfTheExtensionIsNotValid" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ContainerServiceDecoratorTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
+          <option name="PATTERN" value="com.cp.compiler.services.containers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerProxyServiceTests" />
-      <option name="METHOD_NAME" value="shouldReturnBadRequestIfTheExtensionIsNotValid" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services.containers" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.containers.ContainerServiceDecoratorTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ContainerServiceDecoratorTests.getRunningContainersShouldThrowAnException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.services.containers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services.containers" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.containers.ContainerServiceDecoratorTests" />
+      <option name="METHOD_NAME" value="getRunningContainersShouldThrowAnException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -374,11 +366,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ContainerServiceDecoratorTests" />
+        <item itemvalue="JUnit.ContainerServiceDecoratorTests.getRunningContainersShouldThrowAnException" />
         <item itemvalue="JUnit.DefaultContainerServiceTests" />
         <item itemvalue="JUnit.CompilerProxyServiceTests" />
         <item itemvalue="JUnit.CompilerProxyServiceTests.extensionsInLanguageEnumAreCorrect" />
-        <item itemvalue="JUnit.CompilerProxyServiceTests.shouldReturnBadRequestIfTheExtensionIsNotValid" />
-        <item itemvalue="Gradle./home/zakaria/Desktop/projects/RemoteCodeCompiler" />
       </list>
     </recent_temporary>
   </component>
