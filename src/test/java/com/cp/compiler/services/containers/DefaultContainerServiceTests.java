@@ -108,7 +108,7 @@ public class DefaultContainerServiceTests {
     }
     
     @Test
-    void runContainerWithVolumeShouldRetry3TimesIfItFailsWithProcessExecutionTimeoutException() {
+    void runContainerWithVolumeShouldNotRetryIfItFailsWithProcessExecutionTimeoutException() {
         // Given
         var containerService = Mockito.mock(ContainerService.class);
         Mockito.when(containerService.runContainer(
@@ -131,7 +131,7 @@ public class DefaultContainerServiceTests {
                         "test",
                         "test"));
         
-        Mockito.verify(containerService, Mockito.times(4))
+        Mockito.verify(containerService, Mockito.times(1))
                 .runContainer(
                         "test",
                         2000,
