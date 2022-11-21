@@ -61,7 +61,8 @@ class CompilerServiceDecoratorTests {
             }
         };
     
-        var execution = ExecutionFactory.createExecution(file, file, file, 10, 100, Language.JAVA);
+        var execution1 = ExecutionFactory.createExecution(file, file, file, 10, 100, Language.JAVA);
+        var execution2 = ExecutionFactory.createExecution(file, file, file, 10, 100, Language.JAVA);
     
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -84,12 +85,12 @@ class CompilerServiceDecoratorTests {
                 ArgumentMatchers.anyString())).thenReturn(containerOutput);
         
         // When
-        var compilationResult = compilerServiceDecorator.execute(execution);
+        var compilationResult = compilerServiceDecorator.execute(execution1);
         
         // Then
         Assertions.assertNotNull(compilationResult);
         Assertions.assertEquals(
-                ((Response)compilerService.execute(execution).getBody()).getResult(),
+                ((Response)compilerService.execute(execution2).getBody()).getResult(),
                 ((Response)compilationResult.getBody()).getResult()
         );
     }

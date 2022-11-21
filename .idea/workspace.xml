@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="[Helm k8s] use init container to build the environment">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceDefault.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/wellknownconstants/WellKnownMetrics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/wellknownconstants/WellKnownMetrics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceDecoratorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceDecoratorTests.java" afterDir="false" />
-    </list>
+    <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="[Helm k8s] use init container to build the environment" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -471,7 +466,7 @@
       <workItem from="1668774134806" duration="56996000" />
       <workItem from="1669055462297" duration="153000" />
       <workItem from="1669055661028" duration="440000" />
-      <workItem from="1669056182695" duration="6810000" />
+      <workItem from="1669056182695" duration="7364000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
