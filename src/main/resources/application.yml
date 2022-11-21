@@ -53,6 +53,12 @@ management:
         include: health, info, metrics, prometheus, beans, logfile
       base-path: /
 
+info:
+  app:
+    name: "Remote Code Compiler"
+    description: "Remote Code Compiler Supports 11 languages: Java, Kotlin, Scala, C, C++, C#, Golang, Python, Ruby, Rust and Haskell"
+    version: "1.0.0"
+
 ---
 # kafka profile
 spring:

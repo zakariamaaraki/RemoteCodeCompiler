@@ -53,8 +53,7 @@ public abstract class CmdUtils {
      * @return the boolean
      */
     public static boolean compareOutput(String output, String expectedOutput) {
-        return trimText(output)
-          .equals(trimText(expectedOutput));
+        return trimText(output).equals(trimText(expectedOutput));
     }
 
     /**

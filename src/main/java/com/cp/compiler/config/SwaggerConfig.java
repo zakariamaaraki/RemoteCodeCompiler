@@ -21,7 +21,7 @@ public class SwaggerConfig {
     
     private static final String TITLE = "Remote Code Compiler";
     
-    private static final String DESCRIPTION = "An online code compiler supporting Java, Kotlin, Scala, C, C++, C#, " +
+    private static final String DESCRIPTION = "An online code compiler supporting 11 languages: Java, Kotlin, Scala, C, C++, C#, " +
             "Golang, Python, Ruby, Rust and Haskell for competitive programming and coding interviews.";
     
     private static final String VERSION = "1.0.0";
