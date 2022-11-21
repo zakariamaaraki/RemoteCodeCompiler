@@ -49,8 +49,8 @@ class CompilerServiceDecoratorTests {
     void shouldHaveTheSameBehaviorAsTheCompilerClient() throws Exception {
         // Given
         MultipartFile file = new MockMultipartFile(
-                "test.txt.c",
-                "test.txt",
+                "test.java",
+                "test.java",
                 null,
                 (byte[]) null);
         
@@ -61,8 +61,7 @@ class CompilerServiceDecoratorTests {
             }
         };
     
-        var execution = ExecutionFactory.createExecution(
-                file, file, file, 10, 100, Language.JAVA);
+        var execution = ExecutionFactory.createExecution(file, file, file, 10, 100, Language.JAVA);
     
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -73,12 +72,10 @@ class CompilerServiceDecoratorTests {
                 .stdOut("test")
                 .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
-        
-        // Execution Container
+
         Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat()))
                 .thenReturn(containerOutput);
-    
-        // Compilation Container
+        
         Mockito.when(containerService.runContainer(
                 ArgumentMatchers.any(),
                 ArgumentMatchers.anyLong(),
@@ -101,8 +98,8 @@ class CompilerServiceDecoratorTests {
     void compilerDecoratorShouldThrowContainerOperationTimeoutException() throws Exception {
         // Given
         MultipartFile file = new MockMultipartFile(
-                "test.txt.c",
-                "test.txt",
+                "test.java",
+                "test.java",
                 null,
                 (byte[]) null);
     

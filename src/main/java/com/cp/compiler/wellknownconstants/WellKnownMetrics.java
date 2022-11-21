@@ -90,7 +90,17 @@ public abstract class WellKnownMetrics {
     /**
      * The constant CONTAINER_RUN_TIMER.
      */
-    public static final String CONTAINER_RUN_TIMER = "container.build";
+    public static final String CONTAINER_RUN_TIMER = "container.run";
+    
+    /**
+     * The constant COMPILATION_TIMER.
+     */
+    public static final String COMPILATION_TIMER = "compilation.duration";
+    
+    /**
+     * The constant EXECUTION_TIMER.
+     */
+    public static final String EXECUTION_TIMER = "execution.run";
     
     /**
      * The constant KAFKA_THROTTLING_RETRIES.

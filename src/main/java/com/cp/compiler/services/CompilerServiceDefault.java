@@ -7,8 +7,10 @@ import com.cp.compiler.services.containers.ContainerService;
 import com.cp.compiler.utils.CmdUtils;
 import com.cp.compiler.utils.StatusUtils;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
+import com.cp.compiler.wellknownconstants.WellKnownMetrics;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Timer;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Compiler Service Class, this class provides compilation utilities for several programing languages
@@ -51,6 +54,10 @@ public class CompilerServiceDefault implements CompilerService {
     private final ContainerService containerService;
     
     private final MeterRegistry meterRegistry;
+    
+    private Timer compilationTimer;
+    
+    private Timer executionTimer;
     
     private final Map<String, Counter> verdictsCounters = new HashMap<>();
 
@@ -87,6 +94,9 @@ public class CompilerServiceDefault implements CompilerService {
         Arrays.stream(Verdict.values())
                 .forEach(verdict -> verdictsCounters.put(verdict.getStatusResponse(),
                         meterRegistry.counter(verdict.getCounterMetric())));
+        
+        compilationTimer = meterRegistry.timer(WellKnownMetrics.COMPILATION_TIMER, "compiler", "compilation");
+        executionTimer = meterRegistry.timer(WellKnownMetrics.EXECUTION_TIMER, "compiler", "execution");
     }
     
     /**
@@ -103,6 +113,7 @@ public class CompilerServiceDefault implements CompilerService {
             
             // 2- Compile the source code if the language is a compiled language
             if (execution.getLanguage().isCompiled()) {
+                
                 String compilationImageName = IMAGE_PREFIX_NAME + execution.getLanguage().toString().toLowerCase(); // repository name must be lowercase
                 // If the app is running inside a container, we should share the same volume with the compilation container.
                 final String volume = compilationContainerVolume.isEmpty()
@@ -110,16 +121,19 @@ public class CompilerServiceDefault implements CompilerService {
                                             : compilationContainerVolume;
 
                 String sourceCodeFileName = execution.getSourceCodeFile().getOriginalFilename();
-                ProcessOutput processOutput =
-                        compile(volume, compilationImageName, execution.getPath(), sourceCodeFileName);
+    
+                var processOutput = new AtomicReference<ProcessOutput>();
+                compilationTimer.record(() -> {
+                     processOutput.set(compile(volume, compilationImageName, execution.getPath(), sourceCodeFileName));
+                });
                 
-                if (processOutput.getStatus() != StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS) {
+                if (processOutput.get().getStatus() != StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS) {
 
-                    cleanStdErrOutput(processOutput, execution);
+                    cleanStdErrOutput(processOutput.get(), execution);
                     Result result = new Result(
                             Verdict.COMPILATION_ERROR,
                             "",
-                            processOutput.getStdErr(),
+                            processOutput.get().getStdErr(),
                             expectedOutput,
                             0);
                     
@@ -128,14 +142,17 @@ public class CompilerServiceDefault implements CompilerService {
                 }
                 log.info("Compilation succeeded!");
             }
-            
-            // 2 - Build the execution container
-            buildContainerImage(execution.getPath(), execution.getImageName(), WellKnownFiles.EXECUTION_DOCKERFILE_NAME);
-            
-            // 3 - Run the execution container
-            Result result = runContainer(execution, expectedOutput);
     
-            // 4 - Clean up asynchronously
+            var result = new AtomicReference<Result>();
+            executionTimer.record(() -> {
+                // 2 - Build the execution container
+                buildContainerImage(execution.getPath(), execution.getImageName(), WellKnownFiles.EXECUTION_DOCKERFILE_NAME);
+    
+                // 3 - Run the execution container
+                result.set(runContainer(execution, expectedOutput)); 
+            });
+    
+            // 4 - Delete container image asynchronously
             if (deleteDockerImage) {
                 threadPool.execute(() -> {
                     try {
@@ -152,14 +169,14 @@ public class CompilerServiceDefault implements CompilerService {
                 });
             }
     
-            log.info("Status response is {}", result.getStatusResponse());
+            log.info("Status response is {}", result.get().getStatusResponse());
     
             // Update metrics
-            verdictsCounters.get(result.getStatusResponse()).increment();
+            verdictsCounters.get(result.get().getStatusResponse()).increment();
     
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(new Response(result, dateTime));
+                    .body(new Response(result.get(), dateTime));
         } finally {
             // 5 - Clean up asynchronously
             threadPool.execute(() -> deleteExecutionEnvironment(execution));
