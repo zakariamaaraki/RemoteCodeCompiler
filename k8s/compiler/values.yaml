@@ -1,6 +1,4 @@
 # Default values for compiler.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
 
 replicaCount: 1
 
@@ -9,13 +7,17 @@ image:
   pullPolicy: Never
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
+  port: 8082
 
-# init container
+# Init container
 initContainerImage:
   repository: environment
   pullPolicy: Never
-  # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
+
+health:
+  liveness: /health/kafkaStreams # check if Kafka streams is broken
+  readiness: /health/containerization # check if the containerization system used by the compiler is broken
 
 imagePullSecrets: []
 nameOverride: ""
@@ -37,6 +39,7 @@ securityContext:
   # runAsUser: 1000
 
 compiler:
+  path: "/compiler" # !! Note: Should be the same as the WORKDIR specified in the dockerfile
   deleteDockerImage: true
   maxExecutionMemory: 1000
   minExecutionMemory: 100

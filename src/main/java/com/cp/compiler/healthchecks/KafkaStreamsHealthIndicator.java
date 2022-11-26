@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 /**
  * The type Kafka streams health indicator.
  */
-//Note that class name prefix before `HealthIndicator` will be camel-cased
-//and used as a health component name, `kafkaStreams` here
+// Note that class name prefix before `HealthIndicator` will be camel-cased
+// and used as a health component name, `kafkaStreams` here
 @Profile("kafka")
 @Component
 public class KafkaStreamsHealthIndicator implements HealthIndicator {
@@ -34,8 +34,7 @@ public class KafkaStreamsHealthIndicator implements HealthIndicator {
         
         // CREATED, RUNNING or REBALANCING
         if (kafkaStreamsState == KafkaStreams.State.CREATED || kafkaStreamsState.isRunningOrRebalancing()) {
-            //set details if you need one
-            return Health.up().build();
+            return Health.up().withDetail("State", kafkaStreamsState.name()).build();
         }
         
         // ERROR, NOT_RUNNING, PENDING_SHUTDOWN,

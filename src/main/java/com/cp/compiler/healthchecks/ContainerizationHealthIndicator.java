@@ -9,16 +9,20 @@ import org.springframework.stereotype.Component;
  * The type Container health indicator.
  */
 @Component
-public class ContainerHealthIndicator implements HealthIndicator {
+public class ContainerizationHealthIndicator implements HealthIndicator {
     
-    private ContainerService containerService;
+    private final ContainerService containerService;
+    
+    private static final String BROKEN_STATE = "Container Down";
+    
+    private static final String UP_STATE = "Containerization UP";
     
     /**
      * Instantiates a new Container health indicator.
      *
      * @param containerService the container service
      */
-    public ContainerHealthIndicator(ContainerService containerService) {
+    public ContainerizationHealthIndicator(ContainerService containerService) {
         super();
         this.containerService = containerService;
     }
@@ -28,11 +32,12 @@ public class ContainerHealthIndicator implements HealthIndicator {
         if (containerService.isUp()) {
             return Health.up()
                     .withDetail("Containerization", containerService.getContainerizationName())
+                    .withDetail("State", UP_STATE)
                     .build();
         }
         return Health.down()
                 .withDetail("Containerization", containerService.getContainerizationName())
-                .withDetail("State", "Container Down")
+                .withDetail("State", BROKEN_STATE)
                 .build();
     }
 }

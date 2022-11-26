@@ -1,6 +1,6 @@
 package com.cp.compiler.healths;
 
-import com.cp.compiler.healthchecks.ContainerHealthIndicator;
+import com.cp.compiler.healthchecks.ContainerizationHealthIndicator;
 import com.cp.compiler.services.containers.ContainerService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ class ContainerHealthIndicatorTests {
     @Test
     void shouldReturnHealthUp() {
         // Given
-        var healthIndicator = new ContainerHealthIndicator(containerService);
+        var healthIndicator = new ContainerizationHealthIndicator(containerService);
         Mockito.when(containerService.isUp()).thenReturn(true);
         Mockito.when(containerService.getContainerizationName()).thenReturn("Docker");
         
@@ -31,12 +31,13 @@ class ContainerHealthIndicatorTests {
         
         // Then
         Assertions.assertEquals(Health.up().build().getStatus(), health.getStatus());
+        Assertions.assertNotNull(health.getDetails());
     }
     
     @Test
     void shouldReturnHealthDown() {
         // Given
-        var healthIndicator = new ContainerHealthIndicator(containerService);
+        var healthIndicator = new ContainerizationHealthIndicator(containerService);
         Mockito.when(containerService.isUp()).thenReturn(false);
         Mockito.when(containerService.getContainerizationName()).thenReturn("Docker");
         
@@ -45,5 +46,6 @@ class ContainerHealthIndicatorTests {
         
         // Then
         Assertions.assertEquals(Health.down().build().getStatus(), health.getStatus());
+        Assertions.assertNotNull(health.getDetails());
     }
 }

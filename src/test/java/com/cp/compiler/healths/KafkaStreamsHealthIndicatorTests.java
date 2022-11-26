@@ -35,6 +35,7 @@ class KafkaStreamsHealthIndicatorTests {
         
         // Then
         Assertions.assertEquals(Health.up().build().getStatus(), health.getStatus());
+        Assertions.assertNotNull(health.getDetails());
     }
     
     @Test
@@ -49,6 +50,7 @@ class KafkaStreamsHealthIndicatorTests {
         
         // Then
         Assertions.assertEquals(Health.up().build().getStatus(), health.getStatus());
+        Assertions.assertNotNull(health.getDetails());
     }
     
     @Test
@@ -63,6 +65,7 @@ class KafkaStreamsHealthIndicatorTests {
         
         // Then
         Assertions.assertEquals(Health.up().build().getStatus(), health.getStatus());
+        Assertions.assertNotNull(health.getDetails());
     }
     
     @Test
@@ -77,6 +80,7 @@ class KafkaStreamsHealthIndicatorTests {
         
         // Then
         Assertions.assertEquals(Health.down().build().getStatus(), health.getStatus());
+        Assertions.assertNotNull(health.getDetails());
     }
     
     @Test
@@ -91,6 +95,7 @@ class KafkaStreamsHealthIndicatorTests {
         
         // Then
         Assertions.assertEquals(Health.down().build().getStatus(), health.getStatus());
+        Assertions.assertNotNull(health.getDetails());
     }
     
     @Test
@@ -105,5 +110,6 @@ class KafkaStreamsHealthIndicatorTests {
         
         // Then
         Assertions.assertEquals(Health.down().build().getStatus(), health.getStatus());
+        Assertions.assertNotNull(health.getDetails());
     }
 }

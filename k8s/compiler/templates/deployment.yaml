@@ -41,8 +41,23 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 8082
+              containerPort: {{ .Values.image.port }}
               protocol: TCP
+              # check for lifetime liveness, restarts if not status 200
+          {{ if .Values.kafka.enabled }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.health.liveness }}
+              port: {{ .Values.image.port }}
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          {{ end }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.health.readiness }}
+              port: {{ .Values.image.port }}
+            initialDelaySeconds: 20
+            periodSeconds: 10
           envFrom:
             - configMapRef:
                 name: {{ .Release.Name }}-config
@@ -51,7 +66,7 @@ spec:
           volumeMounts:
             - mountPath: /var/run # volume used for docker
               name: executions-volume
-            - mountPath: /compiler
+            - mountPath: {{ .Values.compiler.path }}
               name: compilation-volume
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -63,7 +78,7 @@ spec:
             type: DirectoryOrCreate
         - name: compilation-volume
           hostPath:
-            path: /compiler
+            path: {{ .Values.compiler.path }}
             type: DirectoryOrCreate
       {{- with .Values.nodeSelector }}
       nodeSelector:
