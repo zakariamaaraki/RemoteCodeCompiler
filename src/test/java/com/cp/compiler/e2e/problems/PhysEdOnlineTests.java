@@ -52,20 +52,19 @@ public class PhysEdOnlineTests {
         // When
         ResponseEntity<Object> responseEntity = compilerController.compile(
                 Language.CPP,
-                expectedOutput,
                 sourceCode,
                 inputs,
+                expectedOutput,
                 3,
                 500,
                 null,
-                null);
-    
-        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
+                null,
+                "");
         
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
+                ((Response)responseEntity.getBody()).getVerdict());
     }
     
     @DisplayName("Phys Ed Online Problem test case 2")
@@ -93,19 +92,18 @@ public class PhysEdOnlineTests {
         // When
         ResponseEntity<Object> responseEntity = compilerController.compile(
                 Language.CPP,
-                expectedOutput,
                 sourceCode,
                 inputs,
+                expectedOutput,
                 3,
                 500,
                 null,
-                null);
-    
-        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
+                null,
+                "");
         
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
+                ((Response)responseEntity.getBody()).getVerdict());
     }
 }

@@ -23,6 +23,11 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * The type Compiler service tests.
  */
@@ -55,8 +60,10 @@ class CompilerServiceTests {
         // Given
         int timeLimit = Integer.MAX_VALUE;
     
-        Execution execution = ExecutionFactory.createExecution(
-                file, file, file, timeLimit, 100, Language.JAVA);
+        var testCase = new ConvertedTestCase("id", file, file);
+        
+        Execution execution =
+                ExecutionFactory.createExecution(file, List.of(testCase), timeLimit, 100, Language.JAVA);
         
         // When
         ResponseEntity responseEntity = compilerService.execute(execution);
@@ -75,8 +82,10 @@ class CompilerServiceTests {
         // Given
         int timeLimit = -1;
     
-        Execution execution = ExecutionFactory.createExecution(
-                file, file, file, timeLimit, 100, Language.JAVA);
+        var testCase = new ConvertedTestCase("id", file, file);
+        
+        Execution execution =
+                ExecutionFactory.createExecution(file, List.of(testCase), timeLimit, 100, Language.JAVA);
         
         // When
         ResponseEntity responseEntity = compilerService.execute(execution);
@@ -95,8 +104,10 @@ class CompilerServiceTests {
         // Given
         int memoryLimit = Integer.MAX_VALUE;
     
-        Execution execution = ExecutionFactory.createExecution(
-                file, file, file, 10, memoryLimit, Language.JAVA);
+        var testCase = new ConvertedTestCase("id", file, file);
+        
+        Execution execution =
+                ExecutionFactory.createExecution(file, List.of(testCase), 10, memoryLimit, Language.JAVA);
         
         // When
         ResponseEntity responseEntity = compilerService.execute(execution);
@@ -115,8 +126,10 @@ class CompilerServiceTests {
         // Given
         int memoryLimit = -1;
     
-        Execution execution = ExecutionFactory.createExecution(
-                file, file, file, 10, memoryLimit, Language.JAVA);
+        var testCase = new ConvertedTestCase("id", file, file);
+        
+        Execution execution =
+                ExecutionFactory.createExecution(file, List.of(testCase), 10, memoryLimit, Language.JAVA);
         
         // When
         ResponseEntity responseEntity = compilerService.execute(execution);
@@ -138,8 +151,10 @@ class CompilerServiceTests {
                 "Hello, World!".getBytes()
         );
     
-        Execution execution = ExecutionFactory.createExecution(
-                file, null, file, 10, 100, Language.JAVA);
+        var testCase = new ConvertedTestCase("id", null, file);
+    
+        Execution execution =
+                ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
     
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenThrow(new ContainerBuildException("Error Building image"));
@@ -173,7 +188,7 @@ class CompilerServiceTests {
         String output = "test";
         String expectedOutput = "test";
         
-        Result result = new Result(Verdict.ACCEPTED, output, "", expectedOutput, 0);
+        TestCaseResult result = new TestCaseResult(Verdict.ACCEPTED, output, "", expectedOutput, 0);
         
         MockMultipartFile file = new MockMultipartFile(
                 "file",
@@ -190,8 +205,10 @@ class CompilerServiceTests {
                 .build();
     
         // Execution Container
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat()))
-                .thenReturn(containerOutput);
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyFloat())).thenReturn(containerOutput);
     
         // Compilation Container
         Mockito.when(containerService.runContainer(
@@ -199,25 +216,40 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyLong(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.anyString()))
-                .thenReturn(containerOutput);
+                ArgumentMatchers.anyString())).thenReturn(containerOutput);
+    
+        var testCase = new ConvertedTestCase("id", null, file);
         
-        Execution execution = ExecutionFactory.createExecution(
-                file, null, file, 10, 100, Language.JAVA);
+        Execution execution =
+                ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
         
         // When
         ResponseEntity<Object> responseEntity = compilerService.execute(execution);
-        
+
         // Then
+        LinkedHashMap<String, TestCaseResult> testCasesResult = new LinkedHashMap<>();
+        testCasesResult.put("id", result);
+        
+        var response = new Response(
+                result.getVerdict().getStatusResponse(),
+                result.getVerdict().getStatusCode(),
+                "",
+                testCasesResult,
+                0,
+                15,
+                500,
+                Language.JAVA,
+                LocalDateTime.now());
+        
         Assertions.assertEquals(ResponseEntity
                                     .status(HttpStatus.OK)
-                                    .body(new Response(result, null))
+                                    .body(response)
                                     .getStatusCode(),
                                 responseEntity.getStatusCode());
     }
     
     /**
-     * When its a correct answer compile method should return accepted verdict.
+     * When its a correct answer compile method should return accepted statusResponse.
      *
      * @throws Exception the exception
      */
@@ -244,8 +276,10 @@ class CompilerServiceTests {
                 .build();
     
         // Execution Container
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat()))
-                .thenReturn(containerOutput);
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyFloat())).thenReturn(containerOutput);
     
         // Compilation Container
         Mockito.when(containerService.runContainer(
@@ -253,22 +287,23 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyLong(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.anyString()))
-                .thenReturn(containerOutput);
+                ArgumentMatchers.anyString())).thenReturn(containerOutput);
     
-        Execution execution = ExecutionFactory.createExecution(
-                file, null, file, 10, 100, Language.JAVA);
+        var testCase = new ConvertedTestCase("id", null, file);
+        
+        Execution execution =
+                ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
     
         // When
         ResponseEntity<Object> responseEntity = compilerService.execute(execution);
         
         // Then
         Response response = (Response) responseEntity.getBody();
-        Assertions.assertEquals(Verdict.ACCEPTED.getStatusResponse(), response.getResult().getStatusResponse());
+        Assertions.assertEquals(Verdict.ACCEPTED.getStatusResponse(), response.getVerdict());
     }
     
     /**
-     * When its a wrong answer compile method should return wrong answer verdict.
+     * When its a wrong answer compile method should return wrong answer statusResponse.
      *
      * @throws Exception the exception
      */
@@ -303,8 +338,10 @@ class CompilerServiceTests {
                 .build();
     
         // Execution Container
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat()))
-                .thenReturn(containerOutput);
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyFloat())).thenReturn(containerOutput);
     
         // Compilation Container
         Mockito.when(containerService.runContainer(
@@ -312,22 +349,23 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyLong(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
-                ArgumentMatchers.anyString()))
-                .thenReturn(containerOutput);
+                ArgumentMatchers.anyString())).thenReturn(containerOutput);
     
-        Execution execution = ExecutionFactory.createExecution(
-                sourceCode, null, expectedOutputFile, 10, 100, Language.JAVA);
+        var testCase = new ConvertedTestCase("id", null, expectedOutputFile);
+        
+        Execution execution =
+                ExecutionFactory.createExecution(sourceCode, List.of(testCase), 10, 100, Language.JAVA);
     
         // When
         ResponseEntity responseEntity = compilerService.execute(execution);
         
         // Then
         Response response = (Response) responseEntity.getBody();
-        Assertions.assertEquals(Verdict.WRONG_ANSWER.getStatusResponse(), response.getResult().getStatusResponse());
+        Assertions.assertEquals(Verdict.WRONG_ANSWER.getStatusResponse(), response.getVerdict());
     }
     
     /**
-     * When the execution time exceed the limit compile method should return time limit exceeded verdict.
+     * When the execution time exceed the limit compile method should return time limit exceeded statusResponse.
      *
      * @throws Exception the exception
      */
@@ -340,7 +378,7 @@ class CompilerServiceTests {
         String output = "test";
         String expectedOutput = "not a test";
     
-        Result result = new Result(Verdict.ACCEPTED, output, "", expectedOutput, 0);
+        TestCaseResult result = new TestCaseResult(Verdict.ACCEPTED, output, "", expectedOutput, 0);
     
         MockMultipartFile file = new MockMultipartFile(
                 "file",
@@ -363,8 +401,10 @@ class CompilerServiceTests {
                 .build();
     
         // Execution Container
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat()))
-                .thenReturn(executionContainerOutput);
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyFloat())).thenReturn(executionContainerOutput);
     
         // Compilation Container
         Mockito.when(containerService.runContainer(
@@ -374,27 +414,31 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenReturn(compilationContainerOutput);
     
-        Execution execution = ExecutionFactory.createExecution(
-                file, null, file, 10, 100, Language.JAVA);
+        var testCase = new ConvertedTestCase("id", null, file);
+        
+        Execution execution =
+                ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
     
         // When
         ResponseEntity<Object> responseEntity = compilerService.execute(execution);
         
         // Then
         Response response = (Response) responseEntity.getBody();
-        Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getStatusResponse(), response.getResult().getStatusResponse());
+        Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getStatusResponse(), response.getVerdict());
     }
     
     /**
-     * When there is a runtime error compile method should return run time error verdict.
+     * When there is a runtime error compile method should return run time error statusResponse.
      *
      * @throws Exception the exception
      */
     @Test
     void WhenThereIsARuntimeErrorCompileMethodShouldReturnRunTimeErrorVerdict() throws Exception {
         // Given
-        Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
-                .thenReturn("build log");
+        Mockito.when(containerService.buildImage(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.any(),
+                ArgumentMatchers.any())).thenReturn("build log");
     
         String output = "test";
     
@@ -420,8 +464,10 @@ class CompilerServiceTests {
                 .build();
     
         // Execution Container
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat()))
-                .thenReturn(executionContainerOutput);
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyFloat())).thenReturn(executionContainerOutput);
     
         // Compilation Container
         Mockito.when(containerService.runContainer(
@@ -431,19 +477,21 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenReturn(compilationContainerOutput);
     
-        Execution execution = ExecutionFactory.createExecution(
-                file, null, file, 10, 100, Language.JAVA);
+        var testCase = new ConvertedTestCase("id", file, file);
+        
+        Execution execution =
+                ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
     
         // When
         ResponseEntity<Object> responseEntity = compilerService.execute(execution);
         
         // Then
         Response response = (Response) responseEntity.getBody();
-        Assertions.assertEquals(Verdict.RUNTIME_ERROR.getStatusResponse(), response.getResult().getStatusResponse());
+        Assertions.assertEquals(Verdict.RUNTIME_ERROR.getStatusResponse(), response.getVerdict());
     }
     
     /**
-     * When memory limit exceeded compile method should return out of memory error verdict.
+     * When memory limit exceeded compile method should return out of memory error statusResponse.
      *
      * @throws Exception the exception
      */
@@ -456,7 +504,7 @@ class CompilerServiceTests {
         String output = "test";
         String expectedOutput = "not a test";
     
-        Result result = new Result(Verdict.ACCEPTED, output, "", expectedOutput, 0);
+        TestCaseResult result = new TestCaseResult(Verdict.ACCEPTED, output, "", expectedOutput, 0);
     
         MockMultipartFile file = new MockMultipartFile(
                 "file",
@@ -479,8 +527,10 @@ class CompilerServiceTests {
                 .build();
     
         // Execution Container
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat()))
-                .thenReturn(executionContainerOutput);
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyFloat())).thenReturn(executionContainerOutput);
     
         // Compilation Container
         Mockito.when(containerService.runContainer(
@@ -490,19 +540,21 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenReturn(compilationContainerOutput);
     
-        Execution execution = ExecutionFactory.createExecution(
-                file, null, file, 10, 100, Language.JAVA);
+        var testCase = new ConvertedTestCase("id", null, file);
+        
+        Execution execution =
+                ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
     
         // When
         ResponseEntity<Object> responseEntity = compilerService.execute(execution);
         
         // Then
         Response response = (Response) responseEntity.getBody();
-        Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getStatusResponse(), response.getResult().getStatusResponse());
+        Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getStatusResponse(), response.getVerdict());
     }
     
     /**
-     * When it is a compilation error compile method should return compilation error verdict.
+     * When it is a compilation error compile method should return compilation error statusResponse.
      *
      * @throws Exception the exception
      */
@@ -529,8 +581,10 @@ class CompilerServiceTests {
                 .build();
     
         // Execution container
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat()))
-                .thenReturn(containerOutput);
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyFloat())).thenReturn(containerOutput);
     
         // Compilation container
         Mockito.when(containerService.runContainer(
@@ -540,15 +594,17 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenReturn(containerOutput);
     
-        Execution execution = ExecutionFactory.createExecution(
-                file, null, file, 10, 100, Language.JAVA);
+        var testCase = new ConvertedTestCase("id", null, file);
+        
+        Execution execution =
+                ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
     
         // When
         ResponseEntity<Object> responseEntity = compilerService.execute(execution);
         
         // Then
         Response response = (Response) responseEntity.getBody();
-        Assertions.assertEquals(Verdict.COMPILATION_ERROR.getStatusResponse(), response.getResult().getStatusResponse());
+        Assertions.assertEquals(Verdict.COMPILATION_ERROR.getStatusResponse(), response.getVerdict());
     }
     
     @Test
@@ -567,8 +623,10 @@ class CompilerServiceTests {
         );
         
         // Execution container
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat()))
-                .thenThrow(new ContainerFailedDependencyException("Docker engine error"));
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyFloat())).thenThrow(new ContainerFailedDependencyException("Docker engine error"));
     
         // Compilation container
         Mockito.when(containerService.runContainer(
@@ -577,9 +635,11 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenThrow(new ContainerFailedDependencyException("Docker engine error"));
+    
+        var testCase = new ConvertedTestCase("id", file, file);
         
-        Execution execution = ExecutionFactory.createExecution(
-                file, null, file, 10, 100, Language.JAVA);
+        Execution execution =
+                ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
         
         // Then
         Assertions.assertThrows(ContainerFailedDependencyException.class, () -> compilerService.execute(execution));
@@ -597,8 +657,10 @@ class CompilerServiceTests {
                 output.getBytes()
         );
     
-        Execution execution = ExecutionFactory.createExecution(
-                file, null, file, 10, 100, Language.JAVA);
+        var testCase = new ConvertedTestCase("id", null, file);
+        
+        Execution execution =
+                ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
     
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenThrow(new ContainerOperationTimeoutException("exception"));
@@ -625,9 +687,11 @@ class CompilerServiceTests {
                 MediaType.TEXT_PLAIN_VALUE,
                 "output".getBytes()
         );
+    
+        var testCase = new ConvertedTestCase("id", null, file);
         
-        Execution execution = ExecutionFactory.createExecution(
-                file, null, file, 10, 100, Language.JAVA);
+        Execution execution =
+                ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
         
         var processOutput =
                 ProcessOutput
@@ -637,8 +701,10 @@ class CompilerServiceTests {
                         .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                         .build();
         
-        Mockito.when(containerService.runContainer(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat()))
-                .thenReturn(processOutput);
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyFloat())).thenReturn(processOutput);
         
         // Should compile
         Mockito.when(containerService.runContainer(
@@ -653,6 +719,12 @@ class CompilerServiceTests {
         ResponseEntity<Object> response = compilerService.execute(execution);
         
         // Then
-        Assertions.assertEquals("/mockFile", ((Response)response.getBody()).getResult().getError());
+        Assertions.assertEquals(
+                "/mockFile",
+                ((Response)response.getBody()).getTestCasesResult().get("id").getError());
+    
+        Assertions.assertEquals(
+                "/mockFile",
+                ((Response)response.getBody()).getError());
     }
 }

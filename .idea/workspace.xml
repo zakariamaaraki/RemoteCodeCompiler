@@ -6,14 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="[Helm k8s] use init container to build the environment">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/compiler/templates/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/compiler/templates/deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/compiler/templates/service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/compiler/templates/service.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/compiler/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/compiler/values.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/monitoring/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/monitoring/values.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/healthchecks/ContainerHealthIndicator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/healthchecks/ContainerizationHealthIndicator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/healthchecks/KafkaStreamsHealthIndicator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/healthchecks/KafkaStreamsHealthIndicator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/healths/ContainerHealthIndicatorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/healths/ContainerHealthIndicatorTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/healths/KafkaStreamsHealthIndicatorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/healths/KafkaStreamsHealthIndicatorTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/ResourcesTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/resources/ResourcesTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,16 +114,14 @@
       <command value="docker ps" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ContainerHealthIndicatorTests">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.ResourcesTests.shouldReturnMaxCpus">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -155,78 +146,82 @@
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="CompilerServiceDecoratorTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RequestTests.ifLanguageIsDifferentEqualsShouldReturnFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
+          <option name="PATTERN" value="com.cp.compiler.models.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerServiceDecoratorTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CompilerServiceDecoratorTests.shouldHaveTheSameBehaviorAsTheCompilerClient" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="compiler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.CompilerServiceDecoratorTests" />
-      <option name="METHOD_NAME" value="shouldHaveTheSameBehaviorAsTheCompilerClient" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.models" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.models.RequestTests" />
+      <option name="METHOD_NAME" value="ifLanguageIsDifferentEqualsShouldReturnFalse" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ContainerHealthIndicatorTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RequestTests.ifSourceCodeIsDifferentEqualsShouldReturnFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.healths.*" />
+          <option name="PATTERN" value="com.cp.compiler.models.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.healths" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.healths.ContainerHealthIndicatorTests" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.models" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.models.RequestTests" />
+      <option name="METHOD_NAME" value="ifSourceCodeIsDifferentEqualsShouldReturnFalse" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ContainerServiceDecoratorTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RequestTests.ifTestCasesAreDifferentEqualsShouldReturnFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.services.containers.*" />
+          <option name="PATTERN" value="com.cp.compiler.models.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.services.containers" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.containers.ContainerServiceDecoratorTests" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.models" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.models.RequestTests" />
+      <option name="METHOD_NAME" value="ifTestCasesAreDifferentEqualsShouldReturnFalse" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="KafkaStreamsHealthIndicatorTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ResourcesTests.getAvailableResourcesShouldReturnTheRightValue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cp.compiler.healths.*" />
+          <option name="PATTERN" value="com.cp.compiler.services.resources.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cp.compiler.healths" />
-      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.healths.KafkaStreamsHealthIndicatorTests" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services.resources" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.resources.ResourcesTests" />
+      <option name="METHOD_NAME" value="getAvailableResourcesShouldReturnTheRightValue" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ResourcesTests.shouldReturnMaxCpus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.services.resources.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.services.resources" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.resources.ResourcesTests" />
+      <option name="METHOD_NAME" value="shouldReturnMaxCpus" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -372,11 +367,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ContainerHealthIndicatorTests" />
-        <item itemvalue="JUnit.KafkaStreamsHealthIndicatorTests" />
-        <item itemvalue="JUnit.CompilerServiceDecoratorTests.shouldHaveTheSameBehaviorAsTheCompilerClient" />
-        <item itemvalue="JUnit.CompilerServiceDecoratorTests" />
-        <item itemvalue="JUnit.ContainerServiceDecoratorTests" />
+        <item itemvalue="JUnit.ResourcesTests.shouldReturnMaxCpus" />
+        <item itemvalue="JUnit.ResourcesTests.getAvailableResourcesShouldReturnTheRightValue" />
+        <item itemvalue="JUnit.RequestTests.ifTestCasesAreDifferentEqualsShouldReturnFalse" />
+        <item itemvalue="JUnit.RequestTests.ifSourceCodeIsDifferentEqualsShouldReturnFalse" />
+        <item itemvalue="JUnit.RequestTests.ifLanguageIsDifferentEqualsShouldReturnFalse" />
       </list>
     </recent_temporary>
   </component>
@@ -476,6 +471,7 @@
       <workItem from="1669055462297" duration="153000" />
       <workItem from="1669055661028" duration="440000" />
       <workItem from="1669056182695" duration="7364000" />
+      <workItem from="1669834698696" duration="61994000" />
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
@@ -620,28 +616,31 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java</url>
-          <line>94</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java</url>
-          <line>92</line>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java</url>
-          <line>98</line>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java</url>
-          <line>101</line>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java</url>
-          <line>130</line>
+          <line>172</line>
           <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Response.java</url>
+          <line>99</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Response.java</url>
+          <line>104</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Response.java</url>
+          <line>115</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Response.java</url>
+          <line>97</line>
+          <properties class="com.cp.compiler.models.Response" method="equals">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

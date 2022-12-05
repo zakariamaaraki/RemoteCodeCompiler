@@ -1,6 +1,7 @@
 package com.cp.compiler.executions.languages;
 
 import com.cp.compiler.executions.Execution;
+import com.cp.compiler.models.ConvertedTestCase;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownTemplates;
@@ -13,6 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,34 +28,33 @@ public class KotlinExecution extends Execution {
     /**
      * Instantiates a new Kotlin execution.
      *
-     * @param sourceCode         the source code
-     * @param inputFile          the input file
-     * @param expectedOutputFile the expected output file
-     * @param timeLimit          the time limit
-     * @param memoryLimit        the memory limit
-     * @param executionCounter   the execution counter
+     * @param sourceCode              the source code
+     * @param testCases               the test cases
+     * @param timeLimit               the time limit
+     * @param memoryLimit             the memory limit
+     * @param executionCounter        the execution counter
+     * @param entryPointFileGenerator the entry point file generator
      */
     public KotlinExecution(MultipartFile sourceCode,
-                           MultipartFile inputFile,
-                           MultipartFile expectedOutputFile,
+                           List<ConvertedTestCase> testCases,
                            int timeLimit,
                            int memoryLimit,
                            Counter executionCounter,
                            EntrypointFileGenerator entryPointFileGenerator) {
-        super(sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
+        super(sourceCode, testCases, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
     @Override
-    protected void createEntrypointFile() {
+    public void createEntrypointFile(String inputFileName) {
         // This case is a bit different, Kotlin and Java files name must be the same as the name of the class
         // So we will keep the name of the file as it's sent by the user.
         val fileName = getSourceCodeFile().getOriginalFilename();
         val prefixName = fileName.substring(0, fileName.length() - 3); // remove .kt
         val commandPrefix = "kotlin " + prefixName;
-        val executionCommand = getInputFile() == null
+        val executionCommand = inputFileName == null
                 ? commandPrefix + "\n"
-                : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
+                : commandPrefix + " < " + inputFileName + "\n";
     
         val attributes = Map.of(
                 "timeLimit", String.valueOf(getTimeLimit()),
@@ -61,7 +64,11 @@ public class KotlinExecution extends Execution {
         String content = getEntrypointFileGenerator()
                 .createEntrypointFile(WellKnownTemplates.ENTRYPOINT_TEMPLATE, attributes);
     
-        try(OutputStream os = new FileOutputStream(getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME)) {
+        String path = getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME;
+    
+        Files.deleteIfExists(Path.of(path));
+    
+        try(OutputStream os = new FileOutputStream(path)) {
             os.write(content.getBytes(), 0, content.length());
         }
     }

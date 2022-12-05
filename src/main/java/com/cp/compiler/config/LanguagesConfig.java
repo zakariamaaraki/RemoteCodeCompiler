@@ -44,12 +44,11 @@ public class LanguagesConfig {
     private void configure() {
         // Register factories
         register(Language.JAVA,
-                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                (sourceCode, testCases, timeLimit, memoryLimit) -> {
                     Counter executionsCounter = meterRegistry.counter(Language.JAVA.getExecutionCounter());
                     return new JavaExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             executionsCounter,
@@ -57,12 +56,11 @@ public class LanguagesConfig {
                 });
     
         register(Language.PYTHON,
-                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                (sourceCode, testCases, timeLimit, memoryLimit) -> {
                     Counter executionsCounter = meterRegistry.counter(Language.PYTHON.getExecutionCounter());
                     return new PythonExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             executionsCounter,
@@ -70,12 +68,11 @@ public class LanguagesConfig {
                 });
     
         register(Language.C,
-                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                (sourceCode, testCases, timeLimit, memoryLimit) -> {
                     Counter executionsCounter = meterRegistry.counter(Language.C.getExecutionCounter());
                     return new CExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             executionsCounter,
@@ -83,12 +80,11 @@ public class LanguagesConfig {
                 });
     
         register(Language.CPP,
-                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                (sourceCode, testCases, timeLimit, memoryLimit) -> {
                     Counter executionsCounter = meterRegistry.counter(Language.CPP.getExecutionCounter());
                     return new CPPExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             executionsCounter,
@@ -96,12 +92,11 @@ public class LanguagesConfig {
                 });
     
         register(Language.GO,
-                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                (sourceCode, testCases, timeLimit, memoryLimit) -> {
                     Counter executionsCounter = meterRegistry.counter(Language.GO.getExecutionCounter());
                     return new GoExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             executionsCounter,
@@ -109,12 +104,11 @@ public class LanguagesConfig {
                 });
     
         register(Language.CS,
-                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                (sourceCode, testCases, timeLimit, memoryLimit) -> {
                     Counter executionsCounter = meterRegistry.counter(Language.CS.getExecutionCounter());
                     return new CSExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             executionsCounter,
@@ -122,12 +116,11 @@ public class LanguagesConfig {
                 });
     
         register(Language.KOTLIN,
-                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                (sourceCode, testCases, timeLimit, memoryLimit) -> {
                     Counter executionsCounter = meterRegistry.counter(Language.KOTLIN.getExecutionCounter());
                     return new KotlinExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             executionsCounter,
@@ -135,12 +128,11 @@ public class LanguagesConfig {
                 });
     
         register(Language.SCALA,
-                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                (sourceCode, testCases, timeLimit, memoryLimit) -> {
                     Counter executionsCounter = meterRegistry.counter(Language.SCALA.getExecutionCounter());
                     return new ScalaExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             executionsCounter,
@@ -148,12 +140,11 @@ public class LanguagesConfig {
                 });
     
         register(Language.RUST,
-                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                (sourceCode, testCases, timeLimit, memoryLimit) -> {
                     Counter executionsCounter = meterRegistry.counter(Language.RUST.getExecutionCounter());
                     return new RustExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             executionsCounter,
@@ -161,12 +152,11 @@ public class LanguagesConfig {
                 });
     
         register(Language.RUBY,
-                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                (sourceCode, testCases, timeLimit, memoryLimit) -> {
                     Counter executionsCounter = meterRegistry.counter(Language.RUBY.getExecutionCounter());
                     return new RubyExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             executionsCounter,
@@ -174,12 +164,11 @@ public class LanguagesConfig {
                 });
     
         register(Language.HASKELL,
-                (sourceCode, inputFile, expectedOutputFile, timeLimit, memoryLimit) -> {
+                (sourceCode, testCases, timeLimit, memoryLimit) -> {
                     Counter executionsCounter = meterRegistry.counter(Language.HASKELL.getExecutionCounter());
                     return new HaskellExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             executionsCounter,

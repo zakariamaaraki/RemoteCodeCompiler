@@ -40,6 +40,6 @@ class DockerServiceTests {
                         1,
                         "volume",
                         "executionPath",
-                        "sourceCode"));
+                        "sourcecode"));
     }
 }

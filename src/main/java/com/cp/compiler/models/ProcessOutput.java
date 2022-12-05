@@ -16,7 +16,7 @@ public class ProcessOutput {
     @Setter
     private String stdErr;
 
-    private long executionDuration;
+    private int executionDuration;
     
     private int status;
 }

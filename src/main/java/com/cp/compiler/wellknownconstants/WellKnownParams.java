@@ -13,24 +13,26 @@ public abstract class WellKnownParams {
     public static final String URL = "url";
     
     /**
-     * The constant PREFER_PUSH.
+     * The constant PREFER.
      */
-    public static final String PREFER_PUSH = "preferPush";
+    public static final String PREFER = "prefer";
+    
+    public static final String CUSTOM_DIMENSION = "customDimension";
     
     /**
-     * The constant OUTPUT_FILE.
+     * The constant INPUTS.
      */
-    public static final String OUTPUT_FILE = "outputFile";
+    public static final String INPUTS = "inputs";
+    
+    /**
+     * The constant EXPECTED_OUTPUTS.
+     */
+    public static final String EXPECTED_OUTPUTS = "expectedOutputs";
     
     /**
      * The constant SOURCE_CODE.
      */
-    public static final String SOURCE_CODE = "sourceCode";
-    
-    /**
-     * The constant INPUT_FILE.
-     */
-    public static final String INPUT_FILE = "inputFile";
+    public static final String SOURCE_CODE = "sourcecode";
     
     /**
      * The constant TIME_LIMIT.

@@ -2,6 +2,7 @@ package com.cp.compiler.services;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
+import com.cp.compiler.services.resources.Resources;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownMetrics;
 import com.cp.compiler.repositories.HooksRepository;
@@ -16,7 +17,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.util.Optional;
@@ -66,6 +66,8 @@ public class CompilerProxy implements CompilerService {
     private Counter throttlingCounterMetric;
     
     private static final String EXECUTIONS_GAUGE_DESCRIPTION = "Current number of executions";
+    
+    private static final int MAX_FILE_LENGTH = 50;
     
     /**
      * Init.
@@ -124,26 +126,11 @@ public class CompilerProxy implements CompilerService {
                             + WellKnownFiles.FILE_NAME_REGEX));
         }
         
-        // sourcecode file format is correct, lets check the extension
+        // Lets check the extension
         if (!checkFileExtension(execution.getSourceCodeFile().getOriginalFilename(), execution.getLanguage())) {
             return Optional.of(buildOutputError(
                     "Bad request, sourcecode file extension is not correct, it should be: "
                             + execution.getLanguage().getSourcecodeExtension()));
-        }
-    
-        if (!checkFileName(execution.getExpectedOutputFile().getOriginalFilename())) {
-            return Optional.of(buildOutputError(
-                    "Bad request, expected output file must match the following regex "
-                            + WellKnownFiles.FILE_NAME_REGEX));
-        }
-        
-        MultipartFile inputFile = execution.getInputFile();
-        
-        // Input files can be null
-        if (inputFile != null && !checkFileName(inputFile.getOriginalFilename())) {
-            return Optional.of(buildOutputError(
-                    "Bad request, input file must match the following regex "
-                            + WellKnownFiles.FILE_NAME_REGEX));
         }
         
         if (execution.getTimeLimit() < minExecutionTime || execution.getTimeLimit() > maxExecutionTime) {
@@ -182,6 +169,7 @@ public class CompilerProxy implements CompilerService {
      * @return A boolean
      */
     private boolean checkFileName(String fileName) {
-        return fileName != null && fileName.matches(WellKnownFiles.FILE_NAME_REGEX);
+        return fileName != null && fileName.length() <= MAX_FILE_LENGTH
+                && fileName.matches(WellKnownFiles.FILE_NAME_REGEX);
     }
 }

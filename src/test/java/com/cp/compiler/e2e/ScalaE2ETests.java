@@ -27,7 +27,7 @@ class ScalaE2ETests {
     private CompilerController compilerController;
     
     /**
-     * Should return accepted verdict.
+     * Should return accepted statusResponse.
      *
      * @throws Exception the exception
      */
@@ -50,23 +50,22 @@ class ScalaE2ETests {
         // When
         ResponseEntity<Object> responseEntity = compilerController.compile(
                 Language.SCALA,
-                expectedOutput,
                 sourceCode,
                 null,
+                expectedOutput,
                 10,
                 500,
                 null,
-                null);
-    
-        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
+                null,
+                "");
         
         // Then
         Assertions.assertEquals(Verdict.ACCEPTED.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
+                ((Response)responseEntity.getBody()).getVerdict());
     }
     
     /**
-     * Should return time limit exceeded verdict.
+     * Should return time limit exceeded statusResponse.
      *
      * @throws Exception the exception
      */
@@ -89,23 +88,22 @@ class ScalaE2ETests {
         // When
         ResponseEntity<Object> responseEntity = compilerController.compile(
                 Language.SCALA,
-                expectedOutput,
                 sourceCode,
                 null,
+                expectedOutput,
                 10,
                 500,
                 null,
-                null);
-    
-        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
+                null,
+                "");
         
         // Then
         Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
+                ((Response)responseEntity.getBody()).getVerdict());
     }
     
     /**
-     * Should return compilation error verdict.
+     * Should return compilation error statusResponse.
      *
      * @throws Exception the exception
      */
@@ -128,23 +126,22 @@ class ScalaE2ETests {
         // When
         ResponseEntity<Object> responseEntity = compilerController.compile(
                 Language.SCALA,
-                expectedOutput,
                 sourceCode,
                 null,
+                expectedOutput,
                 10,
                 500,
                 null,
-                null);
-    
-        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
+                null,
+                "");
         
         // Then
         Assertions.assertEquals(Verdict.COMPILATION_ERROR.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
+                ((Response)responseEntity.getBody()).getVerdict());
     }
     
     /**
-     * Should return wrong answer verdict.
+     * Should return wrong answer statusResponse.
      *
      * @throws Exception the exception
      */
@@ -167,23 +164,22 @@ class ScalaE2ETests {
         // When
         ResponseEntity<Object> responseEntity = compilerController.compile(
                 Language.SCALA,
-                expectedOutput,
                 sourceCode,
                 null,
+                expectedOutput,
                 10,
                 500,
                 null,
-                null);
-    
-        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
+                null,
+                "");
         
         // Then
         Assertions.assertEquals(Verdict.WRONG_ANSWER.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
+                ((Response)responseEntity.getBody()).getVerdict());
     }
     
     /**
-     * Should return out of memory verdict.
+     * Should return out of memory statusResponse.
      *
      * @throws Exception the exception
      */
@@ -206,23 +202,22 @@ class ScalaE2ETests {
         // When
         ResponseEntity<Object> responseEntity = compilerController.compile(
                 Language.SCALA,
-                expectedOutput,
                 sourceCode,
                 null,
+                expectedOutput,
                 10,
                 1,
                 null,
-                null);
-    
-        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
+                null,
+                "");
         
         // Then
         Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
+                ((Response)responseEntity.getBody()).getVerdict());
     }
     
     /**
-     * Should return runtime error verdict.
+     * Should return runtime error statusResponse.
      *
      * @throws Exception the exception
      */
@@ -245,18 +240,17 @@ class ScalaE2ETests {
         // When
         ResponseEntity<Object> responseEntity = compilerController.compile(
                 Language.SCALA,
-                expectedOutput,
                 sourceCode,
                 null,
+                expectedOutput,
                 10,
                 500,
                 null,
-                null);
-    
-        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
+                null,
+                "");
         
         // Then
         Assertions.assertEquals(Verdict.RUNTIME_ERROR.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
+                ((Response)responseEntity.getBody()).getVerdict());
     }
 }

@@ -8,7 +8,7 @@ public abstract class WellKnownHeaders {
     private WellKnownHeaders() {}
     
     /**
-     * The constant PREFER_PUSH.
+     * The constant PREFER.
      */
     public static final String PREFER_PUSH = "prefer-push";
 }

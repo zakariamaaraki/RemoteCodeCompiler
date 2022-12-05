@@ -1,6 +1,7 @@
 package com.cp.compiler.executions.languages;
 
 import com.cp.compiler.executions.Execution;
+import com.cp.compiler.models.ConvertedTestCase;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownTemplates;
@@ -12,6 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,30 +26,29 @@ public class GoExecution extends Execution {
     /**
      * Instantiates a new Go Execution.
      *
-     * @param sourceCodeFile     the source code
-     * @param inputFile          the inputFile file
-     * @param expectedOutputFile the expected output file
-     * @param timeLimit          the time limit
-     * @param memoryLimit        the memory limit
-     * @param executionCounter   the execution counter
+     * @param sourceCodeFile          the source code
+     * @param testCases               the test cases
+     * @param timeLimit               the time limit
+     * @param memoryLimit             the memory limit
+     * @param executionCounter        the execution counter
+     * @param entryPointFileGenerator the entry point file generator
      */
     public GoExecution(MultipartFile sourceCodeFile,
-                          MultipartFile inputFile,
-                          MultipartFile expectedOutputFile,
-                          int timeLimit,
-                          int memoryLimit,
-                          Counter executionCounter,
-                          EntrypointFileGenerator entryPointFileGenerator) {
-        super(sourceCodeFile, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
+                       List<ConvertedTestCase> testCases,
+                       int timeLimit,
+                       int memoryLimit,
+                       Counter executionCounter,
+                       EntrypointFileGenerator entryPointFileGenerator) {
+        super(sourceCodeFile, testCases, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
     @SneakyThrows
     @Override
-    protected void createEntrypointFile() {
+    public void createEntrypointFile(String inputFileName) {
         val commandPrefix = "./exec";
-        val executionCommand = getInputFile() == null
+        val executionCommand = inputFileName == null
                 ? commandPrefix + "\n"
-                : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
+                : commandPrefix + " < " + inputFileName + "\n";
     
         val attributes = Map.of(
                 "timeLimit", String.valueOf(getTimeLimit()),
@@ -55,7 +58,11 @@ public class GoExecution extends Execution {
         String content = getEntrypointFileGenerator()
                 .createEntrypointFile(WellKnownTemplates.ENTRYPOINT_TEMPLATE, attributes);
     
-        try(OutputStream os = new FileOutputStream(getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME)) {
+        String path = getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME;
+    
+        Files.deleteIfExists(Path.of(path));
+    
+        try(OutputStream os = new FileOutputStream(path)) {
             os.write(content.getBytes(), 0, content.length());
         }
     }

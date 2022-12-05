@@ -1,6 +1,7 @@
 package com.cp.compiler.executions.languages;
 
 import com.cp.compiler.executions.Execution;
+import com.cp.compiler.models.ConvertedTestCase;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownTemplates;
@@ -13,6 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,35 +24,33 @@ import java.util.Map;
  */
 @Getter
 public class CExecution extends Execution {
-
+    
     /**
      * Instantiates a new Execution.
      *
      * @param sourceCodeFile          the source code
-     * @param inputFile               the inputFile file
-     * @param expectedOutputFile      the expected output file
+     * @param testCases               the test cases
      * @param timeLimit               the time limit
      * @param memoryLimit             the memory limit
      * @param executionCounter        the execution counter
      * @param entrypointFileGenerator the entrypointFile generator
      */
     public CExecution(MultipartFile sourceCodeFile,
-                      MultipartFile inputFile,
-                      MultipartFile expectedOutputFile,
+                      List<ConvertedTestCase> testCases,
                       int timeLimit,
                       int memoryLimit,
                       Counter executionCounter,
                       EntrypointFileGenerator entrypointFileGenerator) {
-        super(sourceCodeFile, inputFile, expectedOutputFile, timeLimit, memoryLimit, executionCounter, entrypointFileGenerator);
+        super(sourceCodeFile, testCases, timeLimit, memoryLimit, executionCounter, entrypointFileGenerator);
     }
 
     @SneakyThrows
     @Override
-    protected void createEntrypointFile() {
+    public void createEntrypointFile(String inputFileName) {
         val commandPrefix = "./exec";
-        val executionCommand = getInputFile() == null
+        val executionCommand = inputFileName == null
                 ? commandPrefix + "\n"
-                : commandPrefix + " < " + getInputFile().getOriginalFilename() + "\n";
+                : commandPrefix + " < " + inputFileName + "\n";
     
         val attributes = Map.of(
                 "timeLimit", String.valueOf(getTimeLimit()),
@@ -58,7 +60,11 @@ public class CExecution extends Execution {
         String content = getEntrypointFileGenerator()
                 .createEntrypointFile(WellKnownTemplates.ENTRYPOINT_TEMPLATE, attributes);
     
-        try(OutputStream os = new FileOutputStream(getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME)) {
+        String path = getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME;
+    
+        Files.deleteIfExists(Path.of(path));
+    
+        try(OutputStream os = new FileOutputStream(path)) {
             os.write(content.getBytes(), 0, content.length());
         }
     }

@@ -13,27 +13,27 @@ import lombok.Getter;
 public enum Verdict {
     
     /**
-     * Accepted verdict.
+     * Accepted statusResponse.
      */
     ACCEPTED("Accepted", 100, WellKnownMetrics.ACCEPTED_VERDICT_COUNTER),
     /**
-     * Wrong answer verdict.
+     * Wrong answer statusResponse.
      */
     WRONG_ANSWER("Wrong Answer", 200, WellKnownMetrics.WRONG_ANSWER_VERDICT_COUNTER),
     /**
-     * Compilation error verdict.
+     * Compilation error statusResponse.
      */
     COMPILATION_ERROR("Compilation Error", 300, WellKnownMetrics.COMPILATION_ERROR_VERDICT_COUNTER),
     /**
-     * Out of memory verdict.
+     * Out of memory statusResponse.
      */
     OUT_OF_MEMORY("Out Of Memory", 400, WellKnownMetrics.OUT_OF_MEMORY_VERDICT_COUNTER),
     /**
-     * Time limit exceeded verdict.
+     * Time limit exceeded statusResponse.
      */
     TIME_LIMIT_EXCEEDED("Time Limit Exceeded", 500, WellKnownMetrics.TIME_LIMIT_EXCEEDED_VERDICT_COUNTER),
     /**
-     * Runtime error verdict.
+     * Runtime error statusResponse.
      */
     RUNTIME_ERROR("Runtime Error", 600, WellKnownMetrics.RUNTIME_ERROR_VERDICT_COUNTER);
     

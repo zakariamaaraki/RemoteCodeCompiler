@@ -4,6 +4,7 @@ import com.cp.compiler.exceptions.*;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.*;
 import com.cp.compiler.services.containers.ContainerService;
+import com.cp.compiler.services.resources.Resources;
 import com.cp.compiler.utils.CmdUtils;
 import com.cp.compiler.utils.StatusUtils;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
@@ -26,6 +27,7 @@ import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -109,7 +111,7 @@ public class CompilerServiceDefault implements CompilerService {
         buildExecutionEnvironment(execution);
         
         try {
-            String expectedOutput = getExpectedOutput(execution.getExpectedOutputFile());
+            int compilationDuration = 0;
             
             // 2- Compile the source code if the language is a compiled language
             if (execution.getLanguage().isCompiled()) {
@@ -126,57 +128,111 @@ public class CompilerServiceDefault implements CompilerService {
                 compilationTimer.record(() -> {
                      processOutput.set(compile(volume, compilationImageName, execution.getPath(), sourceCodeFileName));
                 });
+                compilationDuration = processOutput.get().getExecutionDuration();
                 
                 if (processOutput.get().getStatus() != StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS) {
 
                     cleanStdErrOutput(processOutput.get(), execution);
-                    Result result = new Result(
-                            Verdict.COMPILATION_ERROR,
-                            "",
+    
+                    var response = new Response(
+                            Verdict.COMPILATION_ERROR.getStatusResponse(),
+                            Verdict.COMPILATION_ERROR.getStatusCode(),
                             processOutput.get().getStdErr(),
-                            expectedOutput,
-                            0);
+                            new LinkedHashMap<>(),
+                            compilationDuration,
+                            execution.getTimeLimit(),
+                            execution.getMemoryLimit(),
+                            execution.getLanguage(),
+                            dateTime);
                     
-                    // Will return compilation Error Status
-                    return ResponseEntity.ok(new Response(result, dateTime));
+                    // Will return a compilation Error verdict
+                    return ResponseEntity.ok(response);
                 }
                 log.info("Compilation succeeded!");
             }
+            
+            var testCasesResult = new LinkedHashMap<String, TestCaseResult>();
+            Verdict verdict = null;
+            String err = "";
+            
+            for (ConvertedTestCase testCase : execution.getTestCases()) {
+                
+                // Create an entrypoint file for the current execution
+                execution.createEntrypointFile(
+                        testCase.getInputFile() == null
+                                ? null
+                                : testCase.getInputFile().getOriginalFilename());
     
-            var result = new AtomicReference<Result>();
-            executionTimer.record(() -> {
-                // 2 - Build the execution container
-                buildContainerImage(execution.getPath(), execution.getImageName(), WellKnownFiles.EXECUTION_DOCKERFILE_NAME);
-    
-                // 3 - Run the execution container
-                result.set(runContainer(execution, expectedOutput)); 
-            });
-    
-            // 4 - Delete container image asynchronously
-            if (deleteDockerImage) {
-                threadPool.execute(() -> {
-                    try {
-                        containerService.deleteImage(execution.getImageName());
-                        log.info("image {} has been deleted", execution.getImageName());
-                    } catch (Exception e) {
-                        if (e instanceof ContainerOperationTimeoutException) {
-                            log.warn("Timeout, didn't get the response at time from container engine if the image {} was deleted",
-                                    execution.getImageName());
-                        } else {
-                            log.warn("Error, can't delete image {} : {}", execution.getImageName(), e);
-                        }
-                    }
+                String expectedOutput = getExpectedOutput(testCase.getExpectedOutputFile());
+                
+                // Free memory space
+                testCase.freeMemorySpace();
+                
+                var result = new AtomicReference<TestCaseResult>();
+                executionTimer.record(() -> {
+                    // 2 - Build the execution container
+                    buildContainerImage(
+                            execution.getPath(),
+                            execution.getImageName(),
+                            WellKnownFiles.EXECUTION_DOCKERFILE_NAME);
+        
+                    // 3 - Run the execution container
+                    result.set(runContainer(execution, expectedOutput));
                 });
+                
+                // 4 - Delete container image asynchronously
+                if (deleteDockerImage) {
+                    threadPool.execute(() -> {
+                        try {
+                            containerService.deleteImage(execution.getImageName());
+                            log.info("Image {} has been deleted", execution.getImageName());
+                        } catch (Exception e) {
+                            if (e instanceof ContainerOperationTimeoutException) {
+                                log.warn("Timeout, didn't get the response at time from container engine if the image {} was deleted",
+                                        execution.getImageName());
+                            } else {
+                                log.warn("Error, can't delete image {} : {}", execution.getImageName(), e);
+                            }
+                        }
+                    });
+                }
+                
+                TestCaseResult testCaseResult = result.get();
+    
+                testCasesResult.put(testCase.getTestCaseId(), testCaseResult);
+                verdict = testCaseResult.getVerdict();
+            
+                log.info("Status response for the test case {} is {}",
+                        testCase.getTestCaseId(),
+                        verdict.getStatusResponse());
+    
+                // Update metrics
+                verdictsCounters.get(verdict.getStatusResponse()).increment();
+                
+                if (verdict != Verdict.ACCEPTED) {
+                    // Don't continue if the current test case failed
+                    log.info("Test case id: {} failed, abort executions", testCase.getTestCaseId());
+                    err = testCaseResult.getError();
+                    break;
+                }
             }
     
-            log.info("Status response is {}", result.get().getStatusResponse());
-    
-            // Update metrics
-            verdictsCounters.get(result.get().getStatusResponse()).increment();
+            log.info("Execution finished, the verdict is {}", verdict.getStatusResponse());
+            
+            var response = new Response(
+                    verdict.getStatusResponse(),
+                    verdict.getStatusCode(),
+                    err,
+                    testCasesResult,
+                    compilationDuration,
+                    execution.getTimeLimit(),
+                    execution.getMemoryLimit(),
+                    execution.getLanguage(),
+                    dateTime);
     
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(new Response(result.get(), dateTime));
+                    .body(response);
         } finally {
             // 5 - Clean up asynchronously
             threadPool.execute(() -> deleteExecutionEnvironment(execution));
@@ -209,7 +265,12 @@ public class CompilerServiceDefault implements CompilerService {
     
     private ProcessOutput compile(String volume, String imageName, String executionPath, String sourceCodeFileName) {
         String volumeMounting = volume + ":" + EXECUTION_PATH_INSIDE_CONTAINER;
-        return containerService.runContainer(imageName, COMPILATION_TIME_OUT, volumeMounting, executionPath, sourceCodeFileName);
+        return containerService.runContainer(
+                imageName,
+                COMPILATION_TIME_OUT,
+                volumeMounting,
+                executionPath,
+                sourceCodeFileName);
     }
     
     private String getExpectedOutput(MultipartFile outputFile) {
@@ -222,15 +283,16 @@ public class CompilerServiceDefault implements CompilerService {
         }
     }
     
-    private Result runContainer(Execution execution, String expectedOutput) {
+    private TestCaseResult runContainer(Execution execution, String expectedOutput) {
         
         try {
-            ProcessOutput containerOutput = containerService.runContainer(execution.getImageName(), EXECUTION_TIME_OUT, resources.getMaxCpus());
+            ProcessOutput containerOutput =
+                    containerService.runContainer(execution.getImageName(), EXECUTION_TIME_OUT, resources.getMaxCpus());
             Verdict verdict = getVerdict(containerOutput, expectedOutput);
         
             cleanStdErrOutput(containerOutput, execution);
             
-            return new Result(
+            return new TestCaseResult(
                     verdict,
                     containerOutput.getStdOut(),
                     containerOutput.getStdErr(),
@@ -238,8 +300,9 @@ public class CompilerServiceDefault implements CompilerService {
                     containerOutput.getExecutionDuration());
         
         } catch(ContainerOperationTimeoutException exception) {
-            log.warn("Tme limit exceeded during the execution: {}", exception); // Should be caught inside the container
-            return new Result(
+            // Should be caught inside the container
+            log.warn("Tme limit exceeded during the execution: {}", exception);
+            return new TestCaseResult(
                     Verdict.TIME_LIMIT_EXCEEDED,
                     "",
                     "The execution exceeded the time limit",

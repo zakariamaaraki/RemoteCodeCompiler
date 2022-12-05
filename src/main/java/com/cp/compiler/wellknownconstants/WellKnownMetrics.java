@@ -115,30 +115,30 @@ public abstract class WellKnownMetrics {
     /**
      * The constant ACCEPTED_VERDICT_COUNTER.
      */
-    public static final String ACCEPTED_VERDICT_COUNTER = "verdict.accepted.counter";
+    public static final String ACCEPTED_VERDICT_COUNTER = "statusResponse.accepted.counter";
     
     /**
      * The constant WRONG_ANSWER_VERDICT_COUNTER.
      */
-    public static final String WRONG_ANSWER_VERDICT_COUNTER = "verdict.wrong-answer.counter";
+    public static final String WRONG_ANSWER_VERDICT_COUNTER = "statusResponse.wrong-answer.counter";
     
     /**
      * The constant COMPILATION_ERROR_VERDICT_COUNTER.
      */
-    public static final String COMPILATION_ERROR_VERDICT_COUNTER = "verdict.compilation-error.counter";
+    public static final String COMPILATION_ERROR_VERDICT_COUNTER = "statusResponse.compilation-error.counter";
     
     /**
      * The constant RUNTIME_ERROR_VERDICT_COUNTER.
      */
-    public static final String RUNTIME_ERROR_VERDICT_COUNTER = "verdict.runtime-error.counter";
+    public static final String RUNTIME_ERROR_VERDICT_COUNTER = "statusResponse.runtime-error.counter";
     
     /**
      * The constant TIME_LIMIT_EXCEEDED_VERDICT_COUNTER.
      */
-    public static final String TIME_LIMIT_EXCEEDED_VERDICT_COUNTER = "verdict.time-limit-exceeded.counter";
+    public static final String TIME_LIMIT_EXCEEDED_VERDICT_COUNTER = "statusResponse.time-limit-exceeded.counter";
     
     /**
      * The constant OUT_OF_MEMORY_VERDICT_COUNTER.
      */
-    public static final String OUT_OF_MEMORY_VERDICT_COUNTER = "verdict.out-of-memory.counter";
+    public static final String OUT_OF_MEMORY_VERDICT_COUNTER = "statusResponse.out-of-memory.counter";
 }

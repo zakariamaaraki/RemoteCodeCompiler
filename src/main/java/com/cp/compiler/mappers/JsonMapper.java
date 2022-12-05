@@ -60,9 +60,8 @@ public abstract class JsonMapper {
     public static String transform(String jsonRequest, CompilerService compilerService) throws Exception {
         Request request = JsonMapper.toRequest(jsonRequest);
         
-        Execution execution = ExecutionFactory.createExecution(request.getSourceCode(),
-                                                                request.getInput(),
-                                                                request.getExpectedOutput(),
+        Execution execution = ExecutionFactory.createExecution(request.getSourcecode(),
+                                                                request.getTestCases(),
                                                                 request.getTimeLimit(),
                                                                 request.getMemoryLimit(),
                                                                 request.getLanguage());
