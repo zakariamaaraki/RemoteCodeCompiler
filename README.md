@@ -25,8 +25,17 @@ Supports **Rest Calls (Long Polling and [Push Notification](https://en.wikipedia
 
 ```json
 {
-    "input": "9",
-    "expectedOutput": "0 1 2 3 4 5 6 7 8 9",
+    "testCases": {
+      "test1": {
+        "input": "<YOUR_INPUT>",
+        "expectedOutput": "<YOUR_EXPECTED_OUTPUT>"
+      },
+      "test2": {
+        "input": "<YOUR_INPUT>",
+        "expectedOutput": "<YOUR_EXPECTED_OUTPUT>"
+      },
+      ...
+    },
     "sourceCode": "<YOUR_SOURCE_CODE>",
     "language": "JAVA",
     "timeLimit": 15,  
@@ -40,15 +49,34 @@ The compiler cleans up your output, so having extra spaces or line breaks does n
 
 ```json
 {
-  "result": {
-    "statusResponse": "Accepted",
+    "verdict": "Accepted",
     "statusCode": 100,
-    "output": "0 1 2 3 4 5 6 7 8 9",
     "error": "",
-    "expectedOutput": "0 1 2 3 4 5 6 7 8 9",
-    "executionDuration": 2111
-  },
-  "dateTime": "2022-01-28T23:32:02.843465"
+    "testCasesResult": {
+      "test1": {
+        "verdict": "Accepted",
+        "verdictStatusCode": 100,
+        "output": "0 1 2 3 4 5 6 7 8 9",
+        "error": "", 
+        "expectedOutput": "0 1 2 3 4 5 6 7 8 9",
+        "executionDuration": 175
+      },
+      "test2": {
+        "verdict": "Accepted",
+        "verdictStatusCode": 100,
+        "output": "9 8 7 1",
+        "error": "" ,
+        "expectedOutput": "9 8 7 1",
+        "executionDuration": 273
+      },
+      ...
+    },
+    "compilationDuration": 328,
+    "averageExecutionDuration": 183,
+    "timeLimit": 1500,
+    "memoryLimit": 500,
+    "language": "JAVA",
+    "dateTime": "2022-01-28T23:32:02.843465"
 }
 ```
 
@@ -146,15 +174,34 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 :tada: **Accepted**
 ```json
 {
-  "result": {
-    "statusResponse": "Accepted",
+    "verdict": "Accepted",
     "statusCode": 100,
-    "output": "YES",
     "error": "",
-    "expectedOutput": "YES",
-    "executionDuration": 73
-  },
-  "dateTime": "2022-01-28T23:32:02.843465"
+    "testCasesResult": {
+      "test1": {
+        "verdict": "Accepted",
+        "verdictStatusCode": 100,
+        "output": "0 1 2 3 4 5 6 7 8 9",
+        "error": "", 
+        "expectedOutput": "0 1 2 3 4 5 6 7 8 9",
+        "executionDuration": 175
+      },
+      "test2": {
+        "verdict": "Accepted",
+        "verdictStatusCode": 100,
+        "output": "9 8 7 1",
+        "error": "" ,
+        "expectedOutput": "9 8 7 1",
+        "executionDuration": 273
+      },
+      ...
+    },
+    "compilationDuration": 328,
+    "averageExecutionDuration": 183,
+    "timeLimit": 1500,
+    "memoryLimit": 500,
+    "language": "JAVA",
+    "dateTime": "2022-01-28T23:32:02.843465"
 }
 ```
 
@@ -162,15 +209,33 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 
 ```json
 {
-  "result": {
-    "statusResponse": "Wrong Answer",
+    "verdict": "Awrong Answer",
     "statusCode": 200,
-    "output": "YES",
     "error": "",
-    "expectedOutput": "NO",
-    "executionDuration": 116
-  },
-  "dateTime": "2022-01-28T23:32:02.843465"
+    "testCasesResult": {
+      "test1": {
+        "verdict": "Accepted",
+        "verdictStatusCode": 100,
+        "output": "0 1 2 3 4 5 6 7 8 9",
+        "error": "", 
+        "expectedOutput": "0 1 2 3 4 5 6 7 8 9",
+        "executionDuration": 175
+      },
+      "test2": {
+        "verdict": "Awrong Answer",
+        "verdictStatusCode": 200,
+        "output": "9 8 7 1",
+        "error": "" ,
+        "expectedOutput": "9 8 6 1",
+        "executionDuration": 273
+      }
+    },
+    "compilationDuration": 328,
+    "averageExecutionDuration": 183,
+    "timeLimit": 1500,
+    "memoryLimit": 500,
+    "language": "JAVA",
+    "dateTime": "2022-01-28T23:32:02.843465"
 }
 ```
 
@@ -178,60 +243,115 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 
 ```json
 {
-  "result": {
-    "statusResponse": "Compilation Error",
-    "statusCode": 300,
-    "output": "",
-    "error": "# command-line-arguments\n./main.go:5:10: undefined: i\n./main.go:6:21: undefined: i\n./main.go:7:9: undefined: i\n",
-    "expectedOutput": "1 2",
-    "executionDuration": 0
-  },
-  "dateTime": "2022-06-05T19:21:25.547048"
+  "verdict": "Compilation Error",
+   "statusCode": 300,
+   "error": "# command-line-arguments\n./main.go:5:10: undefined: i\n./main.go:6:21: undefined: i\n./main.go:7:9: undefined: i\n",
+   "testCasesResult": {},
+   "compilationDuration": 118,
+   "averageExecutionDuration": 0,
+   "timeLimit": 1500,
+   "memoryLimit": 500,
+   "language": "GO",
+   "dateTime": "2022-01-28T23:32:02.843465"
 }
 ```
 
 :clock130: **Time Limit Exceeded** 
 ```json
 {
-  "result": {
-    "statusResponse": "Time Limit Exceeded",
+    "verdict": "Time Limit Exceeded",
     "statusCode": 500,
-    "output": "",
     "error": "Execution exceeded 15sec",
-    "expectedOutput": "YES",
-    "executionDuration": 15001
-  },
-  "dateTime": "2022-01-28T23:32:02.843465"
+    "testCasesResult": {
+      "test1": {
+        "verdict": "Accepted",
+        "verdictStatusCode": 100,
+        "output": "0 1 2 3 4 5 6 7 8 9",
+        "error": "", 
+        "expectedOutput": "0 1 2 3 4 5 6 7 8 9",
+        "executionDuration": 175
+      },
+      "test2": {
+        "verdict": "Time Limit Exceeded",
+        "verdictStatusCode": 500,
+        "output": "",
+        "error": "Execution exceeded 15sec" ,
+        "expectedOutput": "9 8 7 1",
+        "executionDuration": 1501
+      }
+    },
+    "compilationDuration": 328,
+    "averageExecutionDuration": 838,
+    "timeLimit": 1500,
+    "memoryLimit": 500,
+    "language": "JAVA",
+    "dateTime": "2022-01-28T23:32:02.843465"
 }
 ```
 
 :boom: **Runtime Error** 
 ```json
 {
-  "result": {
-    "statusResponse": "Runtime Error",
+    "verdict": "Runtime Error",
     "statusCode": 600,
-    "output": "",
     "error": "panic: runtime error: integer divide by zero\n\ngoroutine 1 [running]:\nmain.main()\n\t/app/main.go:11 +0x9b\n",
-    "expectedOutput": "1 2\n",
-    "executionDuration": 13
-  },
-  "dateTime": "2022-06-05T19:10:34.357349"
+    "testCasesResult": {
+      "test1": {
+        "verdict": "Accepted",
+        "verdictStatusCode": 100,
+        "output": "0 1 2 3 4 5 6 7 8 9",
+        "error": "", 
+        "expectedOutput": "0 1 2 3 4 5 6 7 8 9",
+        "executionDuration": 175
+      },
+      "test2": {
+        "verdict": "Runtime Error",
+        "verdictStatusCode": 600,
+        "output": "",
+        "error": "panic: runtime error: integer divide by zero\n\ngoroutine 1 [running]:\nmain.main()\n\t/app/main.go:11 +0x9b\n" ,
+        "expectedOutput": "9 8 7 1",
+        "executionDuration": 0
+      }
+    },
+    "compilationDuration": 328,
+    "averageExecutionDuration": 175,
+    "timeLimit": 1500,
+    "memoryLimit": 500,
+    "language": "GO",
+    "dateTime": "2022-01-28T23:32:02.843465"
 }
 ```
 
 :minidisc: **Out Of Memory** 
 ```json
 {
-  "result": {
-    "statusResponse": "Out Of Memory",
+    "verdict": "Out Of Memory",
     "statusCode": 400,
-    "output": "",
     "error": "fatal error: runtime: out of memory\n\nruntime stack:\nruntime.throw({0x497d72?, 0x17487800000?})\n\t/usr/local/go/src/runtime/panic.go:992 +0x71\nruntime.sysMap(0xc000400000, 0x7ffccb36b0d0?, 0x7ffccb36b13...",
-    "expectedOutput": "YES",
-    "executionDuration": 12
-  },
-  "dateTime": "2022-06-05T19:17:35.384797"
+    "testCasesResult": {
+      "test1": {
+        "verdict": "Accepted",
+        "verdictStatusCode": 100,
+        "output": "0 1 2 3 4 5 6 7 8 9",
+        "error": "", 
+        "expectedOutput": "0 1 2 3 4 5 6 7 8 9",
+        "executionDuration": 175
+      },
+      "test2": {
+        "verdict": "Out Of Memory",
+        "verdictStatusCode": 400,
+        "output": "",
+        "error": "fatal error: runtime: out of memory\n\nruntime stack:\nruntime.throw({0x497d72?, 0x17487800000?})\n\t/usr/local/go/src/runtime/panic.go:992 +0x71\nruntime.sysMap(0xc000400000, 0x7ffccb36b0d0?, 0x7ffccb36b13..." ,
+        "expectedOutput": "9 8 7 1",
+        "executionDuration": 0
+      }
+    },
+    "compilationDuration": 328,
+    "averageExecutionDuration": 175,
+    "timeLimit": 1500,
+    "memoryLimit": 500,
+    "language": "GO",
+    "dateTime": "2022-01-28T23:32:02.843465"
 }
 ```
 

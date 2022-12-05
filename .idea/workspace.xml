@@ -5,8 +5,83 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d42c30af-75a2-4cac-a27b-756788626ec9" name="Default Changelist" comment="[Helm k8s] use init container to build the environment">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/ResourceController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/mappers/TestCaseMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/AvailableResources.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/ConvertedTestCase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/TestCase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/wellknownconstants/WellKnownLoggingKeys.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/TestCaseMapperTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/models/ConvertedTestCaseTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/models/RequestTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/models/TestCaseTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/ResourcesTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/resources/ResourcesTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/loadtests/injection.py" beforeDir="false" afterPath="$PROJECT_DIR$/loadtests/injection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/CompilerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/CompilerApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/config/LanguagesConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/config/LanguagesConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/CompilerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/controllers/CompilerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/AbstractExecutionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/AbstractExecutionFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/Execution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/Execution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/ExecutionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/ExecutionFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/CExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/CExecution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/CPPExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/CPPExecution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/CSExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/CSExecution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/GoExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/GoExecution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/HaskellExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/HaskellExecution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/JavaExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/JavaExecution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/KotlinExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/KotlinExecution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/PythonExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/PythonExecution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/RubyExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/RubyExecution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/RustExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/RustExecution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/ScalaExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/executions/languages/ScalaExecution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/mappers/JsonMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/mappers/JsonMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/ProcessOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/ProcessOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Request.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Response.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/TestCaseResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Verdict.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/models/Verdict.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerFacadeDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerFacadeDefault.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/CompilerServiceDefault.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/Resources.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/resources/Resources.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/ResourcesImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/services/resources/ResourcesDefault.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utils/CmdUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/utils/CmdUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/wellknownconstants/WellKnownHeaders.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/wellknownconstants/WellKnownHeaders.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/wellknownconstants/WellKnownMetrics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/wellknownconstants/WellKnownMetrics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cp/compiler/wellknownconstants/WellKnownParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cp/compiler/wellknownconstants/WellKnownParams.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CE2ETests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CSE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CSE2ETests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CppE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/CppE2ETests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/GoE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/GoE2ETests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/HaskellE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/HaskellE2ETests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/JavaE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/JavaE2ETests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/KotlinE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/KotlinE2ETests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/PythonE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/PythonE2ETests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/RubyE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/RubyE2ETests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/RustE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/RustE2ETests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/ScalaE2ETests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/ScalaE2ETests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/AmShZWinsABetTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/AmShZWinsABetTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/MakeEvenTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/MakeEvenTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/PhysEdOnlineTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/PhysEdOnlineTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/WatermelonTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/e2e/problems/WatermelonTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFactoryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionFactoryTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/ExecutionTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/RegisteredFactoriesTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/executions/RegisteredFactoriesTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/kafka/TopologyTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/mappers/JsonMapperTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerFacadeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerFacadeTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerProxyServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerProxyServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceDecoratorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceDecoratorTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/CompilerServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/LongRunningCompilerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/LongRunningCompilerServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/ResourcesTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/ResourcesTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/ThrottlingTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/ThrottlingTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/containers/DefaultContainerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/containers/DefaultContainerServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/containers/DockerServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/services/containers/DockerServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/cp/compiler/templates/EntrypointGeneratorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/cp/compiler/templates/EntrypointGeneratorTests.java" afterDir="false" />
+>>>>>>> e8d2ab8ec6d019c4145959d483477d5cbf3ef02d
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +189,11 @@
       <command value="docker ps" />
     </option>
   </component>
+<<<<<<< HEAD
   <component name="RunManager" selected="JUnit.ResourcesTests.shouldReturnMaxCpus">
+=======
+  <component name="RunManager" selected="JUnit.RequestTests.ifTestCasesAreDifferentEqualsShouldReturnFalse">
+>>>>>>> e8d2ab8ec6d019c4145959d483477d5cbf3ef02d
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -146,7 +225,11 @@
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
+<<<<<<< HEAD
     <configuration name="RequestTests.ifLanguageIsDifferentEqualsShouldReturnFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+=======
+    <configuration name="RequestTests.equalsShouldReturnTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+>>>>>>> e8d2ab8ec6d019c4145959d483477d5cbf3ef02d
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
@@ -156,13 +239,21 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.models" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.models.RequestTests" />
+<<<<<<< HEAD
       <option name="METHOD_NAME" value="ifLanguageIsDifferentEqualsShouldReturnFalse" />
+=======
+      <option name="METHOD_NAME" value="equalsShouldReturnTrue" />
+>>>>>>> e8d2ab8ec6d019c4145959d483477d5cbf3ef02d
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
     <configuration name="RequestTests.ifSourceCodeIsDifferentEqualsShouldReturnFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+=======
+    <configuration name="RequestTests.getTestCasesShouldReturnConvertedTestCases" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+>>>>>>> e8d2ab8ec6d019c4145959d483477d5cbf3ef02d
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
@@ -172,13 +263,21 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.models" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.models.RequestTests" />
+<<<<<<< HEAD
       <option name="METHOD_NAME" value="ifSourceCodeIsDifferentEqualsShouldReturnFalse" />
+=======
+      <option name="METHOD_NAME" value="getTestCasesShouldReturnConvertedTestCases" />
+>>>>>>> e8d2ab8ec6d019c4145959d483477d5cbf3ef02d
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
     <configuration name="RequestTests.ifTestCasesAreDifferentEqualsShouldReturnFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+=======
+    <configuration name="RequestTests.ifLanguageIsDifferentEqualsShouldReturnFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+>>>>>>> e8d2ab8ec6d019c4145959d483477d5cbf3ef02d
       <module name="compiler" />
       <extension name="coverage">
         <pattern>
@@ -188,12 +287,17 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.cp.compiler.models" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.models.RequestTests" />
+<<<<<<< HEAD
       <option name="METHOD_NAME" value="ifTestCasesAreDifferentEqualsShouldReturnFalse" />
+=======
+      <option name="METHOD_NAME" value="ifLanguageIsDifferentEqualsShouldReturnFalse" />
+>>>>>>> e8d2ab8ec6d019c4145959d483477d5cbf3ef02d
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
     <configuration name="ResourcesTests.getAvailableResourcesShouldReturnTheRightValue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
@@ -205,11 +309,25 @@
       <option name="PACKAGE_NAME" value="com.cp.compiler.services.resources" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.resources.ResourcesTests" />
       <option name="METHOD_NAME" value="getAvailableResourcesShouldReturnTheRightValue" />
+=======
+    <configuration name="RequestTests.ifSourceCodeIsDifferentEqualsShouldReturnFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.models.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.models" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.models.RequestTests" />
+      <option name="METHOD_NAME" value="ifSourceCodeIsDifferentEqualsShouldReturnFalse" />
+>>>>>>> e8d2ab8ec6d019c4145959d483477d5cbf3ef02d
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
     <configuration name="ResourcesTests.shouldReturnMaxCpus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="compiler" />
       <extension name="coverage">
@@ -221,6 +339,19 @@
       <option name="PACKAGE_NAME" value="com.cp.compiler.services.resources" />
       <option name="MAIN_CLASS_NAME" value="com.cp.compiler.services.resources.ResourcesTests" />
       <option name="METHOD_NAME" value="shouldReturnMaxCpus" />
+=======
+    <configuration name="RequestTests.ifTestCasesAreDifferentEqualsShouldReturnFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="compiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cp.compiler.models.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cp.compiler.models" />
+      <option name="MAIN_CLASS_NAME" value="com.cp.compiler.models.RequestTests" />
+      <option name="METHOD_NAME" value="ifTestCasesAreDifferentEqualsShouldReturnFalse" />
+>>>>>>> e8d2ab8ec6d019c4145959d483477d5cbf3ef02d
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -367,11 +498,19 @@
     </configuration>
     <recent_temporary>
       <list>
+<<<<<<< HEAD
         <item itemvalue="JUnit.ResourcesTests.shouldReturnMaxCpus" />
         <item itemvalue="JUnit.ResourcesTests.getAvailableResourcesShouldReturnTheRightValue" />
         <item itemvalue="JUnit.RequestTests.ifTestCasesAreDifferentEqualsShouldReturnFalse" />
         <item itemvalue="JUnit.RequestTests.ifSourceCodeIsDifferentEqualsShouldReturnFalse" />
         <item itemvalue="JUnit.RequestTests.ifLanguageIsDifferentEqualsShouldReturnFalse" />
+=======
+        <item itemvalue="JUnit.RequestTests.ifTestCasesAreDifferentEqualsShouldReturnFalse" />
+        <item itemvalue="JUnit.RequestTests.ifSourceCodeIsDifferentEqualsShouldReturnFalse" />
+        <item itemvalue="JUnit.RequestTests.ifLanguageIsDifferentEqualsShouldReturnFalse" />
+        <item itemvalue="JUnit.RequestTests.equalsShouldReturnTrue" />
+        <item itemvalue="JUnit.RequestTests.getTestCasesShouldReturnConvertedTestCases" />
+>>>>>>> e8d2ab8ec6d019c4145959d483477d5cbf3ef02d
       </list>
     </recent_temporary>
   </component>
@@ -471,7 +610,11 @@
       <workItem from="1669055462297" duration="153000" />
       <workItem from="1669055661028" duration="440000" />
       <workItem from="1669056182695" duration="7364000" />
+<<<<<<< HEAD
       <workItem from="1669834698696" duration="61994000" />
+=======
+      <workItem from="1669834698696" duration="60491000" />
+>>>>>>> e8d2ab8ec6d019c4145959d483477d5cbf3ef02d
     </task>
     <task id="LOCAL-00001" summary="Build multiple Docker image in //">
       <created>1650796386633</created>
