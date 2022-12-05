@@ -192,7 +192,7 @@ public class DefaultContainerServiceTests {
                         1,
                         "volume",
                         "executionPath",
-                        "sourceCode"));
+                        "sourcecode"));
     }
     
     @Test
@@ -217,6 +217,6 @@ public class DefaultContainerServiceTests {
                         1,
                         "volume",
                         "executionPath",
-                        "sourceCode"));
+                        "sourcecode"));
     }
 }

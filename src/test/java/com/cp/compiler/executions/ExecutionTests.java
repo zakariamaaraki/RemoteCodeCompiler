@@ -1,6 +1,7 @@
 package com.cp.compiler.executions;
 
 import com.cp.compiler.executions.languages.*;
+import com.cp.compiler.models.ConvertedTestCase;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.templates.EntrypointFileGenerator;
@@ -16,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 @DirtiesContext
 @SpringBootTest
@@ -33,8 +35,9 @@ class ExecutionTests {
     @Test
     void shouldCreateAnExecutionEnvironment() throws IOException {
         // Given
+        var testCase = new ConvertedTestCase("id", file, file);
         Execution execution = ExecutionFactory.createExecution(
-                file, file, file, 10, 500, Language.JAVA);
+                file, List.of(testCase), 10, 500, Language.JAVA);
         
         // When
         execution.createExecutionDirectory();
@@ -51,8 +54,9 @@ class ExecutionTests {
     @Test
     void shouldDeleteTheExecutionEnvironment() throws IOException {
         // Given
+        var testCase = new ConvertedTestCase("id", file, file);
         Execution execution = ExecutionFactory.createExecution(
-                file, file, file, 10, 500, Language.JAVA);
+                file, List.of(testCase), 10, 500, Language.JAVA);
         
         // When
         execution.createExecutionDirectory();
@@ -68,24 +72,25 @@ class ExecutionTests {
     void javaExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory javaExecutionFactory =
-                (MultipartFile sourceCode, MultipartFile inputFile, MultipartFile expectedOutputFile, int timeLimit, int memoryLimit) -> {
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
                     return new JavaExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             null,
                             entrypointFileGenerator);
                 };
+    
+        var testCase = new ConvertedTestCase("id", file, file);
         
         Execution execution = javaExecutionFactory.createExecution(
-                file, file, file, 10, 500);
+                file, List.of(testCase), 10, 500);
     
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile();
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
     
         // Then
         File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
@@ -100,24 +105,25 @@ class ExecutionTests {
     void pythonExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory pythonExecutionFactory =
-                (MultipartFile sourceCode, MultipartFile inputFile, MultipartFile expectedOutputFile, int timeLimit, int memoryLimit) -> {
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
                     return new PythonExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             null,
                             entrypointFileGenerator);
                 };
         
+        var testCase = new ConvertedTestCase("id", file, file);
+        
         Execution execution = pythonExecutionFactory.createExecution(
-                file, file, file, 10, 500);
+                file, List.of(testCase), 10, 500);
         
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile();
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
         
         // Then
         File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
@@ -132,24 +138,25 @@ class ExecutionTests {
     void cExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory cExecutionFactory =
-                (MultipartFile sourceCode, MultipartFile inputFile, MultipartFile expectedOutputFile, int timeLimit, int memoryLimit) -> {
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
                     return new CExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             null,
                             entrypointFileGenerator);
                 };
+    
+        var testCase = new ConvertedTestCase("id", file, file);
         
         Execution execution = cExecutionFactory.createExecution(
-                file, file, file, 10, 500);
+                file, List.of(testCase), 10, 500);
         
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile();
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
         
         // Then
         File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
@@ -164,24 +171,25 @@ class ExecutionTests {
     void cppExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory cppExecutionFactory =
-                (MultipartFile sourceCode, MultipartFile inputFile, MultipartFile expectedOutputFile, int timeLimit, int memoryLimit) -> {
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
                     return new CPPExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             null,
                             entrypointFileGenerator);
                 };
+    
+        var testCase = new ConvertedTestCase("id", file, file);
         
         Execution execution = cppExecutionFactory.createExecution(
-                file, file, file, 10, 500);
+                file, List.of(testCase), 10, 500);
         
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile();
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
         
         // Then
         File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
@@ -196,24 +204,25 @@ class ExecutionTests {
     void csExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory csExecutionFactory =
-                (MultipartFile sourceCode, MultipartFile inputFile, MultipartFile expectedOutputFile, int timeLimit, int memoryLimit) -> {
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
                     return new CSExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             null,
                             entrypointFileGenerator);
                 };
+    
+        var testCase = new ConvertedTestCase("id", file, file);
         
         Execution execution = csExecutionFactory.createExecution(
-                file, file, file, 10, 500);
+                file, List.of(testCase), 10, 500);
         
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile();
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
         
         // Then
         File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
@@ -228,24 +237,25 @@ class ExecutionTests {
     void kotlinExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory kotlinExecutionFactory =
-                (MultipartFile sourceCode, MultipartFile inputFile, MultipartFile expectedOutputFile, int timeLimit, int memoryLimit) -> {
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
                     return new KotlinExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             null,
                             entrypointFileGenerator);
                 };
+    
+        var testCase = new ConvertedTestCase("id", file, file);
         
         Execution execution = kotlinExecutionFactory.createExecution(
-                file, file, file, 10, 500);
+                file, List.of(testCase), 10, 500);
         
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile();
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
         
         // Then
         File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
@@ -260,24 +270,25 @@ class ExecutionTests {
     void scalaExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory scalaExecutionFactory =
-                (MultipartFile sourceCode, MultipartFile inputFile, MultipartFile expectedOutputFile, int timeLimit, int memoryLimit) -> {
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
                     return new ScalaExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             null,
                             entrypointFileGenerator);
                 };
+    
+        var testCase = new ConvertedTestCase("id", file, file);
         
         Execution execution = scalaExecutionFactory.createExecution(
-                file, file, file, 10, 500);
+                file, List.of(testCase), 10, 500);
         
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile();
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
         
         // Then
         File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
@@ -292,24 +303,25 @@ class ExecutionTests {
     void goExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory goExecutionFactory =
-                (MultipartFile sourceCode, MultipartFile inputFile, MultipartFile expectedOutputFile, int timeLimit, int memoryLimit) -> {
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
                     return new GoExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             null,
                             entrypointFileGenerator);
                 };
+    
+        var testCase = new ConvertedTestCase("id", file, file);
         
         Execution execution = goExecutionFactory.createExecution(
-                file, file, file, 10, 500);
+                file, List.of(testCase), 10, 500);
         
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile();
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
         
         // Then
         File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
@@ -324,24 +336,25 @@ class ExecutionTests {
     void rustExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory rustExecutionFactory =
-                (MultipartFile sourceCode, MultipartFile inputFile, MultipartFile expectedOutputFile, int timeLimit, int memoryLimit) -> {
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
                     return new RustExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             null,
                             entrypointFileGenerator);
                 };
+    
+        var testCase = new ConvertedTestCase("id", file, file);
         
         Execution execution = rustExecutionFactory.createExecution(
-                file, file, file, 10, 500);
+                file, List.of(testCase), 10, 500);
         
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile();
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
         
         // Then
         File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
@@ -356,24 +369,25 @@ class ExecutionTests {
     void rubyExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory rubyExecutionFactory =
-                (MultipartFile sourceCode, MultipartFile inputFile, MultipartFile expectedOutputFile, int timeLimit, int memoryLimit) -> {
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
                     return new RubyExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             null,
                             entrypointFileGenerator);
                 };
+    
+        var testCase = new ConvertedTestCase("id", file, file);
         
         Execution execution = rubyExecutionFactory.createExecution(
-                file, file, file, 10, 500);
+                file, List.of(testCase) ,10, 500);
         
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile();
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
         
         // Then
         File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
@@ -388,24 +402,25 @@ class ExecutionTests {
     void haskellExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory haskellExecutionFactory =
-                (MultipartFile sourceCode, MultipartFile inputFile, MultipartFile expectedOutputFile, int timeLimit, int memoryLimit) -> {
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
                     return new HaskellExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             null,
                             entrypointFileGenerator);
                 };
+    
+        var testCase = new ConvertedTestCase("id", file, file);
         
         Execution execution = haskellExecutionFactory.createExecution(
-                file, file, file, 10, 500);
+                file, List.of(testCase), 10, 500);
         
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile();
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
         
         // Then
         File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
@@ -420,18 +435,19 @@ class ExecutionTests {
     void shouldCopyExecutionDockerFileToExecutionDirectory() throws IOException {
         // Given
         AbstractExecutionFactory goExecutionFactory =
-                (MultipartFile sourceCode, MultipartFile inputFile, MultipartFile expectedOutputFile, int timeLimit, int memoryLimit) -> {
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
                     return new GoExecution(
                             sourceCode,
-                            inputFile,
-                            expectedOutputFile,
+                            testCases,
                             timeLimit,
                             memoryLimit,
                             null,
                             entrypointFileGenerator);
                 };
+    
+        var testCase = new ConvertedTestCase("id", file, file);
         
-        Execution execution = goExecutionFactory.createExecution(file, file, file, 10, 500);
+        Execution execution = goExecutionFactory.createExecution(file, List.of(testCase), 10, 500);
         
         Files.createDirectory(Path.of(execution.getPath()));
         

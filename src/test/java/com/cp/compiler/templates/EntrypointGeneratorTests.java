@@ -18,13 +18,7 @@ class EntrypointGeneratorTests {
     void shouldParseAndGenerateAnEntrypointContent() {
         // Given
         Map<String, String> attributes = Map.of(
-                "rename", "false",
-                "compile", "true",
-                "fileName", "main.c",
-                "defaultName", "main.c",
                 "timeLimit", "10",
-                "compilationCommand", "cmd",
-                "compilationErrorStatusCode", "90",
                 "memoryLimit", "500",
                 "executionCommand", "cmd");
     

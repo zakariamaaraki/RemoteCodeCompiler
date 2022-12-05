@@ -20,6 +20,8 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @DirtiesContext
 @SpringBootTest
 class CompilerServiceDecoratorTests {
@@ -61,8 +63,13 @@ class CompilerServiceDecoratorTests {
             }
         };
     
-        var execution1 = ExecutionFactory.createExecution(file, file, file, 10, 100, Language.JAVA);
-        var execution2 = ExecutionFactory.createExecution(file, file, file, 10, 100, Language.JAVA);
+        var testCase1 = new ConvertedTestCase("id", file, file);
+        var testCase2 = new ConvertedTestCase("id", file, file);
+    
+        var execution1 =
+                ExecutionFactory.createExecution(file, List.of(testCase1), 10, 100, Language.JAVA);
+        var execution2 =
+                ExecutionFactory.createExecution(file, List.of(testCase2), 10, 100, Language.JAVA);
     
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -74,8 +81,10 @@ class CompilerServiceDecoratorTests {
                 .status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS)
                 .build();
 
-        Mockito.when(containerService.runContainer(ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat()))
-                .thenReturn(containerOutput);
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyFloat())).thenReturn(containerOutput);
         
         Mockito.when(containerService.runContainer(
                 ArgumentMatchers.any(),
@@ -90,8 +99,8 @@ class CompilerServiceDecoratorTests {
         // Then
         Assertions.assertNotNull(compilationResult);
         Assertions.assertEquals(
-                ((Response)compilerService.execute(execution2).getBody()).getResult(),
-                ((Response)compilationResult.getBody()).getResult()
+                ((Response)compilerService.execute(execution2).getBody()).getTestCasesResult(),
+                ((Response)compilationResult.getBody()).getTestCasesResult()
         );
     }
     
@@ -111,8 +120,10 @@ class CompilerServiceDecoratorTests {
             }
         };
     
-        var execution = ExecutionFactory.createExecution(
-                file, file, file, 10, 100, Language.JAVA);
+        var testCase = new ConvertedTestCase("id", file, file);
+    
+        var execution =
+                ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
     
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenThrow(new ContainerOperationTimeoutException("exception"));

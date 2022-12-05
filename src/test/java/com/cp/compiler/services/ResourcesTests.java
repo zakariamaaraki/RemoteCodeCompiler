@@ -1,17 +1,22 @@
 package com.cp.compiler.services;
 
+import com.cp.compiler.models.AvailableResources;
+import com.cp.compiler.services.resources.Resources;
+import com.cp.compiler.services.resources.ResourcesDefault;
+import lombok.Getter;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
-@DirtiesContext
-@SpringBootTest
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class ResourcesTests {
-    
-    @Autowired
-    private Resources resources;
+
+    private Resources resources = new ResourcesDefault(8, 1000);
     
     @Test
     void shouldReturnMaxCpus() {
@@ -62,5 +67,36 @@ public class ResourcesTests {
         
         // Then
         Assertions.assertEquals(counter, 0);
+    }
+    
+    @Test
+    void shouldReturnNumberOfExecutions() {
+        // When
+        boolean allow = resources.allowNewExecution();
+        resources.reserveResources();
+        
+        // Then
+        Assertions.assertTrue(allow);
+        Assertions.assertEquals(1, resources.getNumberOfExecutions());
+    }
+    
+    @Test
+    void shouldReturnMaxNumberOfRequests() {
+        // When
+        int maxRequests = resources.getMaxRequests();
+        
+        // Then
+        Assertions.assertEquals(maxRequests, resources.getMaxRequests());
+    }
+    
+    @Test
+    void getAvailableResourcesShouldReturnTheRightValue() {
+        // When
+        AvailableResources availableResources = resources.getAvailableResources();
+        
+        // Then
+        Assertions.assertEquals(8, availableResources.getAvailableCpus());
+        Assertions.assertEquals(resources.getNumberOfExecutions(), availableResources.getCurrentExecutions());
+        Assertions.assertEquals(resources.getMaxRequests(), availableResources.getMaxNumberOfExecutions());
     }
 }

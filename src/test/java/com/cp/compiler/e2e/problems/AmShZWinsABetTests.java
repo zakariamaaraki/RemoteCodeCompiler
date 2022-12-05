@@ -51,20 +51,19 @@ class AmShZWinsABetTests {
         // When
         ResponseEntity<Object> responseEntity = compilerController.compile(
                 Language.C,
-                expectedOutput,
                 sourceCode,
                 inputs,
+                expectedOutput,
                 3,
                 2000,
                 null,
-                null);
-    
-        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
+                null,
+                "");
         
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
+                ((Response)responseEntity.getBody()).getVerdict());
     }
     
     @DisplayName("AmShZ Wins a Bet Problem test case 2")
@@ -92,20 +91,19 @@ class AmShZWinsABetTests {
         // When
         ResponseEntity<Object> responseEntity = compilerController.compile(
                 Language.C,
-                expectedOutput,
                 sourceCode,
                 inputs,
+                expectedOutput,
                 3,
                 2000,
                 null,
-                null);
-    
-        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
+                null,
+                "");
         
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
+                ((Response)responseEntity.getBody()).getVerdict());
     }
     
     @DisplayName("AmShZ Wins a Bet Problem test case 3")
@@ -132,19 +130,18 @@ class AmShZWinsABetTests {
         // When
         ResponseEntity<Object> responseEntity = compilerController.compile(
                 Language.C,
-                expectedOutput,
                 sourceCode,
                 inputs,
+                expectedOutput,
                 3,
                 2000,
                 null,
-                null);
-    
-        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
+                null,
+                "");
         
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
+                ((Response)responseEntity.getBody()).getVerdict());
     }
 }

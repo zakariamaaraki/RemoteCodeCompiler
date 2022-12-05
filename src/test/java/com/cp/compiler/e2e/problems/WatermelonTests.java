@@ -52,20 +52,19 @@ class WatermelonTests {
         // When
         ResponseEntity<Object> responseEntity = compilerController.compile(
                 Language.JAVA,
-                expectedOutput,
                 sourceCode,
                 inputs,
+                expectedOutput,
                 3,
                 500,
                 null,
-                null);
-    
-        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
+                null,
+                "");
         
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
+                ((Response)responseEntity.getBody()).getVerdict());
     }
     
     @DisplayName("Watermelon Problem test case 2")
@@ -93,20 +92,19 @@ class WatermelonTests {
         // When
         ResponseEntity<Object> responseEntity = compilerController.compile(
                 Language.JAVA,
-                expectedOutput,
                 sourceCode,
                 inputs,
+                expectedOutput,
                 3,
                 500,
                 null,
-                null);
-    
-        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
+                null,
+                "");
         
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
+                ((Response)responseEntity.getBody()).getVerdict());
     }
     
     @DisplayName("Watermelon Problem test case 3")
@@ -134,19 +132,18 @@ class WatermelonTests {
         // When
         ResponseEntity<Object> responseEntity = compilerController.compile(
                 Language.JAVA,
-                expectedOutput,
                 sourceCode,
                 inputs,
+                expectedOutput,
                 3,
                 500,
                 null,
-                null);
-    
-        log.debug("Result: {}", ((Response)responseEntity.getBody()).getResult());
+                null,
+                "");
         
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getResult().getStatusResponse());
+                ((Response)responseEntity.getBody()).getVerdict());
     }
 }

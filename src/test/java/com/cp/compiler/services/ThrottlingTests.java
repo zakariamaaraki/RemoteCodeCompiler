@@ -2,6 +2,7 @@ package com.cp.compiler.services;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
+import com.cp.compiler.models.ConvertedTestCase;
 import com.cp.compiler.models.Language;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,8 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @ActiveProfiles("throttling")
 @DirtiesContext
@@ -31,8 +34,9 @@ class ThrottlingTests {
     @Test
     void requestShouldBeThrottled() throws Exception {
         // Given
+        var testCase = new ConvertedTestCase("id", file, file);
         Execution execution = ExecutionFactory.createExecution(
-                file, file, file, 10, 500, Language.JAVA);
+                file, List.of(testCase), 10, 500, Language.JAVA);
     
         // When
         ResponseEntity responseEntity = compilerProxy.execute(execution);

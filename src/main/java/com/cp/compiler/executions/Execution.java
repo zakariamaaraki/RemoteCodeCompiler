@@ -1,5 +1,6 @@
 package com.cp.compiler.executions;
 
+import com.cp.compiler.models.ConvertedTestCase;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import com.cp.compiler.utils.FileUtils;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -32,10 +34,8 @@ public abstract class Execution {
     @NonNull
     private MultipartFile sourceCodeFile;
     
-    private MultipartFile inputFile;
-    
     @NonNull
-    private MultipartFile expectedOutputFile;
+    private List<ConvertedTestCase> testCases;
     
     @NonNull
     private int timeLimit;
@@ -63,23 +63,20 @@ public abstract class Execution {
      * Instantiates a new Execution.
      *
      * @param sourceCodeFile          the source code
-     * @param inputFile               the inputFile file
-     * @param expectedOutputFile      the expected output file
+     * @param testCases               the test cases
      * @param timeLimit               the time limit
      * @param memoryLimit             the memory limit
      * @param executionCounter        the execution counter
      * @param entrypointFileGenerator the entrypointFile generator
      */
     protected Execution(MultipartFile sourceCodeFile,
-                        MultipartFile inputFile,
-                        MultipartFile expectedOutputFile,
+                        List<ConvertedTestCase> testCases,
                         int timeLimit,
                         int memoryLimit,
                         Counter executionCounter,
                         EntrypointFileGenerator entrypointFileGenerator) {
         this.sourceCodeFile = sourceCodeFile;
-        this.inputFile = inputFile;
-        this.expectedOutputFile = expectedOutputFile;
+        this.testCases = testCases;
         this.timeLimit = timeLimit;
         this.memoryLimit = memoryLimit;
         this.executionCounter = executionCounter;
@@ -100,8 +97,6 @@ public abstract class Execution {
         saveUploadedFiles();
         log.debug("Copying execution Dockerfile to execution directory");
         copyDockerFilesToExecutionDirectory();
-        log.debug("Creating an entrypoint file");
-        createEntrypointFile();
     }
     
     /**
@@ -121,9 +116,16 @@ public abstract class Execution {
     protected void saveUploadedFiles() throws IOException {
         String sourceCodeFileName = sourceCodeFile.getOriginalFilename();
         FileUtils.saveUploadedFiles(sourceCodeFile, path + "/" + sourceCodeFileName);
-        FileUtils.saveUploadedFiles(expectedOutputFile, path + "/" + expectedOutputFile.getOriginalFilename());
-        if (getInputFile() != null) {
-            FileUtils.saveUploadedFiles(getInputFile(), path + "/" + inputFile.getOriginalFilename());
+        
+        for (ConvertedTestCase testCase : testCases) {
+            FileUtils.saveUploadedFiles(
+                    testCase.getExpectedOutputFile(),
+                    path + "/" + testCase.getExpectedOutputFile().getOriginalFilename());
+            if (testCase.getInputFile() != null) {
+                FileUtils.saveUploadedFiles(
+                        testCase.getInputFile(),
+                        path + "/" + testCase.getInputFile().getOriginalFilename());
+            }
         }
     }
     
@@ -160,8 +162,10 @@ public abstract class Execution {
     
     /**
      * Creates entrypoint file
+     *
+     * @param inputFileName the input file name
      */
-    protected abstract void createEntrypointFile();
+    public abstract void createEntrypointFile(String inputFileName);
     
     /**
      * Get the language represented by the class

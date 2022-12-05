@@ -2,6 +2,7 @@ package com.cp.compiler.services;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
+import com.cp.compiler.models.ConvertedTestCase;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.repositories.HooksRepository;
 import org.junit.jupiter.api.Assertions;
@@ -16,6 +17,9 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
 
 @ActiveProfiles("longRunning")
 @DirtiesContext
@@ -38,66 +42,71 @@ class CompilerFacadeTests {
             (byte[]) null);
     
     @Test
-    void whenItsShortRunningOperationShouldReturnOKStatusCode() {
+    void whenItsShortRunningOperationShouldReturnOKStatusCode() throws IOException {
         // Given
+        var testCase = new ConvertedTestCase("id", file, file);
         Execution execution = ExecutionFactory.createExecution(
-                file, file, file, 10, 500, Language.JAVA);
+                file, List.of(testCase), 10, 500, Language.JAVA);
     
         Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok("ok test"));
     
         // When
-        ResponseEntity responseEntity = compilerFacade.compile(execution, false, null);
+        ResponseEntity responseEntity =
+                compilerFacade.compile(execution, false, null, "");
         
         // Then
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
     
     @Test
-    void shouldAddUrlToTheRepository() {
+    void shouldAddUrlToTheRepository() throws IOException {
         // Given
+        var testCase = new ConvertedTestCase("id", file, file);
         Execution execution = ExecutionFactory.createExecution(
-                file, file, file, 10, 500, Language.JAVA);
+                file, List.of(testCase), 10, 500, Language.JAVA);
         
         String url = "http://localhost";
     
         Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok("ok test"));
     
         // When
-        ResponseEntity responseEntity = compilerFacade.compile(execution, true, url);
+        ResponseEntity responseEntity = compilerFacade.compile(execution, true, url, "");
     
         // Then
         Assertions.assertEquals(url, hooksRepository.get(execution.getId()));
     }
     
     @Test
-    void shouldNotAddUrlToTheRepository() {
+    void shouldNotAddUrlToTheRepository() throws IOException {
         // Given
+        var testCase = new ConvertedTestCase("id", file, file);
         Execution execution = ExecutionFactory.createExecution(
-                file, file, file, 10, 500, Language.JAVA);
+                file, List.of(testCase), 10, 500, Language.JAVA);
         
         String url = "http://localhost";
         
         Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok("ok test"));
         
         // When
-        ResponseEntity responseEntity = compilerFacade.compile(execution, false, url);
+        ResponseEntity responseEntity = compilerFacade.compile(execution, false, url, "");
         
         // Then
         Assertions.assertNull(hooksRepository.get(execution.getId()));
     }
     
     @Test
-    void shouldReturnBadRequest() {
+    void shouldReturnBadRequest() throws IOException {
         // Given
+        var testCase = new ConvertedTestCase("id", file, file);
         Execution execution = ExecutionFactory.createExecution(
-                file, file, file, 10, 500, Language.JAVA);
+                file, List.of(testCase), 10, 500, Language.JAVA);
     
         String url = "bad-url";
     
         Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok("ok test"));
     
         // When
-        ResponseEntity responseEntity = compilerFacade.compile(execution, true, url);
+        ResponseEntity responseEntity = compilerFacade.compile(execution, true, url, "");
     
         // Then
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());

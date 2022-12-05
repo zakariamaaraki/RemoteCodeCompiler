@@ -17,6 +17,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
 
 @DirtiesContext
 @SpringBootTest
@@ -27,20 +28,25 @@ class JsonMapperTests {
     
     private static final ObjectMapper objectMapper = new ObjectMapper();
     
+    private static LinkedHashMap<String, TestCase> testCases;
+    
     static {
         objectMapper.findAndRegisterModules();
+        testCases = new LinkedHashMap<>();
+        testCases.put("test1", new TestCase(null, "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n"));
     }
     
-    private final static Request request = new Request(null, "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
+    private final static Request request = new Request(
             "public class Test1 {\npublic static void main(String[] args) {\nint i = 0;\nwhile (i < 10) " +
                     "{\nSystem.out.println(i++);\n}}}",
             Language.JAVA,
             15,
-            500
+            500,
+            testCases
     );
     
-    private final static String jsonRequest = "{\n\"expectedOutput\": \"0\\n1\\n2\\n3\\n4\\n5\\n6\\n7\\n8\\n9\\n\",\n\"sourceCode\": " +
-            "\"public class Test1 {\\npublic static void main(String[] args) {\\nint i = 0;\\nwhile (i < 10) " +
+    private final static String jsonRequest = "{\n\"testCases\":{\"test1\":{\"expectedOutput\": \"0\\n1\\n2\\n3\\n4\\n5\\n6\\n7\\n8\\n9\\n\"}}," +
+            "\n\"sourcecode\": \"public class Test1 {\\npublic static void main(String[] args) {\\nint i = 0;\\nwhile (i < 10) " +
             "{\\nSystem.out.println(i++);\\n}}}\",\n\"language\": \"JAVA\",\"timeLimit\": 15,\"memoryLimit\": 500\n}";
     
     @Test
@@ -55,14 +61,26 @@ class JsonMapperTests {
     @Test
     void shouldTransformResponseObjectToJsonResponse() throws JsonProcessingException {
         // Given
-        LocalDateTime localDateTime = LocalDateTime.now();
-        Result result = new Result(
+        TestCaseResult result = new TestCaseResult(
                 Verdict.ACCEPTED,
                 "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
                 "",
                 "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
                 0);
-        Response response = new Response(result, localDateTime);
+        
+        LinkedHashMap<String, TestCaseResult> testCasesResult = new LinkedHashMap<>();
+        testCasesResult.put("id", result);
+    
+        var response = new Response(
+                result.getVerdict().getStatusResponse(),
+                result.getVerdict().getStatusCode(),
+                "",
+                testCasesResult,
+                0,
+                15,
+                500,
+                Language.JAVA,
+                LocalDateTime.now());
         
         // When
         String responseOutput = JsonMapper.toJson(response);
@@ -74,11 +92,23 @@ class JsonMapperTests {
     @Test
     void givenJsonRequestShouldCompileTheRequestAndReturnJsonResponse() throws Exception {
         // Given
-        Mockito.when(compilerService.execute(ArgumentMatchers.any()))
-                .thenReturn(ResponseEntity.ok(
-                        new Response(
-                            new Result(Verdict.ACCEPTED, "aaa", "", "aaa", 100),
-                            null)));
+        var result =
+                new TestCaseResult(Verdict.ACCEPTED, "aaa", "", "aaa", 100);
+        LinkedHashMap<String, TestCaseResult> testCasesResult = new LinkedHashMap<>();
+        testCasesResult.put("id", result);
+    
+        var response = new Response(
+                result.getVerdict().getStatusResponse(),
+                result.getVerdict().getStatusCode(),
+                "",
+                testCasesResult,
+                0,
+                15,
+                500,
+                Language.JAVA,
+                LocalDateTime.now());
+        
+        Mockito.when(compilerService.execute(ArgumentMatchers.any())).thenReturn(ResponseEntity.ok(response));
         
         // When
         String jsonResponse = JsonMapper.transform(jsonRequest, compilerService);
@@ -90,23 +120,35 @@ class JsonMapperTests {
     @Test
     void givenJsonRequestShouldCompileTheRequestAndReturnACorrectJsonResponse() throws Exception {
         // Given
-        final var result = new Result(Verdict.ACCEPTED, "aaa", "", "aaa", 100);
+        var result =
+                new TestCaseResult(Verdict.ACCEPTED, "aaa", "", "aaa", 100);
+        LinkedHashMap<String, TestCaseResult> testCasesResult = new LinkedHashMap<>();
+        testCasesResult.put("id", result);
+    
+        var response = new Response(
+                result.getVerdict().getStatusResponse(),
+                result.getVerdict().getStatusCode(),
+                "",
+                testCasesResult,
+                0,
+                15,
+                500,
+                Language.JAVA,
+                LocalDateTime.now());
     
         Mockito.when(compilerService.execute(ArgumentMatchers.any()))
-                .thenReturn(ResponseEntity.ok(new Response(result, LocalDateTime.now())));
+                .thenReturn(ResponseEntity.ok(response));
         
         // When
         String jsonResponse = JsonMapper.transform(jsonRequest, compilerService);
         
         // Then
-        Assertions.assertEquals(result, toResponse(jsonResponse).getResult());
+        Assertions.assertEquals(response, toResponse(jsonResponse));
     }
     
     @Test
-    void ifTheRequestIsThrottledShouldThrowAThrottlingException() throws Exception {
+    void ifTheRequestIsThrottledShouldThrowAThrottlingException() {
         // Given
-        final var result = new Result(Verdict.ACCEPTED, "aaa", "", "aaa", 100);
-    
         Mockito.when(compilerService.execute(ArgumentMatchers.any()))
                 .thenReturn(new ResponseEntity(HttpStatus.TOO_MANY_REQUESTS));
         

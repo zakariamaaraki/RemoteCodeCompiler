@@ -2,6 +2,7 @@ package com.cp.compiler.services;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
+import com.cp.compiler.models.ConvertedTestCase;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.repositories.HooksRepository;
 import org.junit.jupiter.api.Assertions;
@@ -16,6 +17,8 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @ActiveProfiles("longRunning")
 @DirtiesContext
@@ -64,26 +67,15 @@ class CompilerProxyServiceTests {
                 "test.c",
                 null,
                 (byte[]) null);
+    
+        var testCase = new ConvertedTestCase("id", validFileName, validFileName);
         
-        Execution execution = ExecutionFactory.createExecution(
-                invalidExtension, validFileName, validFileName, 10, 500, Language.JAVA);
+        Execution execution =
+                ExecutionFactory.createExecution(invalidExtension, List.of(testCase), 10, 500, Language.JAVA);
     
         // When
         ResponseEntity responseEntity = compilerProxy.execute(execution);
     
-        // Then
-        Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
-    }
-    
-    @Test
-    void WhenInputFileNameIsInvalidShouldReturnBadRequest() {
-        // Given
-        Execution execution = ExecutionFactory.createExecution(
-                validFileName, invalidFileName, validFileName, 10, 500, Language.JAVA);
-        
-        // When
-        ResponseEntity responseEntity = compilerProxy.execute(execution);
-        
         // Then
         Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
     }
@@ -91,21 +83,9 @@ class CompilerProxyServiceTests {
     @Test
     void WhenSourceCodeFileNameIsInvalidShouldReturnBadRequest() throws Exception {
         // Given
-        Execution execution = ExecutionFactory.createExecution(
-                invalidFileName, validFileName, validFileName, 10, 500, Language.JAVA);
-        
-        // When
-        ResponseEntity responseEntity = compilerProxy.execute(execution);
-        
-        // Then
-        Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
-    }
-    
-    @Test
-    void WhenExpectedOutputFileNameIsInvalidShouldReturnBadRequest() {
-        // Given
-        Execution execution = ExecutionFactory.createExecution(
-                validFileName, validFileName, invalidFileName, 10, 500, Language.JAVA);
+        var testCase = new ConvertedTestCase("id", validFileName, validFileName);
+        Execution execution =
+                ExecutionFactory.createExecution(invalidFileName, List.of(testCase), 10, 500, Language.JAVA);
         
         // When
         ResponseEntity responseEntity = compilerProxy.execute(execution);
@@ -117,8 +97,9 @@ class CompilerProxyServiceTests {
     @Test
     void shouldCallLongRunningOperation() {
         // Given
-        Execution execution = ExecutionFactory.createExecution(
-                validFileName, null, validFileName, 10, 500, Language.JAVA);
+        var testCase = new ConvertedTestCase("id", null, validFileName);
+        Execution execution =
+                ExecutionFactory.createExecution(validFileName, List.of(testCase), 10, 500, Language.JAVA);
     
         hooksRepository.addUrl(execution.getId(), "http://localhost");
         
@@ -132,8 +113,9 @@ class CompilerProxyServiceTests {
     @Test
     void shouldCallDefaultCompiler() {
         // Given
-        Execution execution = ExecutionFactory.createExecution(
-                validFileName, null, validFileName, 10, 500, Language.JAVA);
+        var testCase = new ConvertedTestCase("id", null, validFileName);
+        Execution execution =
+                ExecutionFactory.createExecution(validFileName, List.of(testCase), 10, 500, Language.JAVA);
         
         // When
         ResponseEntity responseEntity = compilerProxy.execute(execution);

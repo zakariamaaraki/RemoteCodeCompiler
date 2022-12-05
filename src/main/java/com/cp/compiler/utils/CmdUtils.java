@@ -139,7 +139,7 @@ public abstract class CmdUtils {
                     .stdOut(stdOut)
                     .stdErr(stdErr)
                     .status(status)
-                    .executionDuration(executionEndTime - executionStartTime)
+                    .executionDuration((int)(executionEndTime - executionStartTime))
                     .build();
             
         } catch(RuntimeException | InterruptedException | IOException exception) {

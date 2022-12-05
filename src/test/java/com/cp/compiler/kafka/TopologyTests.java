@@ -1,7 +1,8 @@
 package com.cp.compiler.kafka;
 
+import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Response;
-import com.cp.compiler.models.Result;
+import com.cp.compiler.models.TestCaseResult;
 import com.cp.compiler.models.Verdict;
 import com.cp.compiler.services.CompilerService;
 
@@ -23,6 +24,7 @@ import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
 import java.util.Properties;
 
 @ActiveProfiles("kafka")
@@ -73,21 +75,31 @@ class TopologyTests {
     void shouldConsumeMessageFromInputTopicAndProduceMessageToOutputTopic() {
 
         // Given
-        String jsonRequest = "{\n\"expectedOutput\": \"0\\n1\\n2\\n3\\n4\\n5\\n6\\n7\\n8\\n9\\n\",\n\"sourceCode\": " +
-                "\"public class Test1 {\\npublic static void main(String[] args) {\\nint i = 0;\\nwhile (i < 10) " +
-                "{\\nSystem.out.println(i++);\\n}}}\",\n\"language\": \"JAVA\",\"timeLimit\": 15,\"memoryLimit\": 500\n}";
+        String jsonRequest = "{}";
+    
+        var testCaseResult = new TestCaseResult(Verdict.ACCEPTED,
+                "test output",
+                "",
+                "test expected output",
+                0);
+        
+        var response = new Response(
+                Verdict.ACCEPTED.getStatusResponse(),
+                Verdict.ACCEPTED.getStatusCode(),
+                "",
+                new LinkedHashMap<String, TestCaseResult>() {{
+                    put("test1", testCaseResult);
+                }},
+                0,
+                15,
+                500,
+                Language.JAVA,
+                LocalDateTime.now());
         
         Mockito.when(compilerService.execute(Mockito.any()))
                 .thenReturn(ResponseEntity
                         .status(HttpStatus.OK)
-                        .body(new Response(
-                                new Result(
-                                        Verdict.ACCEPTED,
-                                        "test output",
-                                        "",
-                                        "test expected output",
-                                        0),
-                                LocalDateTime.now())));
+                        .body(response));
                 
         // When
         inputTopic.pipeInput(jsonRequest);

@@ -7,11 +7,23 @@ cExpectedOutput = open("expected-outputs/amShZWinsABet-1.txt", "r").read()
 cSourceCode = open("source-code/AmShZWinsABet.c", "r").read()
 
 cData = {
-    "expectedOutput": cExpectedOutput,
-    "input": cInput,
+    "testCases": {
+        "test1": {
+            "expectedOutput": cExpectedOutput,
+            "input": cInput,
+        },
+        "test2": {
+            "expectedOutput": cExpectedOutput,
+            "input": cInput,
+        },
+        "test3": {
+            "expectedOutput": cExpectedOutput,
+            "input": cInput,
+        }
+    },
     "language": "C",
     "memoryLimit": 1500,
-    "sourceCode": cSourceCode,
+    "sourcecode": cSourceCode,
     "timeLimit": 15
 }
 
@@ -21,11 +33,23 @@ cppExpectedOutput = open("expected-outputs/physEdOnline-1.txt", "r").read()
 cppSourceCode = open("source-code/PhysEdOnline.cpp", "r").read()
 
 cppData = {
-    "expectedOutput": cppExpectedOutput,
-    "input": cppInput,
+    "testCases": {
+        "test1": {
+            "expectedOutput": cppExpectedOutput,
+            "input": cppInput,
+        },
+        "test2": {
+            "expectedOutput": cppExpectedOutput,
+            "input": cppInput,
+        },
+        "test3": {
+            "expectedOutput": cppExpectedOutput,
+            "input": cppInput,
+        }
+    },
     "language": "CPP",
     "memoryLimit": 1500,
-    "sourceCode": cppSourceCode,
+    "sourcecode": cppSourceCode,
     "timeLimit": 15
 }
 
@@ -35,11 +59,23 @@ javaExpectedOutput = open("expected-outputs/Watermelon-1.txt", "r").read()
 javaSourceCode = open("source-code/Watermelon.java", "r").read()
 
 javaData = {
-    "expectedOutput": javaExpectedOutput,
-    "input": javaInput,
+    "testCases": {
+        "test1": {
+            "expectedOutput": javaExpectedOutput,
+            "input": javaInput,
+        },
+        "test2": {
+            "expectedOutput": javaExpectedOutput,
+            "input": javaInput,
+        },
+        "test3": {
+            "expectedOutput": javaExpectedOutput,
+            "input": javaInput,
+        }
+    },
     "language": "JAVA",
     "memoryLimit": 1500,
-    "sourceCode": javaSourceCode,
+    "sourcecode": javaSourceCode,
     "timeLimit": 15
 }
 
@@ -49,11 +85,23 @@ pythonExpectedOutput = open("expected-outputs/makeEven-1.txt", "r").read()
 pythonSourceCode = open("source-code/MakeEven.py", "r").read()
 
 pythonData = {
-    "expectedOutput": pythonExpectedOutput,
-    "input": pythonInput,
+    "testCases": {
+        "test1": {
+            "expectedOutput": pythonExpectedOutput,
+            "input": pythonInput,
+        },
+        "test2": {
+            "expectedOutput": pythonExpectedOutput,
+            "input": pythonInput,
+        },
+        "test3": {
+            "expectedOutput": cExpectedOutput,
+            "input": pythonInput,
+        }
+    },
     "language": "PYTHON",
     "memoryLimit": 1500,
-    "sourceCode": pythonSourceCode,
+    "sourcecode": pythonSourceCode,
     "timeLimit": 15
 }
 

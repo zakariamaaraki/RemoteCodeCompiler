@@ -8,12 +8,12 @@ import com.cp.compiler.wellknownconstants.WellKnownHeaders;
 import com.cp.compiler.wellknownconstants.WellKnownParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.slf4j.MDC;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Compiler Controller Class, this class exposes 4 endpoints for (Java, C, CPP, and Python)
@@ -38,10 +38,11 @@ public class CompilerController {
     /**
      * Take as a parameter a json object
      *
-     * @param request    object
-     * @param preferPush the prefer push
-     * @param url        the url
-     * @return The verdict of the execution (Accepted, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded, Compilation Error, RunTime Error)
+     * @param request         object
+     * @param customDimension the custom dimension
+     * @param prefer          the prefer push
+     * @param url             the url
+     * @return The statusResponse of the execution (Accepted, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded, Compilation Error, RunTime Error)
      * @throws IOException the io exception
      */
     @PostMapping("/compile/json")
@@ -51,38 +52,40 @@ public class CompilerController {
             response = Response.class
     )
     public ResponseEntity<Object> compile(@ApiParam(value = "request") @RequestBody Request request,
-                                          @RequestHeader(value = WellKnownParams.PREFER_PUSH, required = false) String preferPush,
+                                          @RequestHeader(value = WellKnownParams.CUSTOM_DIMENSION, required = false) String customDimension,
+                                          @RequestHeader(value = WellKnownParams.PREFER, required = false) String prefer,
                                           @RequestHeader(value = WellKnownParams.URL, required = false) String url)
             throws IOException {
         
         Execution execution = ExecutionFactory.createExecution(
-                request.getSourceCode(),
-                request.getInput(),
-                request.getExpectedOutput(),
+                request.getSourcecode(),
+                request.getTestCases(),
                 request.getTimeLimit(),
                 request.getMemoryLimit(),
                 request.getLanguage());
         
-        boolean isLongRunning = WellKnownHeaders.PREFER_PUSH.equals(preferPush);
+        // Free memory space
+        request = null;
         
-        try(MDC.MDCCloseable mdc = MDC.putCloseable("compiler.language", execution.getLanguage().toString())) {
-            return compiler.compile(execution, isLongRunning, url);
-        }
+        boolean isLongRunning = WellKnownHeaders.PREFER_PUSH.equals(prefer);
+    
+        return compiler.compile(execution, isLongRunning, url, customDimension);
     }
     
     /**
      * Compiler Controller
      *
-     * @param language    the programming language
-     * @param outputFile  Expected output
-     * @param sourceCode  Python source code
-     * @param inputFile   Input data (optional)
-     * @param timeLimit   Time limit of the execution, must be between 0 and 15 sec
-     * @param memoryLimit Memory limit of the execution, must be between 0 and 1000 MB
-     * @param preferPush  the prefer push
-     * @param url         the url
-     * @return The verdict of the execution (Accepted, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded, Compilation Error, RunTime Error)
-     * @throws Exception the exception
+     * @param language        the programming language
+     * @param sourceCode      Python source code
+     * @param inputs          the inputs
+     * @param expectedOutputs the expected outputs
+     * @param timeLimit       Time limit of the execution, must be between 0 and 15 sec
+     * @param memoryLimit     Memory limit of the execution, must be between 0 and 1000 MB
+     * @param prefer          the prefer push
+     * @param customDimension the custom dimension
+     * @param url             the url
+     * @return The statusResponse of the execution (Accepted, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded, Compilation Error, RunTime Error)
+     * @throws IOException the io exception
      */
     @PostMapping("/compile")
     @ApiOperation(
@@ -94,32 +97,41 @@ public class CompilerController {
     public ResponseEntity compile(
             @ApiParam(value = "The language")
             @RequestParam(value = WellKnownParams.LANGUAGE) Language language,
-            
-            @ApiParam(value = "The expected output")
-            @RequestPart(value = WellKnownParams.OUTPUT_FILE) MultipartFile outputFile,
-            
+        
             @ApiParam(value = "Your source code")
             @RequestPart(value = WellKnownParams.SOURCE_CODE) MultipartFile sourceCode,
-            
-            @ApiParam(value = "Input file is not required")
-            @RequestParam(value = WellKnownParams.INPUT_FILE, required = false) MultipartFile inputFile,
-            
+        
+            @ApiParam(value = "Inputs")
+            @RequestParam(value = WellKnownParams.INPUTS, required = false) MultipartFile inputs,
+
+            @ApiParam(value = "Expected outputs")
+            @RequestParam(value = WellKnownParams.EXPECTED_OUTPUTS) MultipartFile expectedOutputs,
+        
             @ApiParam(value = "The time limit in seconds that the execution must not exceed")
             @RequestParam(value = WellKnownParams.TIME_LIMIT) int timeLimit,
-            
-            @ApiParam(value = "The memory limit in MB that the running program must not exceed")
+        
+            @ApiParam(value = "The memory limit in MB that the execution must not exceed")
             @RequestParam(value = WellKnownParams.MEMORY_LIMIT) int memoryLimit,
+        
+            @RequestHeader(value = WellKnownParams.PREFER, required = false) String prefer,
+            
+            @RequestHeader(value = WellKnownParams.URL, required = false) String url,
 
-            @RequestHeader(value = WellKnownParams.PREFER_PUSH, required = false) String preferPush,
-            @RequestHeader(value = WellKnownParams.URL, required = false) String url) {
+            @RequestHeader(value = WellKnownParams.CUSTOM_DIMENSION, required = false) String customDimension)
+            
+            throws IOException {
+        
+        ConvertedTestCase testCase = new ConvertedTestCase("defaultTestId", inputs, expectedOutputs);
         
         Execution execution = ExecutionFactory.createExecution(
-                sourceCode, inputFile, outputFile, timeLimit, memoryLimit, language);
+                sourceCode,
+                List.of(testCase),
+                timeLimit,
+                memoryLimit,
+                language);
         
-        boolean isLongRunning = WellKnownHeaders.PREFER_PUSH.equals(preferPush);
+        boolean isLongRunning = WellKnownHeaders.PREFER_PUSH.equals(prefer);
     
-        try(MDC.MDCCloseable mdc = MDC.putCloseable("compiler.language", execution.getLanguage().toString())) {
-            return compiler.compile(execution, isLongRunning, url);
-        }
+        return compiler.compile(execution, isLongRunning, url, customDimension);
     }
 }

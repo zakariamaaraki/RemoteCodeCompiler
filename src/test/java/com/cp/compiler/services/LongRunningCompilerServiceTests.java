@@ -1,6 +1,7 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.executions.ExecutionFactory;
+import com.cp.compiler.models.ConvertedTestCase;
 import com.cp.compiler.models.ProcessOutput;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.repositories.HooksRepository;
@@ -18,6 +19,8 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @DirtiesContext
 @SpringBootTest
@@ -48,9 +51,11 @@ class LongRunningCompilerServiceTests {
                 "test.txt",
                 null,
                 (byte[]) null);
+    
+        var testCase = new ConvertedTestCase("id", file, file);
         
         var execution = ExecutionFactory.createExecution(
-                file, file, file, 10, 100, Language.JAVA);
+                file, List.of(testCase), 10, 100, Language.JAVA);
     
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -79,9 +84,11 @@ class LongRunningCompilerServiceTests {
                 "test.c",
                 null,
                 (byte[]) null);
+    
+        var testCase = new ConvertedTestCase("id", file, file);
         
         var execution = ExecutionFactory.createExecution(
-                file, file, file, 10, 100, Language.JAVA);
+                file, List.of(testCase), 10, 100, Language.JAVA);
         
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -116,9 +123,11 @@ class LongRunningCompilerServiceTests {
                 "test.c",
                 null,
                 (byte[]) null);
+    
+        var testCase = new ConvertedTestCase("id", file, file);
         
         var execution = ExecutionFactory.createExecution(
-                file, file, file, 10, 100, Language.JAVA);
+                file, List.of(testCase), 10, 100, Language.JAVA);
         
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");

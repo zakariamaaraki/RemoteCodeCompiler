@@ -1,10 +1,12 @@
 package com.cp.compiler.executions;
 
 import com.cp.compiler.exceptions.FactoryNotFoundException;
+import com.cp.compiler.models.ConvertedTestCase;
 import com.cp.compiler.models.Language;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -43,17 +45,15 @@ public abstract class ExecutionFactory {
     /**
      * Gets execution.
      *
-     * @param sourceCode         the source code
-     * @param inputFile          the input file
-     * @param expectedOutputFile the expected output file
-     * @param timeLimit          the time limit
-     * @param memoryLimit        the memory limit
-     * @param language           the language
+     * @param sourceCode  the source code
+     * @param testCases   the test cases
+     * @param timeLimit   the time limit
+     * @param memoryLimit the memory limit
+     * @param language    the language
      * @return the execution
      */
     public static Execution createExecution(MultipartFile sourceCode,
-                                            MultipartFile inputFile,
-                                            MultipartFile expectedOutputFile,
+                                            List<ConvertedTestCase> testCases,
                                             int timeLimit,
                                             int memoryLimit,
                                             Language language) {
@@ -64,8 +64,7 @@ public abstract class ExecutionFactory {
         
         return factory.createExecution(
                 sourceCode,
-                inputFile,
-                expectedOutputFile,
+                testCases,
                 timeLimit,
                 memoryLimit);
     }

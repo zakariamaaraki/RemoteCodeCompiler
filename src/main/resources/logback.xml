@@ -4,7 +4,7 @@
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- encoder is required -->
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} traceId: %X{X-B3-TraceId:-} spanId: %X{X-B3-SpanId:-} language: %X{compiler.language} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} traceId: %X{X-B3-TraceId:-} spanId: %X{X-B3-SpanId:-} language: %X{compiler.language} is-long-running: %X{compiler.is-long-running} custom-dimension: %X{compiler.custom-dimension} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -25,7 +25,7 @@
             </triggeringPolicy>
             <!-- encoder is required -->
             <encoder>
-                <pattern>%d{HH:mm:ss.SSS} traceId: %X{X-B3-TraceId:-} spanId: %X{X-B3-SpanId:-} language: %X{compiler.language} [%thread] %-5level %logger{36} - %msg%n</pattern>
+                <pattern>%d{HH:mm:ss.SSS} traceId: %X{X-B3-TraceId:-} spanId: %X{X-B3-SpanId:-} language: %X{compiler.language} is-long-running: %X{compiler.is-long-running} custom-dimension: %X{compiler.custom-dimension} [%thread] %-5level %logger{36} - %msg%n</pattern>
             </encoder>
         </appender>
 

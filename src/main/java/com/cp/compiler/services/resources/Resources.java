@@ -1,4 +1,6 @@
-package com.cp.compiler.services;
+package com.cp.compiler.services.resources;
+
+import com.cp.compiler.models.AvailableResources;
 
 /**
  * The interface Cpu resources.
@@ -46,4 +48,11 @@ public interface Resources {
      * @return max parallel allowed requests
      */
     int getMaxRequests();
+    
+    /**
+     * Gets available resources.
+     *
+     * @return the available resources
+     */
+    AvailableResources getAvailableResources();
 }
