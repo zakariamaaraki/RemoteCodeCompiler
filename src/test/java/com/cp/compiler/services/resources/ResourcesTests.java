@@ -14,13 +14,17 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+
 public class ResourcesTests {
 
     private final float MAX_CPUS = 0.2f;
-    private Resources resources = new ResourcesDefault(MAX_CPUS, 1000);
+    private final int MAX_REQUESTS = 1000;
     
     @Test
     void shouldReturnMaxCpus() {
+        // Given
+        var resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
+        
         // When
         float returnedMaxCpus = resources.getMaxCpus();
         
@@ -30,6 +34,9 @@ public class ResourcesTests {
     
     @Test
     void allowNewExecutionShouldReturnTrue() {
+        // Given
+        var resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
+        
         // When
         boolean allowNewExecution = resources.allowNewExecution();
     
@@ -39,6 +46,9 @@ public class ResourcesTests {
     
     @Test
     void reserveResourcesShouldIncrementTheCounter() {
+        // Given
+        var resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
+        
         // When
         int counter = resources.reserveResources();
         
@@ -49,6 +59,7 @@ public class ResourcesTests {
     @Test
     void cleanupShouldDecrementTheCounter() {
         // Given
+        var resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
         resources.reserveResources();
         
         // When
@@ -60,6 +71,9 @@ public class ResourcesTests {
     
     @Test
     void cleanupShouldReturnZero() {
+        // Given
+        var resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
+        
         // When
         int counter = resources.cleanup();
         
@@ -69,6 +83,9 @@ public class ResourcesTests {
     
     @Test
     void shouldReturnNumberOfExecutions() {
+        // Given
+        var resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
+        
         // When
         boolean allow = resources.allowNewExecution();
         resources.reserveResources();
@@ -80,6 +97,9 @@ public class ResourcesTests {
     
     @Test
     void shouldReturnMaxNumberOfRequests() {
+        // Given
+        var resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
+        
         // When
         int maxRequests = resources.getMaxRequests();
         
@@ -89,6 +109,9 @@ public class ResourcesTests {
     
     @Test
     void getAvailableResourcesShouldReturnTheRightValue() {
+        // Given
+        var resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
+        
         // When
         AvailableResources availableResources = resources.getAvailableResources();
         
