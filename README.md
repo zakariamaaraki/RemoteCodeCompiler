@@ -209,7 +209,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 
 ```json
 {
-    "verdict": "Awrong Answer",
+    "verdict": "Wrong Answer",
     "statusCode": 200,
     "error": "",
     "testCasesResult": {
@@ -222,7 +222,7 @@ For the documentation visit the swagger page at the following url : http://<IP:P
         "executionDuration": 175
       },
       "test2": {
-        "verdict": "Awrong Answer",
+        "verdict": "Wrong Answer",
         "verdictStatusCode": 200,
         "output": "9 8 7 1",
         "error": "" ,
