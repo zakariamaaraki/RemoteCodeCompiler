@@ -25,7 +25,7 @@ public class ResourcesTests {
         float returnedMaxCpus = resources.getMaxCpus();
         
         // Then
-        Assertions.assertEquals(returnedMaxCpus, MAX_CPUS);
+        Assertions.assertEquals(MAX_CPUS, returnedMaxCpus);
     }
     
     @Test
@@ -95,7 +95,7 @@ public class ResourcesTests {
         // Then
         Assertions.assertEquals(
                 Runtime.getRuntime().availableProcessors() - (resources.getNumberOfExecutions() * MAX_CPUS)
-                , availableResources.getAvailableCpus());
+                ,availableResources.getAvailableCpus());
         Assertions.assertEquals(resources.getNumberOfExecutions(), availableResources.getCurrentExecutions());
         Assertions.assertEquals(resources.getMaxRequests(), availableResources.getMaxNumberOfExecutions());
     }

@@ -26,7 +26,7 @@ public class ResourcesDefault implements Resources {
     
     @Override
     public float getMaxCpus() {
-        return maxCpus == 0 ? Runtime.getRuntime().availableProcessors() : maxCpus;
+        return maxCpus == 0f ? Runtime.getRuntime().availableProcessors() : maxCpus;
     }
     
     @Override
@@ -35,7 +35,7 @@ public class ResourcesDefault implements Resources {
     }
     
     private boolean cpuIsAvailable() {
-        return maxCpus == 0 || maxCpus * executionsCounter.get() < Runtime.getRuntime().availableProcessors();
+        return maxCpus == 0f || maxCpus * executionsCounter.get() < Runtime.getRuntime().availableProcessors();
     }
     
     @Override
