@@ -1,6 +1,6 @@
 package com.cp.compiler.services.resources;
 
-import com.cp.compiler.models.AvailableResources;
+import com.cp.compiler.models.resources.AvailableResources;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -26,7 +26,7 @@ public class ResourcesDefault implements Resources {
     
     @Override
     public float getMaxCpus() {
-        return maxCpus == 0f ? Runtime.getRuntime().availableProcessors() : maxCpus;
+        return maxCpus == 0f ? getSystemCpus() : maxCpus;
     }
     
     @Override
@@ -35,7 +35,7 @@ public class ResourcesDefault implements Resources {
     }
     
     private boolean cpuIsAvailable() {
-        return maxCpus == 0f || maxCpus * executionsCounter.get() < Runtime.getRuntime().availableProcessors();
+        return maxCpus == 0f || maxCpus * executionsCounter.get() < getSystemCpus();
     }
     
     @Override
@@ -60,7 +60,7 @@ public class ResourcesDefault implements Resources {
     public AvailableResources getAvailableResources() {
         
         int numberOfExecutions = getNumberOfExecutions();
-        float availableCpus = Runtime.getRuntime().availableProcessors() - (numberOfExecutions * maxCpus);
+        float availableCpus = getSystemCpus() - (numberOfExecutions * maxCpus);
         
         return AvailableResources
                 .builder()
@@ -68,5 +68,9 @@ public class ResourcesDefault implements Resources {
                 .maxNumberOfExecutions(getMaxRequests())
                 .currentExecutions(numberOfExecutions)
                 .build();
+    }
+    
+    private float getSystemCpus() {
+        return Runtime.getRuntime().availableProcessors();
     }
 }

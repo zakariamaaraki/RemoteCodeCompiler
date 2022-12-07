@@ -1,6 +1,8 @@
 package com.cp.compiler.models;
 
 import com.cp.compiler.mappers.TestCaseMapper;
+import com.cp.compiler.models.testcases.ConvertedTestCase;
+import com.cp.compiler.models.testcases.TestCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

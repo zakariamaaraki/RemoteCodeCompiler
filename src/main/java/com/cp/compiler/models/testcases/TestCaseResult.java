@@ -1,5 +1,6 @@
-package com.cp.compiler.models;
+package com.cp.compiler.models.testcases;
 
+import com.cp.compiler.models.Verdict;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;

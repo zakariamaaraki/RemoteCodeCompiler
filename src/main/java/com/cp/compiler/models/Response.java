@@ -1,5 +1,6 @@
 package com.cp.compiler.models;
 
+import com.cp.compiler.models.testcases.TestCaseResult;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

@@ -6,6 +6,9 @@ import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.*;
+import com.cp.compiler.models.process.ProcessOutput;
+import com.cp.compiler.models.testcases.ConvertedTestCase;
+import com.cp.compiler.models.testcases.TestCaseResult;
 import com.cp.compiler.services.containers.ContainerService;
 import com.cp.compiler.utils.StatusUtils;
 import org.junit.jupiter.api.Assertions;
@@ -26,7 +29,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The type Compiler service tests.

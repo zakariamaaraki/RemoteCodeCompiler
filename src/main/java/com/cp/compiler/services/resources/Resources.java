@@ -1,6 +1,6 @@
 package com.cp.compiler.services.resources;
 
-import com.cp.compiler.models.AvailableResources;
+import com.cp.compiler.models.resources.AvailableResources;
 
 /**
  * The interface Cpu resources.

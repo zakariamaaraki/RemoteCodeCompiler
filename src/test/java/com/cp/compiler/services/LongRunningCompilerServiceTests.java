@@ -1,8 +1,8 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.executions.ExecutionFactory;
-import com.cp.compiler.models.ConvertedTestCase;
-import com.cp.compiler.models.ProcessOutput;
+import com.cp.compiler.models.testcases.ConvertedTestCase;
+import com.cp.compiler.models.process.ProcessOutput;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.repositories.HooksRepository;
 import com.cp.compiler.services.containers.ContainerService;

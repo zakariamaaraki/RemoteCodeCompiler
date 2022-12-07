@@ -2,7 +2,7 @@ package com.cp.compiler.services;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
-import com.cp.compiler.models.ConvertedTestCase;
+import com.cp.compiler.models.testcases.ConvertedTestCase;
 import com.cp.compiler.models.Language;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

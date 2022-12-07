@@ -1,9 +1,8 @@
 package com.cp.compiler.executions.languages;
 
 import com.cp.compiler.executions.Execution;
-import com.cp.compiler.models.ConvertedTestCase;
+import com.cp.compiler.models.testcases.ConvertedTestCase;
 import com.cp.compiler.models.Language;
-import com.cp.compiler.utils.FileUtils;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownTemplates;
 import com.cp.compiler.templates.EntrypointFileGenerator;

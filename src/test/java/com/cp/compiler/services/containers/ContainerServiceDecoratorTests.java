@@ -1,6 +1,6 @@
 package com.cp.compiler.services.containers;
 
-import com.cp.compiler.models.ProcessOutput;
+import com.cp.compiler.models.process.ProcessOutput;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

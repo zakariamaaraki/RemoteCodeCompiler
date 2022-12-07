@@ -1,4 +1,4 @@
-package com.cp.compiler.models;
+package com.cp.compiler.models.testcases;
 
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;

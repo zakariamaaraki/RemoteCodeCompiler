@@ -1,6 +1,8 @@
 package com.cp.compiler.models;
 
 import com.cp.compiler.mappers.TestCaseMapper;
+import com.cp.compiler.models.testcases.ConvertedTestCase;
+import com.cp.compiler.models.testcases.TestCase;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;

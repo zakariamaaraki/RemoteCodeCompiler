@@ -1,18 +1,8 @@
 package com.cp.compiler.services.resources;
 
-import com.cp.compiler.models.AvailableResources;
-import com.cp.compiler.services.resources.Resources;
-import com.cp.compiler.services.resources.ResourcesDefault;
-import lombok.Getter;
+import com.cp.compiler.models.resources.AvailableResources;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class ResourcesTests {

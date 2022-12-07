@@ -2,7 +2,7 @@ package com.cp.compiler.kafka;
 
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Response;
-import com.cp.compiler.models.TestCaseResult;
+import com.cp.compiler.models.testcases.TestCaseResult;
 import com.cp.compiler.models.Verdict;
 import com.cp.compiler.services.CompilerService;
 

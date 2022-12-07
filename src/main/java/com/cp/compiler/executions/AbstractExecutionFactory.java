@@ -1,6 +1,6 @@
 package com.cp.compiler.executions;
 
-import com.cp.compiler.models.ConvertedTestCase;
+import com.cp.compiler.models.testcases.ConvertedTestCase;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

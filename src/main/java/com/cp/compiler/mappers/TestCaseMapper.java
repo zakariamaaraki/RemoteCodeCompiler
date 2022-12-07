@@ -1,7 +1,7 @@
 package com.cp.compiler.mappers;
 
-import com.cp.compiler.models.ConvertedTestCase;
-import com.cp.compiler.models.TestCase;
+import com.cp.compiler.models.testcases.ConvertedTestCase;
+import com.cp.compiler.models.testcases.TestCase;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;

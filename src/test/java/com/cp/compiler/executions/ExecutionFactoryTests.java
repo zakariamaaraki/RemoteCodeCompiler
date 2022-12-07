@@ -2,7 +2,7 @@ package com.cp.compiler.executions;
 
 import com.cp.compiler.exceptions.FactoryNotFoundException;
 import com.cp.compiler.executions.languages.JavaExecution;
-import com.cp.compiler.models.ConvertedTestCase;
+import com.cp.compiler.models.testcases.ConvertedTestCase;
 import com.cp.compiler.models.Language;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

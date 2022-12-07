@@ -1,7 +1,7 @@
 package com.cp.compiler.executions;
 
 import com.cp.compiler.exceptions.FactoryNotFoundException;
-import com.cp.compiler.models.ConvertedTestCase;
+import com.cp.compiler.models.testcases.ConvertedTestCase;
 import com.cp.compiler.models.Language;
 import org.springframework.web.multipart.MultipartFile;
 

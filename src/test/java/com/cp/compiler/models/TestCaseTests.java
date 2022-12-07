@@ -1,5 +1,6 @@
 package com.cp.compiler.models;
 
+import com.cp.compiler.models.testcases.TestCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

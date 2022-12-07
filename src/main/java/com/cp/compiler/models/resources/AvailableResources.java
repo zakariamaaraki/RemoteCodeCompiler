@@ -1,4 +1,4 @@
-package com.cp.compiler.models;
+package com.cp.compiler.models.resources;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;

@@ -1,6 +1,6 @@
 package com.cp.compiler.controllers;
 
-import com.cp.compiler.models.AvailableResources;
+import com.cp.compiler.models.resources.AvailableResources;
 import com.cp.compiler.services.resources.Resources;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
