@@ -1,6 +1,6 @@
 package com.cp.compiler.services.containers;
 
-import com.cp.compiler.models.process.ProcessOutput;
+import com.cp.compiler.models.processes.ProcessOutput;
 
 import java.io.IOException;
 

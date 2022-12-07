@@ -4,6 +4,7 @@ import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.testcases.ConvertedTestCase;
 import com.cp.compiler.models.Language;
+import com.cp.compiler.services.businesslogic.CompilerProxy;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

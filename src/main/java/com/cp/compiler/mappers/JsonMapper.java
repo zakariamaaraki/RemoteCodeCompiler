@@ -5,7 +5,7 @@ import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.Request;
 import com.cp.compiler.models.Response;
-import com.cp.compiler.services.CompilerService;
+import com.cp.compiler.services.businesslogic.CompilerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.MDC;

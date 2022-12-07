@@ -4,7 +4,7 @@ import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.*;
 import com.cp.compiler.models.testcases.ConvertedTestCase;
-import com.cp.compiler.services.CompilerFacade;
+import com.cp.compiler.services.businesslogic.CompilerFacade;
 import com.cp.compiler.wellknownconstants.WellKnownHeaders;
 import com.cp.compiler.wellknownconstants.WellKnownParams;
 import io.swagger.annotations.ApiOperation;

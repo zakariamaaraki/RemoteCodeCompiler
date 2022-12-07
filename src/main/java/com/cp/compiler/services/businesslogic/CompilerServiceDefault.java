@@ -1,9 +1,9 @@
-package com.cp.compiler.services;
+package com.cp.compiler.services.businesslogic;
 
 import com.cp.compiler.exceptions.*;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.*;
-import com.cp.compiler.models.process.ProcessOutput;
+import com.cp.compiler.models.processes.ProcessOutput;
 import com.cp.compiler.models.testcases.ConvertedTestCase;
 import com.cp.compiler.models.testcases.TestCaseResult;
 import com.cp.compiler.services.containers.ContainerService;

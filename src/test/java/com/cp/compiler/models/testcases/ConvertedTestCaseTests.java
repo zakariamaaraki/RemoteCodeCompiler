@@ -1,4 +1,4 @@
-package com.cp.compiler.models;
+package com.cp.compiler.models.testcases;
 
 import com.cp.compiler.mappers.TestCaseMapper;
 import com.cp.compiler.models.testcases.ConvertedTestCase;

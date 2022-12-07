@@ -3,7 +3,7 @@ package com.cp.compiler.amqp;
 import com.cp.compiler.exceptions.ThrottlingException;
 import com.cp.compiler.mappers.JsonMapper;
 import com.cp.compiler.wellknownconstants.WellKnownMetrics;
-import com.cp.compiler.services.CompilerService;
+import com.cp.compiler.services.businesslogic.CompilerService;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;

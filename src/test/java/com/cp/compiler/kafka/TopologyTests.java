@@ -4,7 +4,7 @@ import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.models.testcases.TestCaseResult;
 import com.cp.compiler.models.Verdict;
-import com.cp.compiler.services.CompilerService;
+import com.cp.compiler.services.businesslogic.CompilerService;
 
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;

@@ -4,7 +4,7 @@ import com.cp.compiler.exceptions.ThrottlingException;
 import com.cp.compiler.models.*;
 import com.cp.compiler.models.testcases.TestCase;
 import com.cp.compiler.models.testcases.TestCaseResult;
-import com.cp.compiler.services.CompilerService;
+import com.cp.compiler.services.businesslogic.CompilerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;

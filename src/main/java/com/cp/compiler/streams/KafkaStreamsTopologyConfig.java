@@ -1,7 +1,7 @@
 package com.cp.compiler.streams;
 
 import com.cp.compiler.wellknownconstants.WellKnownMetrics;
-import com.cp.compiler.services.CompilerService;
+import com.cp.compiler.services.businesslogic.CompilerService;
 import com.cp.compiler.streams.transformers.CompilerTransformer;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;

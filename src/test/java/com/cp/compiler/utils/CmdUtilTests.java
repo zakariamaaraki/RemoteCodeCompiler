@@ -2,7 +2,7 @@ package com.cp.compiler.utils;
 
 import com.cp.compiler.exceptions.ProcessExecutionException;
 import com.cp.compiler.exceptions.ProcessExecutionTimeoutException;
-import com.cp.compiler.models.process.ProcessOutput;
+import com.cp.compiler.models.processes.ProcessOutput;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

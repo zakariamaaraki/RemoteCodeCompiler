@@ -1,4 +1,4 @@
-package com.cp.compiler.models.process;
+package com.cp.compiler.models.processes;
 
 import lombok.Builder;
 import lombok.Getter;

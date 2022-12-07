@@ -3,7 +3,7 @@ package com.cp.compiler.services.containers;
 import com.cp.compiler.exceptions.ContainerFailedDependencyException;
 import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
 import com.cp.compiler.exceptions.ProcessExecutionTimeoutException;
-import com.cp.compiler.models.process.ProcessOutput;
+import com.cp.compiler.models.processes.ProcessOutput;
 import com.cp.compiler.utils.retries.RetryHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
