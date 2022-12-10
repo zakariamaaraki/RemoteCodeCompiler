@@ -17,7 +17,10 @@ public abstract class WellKnownParams {
      */
     public static final String PREFER = "prefer";
     
-    public static final String CUSTOM_DIMENSION = "customDimension";
+    /**
+     * The constant USER_ID.
+     */
+    public static final String USER_ID = "userId";
     
     /**
      * The constant INPUTS.

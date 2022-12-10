@@ -25,6 +25,8 @@ import java.io.IOException;
 @Service
 public class CompilerFacadeDefault implements CompilerFacade {
     
+    private static final int MAX_USER_ID_LENGTH = 50;
+    
     private final CompilerService compilerService;
     
     private final HooksRepository hooksRepository;
@@ -37,6 +39,7 @@ public class CompilerFacadeDefault implements CompilerFacade {
     private Counter shortRunningExecutionCounter;
     
     private Counter longRunningExecutionCounter;
+    
     
     /**
      * Init.
@@ -63,13 +66,17 @@ public class CompilerFacadeDefault implements CompilerFacade {
     }
     
     @Override
-    public ResponseEntity compile(Execution execution, boolean isLongRunning, String url, String customDimension)
+    public ResponseEntity compile(Execution execution, boolean isLongRunning, String url, String userId)
             throws IOException {
         
         try(Closer closer = Closer.create()) {
+            
+            if (userId.length() > MAX_USER_ID_LENGTH) {
+                userId = userId.substring(MAX_USER_ID_LENGTH);
+            }
     
+            closer.register(MDC.putCloseable(WellKnownLoggingKeys.USER_ID, userId));
             closer.register(MDC.putCloseable(WellKnownLoggingKeys.IS_LONG_RUNNING, String.valueOf(isLongRunning)));
-            closer.register(MDC.putCloseable(WellKnownLoggingKeys.CUSTOM_DIMENSION, customDimension));
             closer.register(MDC.putCloseable(WellKnownLoggingKeys.PROGRAMMING_LANGUAGE, execution.getLanguage().toString()));
             
             if (isPushNotificationEnabled && isLongRunning) {

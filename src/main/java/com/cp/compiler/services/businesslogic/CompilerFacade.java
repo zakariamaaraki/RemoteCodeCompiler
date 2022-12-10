@@ -13,12 +13,12 @@ public interface CompilerFacade {
     /**
      * Compile response entity.
      *
-     * @param execution       the execution
-     * @param isLongRunning   the is long running
-     * @param url             the url
-     * @param customDimension the custom dimension
+     * @param execution     the execution
+     * @param isLongRunning the is long running
+     * @param url           the url
+     * @param userId        the user id
      * @return the response entity
      * @throws IOException the io exception
      */
-    ResponseEntity compile(Execution execution, boolean isLongRunning, String url, String customDimension) throws IOException;
+    ResponseEntity compile(Execution execution, boolean isLongRunning, String url, String userId) throws IOException;
 }

@@ -39,10 +39,10 @@ public class CompilerController {
     /**
      * Take as a parameter a json object
      *
-     * @param request         object
-     * @param customDimension the custom dimension
-     * @param prefer          the prefer push
-     * @param url             the url
+     * @param request object
+     * @param userId  the user id
+     * @param prefer  the prefer push
+     * @param url     the url
      * @return The statusResponse of the execution (Accepted, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded, Compilation Error, RunTime Error)
      * @throws IOException the io exception
      */
@@ -53,7 +53,7 @@ public class CompilerController {
             response = Response.class
     )
     public ResponseEntity<Object> compile(@ApiParam(value = "request") @RequestBody Request request,
-                                          @RequestHeader(value = WellKnownParams.CUSTOM_DIMENSION, required = false) String customDimension,
+                                          @RequestHeader(value = WellKnownParams.USER_ID, required = false) String userId,
                                           @RequestHeader(value = WellKnownParams.PREFER, required = false) String prefer,
                                           @RequestHeader(value = WellKnownParams.URL, required = false) String url)
             throws IOException {
@@ -70,7 +70,7 @@ public class CompilerController {
         
         boolean isLongRunning = WellKnownHeaders.PREFER_PUSH.equals(prefer);
     
-        return compiler.compile(execution, isLongRunning, url, customDimension);
+        return compiler.compile(execution, isLongRunning, url, userId);
     }
     
     /**
@@ -83,8 +83,8 @@ public class CompilerController {
      * @param timeLimit       Time limit of the execution, must be between 0 and 15 sec
      * @param memoryLimit     Memory limit of the execution, must be between 0 and 1000 MB
      * @param prefer          the prefer push
-     * @param customDimension the custom dimension
      * @param url             the url
+     * @param userId          the user id
      * @return The statusResponse of the execution (Accepted, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded, Compilation Error, RunTime Error)
      * @throws IOException the io exception
      */
@@ -118,7 +118,7 @@ public class CompilerController {
             
             @RequestHeader(value = WellKnownParams.URL, required = false) String url,
 
-            @RequestHeader(value = WellKnownParams.CUSTOM_DIMENSION, required = false) String customDimension)
+            @RequestHeader(value = WellKnownParams.USER_ID, required = false) String userId)
             
             throws IOException {
         
@@ -133,6 +133,6 @@ public class CompilerController {
         
         boolean isLongRunning = WellKnownHeaders.PREFER_PUSH.equals(prefer);
     
-        return compiler.compile(execution, isLongRunning, url, customDimension);
+        return compiler.compile(execution, isLongRunning, url, userId);
     }
 }

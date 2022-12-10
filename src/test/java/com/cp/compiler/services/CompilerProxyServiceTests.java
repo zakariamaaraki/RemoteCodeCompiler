@@ -83,6 +83,25 @@ class CompilerProxyServiceTests {
     }
     
     @Test
+    void shouldReturnBadRequestIfNumberOfTestCasesIsZero() {
+        // Given
+        MultipartFile invalidExtension = new MockMultipartFile(
+                "test.c",
+                "test.c",
+                null,
+                (byte[]) null);
+        
+        Execution execution =
+                ExecutionFactory.createExecution(invalidExtension, List.of(), 10, 500, Language.C);
+        
+        // When
+        ResponseEntity responseEntity = compilerProxy.execute(execution);
+        
+        // Then
+        Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
+    }
+    
+    @Test
     void WhenSourceCodeFileNameIsInvalidShouldReturnBadRequest() throws Exception {
         // Given
         var testCase = new ConvertedTestCase("id", validFileName, validFileName);

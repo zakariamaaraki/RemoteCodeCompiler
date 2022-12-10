@@ -18,7 +18,7 @@ public abstract class WellKnownLoggingKeys {
     public static final String IS_LONG_RUNNING = "compiler.is-long-running";
     
     /**
-     * The constant CUSTOM_DIMENSION.
+     * The constant USER_ID.
      */
-    public static final String CUSTOM_DIMENSION = "compiler.custom_dimension";
+    public static final String USER_ID = "compiler.user-id";
 }

@@ -44,6 +44,9 @@ public class CompilerProxy implements CompilerService {
     @Value("${compiler.execution-time.min:0}")
     private int minExecutionTime;
     
+    @Value("${compiler.max-test-cases:20}")
+    private int maxNumberOfTestCases;
+    
     @Autowired
     private MeterRegistry meterRegistry;
     
@@ -119,6 +122,13 @@ public class CompilerProxy implements CompilerService {
     }
     
     private Optional<ResponseEntity<Object>> validateRequest(Execution execution) {
+        
+        int numberOfTestCases = execution.getTestCases().size();
+        
+        if (numberOfTestCases == 0 || numberOfTestCases > maxNumberOfTestCases) {
+            return Optional.of(buildOutputError(
+                    "Number of test cases should be between 1 and " + maxNumberOfTestCases));
+        }
         
         if (!checkFileName(execution.getSourceCodeFile().getOriginalFilename())) {
             return Optional.of(buildOutputError(

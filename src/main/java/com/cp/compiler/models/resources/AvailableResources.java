@@ -23,4 +23,20 @@ public class AvailableResources {
     @ApiModelProperty(notes = "The current number of executions")
     @JsonProperty("currentExecutions")
     private int currentExecutions;
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AvailableResources)) {
+            return false;
+        }
+        
+        AvailableResources that = (AvailableResources) o;
+        
+        return Float.compare(that.getAvailableCpus(), getAvailableCpus()) == 0
+                && getMaxNumberOfExecutions() == that.getMaxNumberOfExecutions()
+                && getCurrentExecutions() == that.getCurrentExecutions();
+    }
 }

@@ -115,7 +115,7 @@ docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -
 * **MAX_REQUESTS** represents the number of requests that can be executed in parallel. When this value is reached all incoming requests will be throttled, and the user will get 429 HTTP status code (there will be a retry in queue mode).
 * **MAX_EXECUTION_CPUS** represents the maximum number of cpus to use for each execution (by default the maximum available cpus). If this value is set, then all requests will be throttled when the service reaches the maximum.
 * **COMPILATION_CONTAINER_VOLUME** It should be the same as the volume created in step 2.
-
+* **MAX_TEST_CASES** Maximum number of test cases a request should handle (by default it's set to 20)
 
 ### Push Notifications
 You may want to get the response later and to avoid http timeouts, you can use push notifications,

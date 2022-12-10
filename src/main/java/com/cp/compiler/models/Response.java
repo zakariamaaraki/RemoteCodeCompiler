@@ -4,6 +4,7 @@ import com.cp.compiler.models.testcases.TestCaseResult;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ import java.util.Map;
  *
  * @author Zakaria Maaraki
  */
-@Data
+@Getter
 @NoArgsConstructor
 @ApiModel(description = "The returned response")
 public class Response {
