@@ -27,7 +27,11 @@ class DockerServiceTests {
         // When / Then
         Assertions.assertThrows(
                 ProcessExecutionTimeoutException.class,
-                () -> containerService.runContainer("does not exists", 1, 0.2f));
+                () -> containerService.runContainer(
+                        "does not exists",
+                        "does not exists",
+                        1,
+                        0.2f));
     }
     
     @Test
@@ -36,6 +40,7 @@ class DockerServiceTests {
         Assertions.assertThrows(
                 ProcessExecutionTimeoutException.class,
                 () -> containerService.runContainer(
+                        "does not exists",
                         "does not exists",
                         1,
                         "volume",

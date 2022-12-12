@@ -87,11 +87,13 @@ class CompilerServiceDecoratorTests {
 
         Mockito.when(containerService.runContainer(
                 ArgumentMatchers.any(),
+                ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
                 ArgumentMatchers.anyFloat())).thenReturn(containerOutput);
         
         Mockito.when(containerService.runContainer(
                 ArgumentMatchers.any(),
+                ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
@@ -135,6 +137,7 @@ class CompilerServiceDecoratorTests {
         // Should compile
         Mockito.when(containerService.runContainer(
                 ArgumentMatchers.any(),
+                ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),

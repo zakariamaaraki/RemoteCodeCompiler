@@ -38,6 +38,7 @@ public class DefaultContainerServiceTests {
         var containerService = Mockito.mock(ContainerService.class);
         Mockito.when(containerService.runContainer(
                 ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
                 ArgumentMatchers.anyFloat()))
                 .thenThrow(new ProcessExecutionException("Error occurred while running the container"));
@@ -47,10 +48,14 @@ public class DefaultContainerServiceTests {
         // When / Then
         Assertions.assertThrows(
                 ContainerFailedDependencyException.class,
-                () -> defaultContainerService.runContainer("test", 2000, 0.2f));
+                () -> defaultContainerService.runContainer(
+                        "test",
+                        "test",
+                        2000,
+                        0.2f));
         
         Mockito.verify(containerService, Mockito.times(4))
-                .runContainer("test", 2000, 0.2f);
+                .runContainer("test", "test", 2000, 0.2f);
     }
     
     @Test
@@ -58,6 +63,7 @@ public class DefaultContainerServiceTests {
         // Given
         var containerService = Mockito.mock(ContainerService.class);
         Mockito.when(containerService.runContainer(
+                ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
                 ArgumentMatchers.anyFloat()))
@@ -68,10 +74,14 @@ public class DefaultContainerServiceTests {
         // When / Then
         Assertions.assertThrows(
                 ContainerOperationTimeoutException.class,
-                () -> defaultContainerService.runContainer("test", 2000, 0.2f));
+                () -> defaultContainerService.runContainer(
+                        "test",
+                        "test",
+                        2000,
+                        0.2f));
         
         Mockito.verify(containerService, Mockito.times(1))
-                .runContainer("test", 2000, 0.2f);
+                .runContainer("test", "test", 2000, 0.2f);
     }
     
     @Test
@@ -79,6 +89,7 @@ public class DefaultContainerServiceTests {
         // Given
         var containerService = Mockito.mock(ContainerService.class);
         Mockito.when(containerService.runContainer(
+                ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
                 ArgumentMatchers.anyString(),
@@ -93,6 +104,7 @@ public class DefaultContainerServiceTests {
                 ContainerFailedDependencyException.class,
                 () -> defaultContainerService.runContainer(
                         "test",
+                        "test",
                         2000,
                         "test",
                         "test",
@@ -100,6 +112,7 @@ public class DefaultContainerServiceTests {
         
         Mockito.verify(containerService, Mockito.times(4))
                 .runContainer(
+                        "test",
                         "test",
                         2000,
                         "test",
@@ -113,6 +126,7 @@ public class DefaultContainerServiceTests {
         var containerService = Mockito.mock(ContainerService.class);
         Mockito.when(containerService.runContainer(
                 ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
@@ -126,6 +140,7 @@ public class DefaultContainerServiceTests {
                 ContainerOperationTimeoutException.class,
                 () -> defaultContainerService.runContainer(
                         "test",
+                        "test",
                         2000,
                         "test",
                         "test",
@@ -133,6 +148,7 @@ public class DefaultContainerServiceTests {
         
         Mockito.verify(containerService, Mockito.times(1))
                 .runContainer(
+                        "test",
                         "test",
                         2000,
                         "test",
@@ -144,7 +160,11 @@ public class DefaultContainerServiceTests {
     void shouldThrowContainerFailedDependencyException() {
         // Given
         var containerService = Mockito.mock(ContainerService.class);
-        Mockito.when(containerService.runContainer(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat()))
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyFloat()))
                .thenThrow(new ProcessExecutionException("Error occurred while building the image"));
         
         var defaultContainerService = new DefaultContainerService(containerService);
@@ -152,14 +172,22 @@ public class DefaultContainerServiceTests {
         // When / Then
         Assertions.assertThrows(
                 ContainerFailedDependencyException.class,
-                () -> defaultContainerService.runContainer("does not exists", 1, 0.2f));
+                () -> defaultContainerService.runContainer(
+                        "does not exists",
+                        "does not exists",
+                        1,
+                        0.2f));
     }
     
     @Test
     void shouldThrowContainerTimeoutException() {
         // Given
         var containerService = Mockito.mock(ContainerService.class);
-        Mockito.when(containerService.runContainer(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat()))
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyFloat()))
                 .thenThrow(new ProcessExecutionTimeoutException("Timeout occurred while building the image"));
     
         var defaultContainerService = new DefaultContainerService(containerService);
@@ -167,7 +195,11 @@ public class DefaultContainerServiceTests {
         // When / Then
         Assertions.assertThrows(
                 ContainerOperationTimeoutException.class,
-                () -> defaultContainerService.runContainer("does not exists", 1, 0.2f));
+                () -> defaultContainerService.runContainer(
+                        "does not exists",
+                        "does not exists",
+                        1,
+                        0.2f));
     }
     
     @Test
@@ -175,6 +207,7 @@ public class DefaultContainerServiceTests {
         // Given
         var containerService = Mockito.mock(ContainerService.class);
         Mockito.when(containerService.runContainer(
+                ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
                 ArgumentMatchers.anyString(),
@@ -189,6 +222,7 @@ public class DefaultContainerServiceTests {
                 ContainerOperationTimeoutException.class,
                 () -> defaultContainerService.runContainer(
                         "does not exists",
+                        "does not exists",
                         1,
                         "volume",
                         "executionPath",
@@ -200,6 +234,7 @@ public class DefaultContainerServiceTests {
         // Given
         var containerService = Mockito.mock(ContainerService.class);
         Mockito.when(containerService.runContainer(
+                ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
                 ArgumentMatchers.anyString(),
@@ -213,6 +248,7 @@ public class DefaultContainerServiceTests {
         Assertions.assertThrows(
                 ContainerFailedDependencyException.class,
                 () -> defaultContainerService.runContainer(
+                        "does not exists",
                         "does not exists",
                         1,
                         "volume",

@@ -3,8 +3,10 @@ package com.cp.compiler.services.containers;
 import com.cp.compiler.exceptions.ContainerFailedDependencyException;
 import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
 import com.cp.compiler.exceptions.ProcessExecutionTimeoutException;
+import com.cp.compiler.models.containers.ContainerInfo;
 import com.cp.compiler.models.processes.ProcessOutput;
 import com.cp.compiler.utils.retries.RetryHelper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
@@ -49,10 +51,10 @@ public class DefaultContainerService extends ContainerServiceDecorator {
     }
     
     @Override
-    public ProcessOutput runContainer(String imageName, long timeout, float maxCpus) {
+    public ProcessOutput runContainer(String imageName, String containerName, long timeout, float maxCpus) {
         try {
             return RetryHelper.executeWithRetries(
-                    () -> getContainerService().runContainer(imageName, timeout, maxCpus),
+                    () -> getContainerService().runContainer(imageName, containerName, timeout, maxCpus),
                     Set.of(ProcessExecutionTimeoutException.class.getName()),
                     MAX_RETRIES,
                     DURATION_BETWEEN_EACH_RETRY);
@@ -68,13 +70,20 @@ public class DefaultContainerService extends ContainerServiceDecorator {
     
     @Override
     public ProcessOutput runContainer(String imageName,
+                                      String containerName,
                                       long timeout,
                                       String volumeMounting,
                                       String executionPath,
                                       String sourceCodeFileName) {
         try {
             return RetryHelper.executeWithRetries(
-                    () -> getContainerService().runContainer(imageName, timeout, volumeMounting, executionPath, sourceCodeFileName),
+                    () -> getContainerService().runContainer(
+                            imageName,
+                            containerName,
+                            timeout,
+                            volumeMounting,
+                            executionPath,
+                            sourceCodeFileName),
                     Set.of(ProcessExecutionTimeoutException.class.getName()), // do not retry on timeout
                     MAX_RETRIES,
                     DURATION_BETWEEN_EACH_RETRY);

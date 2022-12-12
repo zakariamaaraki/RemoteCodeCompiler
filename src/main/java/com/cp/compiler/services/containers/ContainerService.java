@@ -1,6 +1,8 @@
 package com.cp.compiler.services.containers;
 
+import com.cp.compiler.models.containers.ContainerInfo;
 import com.cp.compiler.models.processes.ProcessOutput;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.io.IOException;
 
@@ -23,19 +25,36 @@ public interface ContainerService {
     /**
      * Run container container output.
      *
-     * @param imageName the image name
-     * @param timeout   the timeout
-     * @param maxCpus   the max cpus
+     * @param imageName     the image name
+     * @param containerName the container name
+     * @param timeout       the timeout
+     * @param maxCpus       the max cpus
      * @return the container output
      * @throws IOException          the io exception
      * @throws InterruptedException the interrupted exception
      */
-    ProcessOutput runContainer(String imageName, long timeout, float maxCpus);
+    ProcessOutput runContainer(String imageName, String containerName, long timeout, float maxCpus);
+    
+    /**
+     * Inspect a container.
+     *
+     * @param containerName the container name
+     * @return the container info
+     */
+    ContainerInfo inspect(String containerName);
+    
+    /**
+     * Delete a container
+     *
+     * @param containerName the container name
+     */
+    void deleteContainer(String containerName);
     
     /**
      * Run container process output.
      *
      * @param imageName          the image name
+     * @param containerName      the container name
      * @param timeout            the timeout
      * @param volumeMounting     the volume mounting
      * @param executionPath      the execution path
@@ -43,6 +62,7 @@ public interface ContainerService {
      * @return the process output
      */
     ProcessOutput runContainer(String imageName,
+                               String containerName,
                                long timeout,
                                String volumeMounting,
                                String executionPath,

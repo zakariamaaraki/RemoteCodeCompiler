@@ -1,5 +1,6 @@
 package com.cp.compiler.services.containers;
 
+import com.cp.compiler.models.containers.ContainerInfo;
 import lombok.Getter;
 
 /**
@@ -18,7 +19,6 @@ public abstract class ContainerServiceDecorator implements ContainerService {
     protected ContainerServiceDecorator(ContainerService containerService) {
         this.containerService = containerService;
     }
-    
     
     @Override
     public String getRunningContainers() {
@@ -53,5 +53,15 @@ public abstract class ContainerServiceDecorator implements ContainerService {
     @Override
     public String getContainerizationName() {
         return containerService.getContainerizationName();
+    }
+    
+    @Override
+    public ContainerInfo inspect(String containerName) {
+        return containerService.inspect(containerName);
+    }
+    
+    @Override
+    public void deleteContainer(String containerName) {
+        containerService.deleteContainer(containerName);
     }
 }

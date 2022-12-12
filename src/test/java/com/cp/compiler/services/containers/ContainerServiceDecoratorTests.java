@@ -119,12 +119,13 @@ public class ContainerServiceDecoratorTests {
             }
             
             @Override
-            public ProcessOutput runContainer(String imageName, long timeout, float maxCpus) {
+            public ProcessOutput runContainer(String imageName, String containerName, long timeout, float maxCpus) {
                 return null;
             }
             
             @Override
             public ProcessOutput runContainer(String imageName,
+                                              String containerName,
                                               long timeout,
                                               String volumeMounting,
                                               String executionPath,

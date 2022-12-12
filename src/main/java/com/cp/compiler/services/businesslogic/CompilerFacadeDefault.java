@@ -70,8 +70,8 @@ public class CompilerFacadeDefault implements CompilerFacade {
             throws IOException {
         
         try(Closer closer = Closer.create()) {
-            
-            if (userId.length() > MAX_USER_ID_LENGTH) {
+    
+            if (userId != null && userId.length() > MAX_USER_ID_LENGTH) {
                 userId = userId.substring(MAX_USER_ID_LENGTH);
             }
     

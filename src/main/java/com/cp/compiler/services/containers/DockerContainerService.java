@@ -1,9 +1,12 @@
 package com.cp.compiler.services.containers;
 
 import com.cp.compiler.exceptions.*;
+import com.cp.compiler.mappers.ContainerInfoMapper;
+import com.cp.compiler.models.containers.ContainerInfo;
 import com.cp.compiler.models.processes.ProcessOutput;
 import com.cp.compiler.wellknownconstants.WellKnownMetrics;
 import com.cp.compiler.utils.CmdUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +37,18 @@ public class DockerContainerService implements ContainerService {
      * The constant EXECUTION_PATH_ENV_VARIABLE.
      */
     public static final String EXECUTION_PATH_ENV_VARIABLE = "EXECUTION_PATH";
+    
+    /**
+     * The Container info format to be returned by docker
+     */
+    private static final String CONTAINER_INFO_FORMAT = "--format={\"status\": \"{{.State.Status}}\", \"creationTime\": " +
+            "\"{{.Created}}\", \"startTime\": \"{{.State.StartedAt}}\", \"endTime\": \"{{.State.FinishedAt}}\", \"exitCode\": " +
+            "{{.State.ExitCode}}, \"error\": \"{{.State.Error}}\"}";
+    
+    /**
+     * Container engine used
+     */
+    private static final String CONTAINERIZATION_NAME = "Docker";
     
     /**
      * The constant SOURCE_CODE_ENV_VARIABLE.
@@ -83,24 +98,38 @@ public class DockerContainerService implements ContainerService {
         });
     }
     
-    /**
-     * Run an instance of an image
-     * @param imageName the image name
-     * @param timeout   the timeout after which the container will be destroyed
-     * @return ProcessOutput
-     */
     @Override
-    public ProcessOutput runContainer(String imageName, long timeout, float maxCpus) {
+    public ProcessOutput runContainer(String imageName, String containerName, long timeout, float maxCpus) {
         return runTimer.record(() -> {
             var cpus = "--cpus=" + maxCpus;
-            String[] dockerCommand = new String[]{"docker", "run", cpus, "--rm", imageName};
+            String[] dockerCommand = new String[]{"docker", "run", "--name", containerName, cpus, imageName};
             return CmdUtils.executeProcess(dockerCommand, timeout);
         });
     }
     
     @Override
+    public ContainerInfo inspect(String containerName) {
+        String[] command = {"docker", "container", "inspect", CONTAINER_INFO_FORMAT, containerName};
+        String containerInfo = executeContainerCommand(command, COMMAND_TIMEOUT);
+        ContainerInfo ci = null;
+        try {
+             ci = ContainerInfoMapper.toContainerInfo(containerInfo);
+        } catch (JsonProcessingException e) {
+            log.warn("Error during json deserialization, while trying to retrieve container info, ex: {}", e);
+        }
+        return ci;
+    }
+    
+    @Override
+    public void deleteContainer(String containerName) {
+        String[] command = {"docker", "container", "rm", "-f", containerName};
+        executeContainerCommand(command, COMMAND_TIMEOUT);
+    }
+    
+    @Override
     public ProcessOutput runContainer(
             String imageName,
+            String containerName,
             long timeout,
             String volumeMounting,
             String executionPath,
@@ -111,10 +140,10 @@ public class DockerContainerService implements ContainerService {
                     new String[]{
                             "docker",
                             "run",
+                            "--name", containerName,
                             "-v", volumeMounting,
                             "-e", EXECUTION_PATH_ENV_VARIABLE + "=" + executionPath,
                             "-e", SOURCE_CODE_FILE_NAME_ENV_VARIABLE + "=" + sourceCodeFileName,
-                            "--rm",
                             imageName};
     
             return CmdUtils.executeProcess(dockerCommand, timeout);
@@ -166,7 +195,7 @@ public class DockerContainerService implements ContainerService {
     
     @Override
     public String getContainerizationName() {
-        return "Docker";
+        return CONTAINERIZATION_NAME;
     }
     
     private String executeContainerCommand(String[] command, long timeout) {

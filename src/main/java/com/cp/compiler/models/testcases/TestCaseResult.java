@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 /**
  * The type Result.
  *
@@ -24,6 +26,9 @@ public class TestCaseResult {
      * Instantiates a new Result.
      *
      * @param statusResponse    the statusResponse
+     * @param creationTime      the creation time
+     * @param startTime         the start time
+     * @param endTime           the end time
      * @param output            the output
      * @param error             the error
      * @param expectedOutput    the expected output
