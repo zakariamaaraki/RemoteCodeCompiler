@@ -5,6 +5,7 @@ import com.cp.compiler.models.testcases.ConvertedTestCase;
 import com.cp.compiler.models.testcases.TestCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -59,6 +60,31 @@ public class RequestTests {
             Assertions.assertEquals(expectedInput, input);
             Assertions.assertEquals(expectedExpectedOutput, expectedOutput);
         }
+    }
+    
+    @Test
+    void shouldReturnSourceCodeFile() throws IOException {
+        // Given
+        var testCases = new LinkedHashMap<String, TestCase>() {{
+            put("test1", new TestCase("input", "expectedOutput"));
+        }};
+    
+        var request = new Request(
+                "sourceCode",
+                Language.JAVA,
+                15,
+                500,
+                testCases);
+        
+        // When
+        MultipartFile sourceCodeFile = request.getSourcecodeFile();
+    
+        String sourceCode = readFile(
+                new BufferedReader(
+                        new InputStreamReader(sourceCodeFile.getInputStream())));
+        
+        // Then
+        Assertions.assertEquals(request.getSourcecode(), sourceCode);
     }
     
     private String readFile(BufferedReader bufferedReader) throws IOException {
