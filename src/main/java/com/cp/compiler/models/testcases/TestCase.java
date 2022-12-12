@@ -9,6 +9,7 @@ import lombok.*;
  */
 @Getter
 @AllArgsConstructor
+@EqualsAndHashCode
 public class TestCase {
     
     @ApiModelProperty(notes = "The input, can be null")
@@ -19,23 +20,4 @@ public class TestCase {
     @NonNull
     @JsonProperty("expectedOutput")
     private String expectedOutput;
-    
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        } else if (!(o instanceof TestCase)) {
-            return false;
-        }
-    
-        var testCase = (TestCase) o;
-        
-        if (testCase.input != this.input
-                && ((this.input != null && !this.input.equals(""))
-                || (testCase.input != null && !testCase.input.equals("")))) {
-            return false;
-        }
-        
-        return this.expectedOutput.equals(testCase.expectedOutput);
-    }
 }

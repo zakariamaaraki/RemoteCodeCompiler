@@ -7,9 +7,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 /**
  * The type Result.
@@ -19,6 +18,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @ApiModel(description = "The result of the execution")
 public class TestCaseResult {
     
@@ -48,6 +48,7 @@ public class TestCaseResult {
         this.executionDuration = executionDuration;
     }
     
+    @EqualsAndHashCode.Exclude
     @JsonIgnore
     @ApiModelProperty(notes = "The verdict enum")
     private Verdict verdict;
@@ -76,22 +77,4 @@ public class TestCaseResult {
     @ApiModelProperty(notes = "The execution duration in ms")
     @JsonProperty("executionDuration")
     private int executionDuration;
-    
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof TestCaseResult)) {
-            return false;
-        }
-        TestCaseResult that = (TestCaseResult) o;
-        
-        return getVerdictStatusCode() == that.getVerdictStatusCode()
-                && getExecutionDuration() == that.getExecutionDuration()
-                && getStatusResponse().equals(that.getStatusResponse())
-                && getOutput().equals(that.getOutput())
-                && getError().equals(that.getError())
-                && getExpectedOutput().equals(that.getExpectedOutput());
-    }
 }

@@ -2,6 +2,7 @@ package com.cp.compiler.models;
 
 import com.cp.compiler.wellknownconstants.WellKnownMetrics;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**

@@ -19,6 +19,7 @@ import java.util.List;
  */
 @Getter
 @NoArgsConstructor
+@EqualsAndHashCode
 @AllArgsConstructor
 public class Request {
     
@@ -68,7 +69,7 @@ public class Request {
      * @return the source code
      * @throws IOException the io exception
      */
-    public MultipartFile getSourcecode() throws IOException {
+    public MultipartFile getSourcecodeFile() throws IOException {
         return new MockMultipartFile(
                 language.getDefaultSourcecodeFileName(),
                 language.getDefaultSourcecodeFileName(),
@@ -84,24 +85,7 @@ public class Request {
      * @return the test cases
      * @throws IOException the io exception
      */
-    public List<ConvertedTestCase> getTestCases() throws IOException {
+    public List<ConvertedTestCase> getConvertedTestCases() throws IOException {
         return TestCaseMapper.toConvertedTestCases(testCases);
-    }
-    
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        } else if (!(o instanceof Request)) {
-            return false;
-        }
-        
-        Request request = (Request) o;
-        
-        return this.language.equals(request.language)
-                && this.sourcecode.equals(request.sourcecode)
-                && this.memoryLimit == request.memoryLimit
-                && this.timeLimit == request.timeLimit
-                && this.testCases.equals(request.testCases);
     }
 }

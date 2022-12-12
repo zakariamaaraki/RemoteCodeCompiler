@@ -59,8 +59,8 @@ public class CompilerController {
             throws IOException {
         
         Execution execution = ExecutionFactory.createExecution(
-                request.getSourcecode(),
-                request.getTestCases(),
+                request.getSourcecodeFile(),
+                request.getConvertedTestCases(),
                 request.getTimeLimit(),
                 request.getMemoryLimit(),
                 request.getLanguage());

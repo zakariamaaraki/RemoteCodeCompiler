@@ -3,8 +3,6 @@ package com.cp.compiler.models.testcases;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Objects;
-
 /**
  * The type Converted test case.
  */

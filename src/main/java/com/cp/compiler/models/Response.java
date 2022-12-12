@@ -4,6 +4,7 @@ import com.cp.compiler.models.testcases.TestCaseResult;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +19,7 @@ import java.util.Map;
  */
 @Getter
 @NoArgsConstructor
+@EqualsAndHashCode
 @ApiModel(description = "The returned response")
 public class Response {
     
@@ -81,7 +83,8 @@ public class Response {
     
     @ApiModelProperty(notes = "The programming language")
     private Language language;
-
+    
+    @EqualsAndHashCode.Exclude
     @ApiModelProperty(notes = "The dateTime of the execution")
     private LocalDateTime dateTime;
     
@@ -94,26 +97,5 @@ public class Response {
             sum += testCaseResult.getExecutionDuration();
         }
         return sum / testCasesResult.size();
-    }
-    
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        } else if (!(o instanceof Response)) {
-            return false;
-        }
-        
-        Response response = (Response) o;
-        
-        return this.error.equals(response.getError())
-                && this.memoryLimit == response.getMemoryLimit()
-                && this.timeLimit == response.getTimeLimit()
-                && this.language.equals(response.getLanguage())
-                && this.testCasesResult.equals(response.getTestCasesResult())
-                && this.averageExecutionDuration == response.getAverageExecutionDuration()
-                && this.statusCode == response.getStatusCode()
-                && this.verdict.equals(response.getVerdict())
-                && this.compilationDuration == response.getCompilationDuration();
     }
 }

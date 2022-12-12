@@ -154,7 +154,7 @@ class JsonMapperTests {
         Mockito.when(compilerService.execute(ArgumentMatchers.any()))
                 .thenReturn(new ResponseEntity(HttpStatus.TOO_MANY_REQUESTS));
         
-        // Then
+        // When / Then
         Assertions.assertThrows(ThrottlingException.class, () -> JsonMapper.transform(jsonRequest, compilerService));
     }
     
