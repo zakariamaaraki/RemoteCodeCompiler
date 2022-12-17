@@ -99,6 +99,6 @@ public class CompilerFacadeDefault implements CompilerFacade {
     }
     
     private boolean isUrlValid(String url) {
-        return url.matches(WellKnownUrls.URL_REGEX);
+        return url != null && url.matches(WellKnownUrls.URL_REGEX);
     }
 }
