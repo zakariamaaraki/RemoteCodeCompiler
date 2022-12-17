@@ -139,7 +139,7 @@ class CompilerProxyServiceTests {
                 ExecutionFactory.createExecution(validFileName, List.of(testCase), 10, 500, Language.JAVA);
         
         // When
-        ResponseEntity responseEntity = compilerProxy.execute(execution);
+        compilerProxy.execute(execution);
         
         // Then
         Mockito.verify(compilerServiceDefault, Mockito.times(1)).execute(execution);

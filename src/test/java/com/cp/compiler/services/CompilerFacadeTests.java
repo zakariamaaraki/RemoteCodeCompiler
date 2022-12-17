@@ -97,7 +97,7 @@ class CompilerFacadeTests {
     }
     
     @Test
-    void shouldReturnBadRequest() throws IOException {
+    void ifUrlIsNotValidShouldReturnBadRequest() throws IOException {
         // Given
         var testCase = new ConvertedTestCase("id", file, file);
         Execution execution = ExecutionFactory.createExecution(
@@ -110,6 +110,24 @@ class CompilerFacadeTests {
         // When
         ResponseEntity responseEntity = compilerFacade.compile(execution, true, url, "");
     
+        // Then
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+    }
+    
+    @Test
+    void ifUrlIsNullShouldReturnBadRequest() throws IOException {
+        // Given
+        var testCase = new ConvertedTestCase("id", file, file);
+        Execution execution = ExecutionFactory.createExecution(
+                file, List.of(testCase), 10, 500, Language.JAVA);
+        
+        String url = null;
+        
+        Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok("ok test"));
+        
+        // When
+        ResponseEntity responseEntity = compilerFacade.compile(execution, true, url, "");
+        
         // Then
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
     }
