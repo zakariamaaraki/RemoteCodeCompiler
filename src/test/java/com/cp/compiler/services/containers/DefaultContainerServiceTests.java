@@ -1,9 +1,6 @@
 package com.cp.compiler.services.containers;
 
-import com.cp.compiler.exceptions.ContainerFailedDependencyException;
-import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
-import com.cp.compiler.exceptions.ProcessExecutionException;
-import com.cp.compiler.exceptions.ProcessExecutionTimeoutException;
+import com.cp.compiler.exceptions.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -25,7 +22,7 @@ public class DefaultContainerServiceTests {
         
         // When / Then
         Assertions.assertThrows(
-                ContainerFailedDependencyException.class,
+                ContainerBuildException.class,
                 () -> defaultContainerService.buildImage("test", "test", "test"));
         
         Mockito.verify(containerService, Mockito.times(4))

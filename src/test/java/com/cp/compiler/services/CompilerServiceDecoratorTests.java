@@ -145,7 +145,7 @@ class CompilerServiceDecoratorTests {
                 .thenReturn(ProcessOutput.builder().status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS).build());
         
         // Then
-        Assertions.assertThrows(ContainerBuildException.class, () -> {
+        Assertions.assertThrows(ContainerOperationTimeoutException.class, () -> {
             compilerServiceDecorator.execute(execution);
         });
     }

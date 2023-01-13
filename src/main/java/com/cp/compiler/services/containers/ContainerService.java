@@ -18,9 +18,8 @@ public interface ContainerService {
      * @param imageName      the image name
      * @param dockerfileName the dockerfile path
      * @return The build log
-     * @throws Exception the exception
      */
-    String buildImage(String contextPath, String imageName, String dockerfileName) throws Exception;
+    String buildImage(String contextPath, String imageName, String dockerfileName);
     
     /**
      * Run container container output.
@@ -104,10 +103,9 @@ public interface ContainerService {
      * Delete image string.
      *
      * @param imageName the image name
-     * @return the string
      * @throws IOException the io exception
      */
-    String deleteImage(String imageName);
+    void deleteImage(String imageName);
     
     /**
      * Is up boolean.

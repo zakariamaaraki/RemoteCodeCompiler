@@ -181,9 +181,9 @@ public class DockerContainerService implements ContainerService {
     }
     
     @Override
-    public String deleteImage(String imageName) {
+    public void deleteImage(String imageName) {
         String[] command = {"docker", "rmi", "-f", imageName};
-        return executeContainerCommand(command, COMMAND_TIMEOUT);
+        executeContainerCommand(command, COMMAND_TIMEOUT);
     }
     
     @Override

@@ -68,21 +68,6 @@ public class ContainerServiceDecoratorTests {
     }
     
     @Test
-    void deleteImageShouldHaveTheSameBehaviour() {
-        // Given
-        var containerServiceMock = Mockito.mock(ContainerService.class);
-        ContainerServiceDecorator containerServiceDecorator = getContainerServiceDecorator(containerServiceMock);
-        String expectedOutput = "image deleted";
-        Mockito.when(containerServiceMock.deleteImage("image")).thenReturn(expectedOutput);
-        
-        // When
-        String output = containerServiceDecorator.deleteImage("image");
-        
-        // Then
-        Assertions.assertEquals(expectedOutput, output);
-    }
-    
-    @Test
     void isUpShouldHaveTheSameBehaviour() {
         // Given
         var containerServiceMock = Mockito.mock(ContainerService.class);
@@ -114,12 +99,12 @@ public class ContainerServiceDecoratorTests {
     private ContainerServiceDecorator getContainerServiceDecorator(ContainerService containerServiceMock) {
         return new ContainerServiceDecorator(containerServiceMock) {
             @Override
-            public String buildImage(String contextPath, String imageName, String dockerfileName) {
+            public String buildContainerImageInternal(String contextPath, String imageName, String dockerfileName) {
                 return null;
             }
             
             @Override
-            public ProcessOutput runContainer(String imageName, String containerName, long timeout, float maxCpus) {
+            public ProcessOutput runContainerInternal(String imageName, String containerName, long timeout, float maxCpus) {
                 return null;
             }
             

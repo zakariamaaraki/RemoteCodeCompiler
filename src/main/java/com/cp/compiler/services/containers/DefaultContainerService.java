@@ -1,5 +1,6 @@
 package com.cp.compiler.services.containers;
 
+import com.cp.compiler.exceptions.ContainerBuildException;
 import com.cp.compiler.exceptions.ContainerFailedDependencyException;
 import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
 import com.cp.compiler.exceptions.ProcessExecutionTimeoutException;
@@ -7,6 +8,7 @@ import com.cp.compiler.models.containers.ContainerInfo;
 import com.cp.compiler.models.processes.ProcessOutput;
 import com.cp.compiler.utils.retries.RetryHelper;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
@@ -41,8 +43,9 @@ public class DefaultContainerService extends ContainerServiceDecorator {
         super(containerService);
     }
     
+    @SneakyThrows
     @Override
-    public String buildImage(String contextPath, String imageName, String dockerfileName) throws Exception {
+    protected String buildContainerImageInternal(String contextPath, String imageName, String dockerfileName) {
         return RetryHelper.executeWithRetries(
                 () -> getContainerService().buildImage(contextPath, imageName, dockerfileName),
                 null,
@@ -50,22 +53,14 @@ public class DefaultContainerService extends ContainerServiceDecorator {
                 DURATION_BETWEEN_EACH_RETRY);
     }
     
+    @SneakyThrows
     @Override
-    public ProcessOutput runContainer(String imageName, String containerName, long timeout, float maxCpus) {
-        try {
-            return RetryHelper.executeWithRetries(
-                    () -> getContainerService().runContainer(imageName, containerName, timeout, maxCpus),
-                    Set.of(ProcessExecutionTimeoutException.class.getName()),
-                    MAX_RETRIES,
-                    DURATION_BETWEEN_EACH_RETRY);
-        } catch(Exception processExecutionException) {
-            if (processExecutionException instanceof ProcessExecutionTimeoutException) {
-                // TLE
-                throw new ContainerOperationTimeoutException(processExecutionException.getMessage());
-            }
-            log.error("Error: {}", processExecutionException);
-            throw new ContainerFailedDependencyException(processExecutionException.getMessage());
-        }
+    protected ProcessOutput runContainerInternal(String imageName, String containerName, long timeout, float maxCpus) {
+        return RetryHelper.executeWithRetries(
+                () -> getContainerService().runContainer(imageName, containerName, timeout, maxCpus),
+                Set.of(ProcessExecutionTimeoutException.class.getName()),
+                MAX_RETRIES,
+                DURATION_BETWEEN_EACH_RETRY);
     }
     
     @Override

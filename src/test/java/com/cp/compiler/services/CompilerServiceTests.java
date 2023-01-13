@@ -696,7 +696,7 @@ class CompilerServiceTests {
                 .thenReturn(ProcessOutput.builder().status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS).build());
         
         // When / Then
-        Assertions.assertThrows(ContainerBuildException.class, () -> compilerService.execute(execution));
+        Assertions.assertThrows(ContainerOperationTimeoutException.class, () -> compilerService.execute(execution));
     }
     
     @Test
