@@ -48,7 +48,7 @@ public class main {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		new Watermelon().run();
+		new main().run();
 	}
 	Scanner in = new Scanner(new InputStreamReader(System.in));
 	PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));

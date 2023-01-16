@@ -13,6 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class provides Docker utilities
@@ -99,12 +103,33 @@ public class DockerContainerService implements ContainerService {
     }
     
     @Override
-    public ProcessOutput runContainer(String imageName, String containerName, long timeout, float maxCpus) {
+    public ProcessOutput runContainer(String imageName,
+                                      String containerName,
+                                      long timeout,
+                                      float maxCpus,
+                                      Map<String, String> envVariables) {
         return runTimer.record(() -> {
-            var cpus = "--cpus=" + maxCpus;
-            String[] dockerCommand = new String[]{"docker", "run", "--name", containerName, cpus, imageName};
+            String[] dockerCommand = buildDockerCommand(containerName, envVariables, maxCpus, imageName);
             return CmdUtils.executeProcess(dockerCommand, timeout);
         });
+    }
+    
+    private String[] buildDockerCommand(String containerName,
+                                        Map<String, String> envVariables,
+                                        float cpus,
+                                        String imageName) {
+        /**
+         * docker run --name [containerName] (-e [envKey=envValue])* --cpus=[cpu] [imageName]
+         */
+        List<String> dockerCommandList = new ArrayList<>(Arrays.asList("docker", "run", "--name", containerName));
+        for (String key : envVariables.keySet()) {
+            dockerCommandList.add("-e");
+            dockerCommandList.add(key + "=" + envVariables.get(key));
+        }
+        var cpuParam = "--cpus=" + cpus;
+        dockerCommandList.add(cpuParam);
+        dockerCommandList.add(imageName);
+        return dockerCommandList.toArray(new String[0]);
     }
     
     @Override

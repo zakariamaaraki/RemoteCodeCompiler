@@ -72,15 +72,13 @@ class ExecutionTests {
     void javaExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory javaExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
-                    return new JavaExecution(
-                            sourceCode,
-                            testCases,
-                            timeLimit,
-                            memoryLimit,
-                            null,
-                            entrypointFileGenerator);
-                };
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new JavaExecution(
+                        sourceCode,
+                        testCases,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
     
         var testCase = new ConvertedTestCase("id", file, file);
         
@@ -90,10 +88,15 @@ class ExecutionTests {
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename(), "id");
     
         // Then
-        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
+        File executionFolder =
+                new File(execution.getPath()
+                        + "/"
+                        + WellKnownFiles.ENTRYPOINT_FILE_NAME_PREFIX
+                        + "id"
+                        + WellKnownFiles.ENTRYPOINT_FILE_EXTENSION);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
     
@@ -105,15 +108,13 @@ class ExecutionTests {
     void pythonExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory pythonExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
-                    return new PythonExecution(
-                            sourceCode,
-                            testCases,
-                            timeLimit,
-                            memoryLimit,
-                            null,
-                            entrypointFileGenerator);
-                };
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new PythonExecution(
+                        sourceCode,
+                        testCases,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
         
         var testCase = new ConvertedTestCase("id", file, file);
         
@@ -123,10 +124,15 @@ class ExecutionTests {
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename(), "id");
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
+        File executionFolder =
+                new File(execution.getPath()
+                        + "/"
+                        + WellKnownFiles.ENTRYPOINT_FILE_NAME_PREFIX
+                        + "id"
+                        + WellKnownFiles.ENTRYPOINT_FILE_EXTENSION);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -138,15 +144,13 @@ class ExecutionTests {
     void cExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory cExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
-                    return new CExecution(
-                            sourceCode,
-                            testCases,
-                            timeLimit,
-                            memoryLimit,
-                            null,
-                            entrypointFileGenerator);
-                };
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new CExecution(
+                        sourceCode,
+                        testCases,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
     
         var testCase = new ConvertedTestCase("id", file, file);
         
@@ -156,10 +160,15 @@ class ExecutionTests {
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename(), "id");
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
+        File executionFolder =
+                new File(execution.getPath()
+                        + "/"
+                        + WellKnownFiles.ENTRYPOINT_FILE_NAME_PREFIX
+                        + "id"
+                        + WellKnownFiles.ENTRYPOINT_FILE_EXTENSION);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -171,15 +180,13 @@ class ExecutionTests {
     void cppExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory cppExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
-                    return new CPPExecution(
-                            sourceCode,
-                            testCases,
-                            timeLimit,
-                            memoryLimit,
-                            null,
-                            entrypointFileGenerator);
-                };
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new CPPExecution(
+                        sourceCode,
+                        testCases,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
     
         var testCase = new ConvertedTestCase("id", file, file);
         
@@ -189,10 +196,15 @@ class ExecutionTests {
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename(), "id");
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
+        File executionFolder =
+                new File(execution.getPath()
+                        + "/"
+                        + WellKnownFiles.ENTRYPOINT_FILE_NAME_PREFIX
+                        + "id"
+                        + WellKnownFiles.ENTRYPOINT_FILE_EXTENSION);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -204,15 +216,13 @@ class ExecutionTests {
     void csExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory csExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
-                    return new CSExecution(
-                            sourceCode,
-                            testCases,
-                            timeLimit,
-                            memoryLimit,
-                            null,
-                            entrypointFileGenerator);
-                };
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new CSExecution(
+                        sourceCode,
+                        testCases,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
     
         var testCase = new ConvertedTestCase("id", file, file);
         
@@ -222,10 +232,15 @@ class ExecutionTests {
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename(), "id");
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
+        File executionFolder =
+                new File(execution.getPath()
+                        + "/"
+                        + WellKnownFiles.ENTRYPOINT_FILE_NAME_PREFIX
+                        + "id"
+                        + WellKnownFiles.ENTRYPOINT_FILE_EXTENSION);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -237,15 +252,13 @@ class ExecutionTests {
     void kotlinExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory kotlinExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
-                    return new KotlinExecution(
-                            sourceCode,
-                            testCases,
-                            timeLimit,
-                            memoryLimit,
-                            null,
-                            entrypointFileGenerator);
-                };
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new KotlinExecution(
+                        sourceCode,
+                        testCases,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
     
         var testCase = new ConvertedTestCase("id", file, file);
         
@@ -255,10 +268,15 @@ class ExecutionTests {
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename(), "id");
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
+        File executionFolder =
+                new File(execution.getPath()
+                        + "/"
+                        + WellKnownFiles.ENTRYPOINT_FILE_NAME_PREFIX
+                        + "id"
+                        + WellKnownFiles.ENTRYPOINT_FILE_EXTENSION);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -270,15 +288,13 @@ class ExecutionTests {
     void scalaExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory scalaExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
-                    return new ScalaExecution(
-                            sourceCode,
-                            testCases,
-                            timeLimit,
-                            memoryLimit,
-                            null,
-                            entrypointFileGenerator);
-                };
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new ScalaExecution(
+                        sourceCode,
+                        testCases,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
     
         var testCase = new ConvertedTestCase("id", file, file);
         
@@ -288,10 +304,15 @@ class ExecutionTests {
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename(), "id");
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
+        File executionFolder =
+                new File(execution.getPath()
+                        + "/"
+                        + WellKnownFiles.ENTRYPOINT_FILE_NAME_PREFIX
+                        + "id"
+                        + WellKnownFiles.ENTRYPOINT_FILE_EXTENSION);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -303,15 +324,13 @@ class ExecutionTests {
     void goExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory goExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
-                    return new GoExecution(
-                            sourceCode,
-                            testCases,
-                            timeLimit,
-                            memoryLimit,
-                            null,
-                            entrypointFileGenerator);
-                };
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new GoExecution(
+                        sourceCode,
+                        testCases,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
     
         var testCase = new ConvertedTestCase("id", file, file);
         
@@ -321,10 +340,15 @@ class ExecutionTests {
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename(), "id");
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
+        File executionFolder =
+                new File(execution.getPath()
+                        + "/"
+                        + WellKnownFiles.ENTRYPOINT_FILE_NAME_PREFIX
+                        + "id"
+                        + WellKnownFiles.ENTRYPOINT_FILE_EXTENSION);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -336,15 +360,13 @@ class ExecutionTests {
     void rustExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory rustExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
-                    return new RustExecution(
-                            sourceCode,
-                            testCases,
-                            timeLimit,
-                            memoryLimit,
-                            null,
-                            entrypointFileGenerator);
-                };
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new RustExecution(
+                        sourceCode,
+                        testCases,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
     
         var testCase = new ConvertedTestCase("id", file, file);
         
@@ -354,10 +376,15 @@ class ExecutionTests {
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename(), "id");
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
+        File executionFolder =
+                new File(execution.getPath()
+                        + "/"
+                        + WellKnownFiles.ENTRYPOINT_FILE_NAME_PREFIX
+                        + "id"
+                        + WellKnownFiles.ENTRYPOINT_FILE_EXTENSION);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -369,15 +396,13 @@ class ExecutionTests {
     void rubyExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory rubyExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
-                    return new RubyExecution(
-                            sourceCode,
-                            testCases,
-                            timeLimit,
-                            memoryLimit,
-                            null,
-                            entrypointFileGenerator);
-                };
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new RubyExecution(
+                        sourceCode,
+                        testCases,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
     
         var testCase = new ConvertedTestCase("id", file, file);
         
@@ -387,10 +412,15 @@ class ExecutionTests {
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename(), "id");
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
+        File executionFolder =
+                new File(execution.getPath()
+                        + "/"
+                        + WellKnownFiles.ENTRYPOINT_FILE_NAME_PREFIX
+                        + "id"
+                        + WellKnownFiles.ENTRYPOINT_FILE_EXTENSION);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         
@@ -402,15 +432,13 @@ class ExecutionTests {
     void haskellExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory haskellExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
-                    return new HaskellExecution(
-                            sourceCode,
-                            testCases,
-                            timeLimit,
-                            memoryLimit,
-                            null,
-                            entrypointFileGenerator);
-                };
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new HaskellExecution(
+                        sourceCode,
+                        testCases,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
     
         var testCase = new ConvertedTestCase("id", file, file);
         
@@ -420,10 +448,15 @@ class ExecutionTests {
         Files.createDirectory(Path.of(execution.getPath()));
         
         // When
-        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename());
+        execution.createEntrypointFile(testCase.getInputFile().getOriginalFilename(), "id");
         
         // Then
-        File executionFolder = new File(execution.getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME);
+        File executionFolder =
+                new File(execution.getPath()
+                        + "/"
+                        + WellKnownFiles.ENTRYPOINT_FILE_NAME_PREFIX
+                        + "id"
+                        + WellKnownFiles.ENTRYPOINT_FILE_EXTENSION);
         Assertions.assertTrue(executionFolder.exists());
         Assertions.assertTrue(executionFolder.isFile());
         

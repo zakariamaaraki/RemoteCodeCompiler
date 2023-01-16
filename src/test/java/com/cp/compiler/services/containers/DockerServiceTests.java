@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.HashMap;
+
 @SpringBootTest
 class DockerServiceTests {
     
@@ -31,7 +33,8 @@ class DockerServiceTests {
                         "does not exists",
                         "does not exists",
                         1,
-                        0.2f));
+                        0.2f,
+                        new HashMap<>()));
     }
     
     @Test

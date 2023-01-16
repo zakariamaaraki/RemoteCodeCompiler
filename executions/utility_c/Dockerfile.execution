@@ -6,6 +6,6 @@ USER root
 
 ADD . .
 
-RUN chmod a+x ./entrypoint.sh
+RUN chmod a+x entrypoint-*.sh
 
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "-c", "./entrypoint-$TEST_CASE_ID.sh"]

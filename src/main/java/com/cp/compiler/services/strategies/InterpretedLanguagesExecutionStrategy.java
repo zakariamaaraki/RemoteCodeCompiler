@@ -1,4 +1,4 @@
-package com.cp.compiler.services.businesslogic;
+package com.cp.compiler.services.strategies;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.CompilationResponse;
@@ -27,7 +27,7 @@ public class InterpretedLanguagesExecutionStrategy extends ExecutionStrategy {
     
     @Override
     public CompilationResponse compile(Execution execution) {
-        log.info("Compilation step skipped for interpreted languages");
+        log.info("Compilation step is skipped for interpreted languages");
         return buildCompilationResponseForInterpretedLanguages();
     }
     

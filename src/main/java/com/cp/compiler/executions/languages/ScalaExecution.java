@@ -44,9 +44,8 @@ public class ScalaExecution extends Execution {
         super(sourceCode, testCases, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
-    @SneakyThrows
     @Override
-    public void createEntrypointFile(String inputFileName) {
+    public Map<String, String> getParameters(String inputFileName) {
         // This case is a bit different, Kotlin, Scala and Java files name must be the same as the name of the class
         // So we will keep the name of the file as it's sent by the user.
         val fileName = getSourceCodeFile().getOriginalFilename();
@@ -56,18 +55,34 @@ public class ScalaExecution extends Execution {
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + inputFileName + "\n";
     
-        val attributes = Map.of(
+        return Map.of(
                 "timeLimit", String.valueOf(getTimeLimit()),
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
+    }
     
+    /**
+     * Create an entrypoint file based on input file name and test case id
+     * Note: template used for scala is different from the one used by other languages
+     *
+     * @param inputFileName the input file name
+     * @param testCaseId    the test case id
+     */
+    @Override
+    @SneakyThrows
+    public void createEntrypointFile(String inputFileName, String testCaseId) {
+        
         String content = getEntrypointFileGenerator()
-                .createEntrypointFile(WellKnownTemplates.SCALA_ENTRYPOINT_TEMPLATE, attributes);
-    
-        String path = getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME;
-    
+                .createEntrypointFile(WellKnownTemplates.SCALA_ENTRYPOINT_TEMPLATE, getParameters(inputFileName));
+        
+        String path = getPath()
+                + "/"
+                + WellKnownFiles.ENTRYPOINT_FILE_NAME_PREFIX
+                + testCaseId
+                + WellKnownFiles.ENTRYPOINT_FILE_EXTENSION;
+        
         Files.deleteIfExists(Path.of(path));
-    
+        
         try(OutputStream os = new FileOutputStream(path)) {
             os.write(content.getBytes(), 0, content.length());
         }

@@ -1,4 +1,4 @@
-package com.cp.compiler.services.businesslogic;
+package com.cp.compiler.services.strategies;
 
 import com.cp.compiler.exceptions.CompilerServerInternalException;
 import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
@@ -10,6 +10,7 @@ import com.cp.compiler.models.containers.ContainerInfo;
 import com.cp.compiler.models.processes.ProcessOutput;
 import com.cp.compiler.models.testcases.ConvertedTestCase;
 import com.cp.compiler.models.testcases.TestCaseResult;
+import com.cp.compiler.services.businesslogic.ContainerHelper;
 import com.cp.compiler.services.containers.ContainerService;
 import com.cp.compiler.services.resources.Resources;
 import com.cp.compiler.utils.CmdUtils;
@@ -36,7 +37,7 @@ public abstract class ExecutionStrategy {
     
     protected Timer executionTimer;
     
-    private final Map<String, Counter> verdictsCounters = new HashMap<>();
+    private static final Map<String, Counter> verdictsCounters = new HashMap<>();
     
     private final ContainerService containerService;
     
@@ -45,6 +46,8 @@ public abstract class ExecutionStrategy {
     private static final long EXECUTION_TIME_OUT = 20000; // in ms
     
     private final Resources resources;
+    
+    private static final String TEST_CASE_ID_ENV_VARIABLE = "TEST_CASE_ID";
     
     /**
      * The execution container name prefix
@@ -66,7 +69,26 @@ public abstract class ExecutionStrategy {
     
     public abstract CompilationResponse compile(Execution execution);
     
+    /**
+     * Build execution container image.
+     * Note: We should create one and only one Container image for all test cases to save Memory, Cpu,
+     * and reduce the execution duration.
+     *
+     * @param execution
+     */
+    protected void buildContainerImage(Execution execution) {
+        
+        execution.createEntrypointFiles(); // Creates an entrypoint file for each test case
+
+        containerService.buildImage(
+                execution.getPath(),
+                execution.getImageName(),
+                WellKnownFiles.EXECUTION_DOCKERFILE_NAME);
+    }
+    
     public ExecutionResponse run(Execution execution, boolean deleteImageAfterExecution) {
+        
+        buildContainerImage(execution);
     
         var testCasesResult = new LinkedHashMap<String, TestCaseResult>();
         Verdict verdict = null;
@@ -74,15 +96,13 @@ public abstract class ExecutionStrategy {
     
         for (ConvertedTestCase testCase : execution.getTestCases()) {
     
-            TestCaseResult testCaseResult = executeTestCase(execution, deleteImageAfterExecution, testCase);
+            TestCaseResult testCaseResult = executeTestCase(execution, testCase);
     
             testCasesResult.put(testCase.getTestCaseId(), testCaseResult);
             
             verdict = testCaseResult.getVerdict();
         
-            log.info("Status response for the test case {} is {}",
-                    testCase.getTestCaseId(),
-                    verdict.getStatusResponse());
+            log.info("Status response for the test case {} is {}", testCase.getTestCaseId(), verdict.getStatusResponse());
         
             // Update metrics
             verdictsCounters.get(verdict.getStatusResponse()).increment();
@@ -94,6 +114,11 @@ public abstract class ExecutionStrategy {
                 break;
             }
         }
+    
+        // Delete container image asynchronously
+        if (deleteImageAfterExecution) {
+            ContainerHelper.deleteImage(execution.getImageName(), containerService, threadPool);
+        }
         
         return ExecutionResponse
                 .builder()
@@ -104,36 +129,20 @@ public abstract class ExecutionStrategy {
     }
     
     private TestCaseResult executeTestCase(Execution execution,
-                                           boolean deleteImageAfterExecution,
                                            ConvertedTestCase testCase) {
         
-        // Create an entrypoint file for the current execution
-        execution.createEntrypointFile(
-                testCase.getInputFile() == null
-                        ? null
-                        : testCase.getInputFile().getOriginalFilename());
+        log.info("Start running test case id = {}", testCase.getTestCaseId());
         
         String expectedOutput = getExpectedOutput(testCase.getExpectedOutputFile());
         
         // Free memory space
         testCase.freeMemorySpace();
         
-        // Build the execution container image with the created entrypoint file
-        containerService.buildImage(
-                execution.getPath(),
-                execution.getImageName(),
-                WellKnownFiles.EXECUTION_DOCKERFILE_NAME);
-        
         var result = new AtomicReference<TestCaseResult>();
         executionTimer.record(() -> {
             // Run the execution container
             result.set(runContainer(execution, testCase.getTestCaseId(), expectedOutput));
         });
-        
-        // Delete container image asynchronously
-        if (deleteImageAfterExecution) {
-            ContainerHelper.deleteImage(execution.getImageName(), containerService, threadPool);
-        }
         
         TestCaseResult testCaseResult = result.get();
         return testCaseResult;
@@ -153,13 +162,24 @@ public abstract class ExecutionStrategy {
         
         String containerName = getExecutionContainerName(execution.getImageName(), testCaseId);
         
+        Map<String, String> envVariables = new HashMap<>() {{
+            put(TEST_CASE_ID_ENV_VARIABLE, testCaseId);
+        }};
+        
         try {
             log.info("Start running the container: {}", containerName);
             ProcessOutput containerOutput = containerService.runContainer(
                     execution.getImageName(),
                     containerName,
                     EXECUTION_TIME_OUT,
-                    resources.getMaxCpus());
+                    resources.getMaxCpus(),
+                    envVariables);
+            
+            if (!containerOutput.getStdErr().isEmpty()) {
+                log.warn("Potential error occurred during execution of test case id = {}, error: {}",
+                        testCaseId,
+                        containerOutput.getStdErr());
+            }
             
             Verdict verdict = getVerdict(containerOutput, expectedOutput);
             

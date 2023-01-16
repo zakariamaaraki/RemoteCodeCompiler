@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public abstract class CmdUtils {
 
-    private static final int MAX_ERROR_LENGTH = 500; // number of chars
+    private static final int MAX_ERROR_LENGTH = 1000; // number of chars
     /**
      * The constant LONG_MESSAGE_TRAIL.
      */

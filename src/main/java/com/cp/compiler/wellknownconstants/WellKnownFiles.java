@@ -73,9 +73,14 @@ public abstract class WellKnownFiles {
     public static final String EXPECTED_OUTPUT_FILE_NAME = "expectedOutput.txt";
     
     /**
-     * The constant ENTRYPOINT_FILE_NAME.
+     * The constant ENTRYPOINT_FILE_NAME_PREFIX.
      */
-    public static final String ENTRYPOINT_FILE_NAME = "entrypoint.sh";
+    public static final String ENTRYPOINT_FILE_NAME_PREFIX = "entrypoint-";
+    
+    /**
+     * The constant ENTRYPOINT_FILE_EXTENSION.
+     */
+    public static final String ENTRYPOINT_FILE_EXTENSION = ".sh";
     
     /**
      * The constant FILE_NAME_REGEX.

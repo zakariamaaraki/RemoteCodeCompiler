@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -55,9 +56,13 @@ public class DefaultContainerService extends ContainerServiceDecorator {
     
     @SneakyThrows
     @Override
-    protected ProcessOutput runContainerInternal(String imageName, String containerName, long timeout, float maxCpus) {
+    protected ProcessOutput runContainerInternal(String imageName,
+                                                 String containerName,
+                                                 long timeout,
+                                                 float maxCpus,
+                                                 Map<String, String> envVariables) {
         return RetryHelper.executeWithRetries(
-                () -> getContainerService().runContainer(imageName, containerName, timeout, maxCpus),
+                () -> getContainerService().runContainer(imageName, containerName, timeout, maxCpus, envVariables),
                 Set.of(ProcessExecutionTimeoutException.class.getName()),
                 MAX_RETRIES,
                 DURATION_BETWEEN_EACH_RETRY);

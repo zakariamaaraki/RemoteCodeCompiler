@@ -42,29 +42,17 @@ public class GoExecution extends Execution {
         super(sourceCodeFile, testCases, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
     }
     
-    @SneakyThrows
     @Override
-    public void createEntrypointFile(String inputFileName) {
+    public Map<String, String> getParameters(String inputFileName) {
         val commandPrefix = "./exec";
         val executionCommand = inputFileName == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + inputFileName + "\n";
     
-        val attributes = Map.of(
+        return Map.of(
                 "timeLimit", String.valueOf(getTimeLimit()),
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
-    
-        String content = getEntrypointFileGenerator()
-                .createEntrypointFile(WellKnownTemplates.ENTRYPOINT_TEMPLATE, attributes);
-    
-        String path = getPath() + "/" + WellKnownFiles.ENTRYPOINT_FILE_NAME;
-    
-        Files.deleteIfExists(Path.of(path));
-    
-        try(OutputStream os = new FileOutputStream(path)) {
-            os.write(content.getBytes(), 0, content.length());
-        }
     }
 
     @Override

@@ -213,7 +213,8 @@ class CompilerServiceTests {
                 ArgumentMatchers.any(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
-                ArgumentMatchers.anyFloat())).thenReturn(containerOutput);
+                ArgumentMatchers.anyFloat(),
+                ArgumentMatchers.anyMap())).thenReturn(containerOutput);
     
         // Compilation Container
         Mockito.when(containerService.runContainer(
@@ -286,7 +287,8 @@ class CompilerServiceTests {
                 ArgumentMatchers.any(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
-                ArgumentMatchers.anyFloat())).thenReturn(containerOutput);
+                ArgumentMatchers.anyFloat(),
+                ArgumentMatchers.anyMap())).thenReturn(containerOutput);
     
         // Compilation Container
         Mockito.when(containerService.runContainer(
@@ -350,7 +352,8 @@ class CompilerServiceTests {
                 ArgumentMatchers.any(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
-                ArgumentMatchers.anyFloat())).thenReturn(containerOutput);
+                ArgumentMatchers.anyFloat(),
+                ArgumentMatchers.anyMap())).thenReturn(containerOutput);
     
         // Compilation Container
         Mockito.when(containerService.runContainer(
@@ -415,7 +418,8 @@ class CompilerServiceTests {
                 ArgumentMatchers.any(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
-                ArgumentMatchers.anyFloat())).thenReturn(executionContainerOutput);
+                ArgumentMatchers.anyFloat(),
+                ArgumentMatchers.anyMap())).thenReturn(executionContainerOutput);
     
         // Compilation Container
         Mockito.when(containerService.runContainer(
@@ -480,7 +484,8 @@ class CompilerServiceTests {
                 ArgumentMatchers.any(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
-                ArgumentMatchers.anyFloat())).thenReturn(executionContainerOutput);
+                ArgumentMatchers.anyFloat(),
+                ArgumentMatchers.anyMap())).thenReturn(executionContainerOutput);
     
         // Compilation Container
         Mockito.when(containerService.runContainer(
@@ -545,7 +550,8 @@ class CompilerServiceTests {
                 ArgumentMatchers.any(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
-                ArgumentMatchers.anyFloat())).thenReturn(executionContainerOutput);
+                ArgumentMatchers.anyFloat(),
+                ArgumentMatchers.anyMap())).thenReturn(executionContainerOutput);
     
         // Compilation Container
         Mockito.when(containerService.runContainer(
@@ -601,7 +607,8 @@ class CompilerServiceTests {
                 ArgumentMatchers.any(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
-                ArgumentMatchers.anyFloat())).thenReturn(containerOutput);
+                ArgumentMatchers.anyFloat(),
+                ArgumentMatchers.anyMap())).thenReturn(containerOutput);
     
         // Compilation container
         Mockito.when(containerService.runContainer(
@@ -645,7 +652,8 @@ class CompilerServiceTests {
                 ArgumentMatchers.any(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
-                ArgumentMatchers.anyFloat())).thenThrow(new ContainerFailedDependencyException("Docker engine error"));
+                ArgumentMatchers.anyFloat(),
+                ArgumentMatchers.anyMap())).thenThrow(new ContainerFailedDependencyException("Docker engine error"));
     
         // Compilation container
         Mockito.when(containerService.runContainer(
@@ -726,7 +734,8 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
-                ArgumentMatchers.anyFloat())).thenReturn(processOutput);
+                ArgumentMatchers.anyFloat(),
+                ArgumentMatchers.anyMap())).thenReturn(processOutput);
         
         // Should compile
         Mockito.when(containerService.runContainer(

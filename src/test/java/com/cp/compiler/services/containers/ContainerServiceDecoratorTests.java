@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.util.Map;
+
 public class ContainerServiceDecoratorTests {
     
     @Test
@@ -104,7 +106,11 @@ public class ContainerServiceDecoratorTests {
             }
             
             @Override
-            public ProcessOutput runContainerInternal(String imageName, String containerName, long timeout, float maxCpus) {
+            public ProcessOutput runContainerInternal(String imageName,
+                                                      String containerName,
+                                                      long timeout,
+                                                      float maxCpus,
+                                                      Map<String, String> envVariables) {
                 return null;
             }
             

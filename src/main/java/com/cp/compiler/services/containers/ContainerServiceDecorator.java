@@ -9,6 +9,8 @@ import com.cp.compiler.models.processes.ProcessOutput;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Map;
+
 @Slf4j
 /**
  * The type Container service decorator.
@@ -29,7 +31,11 @@ public abstract class ContainerServiceDecorator implements ContainerService {
     
     protected abstract String buildContainerImageInternal(String contextPath, String imageName, String dockerfileName);
     
-    protected abstract ProcessOutput runContainerInternal(String imageName, String containerName, long timeout, float maxCpus);
+    protected abstract ProcessOutput runContainerInternal(String imageName,
+                                                          String containerName,
+                                                          long timeout,
+                                                          float maxCpus,
+                                                          Map<String, String> envVariables);
     
     @Override
     public String getRunningContainers() {
@@ -66,9 +72,13 @@ public abstract class ContainerServiceDecorator implements ContainerService {
     }
     
     @Override
-    public ProcessOutput runContainer(String imageName, String containerName, long timeout, float maxCpus) {
+    public ProcessOutput runContainer(String imageName,
+                                      String containerName,
+                                      long timeout,
+                                      float maxCpus,
+                                      Map<String, String> envVariables) {
         try {
-            return runContainerInternal(imageName, containerName, timeout, maxCpus);
+            return runContainerInternal(imageName, containerName, timeout, maxCpus, envVariables);
         } catch(Exception processExecutionException) {
             if (processExecutionException instanceof ProcessExecutionTimeoutException) {
                 // TLE

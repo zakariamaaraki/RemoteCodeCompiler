@@ -1,10 +1,13 @@
-package com.cp.compiler.services.businesslogic;
+package com.cp.compiler.services.strategies;
 
+import com.cp.compiler.exceptions.ExecutionTimeoutException;
+import com.cp.compiler.exceptions.ResourceLimitReachedException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.CompilationResponse;
 import com.cp.compiler.models.Verdict;
 import com.cp.compiler.models.containers.ContainerInfo;
 import com.cp.compiler.models.processes.ProcessOutput;
+import com.cp.compiler.services.businesslogic.ContainerHelper;
 import com.cp.compiler.services.containers.ContainerService;
 import com.cp.compiler.services.resources.Resources;
 import com.cp.compiler.utils.StatusUtils;
@@ -97,12 +100,21 @@ public class CompiledLanguagesExecutionStrategy extends ExecutionStrategy {
         
         Verdict verdict;
         
-        if (processOutput.get().getStatus() != StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS) {
-            log.info("Compilation error!");
-            verdict = Verdict.COMPILATION_ERROR;
-        } else {
-            log.info("Compilation succeeded!");
-            verdict = Verdict.ACCEPTED;
+        switch (compilationOutput.getStatus()) {
+            case StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS:
+                log.info("Compilation succeeded!");
+                verdict = Verdict.ACCEPTED;
+                break;
+            case StatusUtils.TIME_LIMIT_EXCEEDED_STATUS:
+                log.warn("Time limit exceeded during compilation step, error: {}", compilationOutput.getStdErr());
+                throw new ExecutionTimeoutException("Timeout during compilation step, please retry again");
+            case StatusUtils.OUT_OF_MEMORY_STATUS:
+                // TODO: set memory limit to use inside the container
+                log.warn("The compilation step exceeded the maximum allowed memory, error: {}", compilationOutput.getStdErr());
+                throw new ResourceLimitReachedException("The compilation step exceeded the maximum allowed memory");
+            default:
+                log.info("Compilation error!");
+                verdict = Verdict.COMPILATION_ERROR;
         }
         
         ContainerHelper.deleteContainer(containerName, containerService, threadPool);

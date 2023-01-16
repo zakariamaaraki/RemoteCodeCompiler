@@ -5,18 +5,20 @@ import com.cp.compiler.models.Language;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import com.cp.compiler.utils.FileUtils;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
+import com.cp.compiler.wellknownconstants.WellKnownTemplates;
 import io.micrometer.core.instrument.Counter;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -164,8 +166,49 @@ public abstract class Execution {
      * Creates entrypoint file
      *
      * @param inputFileName the input file name
+     * @param testCaseId    the test case id
      */
-    public abstract void createEntrypointFile(String inputFileName);
+    @SneakyThrows
+    public void createEntrypointFile(String inputFileName, String testCaseId) {
+        
+        String content = getEntrypointFileGenerator()
+                .createEntrypointFile(WellKnownTemplates.ENTRYPOINT_TEMPLATE, getParameters(inputFileName));
+    
+        String path = getPath()
+                + "/"
+                + WellKnownFiles.ENTRYPOINT_FILE_NAME_PREFIX
+                + testCaseId
+                + WellKnownFiles.ENTRYPOINT_FILE_EXTENSION;
+    
+        Files.deleteIfExists(Path.of(path));
+    
+        try(OutputStream os = new FileOutputStream(path)) {
+            os.write(content.getBytes(), 0, content.length());
+        }
+    }
+    
+    /**
+     * Gets parameters.
+     * It is specific to each programming language, each one has it's one parameters and transformations
+     *
+     * @param inputFileName the input file name
+     * @return the execution parameters
+     */
+    protected abstract Map<String, String> getParameters(String inputFileName);
+    
+    /**
+     * Create entrypoint files.
+     */
+    public void createEntrypointFiles() {
+        testCases.forEach(convertedTestCase -> {
+            String testCaseId = convertedTestCase.getTestCaseId();
+            String inputFileName = convertedTestCase.getInputFile() == null
+                    ? null
+                    : convertedTestCase.getInputFile().getOriginalFilename();
+            log.info("Creating entrypoint file for test case id = {}", testCaseId);
+            createEntrypointFile(inputFileName, testCaseId);
+        });
+    }
     
     /**
      * Get the language represented by the class

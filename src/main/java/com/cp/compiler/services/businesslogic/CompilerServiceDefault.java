@@ -3,6 +3,7 @@ package com.cp.compiler.services.businesslogic;
 import com.cp.compiler.exceptions.*;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.*;
+import com.cp.compiler.services.strategies.ExecutionStrategy;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -69,6 +70,11 @@ public class CompilerServiceDefault implements CompilerService {
             compilationResponse = executionStrategy.compile(execution);
     
             if (compilationResponse.getVerdict().equals(Verdict.COMPILATION_ERROR)) {
+                
+                log.info("Potential error occurred during compilation of execution id = {}, error = {}",
+                        execution.getId(),
+                        compilationResponse.getError());
+                
                 var response = new Response(
                         compilationResponse.getVerdict().getStatusResponse(),
                         compilationResponse.getVerdict().getStatusCode(),

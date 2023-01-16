@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
+import java.util.HashMap;
+
 public class DefaultContainerServiceTests {
     
     @Test
@@ -37,7 +39,8 @@ public class DefaultContainerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
-                ArgumentMatchers.anyFloat()))
+                ArgumentMatchers.anyFloat(),
+                ArgumentMatchers.anyMap()))
                 .thenThrow(new ProcessExecutionException("Error occurred while running the container"));
         
         var defaultContainerService = new DefaultContainerService(containerService);
@@ -49,10 +52,11 @@ public class DefaultContainerServiceTests {
                         "test",
                         "test",
                         2000,
-                        0.2f));
+                        0.2f,
+                        new HashMap<>()));
         
         Mockito.verify(containerService, Mockito.times(4))
-                .runContainer("test", "test", 2000, 0.2f);
+                .runContainer("test", "test", 2000, 0.2f, new HashMap<>());
     }
     
     @Test
@@ -63,7 +67,8 @@ public class DefaultContainerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
-                ArgumentMatchers.anyFloat()))
+                ArgumentMatchers.anyFloat(),
+                ArgumentMatchers.anyMap()))
                 .thenThrow(new ProcessExecutionTimeoutException("Timeout occurred while running the container"));
         
         var defaultContainerService = new DefaultContainerService(containerService);
@@ -75,10 +80,11 @@ public class DefaultContainerServiceTests {
                         "test",
                         "test",
                         2000,
-                        0.2f));
+                        0.2f,
+                        new HashMap<>()));
         
         Mockito.verify(containerService, Mockito.times(1))
-                .runContainer("test", "test", 2000, 0.2f);
+                .runContainer("test", "test", 2000, 0.2f, new HashMap<>());
     }
     
     @Test
@@ -161,7 +167,8 @@ public class DefaultContainerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
-                ArgumentMatchers.anyFloat()))
+                ArgumentMatchers.anyFloat(),
+                ArgumentMatchers.anyMap()))
                .thenThrow(new ProcessExecutionException("Error occurred while building the image"));
         
         var defaultContainerService = new DefaultContainerService(containerService);
@@ -173,7 +180,8 @@ public class DefaultContainerServiceTests {
                         "does not exists",
                         "does not exists",
                         1,
-                        0.2f));
+                        0.2f,
+                        new HashMap<>()));
     }
     
     @Test
@@ -184,7 +192,8 @@ public class DefaultContainerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
-                ArgumentMatchers.anyFloat()))
+                ArgumentMatchers.anyFloat(),
+                ArgumentMatchers.anyMap()))
                 .thenThrow(new ProcessExecutionTimeoutException("Timeout occurred while building the image"));
     
         var defaultContainerService = new DefaultContainerService(containerService);
@@ -196,7 +205,8 @@ public class DefaultContainerServiceTests {
                         "does not exists",
                         "does not exists",
                         1,
-                        0.2f));
+                        0.2f,
+                        new HashMap<>()));
     }
     
     @Test

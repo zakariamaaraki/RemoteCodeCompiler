@@ -2,9 +2,9 @@ package com.cp.compiler.services.containers;
 
 import com.cp.compiler.models.containers.ContainerInfo;
 import com.cp.compiler.models.processes.ProcessOutput;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * The interface Container service.
@@ -28,11 +28,16 @@ public interface ContainerService {
      * @param containerName the container name
      * @param timeout       the timeout
      * @param maxCpus       the max cpus
+     * @param envVariables  the env variables
      * @return the container output
      * @throws IOException          the io exception
      * @throws InterruptedException the interrupted exception
      */
-    ProcessOutput runContainer(String imageName, String containerName, long timeout, float maxCpus);
+    ProcessOutput runContainer(String imageName,
+                               String containerName,
+                               long timeout,
+                               float maxCpus,
+                               Map<String, String> envVariables);
     
     /**
      * Inspect a container.

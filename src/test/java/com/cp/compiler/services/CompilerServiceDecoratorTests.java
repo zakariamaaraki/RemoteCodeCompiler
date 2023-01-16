@@ -89,7 +89,8 @@ class CompilerServiceDecoratorTests {
                 ArgumentMatchers.any(),
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyLong(),
-                ArgumentMatchers.anyFloat())).thenReturn(containerOutput);
+                ArgumentMatchers.anyFloat(),
+                ArgumentMatchers.anyMap())).thenReturn(containerOutput);
         
         Mockito.when(containerService.runContainer(
                 ArgumentMatchers.any(),
@@ -111,7 +112,7 @@ class CompilerServiceDecoratorTests {
     }
     
     @Test
-    void compilerDecoratorShouldThrowContainerOperationTimeoutException() throws Exception {
+    void compilerDecoratorShouldThrowContainerOperationTimeoutException() {
         // Given
         MultipartFile file = new MockMultipartFile(
                 "test.java",
