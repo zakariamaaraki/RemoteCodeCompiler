@@ -90,21 +90,31 @@ public class CompiledLanguagesExecutionStrategy extends ExecutionStrategy {
         int compilationDuration = compilationOutput.getExecutionDuration();
     
         ContainerInfo containerInfo = containerService.inspect(containerName);
-    
         ContainerHelper.logContainerInfo(containerName, containerInfo);
+    
+        Verdict verdict = getVerdict(compilationOutput);
     
         compilationDuration = ContainerHelper.getExecutionDuration(
                                                     containerInfo == null ? null : containerInfo.getStartTime(),
                                                     containerInfo == null ? null : containerInfo.getEndTime(),
                                                     compilationDuration);
+    
+        ContainerHelper.deleteContainer(containerName, containerService, threadPool);
         
-        Verdict verdict;
+        return CompilationResponse
+                .builder()
+                .verdict(verdict)
+                .error(compilationOutput.getStdErr())
+                .compilationDuration(compilationDuration)
+                .build();
+    }
+    
+    private Verdict getVerdict(ProcessOutput compilationOutput) {
         
         switch (compilationOutput.getStatus()) {
             case StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS:
                 log.info("Compilation succeeded!");
-                verdict = Verdict.ACCEPTED;
-                break;
+                return Verdict.ACCEPTED;
             case StatusUtils.TIME_LIMIT_EXCEEDED_STATUS:
                 log.warn("Time limit exceeded during compilation step, error: {}", compilationOutput.getStdErr());
                 throw new CompilationTimeoutException("Timeout during compilation step, please retry again");
@@ -114,17 +124,8 @@ public class CompiledLanguagesExecutionStrategy extends ExecutionStrategy {
                 throw new ResourceLimitReachedException("The compilation step exceeded the maximum allowed memory");
             default:
                 log.info("Compilation error!");
-                verdict = Verdict.COMPILATION_ERROR;
+                return Verdict.COMPILATION_ERROR;
         }
-        
-        ContainerHelper.deleteContainer(containerName, containerService, threadPool);
-        
-        return CompilationResponse
-                .builder()
-                .verdict(verdict)
-                .error(compilationOutput.getStdErr())
-                .compilationDuration(compilationDuration)
-                .build();
     }
     
     private ProcessOutput compile(String volume,
