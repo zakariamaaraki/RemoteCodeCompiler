@@ -1,8 +1,6 @@
 package com.cp.compiler.services;
 
-import com.cp.compiler.exceptions.ContainerBuildException;
-import com.cp.compiler.exceptions.ContainerFailedDependencyException;
-import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
+import com.cp.compiler.exceptions.*;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.*;
@@ -633,7 +631,7 @@ class CompilerServiceTests {
     }
     
     @Test
-    void shouldThrownContainerFailedDependencyException() throws Exception {
+    void shouldThrowContainerFailedDependencyException() {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -674,7 +672,75 @@ class CompilerServiceTests {
     }
     
     @Test
-    void defaultCompilerShouldThrowContainerOperationTimeoutException() throws Exception {
+    void shouldThrowCompilationTimeoutException() {
+        // Given
+        Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
+                .thenReturn("build log");
+        
+        String output = "test";
+        
+        MockMultipartFile file = new MockMultipartFile(
+                "file",
+                "hello.java",
+                MediaType.TEXT_PLAIN_VALUE,
+                output.getBytes()
+        );
+        
+        // Compilation container
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString()))
+                .thenReturn(ProcessOutput.builder().stdErr("").status(StatusUtils.TIME_LIMIT_EXCEEDED_STATUS).build());
+        
+        var testCase = new ConvertedTestCase("id", file, file);
+        
+        Execution execution =
+                ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
+        
+        // Then
+        Assertions.assertThrows(CompilationTimeoutException.class, () -> compilerService.execute(execution));
+    }
+    
+    @Test
+    void shouldThrowResourceLimitReachedException() {
+        // Given
+        Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
+                .thenReturn("build log");
+        
+        String output = "test";
+        
+        MockMultipartFile file = new MockMultipartFile(
+                "file",
+                "hello.java",
+                MediaType.TEXT_PLAIN_VALUE,
+                output.getBytes()
+        );
+        
+        // Compilation container
+        Mockito.when(containerService.runContainer(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyString()))
+                .thenReturn(ProcessOutput.builder().stdErr("").status(StatusUtils.OUT_OF_MEMORY_STATUS).build());
+        
+        var testCase = new ConvertedTestCase("id", file, file);
+        
+        Execution execution =
+                ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
+        
+        // Then
+        Assertions.assertThrows(ResourceLimitReachedException.class, () -> compilerService.execute(execution));
+    }
+    
+    @Test
+    void defaultCompilerShouldThrowContainerOperationTimeoutException() {
         // Given
         String output = "test";
     

@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * The type Execution timeout exception.
  */
 @ResponseStatus(HttpStatus.GATEWAY_TIMEOUT)
-public class ExecutionTimeoutException extends RuntimeException {
+public class CompilationTimeoutException extends MonitoredException {
     
     /**
      * Instantiates a new Compilation step timeout exception.
      *
      * @param message the message
      */
-    public ExecutionTimeoutException(String message) {
-        super(message);
+    public CompilationTimeoutException(String message) {
+        super(message, ErrorCode.COMPILATION_TIMEOUT_ERROR, ErrorType.WARNING);
     }
 }

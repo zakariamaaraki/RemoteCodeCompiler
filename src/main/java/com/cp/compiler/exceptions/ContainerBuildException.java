@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author Zakaria Maaraki
  */
 @ResponseStatus(HttpStatus.FAILED_DEPENDENCY)
-public class ContainerBuildException extends RuntimeException {
+public class ContainerBuildException extends MonitoredException {
     
     /**
      * Instantiates a new Container build exception.
@@ -17,6 +17,6 @@ public class ContainerBuildException extends RuntimeException {
      * @param message the message
      */
     public ContainerBuildException(String message) {
-        super(message);
+        super(message, ErrorCode.CONTAINER_BUILD_ERROR, ErrorType.ERROR);
     }
 }

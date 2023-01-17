@@ -1,6 +1,6 @@
 package com.cp.compiler.services.strategies;
 
-import com.cp.compiler.exceptions.ExecutionTimeoutException;
+import com.cp.compiler.exceptions.CompilationTimeoutException;
 import com.cp.compiler.exceptions.ResourceLimitReachedException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.CompilationResponse;
@@ -107,7 +107,7 @@ public class CompiledLanguagesExecutionStrategy extends ExecutionStrategy {
                 break;
             case StatusUtils.TIME_LIMIT_EXCEEDED_STATUS:
                 log.warn("Time limit exceeded during compilation step, error: {}", compilationOutput.getStdErr());
-                throw new ExecutionTimeoutException("Timeout during compilation step, please retry again");
+                throw new CompilationTimeoutException("Timeout during compilation step, please retry again");
             case StatusUtils.OUT_OF_MEMORY_STATUS:
                 // TODO: set memory limit to use inside the container
                 log.warn("The compilation step exceeded the maximum allowed memory, error: {}", compilationOutput.getStdErr());

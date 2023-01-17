@@ -1,13 +1,10 @@
 package com.cp.compiler.services.containers;
 
-import com.cp.compiler.exceptions.ContainerBuildException;
 import com.cp.compiler.exceptions.ContainerFailedDependencyException;
 import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
 import com.cp.compiler.exceptions.ProcessExecutionTimeoutException;
-import com.cp.compiler.models.containers.ContainerInfo;
 import com.cp.compiler.models.processes.ProcessOutput;
 import com.cp.compiler.utils.retries.RetryHelper;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;

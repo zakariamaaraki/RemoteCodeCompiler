@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author: Zakaria Maaraki
  */
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-public class CompilerServerInternalException extends RuntimeException {
+public class CompilerServerInternalException extends MonitoredException {
     
     /**
      * Instantiates a new Compiler server exception.
@@ -17,6 +17,6 @@ public class CompilerServerInternalException extends RuntimeException {
      * @param message the message
      */
     public CompilerServerInternalException(String message) {
-        super(message);
+        super(message, ErrorCode.COMPILER_SERVER_INTERNAL_ERROR, ErrorType.ERROR);
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * The type Throttling exception.
  */
 @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
-public class ThrottlingException extends RuntimeException {
+public class ThrottlingException extends MonitoredException {
     
     /**
      * Instantiates a new Throttling exception.
@@ -15,6 +15,6 @@ public class ThrottlingException extends RuntimeException {
      * @param message the message
      */
     public ThrottlingException(String message) {
-        super(message);
+        super(message, ErrorCode.THROTTLING_ERROR, ErrorType.WARNING);
     }
 }

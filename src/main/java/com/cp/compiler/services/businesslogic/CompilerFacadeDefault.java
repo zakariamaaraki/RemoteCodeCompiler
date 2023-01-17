@@ -69,9 +69,13 @@ public class CompilerFacadeDefault implements CompilerFacade {
     public ResponseEntity compile(Execution execution, boolean isLongRunning, String url, String userId)
             throws IOException {
         
+        if (userId == null) {
+            userId = "null";
+        }
+        
         try(Closer closer = Closer.create()) {
     
-            if (userId != null && userId.length() > MAX_USER_ID_LENGTH) {
+            if (userId.length() > MAX_USER_ID_LENGTH) {
                 userId = userId.substring(MAX_USER_ID_LENGTH);
             }
     
