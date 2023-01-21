@@ -71,7 +71,7 @@ public class CompilerServiceDefault implements CompilerService {
     
             if (compilationResponse.getVerdict().equals(Verdict.COMPILATION_ERROR)) {
                 
-                log.info("Potential error occurred during compilation of execution id = {}, error = {}",
+                log.warn("Potential error occurred during compilation of execution id = {}, error = {}",
                         execution.getId(),
                         compilationResponse.getError());
                 

@@ -295,5 +295,42 @@ class JavaE2ETests {
                 ((Response)responseEntity.getBody()).getVerdict());
     }
     
-
+    
+    /**
+     * Should return runtime error statusResponse for risky sourcecode.
+     *
+     * @throws Exception the exception
+     */
+    @DisplayName("Java Runtime Error for risky files")
+    @Test
+    void shouldReturnRuntimeErrorVerdictForRiskyFiles() throws Exception {
+        // Given
+        File sourceCodeFile = new File("src/test/resources/sources/java/CreateFiles.java");
+        MultipartFile sourceCode = new MockMultipartFile("CreateFiles.java",
+                "CreateFiles.java",
+                null,
+                new FileInputStream(sourceCodeFile));
+        
+        File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
+        MultipartFile expectedOutput = new MockMultipartFile("Test1.txt",
+                "Test1.txt",
+                null,
+                new FileInputStream(expectedOutputFile));
+        
+        // When
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.JAVA,
+                sourceCode,
+                null,
+                expectedOutput,
+                10,
+                500,
+                null,
+                null,
+                "");
+        
+        // Then
+        Assertions.assertEquals(Verdict.RUNTIME_ERROR.getStatusResponse(),
+                ((Response)responseEntity.getBody()).getVerdict());
+    }
 }

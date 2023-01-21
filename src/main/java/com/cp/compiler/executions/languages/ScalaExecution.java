@@ -13,6 +13,7 @@ import lombok.val;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -59,6 +60,11 @@ public class ScalaExecution extends Execution {
                 "timeLimit", String.valueOf(getTimeLimit()),
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
+    }
+    
+    @Override
+    protected void copyLanguageSpecificFilesToExecutionDirectory() throws IOException {
+        // Empty
     }
     
     /**

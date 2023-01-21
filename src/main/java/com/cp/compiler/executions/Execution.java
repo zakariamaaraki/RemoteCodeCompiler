@@ -99,6 +99,8 @@ public abstract class Execution {
         saveUploadedFiles();
         log.debug("Copying execution Dockerfile to execution directory");
         copyDockerFilesToExecutionDirectory();
+        log.debug("Copying " + getLanguage() + " specific files");
+        copyLanguageSpecificFilesToExecutionDirectory();
     }
     
     /**
@@ -188,15 +190,6 @@ public abstract class Execution {
     }
     
     /**
-     * Gets parameters.
-     * It is specific to each programming language, each one has it's one parameters and transformations
-     *
-     * @param inputFileName the input file name
-     * @return the execution parameters
-     */
-    protected abstract Map<String, String> getParameters(String inputFileName);
-    
-    /**
      * Create entrypoint files.
      */
     public void createEntrypointFiles() {
@@ -216,5 +209,19 @@ public abstract class Execution {
      * @return the language
      */
     public abstract Language getLanguage();
-
+    
+    
+    /**
+     * Gets parameters.
+     * It is specific to each programming language, each one has it's one parameters and transformations
+     *
+     * @param inputFileName the input file name
+     * @return the execution parameters
+     */
+    protected abstract Map<String, String> getParameters(String inputFileName);
+    
+    /**
+     * Copy language specific files to execution directory.
+     */
+    protected abstract void copyLanguageSpecificFilesToExecutionDirectory() throws IOException;
 }

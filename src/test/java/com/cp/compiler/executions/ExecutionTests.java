@@ -497,4 +497,36 @@ class ExecutionTests {
         // Clean up
         execution.deleteExecutionDirectory();
     }
+    
+    @Test
+    void shouldCopyJavaSecurityPolicyFileToExecutionDirectory() throws IOException {
+        // Given
+        AbstractExecutionFactory javaExecutionFactory =
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new JavaExecution(
+                        sourceCode,
+                        testCases,
+                        timeLimit,
+                        memoryLimit,
+                        null,
+                        entrypointFileGenerator);
+        
+        var testCase = new ConvertedTestCase("id", file, file);
+        
+        Execution execution = javaExecutionFactory.createExecution(file, List.of(testCase), 10, 500);
+        
+        Files.createDirectory(Path.of(execution.getPath()));
+        
+        // When
+        execution.copyLanguageSpecificFilesToExecutionDirectory();
+        
+        // Then
+        File javaSecurityPolicyFile =
+                new File(execution.getPath() + "/" + WellKnownFiles.JAVA_SECURITY_POLICY_FILE_NAME);
+        
+        Assertions.assertTrue(javaSecurityPolicyFile.exists());
+        Assertions.assertTrue(javaSecurityPolicyFile.isFile());
+        
+        // Clean up
+        execution.deleteExecutionDirectory();
+    }
 }

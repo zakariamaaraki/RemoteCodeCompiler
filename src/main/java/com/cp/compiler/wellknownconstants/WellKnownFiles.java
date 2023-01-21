@@ -63,6 +63,11 @@ public abstract class WellKnownFiles {
     public static final String HASKELL_FILE_NAME = "main.hs";
     
     /**
+     * The constant JAVA_SECURITY_POLICY_FILE_NAME.
+     */
+    public static final String JAVA_SECURITY_POLICY_FILE_NAME = "security.policy";
+    
+    /**
      * The constant INPUT_FILE_NAME.
      */
     public static final String INPUT_FILE_NAME = "input.txt";

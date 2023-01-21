@@ -3,19 +3,13 @@ package com.cp.compiler.executions.languages;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.testcases.ConvertedTestCase;
 import com.cp.compiler.models.Language;
-import com.cp.compiler.wellknownconstants.WellKnownFiles;
-import com.cp.compiler.wellknownconstants.WellKnownTemplates;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import io.micrometer.core.instrument.Counter;
 import lombok.Getter;
-import lombok.SneakyThrows;
 import lombok.val;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +50,12 @@ public class CExecution extends Execution {
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
     }
-
+    
+    @Override
+    protected void copyLanguageSpecificFilesToExecutionDirectory() throws IOException {
+        // Empty
+    }
+    
     @Override
     public Language getLanguage() {
         return Language.C;

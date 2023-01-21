@@ -31,6 +31,17 @@ class ExecutionFolderTests {
     }
     
     @Test
+    void javaExecutionFolderShouldContainsSecurityPolicyFile() {
+        // Given
+        File securityFile =
+                new File(Language.JAVA.getFolderName() + "/" + WellKnownFiles.JAVA_SECURITY_POLICY_FILE_NAME);
+        
+        // Then
+        Assertions.assertTrue(securityFile.exists());
+        Assertions.assertTrue(securityFile.isFile());
+    }
+    
+    @Test
     void pythonExecutionFolderShouldExist() {
         // Given
         File pythonExecutionFolder = new File(Language.PYTHON.getFolderName());

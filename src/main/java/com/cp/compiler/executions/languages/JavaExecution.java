@@ -3,25 +3,23 @@ package com.cp.compiler.executions.languages;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.testcases.ConvertedTestCase;
 import com.cp.compiler.models.Language;
+import com.cp.compiler.utils.FileUtils;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
-import com.cp.compiler.wellknownconstants.WellKnownTemplates;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import io.micrometer.core.instrument.Counter;
 import lombok.Getter;
-import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 /**
  * The type Java execution.
  */
+@Slf4j
 @Getter
 public class JavaExecution extends Execution {
     
@@ -50,7 +48,7 @@ public class JavaExecution extends Execution {
         // So we will keep the name of the file as it's sent by the user.
         val fileName = getSourceCodeFile().getOriginalFilename();
         val prefixName = fileName.substring(0, fileName.length() - 5); // remove ".java"
-        val commandPrefix = "java " + prefixName;
+        val commandPrefix = "java -Djava.security.manager -Djava.security.policy=./security.policy " + prefixName;
         val executionCommand = inputFileName == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + inputFileName + "\n";
@@ -59,6 +57,25 @@ public class JavaExecution extends Execution {
                 "timeLimit", String.valueOf(getTimeLimit()),
                 "memoryLimit", String.valueOf(getMemoryLimit()),
                 "executionCommand", executionCommand);
+    }
+    
+    @Override
+    protected void copyLanguageSpecificFilesToExecutionDirectory() throws IOException {
+        log.info("Copying Java security policy");
+        copySecurityPolicyToExecutionDirectory();
+    }
+    
+    /**
+     * Copy security policy to execution directory.
+     *
+     * @throws IOException the io exception
+     */
+    private void copySecurityPolicyToExecutionDirectory() throws IOException {
+        // Security policy
+        FileUtils.copyFile(getLanguage()
+                                .getFolderName()
+                                .concat("/" + WellKnownFiles.JAVA_SECURITY_POLICY_FILE_NAME),
+                           getPath().concat("/" + WellKnownFiles.JAVA_SECURITY_POLICY_FILE_NAME));
     }
 
     @Override
