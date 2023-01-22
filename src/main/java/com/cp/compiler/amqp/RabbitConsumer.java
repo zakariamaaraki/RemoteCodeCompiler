@@ -37,10 +37,10 @@ public class RabbitConsumer {
     @Autowired
     private MeterRegistry meterRegistry;
     
-    @Value("${spring.rabbitmq.queues.output}")
+    @Value("${spring.rabbitmq.queues.output:output}")
     private String outputQueue;
     
-    @Value("${spring.rabbitmq.throttling-duration}")
+    @Value("${spring.rabbitmq.throttling-duration:1000}")
     private long throttlingDuration;
     
     private Counter throttlingRetriesCounter;
@@ -79,7 +79,9 @@ public class RabbitConsumer {
     }
     
     private String retryAfter(String jsonRequest) throws Exception {
-        throttlingRetriesCounter.increment();
+        if (throttlingRetriesCounter != null) {
+            throttlingRetriesCounter.increment();
+        }
         Thread.sleep(throttlingDuration);
         return transform(jsonRequest);
     }

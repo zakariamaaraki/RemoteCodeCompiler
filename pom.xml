@@ -226,7 +226,6 @@
 					<excludes>
 						<exclude>**/config/SwaggerConfig.class</exclude>
 						<exclude>**/controllers/*</exclude>
-						<exclude>**/amqp/RabbitConsumer.class</exclude>
 					</excludes>
 				</configuration>
 			</plugin>

@@ -25,9 +25,14 @@ public class MonitoredException extends RuntimeException {
      */
     public MonitoredException(String message, ErrorCode errorCode, ErrorType errorType) {
         super(message);
+        
         this.errorCode = errorCode;
         this.errorType = errorType;
-        ErrorCounterFactory.getCounter(this.errorCode).increment();
+        
+        Counter counter = ErrorCounterFactory.getCounter(this.errorCode);
+        if (counter != null) {
+            counter.increment();
+        }
     }
     
     /**
