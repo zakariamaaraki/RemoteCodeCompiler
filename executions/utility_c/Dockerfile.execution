@@ -4,8 +4,13 @@ WORKDIR /app
 
 USER root
 
+RUN groupadd -r user -g 111 && \
+    useradd -u 111 -r -g user -s /sbin/nologin -c "Docker image user" user
+
 ADD . .
 
 RUN chmod a+x entrypoint-*.sh
+
+USER user
 
 ENTRYPOINT ["/bin/sh", "-c", "./entrypoint-$TEST_CASE_ID.sh"]
