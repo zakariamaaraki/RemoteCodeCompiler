@@ -333,4 +333,43 @@ class JavaE2ETests {
         Assertions.assertEquals(Verdict.RUNTIME_ERROR.getStatusResponse(),
                 ((Response)responseEntity.getBody()).getVerdict());
     }
+    
+    
+    /**
+     * Should return runtime error statusResponse for process execution.
+     *
+     * @throws Exception the exception
+     */
+    @DisplayName("Java Runtime Error for process execution")
+    @Test
+    void shouldReturnRuntimeErrorVerdictForProcessExecution() throws Exception {
+        // Given
+        File sourceCodeFile = new File("src/test/resources/sources/java/ProcessExecution.java");
+        MultipartFile sourceCode = new MockMultipartFile("ProcessExecution.java",
+                "ProcessExecution.java",
+                null,
+                new FileInputStream(sourceCodeFile));
+        
+        File expectedOutputFile = new File("src/test/resources/outputs/Test1.txt");
+        MultipartFile expectedOutput = new MockMultipartFile("Test1.txt",
+                "Test1.txt",
+                null,
+                new FileInputStream(expectedOutputFile));
+        
+        // When
+        ResponseEntity<Object> responseEntity = compilerController.compile(
+                Language.JAVA,
+                sourceCode,
+                null,
+                expectedOutput,
+                10,
+                500,
+                null,
+                null,
+                "");
+        
+        // Then
+        Assertions.assertEquals(Verdict.RUNTIME_ERROR.getStatusResponse(),
+                ((Response)responseEntity.getBody()).getVerdict());
+    }
 }
