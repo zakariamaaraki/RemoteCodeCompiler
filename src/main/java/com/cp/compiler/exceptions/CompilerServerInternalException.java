@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * The type Compiler server exception.
+ * It's a monitored exception.
  *
  * @author: Zakaria Maaraki
  */

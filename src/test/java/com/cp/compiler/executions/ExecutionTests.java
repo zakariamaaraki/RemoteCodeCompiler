@@ -35,7 +35,7 @@ class ExecutionTests {
     @Test
     void shouldCreateAnExecutionEnvironment() throws IOException {
         // Given
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
         
@@ -54,7 +54,7 @@ class ExecutionTests {
     @Test
     void shouldDeleteTheExecutionEnvironment() throws IOException {
         // Given
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
         
@@ -77,10 +77,9 @@ class ExecutionTests {
                         testCases,
                         timeLimit,
                         memoryLimit,
-                        null,
-                        entrypointFileGenerator);
+                        new ExecutionType(null, entrypointFileGenerator));
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution = javaExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -113,10 +112,9 @@ class ExecutionTests {
                         testCases,
                         timeLimit,
                         memoryLimit,
-                        null,
-                        entrypointFileGenerator);
+                        new ExecutionType(null, entrypointFileGenerator));
         
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution = pythonExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -149,10 +147,9 @@ class ExecutionTests {
                         testCases,
                         timeLimit,
                         memoryLimit,
-                        null,
-                        entrypointFileGenerator);
+                        new ExecutionType(null, entrypointFileGenerator));
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution = cExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -185,10 +182,9 @@ class ExecutionTests {
                         testCases,
                         timeLimit,
                         memoryLimit,
-                        null,
-                        entrypointFileGenerator);
+                        new ExecutionType(null, entrypointFileGenerator));
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution = cppExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -221,10 +217,9 @@ class ExecutionTests {
                         testCases,
                         timeLimit,
                         memoryLimit,
-                        null,
-                        entrypointFileGenerator);
+                        new ExecutionType(null, entrypointFileGenerator));
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution = csExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -257,10 +252,9 @@ class ExecutionTests {
                         testCases,
                         timeLimit,
                         memoryLimit,
-                        null,
-                        entrypointFileGenerator);
+                        new ExecutionType(null, entrypointFileGenerator));
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution = kotlinExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -293,10 +287,9 @@ class ExecutionTests {
                         testCases,
                         timeLimit,
                         memoryLimit,
-                        null,
-                        entrypointFileGenerator);
+                        new ExecutionType(null, entrypointFileGenerator));
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution = scalaExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -329,10 +322,9 @@ class ExecutionTests {
                         testCases,
                         timeLimit,
                         memoryLimit,
-                        null,
-                        entrypointFileGenerator);
+                        new ExecutionType(null, entrypointFileGenerator));
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution = goExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -365,10 +357,9 @@ class ExecutionTests {
                         testCases,
                         timeLimit,
                         memoryLimit,
-                        null,
-                        entrypointFileGenerator);
+                        new ExecutionType(null, entrypointFileGenerator));
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution = rustExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -401,10 +392,9 @@ class ExecutionTests {
                         testCases,
                         timeLimit,
                         memoryLimit,
-                        null,
-                        entrypointFileGenerator);
+                        new ExecutionType(null, entrypointFileGenerator));
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution = rubyExecutionFactory.createExecution(
                 file, List.of(testCase) ,10, 500);
@@ -437,10 +427,9 @@ class ExecutionTests {
                         testCases,
                         timeLimit,
                         memoryLimit,
-                        null,
-                        entrypointFileGenerator);
+                        new ExecutionType(null, entrypointFileGenerator));
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution = haskellExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -474,11 +463,10 @@ class ExecutionTests {
                             testCases,
                             timeLimit,
                             memoryLimit,
-                            null,
-                            entrypointFileGenerator);
+                            new ExecutionType(null, entrypointFileGenerator));
                 };
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution = goExecutionFactory.createExecution(file, List.of(testCase), 10, 500);
         
@@ -507,10 +495,9 @@ class ExecutionTests {
                         testCases,
                         timeLimit,
                         memoryLimit,
-                        null,
-                        entrypointFileGenerator);
+                        new ExecutionType(null, entrypointFileGenerator));
         
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution = javaExecutionFactory.createExecution(file, List.of(testCase), 10, 500);
         

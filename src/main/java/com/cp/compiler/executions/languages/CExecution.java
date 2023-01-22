@@ -1,6 +1,7 @@
 package com.cp.compiler.executions.languages;
 
 import com.cp.compiler.executions.Execution;
+import com.cp.compiler.executions.ExecutionType;
 import com.cp.compiler.models.testcases.ConvertedTestCase;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.templates.EntrypointFileGenerator;
@@ -15,6 +16,8 @@ import java.util.Map;
 
 /**
  * The type C execution.
+ *
+ * @author Zakaria Maaraki
  */
 @Getter
 public class CExecution extends Execution {
@@ -22,20 +25,18 @@ public class CExecution extends Execution {
     /**
      * Instantiates a new Execution.
      *
-     * @param sourceCodeFile          the source code
-     * @param testCases               the test cases
-     * @param timeLimit               the time limit
-     * @param memoryLimit             the memory limit
-     * @param executionCounter        the execution counter
-     * @param entrypointFileGenerator the entrypointFile generator
+     * @param sourceCodeFile the source code
+     * @param testCases      the test cases
+     * @param timeLimit      the time limit
+     * @param memoryLimit    the memory limit
+     * @param executionType  the execution type
      */
     public CExecution(MultipartFile sourceCodeFile,
                       List<ConvertedTestCase> testCases,
                       int timeLimit,
                       int memoryLimit,
-                      Counter executionCounter,
-                      EntrypointFileGenerator entrypointFileGenerator) {
-        super(sourceCodeFile, testCases, timeLimit, memoryLimit, executionCounter, entrypointFileGenerator);
+                      ExecutionType executionType) {
+        super(sourceCodeFile, testCases, timeLimit, memoryLimit, executionType);
     }
     
     @Override

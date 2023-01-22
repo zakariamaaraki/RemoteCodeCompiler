@@ -21,6 +21,6 @@ public class ConvertedTestCaseTests {
         
         // Then
         Assertions.assertNull(convertedTestCase.getInputFile());
-        Assertions.assertNull(convertedTestCase.getExpectedOutputFile());
+        Assertions.assertNull(convertedTestCase.getExpectedOutput());
     }
 }

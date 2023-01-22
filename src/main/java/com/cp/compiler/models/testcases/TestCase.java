@@ -5,7 +5,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 /**
- * The Test case.
+ * The Test case class.
+ *
+ * @author Zakaria Maaraki
  */
 @Getter
 @AllArgsConstructor

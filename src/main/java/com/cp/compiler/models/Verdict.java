@@ -7,6 +7,7 @@ import lombok.Getter;
 
 /**
  * The enum Verdict.
+ * It's represents the verdict response.
  *
  * @author Zakaria Maaraki
  */

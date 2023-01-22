@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * The type Container dependency exception.
+ *
+ * @author Zakaria Maaraki
  */
 @ResponseStatus(HttpStatus.FAILED_DEPENDENCY)
 public class ContainerFailedDependencyException extends RuntimeException {

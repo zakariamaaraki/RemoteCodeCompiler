@@ -70,7 +70,7 @@ class CompilerProxyServiceTests {
                 null,
                 (byte[]) null);
     
-        var testCase = new ConvertedTestCase("id", validFileName, validFileName);
+        var testCase = new ConvertedTestCase("id", validFileName, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(invalidExtension, List.of(testCase), 10, 500, Language.JAVA);
@@ -102,9 +102,9 @@ class CompilerProxyServiceTests {
     }
     
     @Test
-    void WhenSourceCodeFileNameIsInvalidShouldReturnBadRequest() throws Exception {
+    void WhenSourceCodeFileNameIsInvalidShouldReturnBadRequest() {
         // Given
-        var testCase = new ConvertedTestCase("id", validFileName, validFileName);
+        var testCase = new ConvertedTestCase("id", validFileName, "test");
         Execution execution =
                 ExecutionFactory.createExecution(invalidFileName, List.of(testCase), 10, 500, Language.JAVA);
         
@@ -118,7 +118,7 @@ class CompilerProxyServiceTests {
     @Test
     void shouldCallLongRunningOperation() {
         // Given
-        var testCase = new ConvertedTestCase("id", null, validFileName);
+        var testCase = new ConvertedTestCase("id", null, "test");
         Execution execution =
                 ExecutionFactory.createExecution(validFileName, List.of(testCase), 10, 500, Language.JAVA);
     
@@ -134,7 +134,7 @@ class CompilerProxyServiceTests {
     @Test
     void shouldCallDefaultCompiler() {
         // Given
-        var testCase = new ConvertedTestCase("id", null, validFileName);
+        var testCase = new ConvertedTestCase("id", null, "test");
         Execution execution =
                 ExecutionFactory.createExecution(validFileName, List.of(testCase), 10, 500, Language.JAVA);
         

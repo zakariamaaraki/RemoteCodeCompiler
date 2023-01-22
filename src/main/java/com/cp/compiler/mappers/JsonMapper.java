@@ -16,6 +16,8 @@ import java.io.IOException;
 
 /**
  * The type Json mapper.
+ *
+ * @author Zakaria Maaraki
  */
 public abstract class JsonMapper {
     

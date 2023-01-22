@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * The type Process execution exception.
+ *
+ * @author Zakaria Maaraki
  */
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 public class ProcessExecutionException extends RuntimeException {

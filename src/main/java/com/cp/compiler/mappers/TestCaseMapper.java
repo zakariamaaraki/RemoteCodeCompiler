@@ -14,13 +14,15 @@ import java.util.Map;
 
 /**
  * The type Test case mapper.
+ *
+ * @author Zakaria Maaraki
  */
 public abstract class TestCaseMapper {
     
     private TestCaseMapper() {}
     
     /**
-     * To converted test case converted test case.
+     * Converts a testCase into an instance of ConvertedTestCase
      *
      * @param testCase   the test case
      * @param testCaseId the test case id
@@ -31,12 +33,12 @@ public abstract class TestCaseMapper {
         var convertedTestCase = new ConvertedTestCase();
         convertedTestCase.setTestCaseId(testCaseId);
         convertedTestCase.setInputFile(getInput(testCase.getInput(), testCaseId));
-        convertedTestCase.setExpectedOutputFile(getExpectedOutput(testCase.getExpectedOutput(), testCaseId));
+        convertedTestCase.setExpectedOutput(testCase.getExpectedOutput());
         return convertedTestCase;
     }
     
     /**
-     * To converted test cases list.
+     * Converts a dictionary of TestCases into a list of ConvertedTestCases
      *
      * @param testCases the test cases
      * @return the list
@@ -48,14 +50,6 @@ public abstract class TestCaseMapper {
             convertedTestCases.add(toConvertedTestCase(testCases.get(id), id));
         }
         return convertedTestCases;
-    }
-    
-    private static MultipartFile getExpectedOutput(String expectedOutput, String id) throws IOException {
-        return new MockMultipartFile(
-                id + "-" + WellKnownFiles.EXPECTED_OUTPUT_FILE_NAME,
-                id + "-" + WellKnownFiles.EXPECTED_OUTPUT_FILE_NAME,
-                null,
-                new ByteArrayInputStream(expectedOutput.getBytes()));
     }
     
     private static MultipartFile getInput(String input, String id) throws IOException {

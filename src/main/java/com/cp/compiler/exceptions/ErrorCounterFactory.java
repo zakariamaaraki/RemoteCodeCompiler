@@ -7,6 +7,9 @@ import java.util.Map;
 
 /**
  * The type Error counter factory.
+ * This factory contains all registered counters used for monitoring purpose.
+ *
+ * @author Zakaria Maaraki
  */
 public abstract class ErrorCounterFactory {
     

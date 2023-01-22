@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * The type Execution timeout exception.
+ * It's a monitored exception.
+ *
+ * @author Zakaria Maaraki
  */
 @ResponseStatus(HttpStatus.GATEWAY_TIMEOUT)
 public class CompilationTimeoutException extends MonitoredException {

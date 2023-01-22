@@ -2,7 +2,9 @@ package com.cp.compiler.exceptions;
 
 /**
  * This enum contains all monitored exceptions that may be returned to the caller.
- * For each error created here a counter will be created (see ErrorCounterFactory class)
+ * For each error created here a counter will be created (see ErrorCounterFactory class).
+ *
+ * @author Zakaria Maaraki
  */
 public enum ErrorCode {
     COMPILER_SERVER_INTERNAL_ERROR, // For unexpected errors

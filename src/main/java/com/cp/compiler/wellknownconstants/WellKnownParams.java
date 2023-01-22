@@ -1,7 +1,9 @@
 package com.cp.compiler.wellknownconstants;
 
 /**
- * The type Well known params.
+ * This class contains all constants related to request body parameters.
+ *
+ * @author Zakaria Maaraki
  */
 public abstract class WellKnownParams {
     

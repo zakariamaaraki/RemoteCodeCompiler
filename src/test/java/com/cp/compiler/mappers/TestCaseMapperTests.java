@@ -25,9 +25,8 @@ public class TestCaseMapperTests {
         ConvertedTestCase convertedTestCase = TestCaseMapper.toConvertedTestCase(testCase, testCaseId);
         
         MultipartFile inputFile = convertedTestCase.getInputFile();
-        MultipartFile expectedOutputFile = convertedTestCase.getExpectedOutputFile();
+        String expectedOutput = convertedTestCase.getExpectedOutput();
         String input = readFile(new BufferedReader(new InputStreamReader(inputFile.getInputStream())));
-        String expectedOutput = readFile(new BufferedReader(new InputStreamReader(expectedOutputFile.getInputStream())));
         
         // Then
         Assertions.assertNotNull(convertedTestCase);
@@ -55,9 +54,8 @@ public class TestCaseMapperTests {
         // Then
         for (ConvertedTestCase convertedTestCase : convertedTestCases) {
             MultipartFile inputFile = convertedTestCase.getInputFile();
-            MultipartFile expectedOutputFile = convertedTestCase.getExpectedOutputFile();
+            String expectedOutput = convertedTestCase.getExpectedOutput();
             String input = readFile(new BufferedReader(new InputStreamReader(inputFile.getInputStream())));
-            String expectedOutput = readFile(new BufferedReader(new InputStreamReader(expectedOutputFile.getInputStream())));
 
             Assertions.assertNotNull(convertedTestCase);
             Assertions.assertEquals(testCases.get(convertedTestCase.getTestCaseId()).getInput(), input);

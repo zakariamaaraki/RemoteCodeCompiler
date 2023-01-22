@@ -45,16 +45,12 @@ public class RequestTests {
             String expectedInput = readFile(
                     new BufferedReader(
                             new InputStreamReader(expectedConvertedTestCase.getInputFile().getInputStream())));
-            String expectedExpectedOutput = readFile(
-                    new BufferedReader(
-                            new InputStreamReader(expectedConvertedTestCase.getExpectedOutputFile().getInputStream())));
+            String expectedExpectedOutput = expectedConvertedTestCase.getExpectedOutput();
     
             String input = readFile(
                     new BufferedReader(
                             new InputStreamReader(convertedTestCase.getInputFile().getInputStream())));
-            String expectedOutput = readFile(
-                    new BufferedReader(
-                            new InputStreamReader(convertedTestCase.getExpectedOutputFile().getInputStream())));
+            String expectedOutput = convertedTestCase.getExpectedOutput();
             
             Assertions.assertEquals(expectedConvertedTestCase.getTestCaseId(), convertedTestCase.getTestCaseId());
             Assertions.assertEquals(expectedInput, input);

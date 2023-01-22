@@ -5,6 +5,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * The type Converted test case.
+ * Used to convert String into files used by the container.
+ *
+ * @author Zakaria Maaraki
  */
 @Data
 @NoArgsConstructor
@@ -15,7 +18,7 @@ public class ConvertedTestCase {
     
     private MultipartFile inputFile;
 
-    private MultipartFile expectedOutputFile;
+    private String expectedOutput;
     
     /**
      * Free memory space.
@@ -23,6 +26,6 @@ public class ConvertedTestCase {
      */
     public void freeMemorySpace() {
         inputFile = null;
-        expectedOutputFile = null;
+        expectedOutput = null;
     }
 }

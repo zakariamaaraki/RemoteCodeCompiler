@@ -24,7 +24,7 @@ public class RegisteredFactoriesTests {
     
     @Test
     void javaExecutionFactoryShouldBeRegistered() {
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.JAVA));
         Assertions.assertNotNull(execution);
@@ -33,7 +33,7 @@ public class RegisteredFactoriesTests {
     
     @Test
     void kotlinExecutionFactoryShouldBeRegistered() {
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.KOTLIN);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.KOTLIN));
         Assertions.assertNotNull(execution);
@@ -42,7 +42,7 @@ public class RegisteredFactoriesTests {
     
     @Test
     void scalaExecutionFactoryShouldBeRegistered() {
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.SCALA);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.SCALA));
         Assertions.assertNotNull(execution);
@@ -51,7 +51,7 @@ public class RegisteredFactoriesTests {
     
     @Test
     void csExecutionFactoryShouldBeRegistered() {
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.CS);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.CS));
         Assertions.assertNotNull(execution);
@@ -60,7 +60,7 @@ public class RegisteredFactoriesTests {
     
     @Test
     void goExecutionFactoryShouldBeRegistered() {
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.GO);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.GO));
         Assertions.assertNotNull(execution);
@@ -69,7 +69,7 @@ public class RegisteredFactoriesTests {
     
     @Test
     void cExecutionFactoryShouldBeRegistered() {
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.C);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.C));
         Assertions.assertNotNull(execution);
@@ -78,7 +78,7 @@ public class RegisteredFactoriesTests {
     
     @Test
     void cppExecutionFactoryShouldBeRegistered() {
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.CPP);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.CPP));
         Assertions.assertNotNull(execution);
@@ -87,7 +87,7 @@ public class RegisteredFactoriesTests {
     
     @Test
     void pythonExecutionFactoryShouldBeRegistered() {
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.PYTHON);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.PYTHON));
         Assertions.assertNotNull(execution);
@@ -96,7 +96,7 @@ public class RegisteredFactoriesTests {
     
     @Test
     void rustExecutionFactoryShouldBeRegistered() {
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.RUST);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.RUST));
         Assertions.assertNotNull(execution);
@@ -105,7 +105,7 @@ public class RegisteredFactoriesTests {
     
     @Test
     void rubyExecutionFactoryShouldBeRegistered() {
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.RUBY);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.RUBY));
         Assertions.assertNotNull(execution);
@@ -114,7 +114,7 @@ public class RegisteredFactoriesTests {
     
     @Test
     void haskellExecutionFactoryShouldBeRegistered() {
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.HASKELL);
         Assertions.assertTrue(ExecutionFactory.getRegisteredFactories().contains(Language.HASKELL));
         Assertions.assertNotNull(execution);

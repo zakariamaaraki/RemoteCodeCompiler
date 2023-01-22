@@ -22,7 +22,9 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * The type Execution.
+ * The abstract type Execution.
+ *
+ * @author Zakaria Maaraki
  */
 @Slf4j
 @Getter
@@ -49,40 +51,35 @@ public abstract class Execution {
     @NonNull
     private String id;
     
+    @NonNull
+    private ExecutionType executionType;
+    
     @Getter
     /**
      * The Path of the execution directory
      */
     private String path;
-
-    // For monitoring purpose it represents the number of executions in parallel for each programming language
-    private final Counter executionCounter;
     
-    @Getter
-    private final EntrypointFileGenerator entrypointFileGenerator;
     
     /**
      * Instantiates a new Execution.
      *
-     * @param sourceCodeFile          the source code
-     * @param testCases               the test cases
-     * @param timeLimit               the time limit
-     * @param memoryLimit             the memory limit
-     * @param executionCounter        the execution counter
-     * @param entrypointFileGenerator the entrypointFile generator
+     * @param sourceCodeFile the source code
+     * @param testCases      the test cases
+     * @param timeLimit      the time limit
+     * @param memoryLimit    the memory limit
+     * @param executionType  the execution type
      */
     protected Execution(MultipartFile sourceCodeFile,
                         List<ConvertedTestCase> testCases,
                         int timeLimit,
                         int memoryLimit,
-                        Counter executionCounter,
-                        EntrypointFileGenerator entrypointFileGenerator) {
+                        ExecutionType executionType) {
         this.sourceCodeFile = sourceCodeFile;
         this.testCases = testCases;
         this.timeLimit = timeLimit;
         this.memoryLimit = memoryLimit;
-        this.executionCounter = executionCounter;
-        this.entrypointFileGenerator = entrypointFileGenerator;
+        this.executionType = executionType;
         this.id = UUID.randomUUID().toString();
         this.path = getLanguage().getFolderName() + "/" + getExecutionFolderName(); // this should come after the id inits
     }
@@ -93,7 +90,7 @@ public abstract class Execution {
      * @throws IOException the io exception
      */
     public void createExecutionDirectory() throws IOException {
-        executionCounter.increment();
+        getExecutionCounter().increment();
         Files.createDirectory(Path.of(path));
         log.debug("Saving uploaded files");
         saveUploadedFiles();
@@ -122,9 +119,6 @@ public abstract class Execution {
         FileUtils.saveUploadedFiles(sourceCodeFile, path + "/" + sourceCodeFileName);
         
         for (ConvertedTestCase testCase : testCases) {
-            FileUtils.saveUploadedFiles(
-                    testCase.getExpectedOutputFile(),
-                    path + "/" + testCase.getExpectedOutputFile().getOriginalFilename());
             if (testCase.getInputFile() != null) {
                 FileUtils.saveUploadedFiles(
                         testCase.getInputFile(),
@@ -204,6 +198,24 @@ public abstract class Execution {
     }
     
     /**
+     * Gets counter.
+     *
+     * @return the counter
+     */
+    public Counter getExecutionCounter() {
+        return executionType.getExecutionCounter();
+    }
+    
+    /**
+     * Gets entrypoint file generator.
+     *
+     * @return the entrypoint file generator
+     */
+    public EntrypointFileGenerator getEntrypointFileGenerator() {
+        return executionType.getEntrypointFileGenerator();
+    }
+    
+    /**
      * Get the language represented by the class
      *
      * @return the language
@@ -222,6 +234,8 @@ public abstract class Execution {
     
     /**
      * Copy language specific files to execution directory.
+     *
+     * @throws IOException the io exception
      */
     protected abstract void copyLanguageSpecificFilesToExecutionDirectory() throws IOException;
 }

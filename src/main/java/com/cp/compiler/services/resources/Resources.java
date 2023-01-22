@@ -4,6 +4,8 @@ import com.cp.compiler.models.resources.AvailableResources;
 
 /**
  * The interface Cpu resources.
+ *
+ * @author Zakaria Maaraki
  */
 public interface Resources {
     

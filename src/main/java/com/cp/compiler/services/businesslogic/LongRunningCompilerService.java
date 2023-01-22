@@ -15,6 +15,8 @@ import java.net.URISyntaxException;
 /**
  * The type Long running compiler service.
  * Used for push notification
+ *
+ * @author Zakaria Maaraki
  */
 @Slf4j
 @Service("longRunning")

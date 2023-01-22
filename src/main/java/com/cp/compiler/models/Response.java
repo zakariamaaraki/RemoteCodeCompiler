@@ -12,8 +12,11 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+// Note: Before changing this class make sure it will not introduce a breaking change for users!!
+
 /**
  * The type Response.
+ * This represents the response returned to the user.
  *
  * @author Zakaria Maaraki
  */

@@ -33,9 +33,9 @@ class ThrottlingTests {
             (byte[]) null);
     
     @Test
-    void requestShouldBeThrottled() throws Exception {
+    void requestShouldBeThrottled() {
         // Given
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
     

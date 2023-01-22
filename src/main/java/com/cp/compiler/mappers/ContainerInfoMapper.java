@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * ContainerInfo mapper class
+ *
+ * @author Zakaria Maaraki
  */
 public abstract class ContainerInfoMapper {
     

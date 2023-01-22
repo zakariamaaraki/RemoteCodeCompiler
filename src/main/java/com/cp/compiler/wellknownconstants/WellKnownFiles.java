@@ -1,7 +1,9 @@
 package com.cp.compiler.wellknownconstants;
 
 /**
- * The type Well known file names.
+ * This class contains all constants related to files
+ *
+ * @author Zakaria Maaraki
  */
 public abstract class WellKnownFiles {
     

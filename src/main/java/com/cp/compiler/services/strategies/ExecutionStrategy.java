@@ -1,6 +1,5 @@
 package com.cp.compiler.services.strategies;
 
-import com.cp.compiler.exceptions.CompilerServerInternalException;
 import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.CompilationResponse;
@@ -20,10 +19,7 @@ import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -32,15 +28,26 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * The type Execution strategy.
+ *
+ * @author Zakaria Maaraki
+ */
 @Slf4j
 public abstract class ExecutionStrategy {
     
+    /**
+     * The Execution timer.
+     */
     protected Timer executionTimer;
     
     private static final Map<String, Counter> verdictsCounters = new HashMap<>();
     
     private final ContainerService containerService;
     
+    /**
+     * The Thread pool.
+     */
     protected final ExecutorService threadPool;
     
     private static final long EXECUTION_TIME_OUT = 20000; // in ms
@@ -54,6 +61,13 @@ public abstract class ExecutionStrategy {
      */
     private static final String EXECUTION_CONTAINER_NAME_PREFIX = "execution-";
     
+    /**
+     * Instantiates a new Execution strategy.
+     *
+     * @param containerService the container service
+     * @param meterRegistry    the meter registry
+     * @param resources        the resources
+     */
     protected ExecutionStrategy(ContainerService containerService,
                                 MeterRegistry meterRegistry,
                                 Resources resources) {
@@ -67,6 +81,12 @@ public abstract class ExecutionStrategy {
                         meterRegistry.counter(verdict.getCounterMetric())));
     }
     
+    /**
+     * Compile compilation response.
+     *
+     * @param execution the execution
+     * @return the compilation response
+     */
     public abstract CompilationResponse compile(Execution execution);
     
     /**
@@ -74,7 +94,7 @@ public abstract class ExecutionStrategy {
      * Note: We should create one and only one Container image for all test cases to save Memory, Cpu,
      * and reduce the execution duration.
      *
-     * @param execution
+     * @param execution the execution
      */
     protected void buildContainerImage(Execution execution) {
         
@@ -86,6 +106,13 @@ public abstract class ExecutionStrategy {
                 WellKnownFiles.EXECUTION_DOCKERFILE_NAME);
     }
     
+    /**
+     * Run execution response.
+     *
+     * @param execution                 the execution
+     * @param deleteImageAfterExecution the delete image after execution
+     * @return the execution response
+     */
     public ExecutionResponse run(Execution execution, boolean deleteImageAfterExecution) {
         
         buildContainerImage(execution);
@@ -133,7 +160,7 @@ public abstract class ExecutionStrategy {
         
         log.info("Start running test case id = {}", testCase.getTestCaseId());
         
-        String expectedOutput = getExpectedOutput(testCase.getExpectedOutputFile());
+        String expectedOutput = testCase.getExpectedOutput();
         
         // Free memory space
         testCase.freeMemorySpace();
@@ -146,16 +173,6 @@ public abstract class ExecutionStrategy {
         
         TestCaseResult testCaseResult = result.get();
         return testCaseResult;
-    }
-    
-    private String getExpectedOutput(MultipartFile outputFile) {
-        try {
-            var expectedOutputReader = new BufferedReader(new InputStreamReader(outputFile.getInputStream()));
-            return CmdUtils.readOutput(expectedOutputReader);
-        } catch (Exception exception) {
-            log.error("Unexpected error while reading the expected output file: {}", exception);
-            throw new CompilerServerInternalException("Unexpected error while reading the expected output file");
-        }
     }
     
     private TestCaseResult runContainer(Execution execution, String testCaseId, String expectedOutput) {

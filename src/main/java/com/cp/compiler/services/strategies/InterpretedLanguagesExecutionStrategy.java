@@ -12,12 +12,24 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
+/**
+ * The type Interpreted languages execution strategy.
+ *
+ * @author Zakaria Maaraki
+ */
 @Slf4j
 @Component("interpreted")
 public class InterpretedLanguagesExecutionStrategy extends ExecutionStrategy {
     
     private final MeterRegistry meterRegistry;
     
+    /**
+     * Instantiates a new Interpreted languages execution strategy.
+     *
+     * @param containerService the container service
+     * @param meterRegistry    the meter registry
+     * @param resources        the resources
+     */
     public InterpretedLanguagesExecutionStrategy(ContainerService containerService,
                                                  MeterRegistry meterRegistry,
                                                  Resources resources) {
@@ -31,6 +43,9 @@ public class InterpretedLanguagesExecutionStrategy extends ExecutionStrategy {
         return buildCompilationResponseForInterpretedLanguages();
     }
     
+    /**
+     * Init.
+     */
     @PostConstruct
     public void init() {
         executionTimer = meterRegistry.timer(WellKnownMetrics.EXECUTION_TIMER, "compiler", "execution");

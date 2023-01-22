@@ -7,6 +7,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * The type Hooks repository.
+ *
+ * @author Zakaria Maaraki
  */
 @Repository
 public class HooksRepositoryDefault implements HooksRepository {

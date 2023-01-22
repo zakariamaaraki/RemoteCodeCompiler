@@ -1,7 +1,9 @@
 package com.cp.compiler.wellknownconstants;
 
 /**
- * The type Well known urls.
+ * This class contains all constants related to urls.
+ *
+ * @author Zakaria Maaraki
  */
 public abstract class WellKnownUrls {
     

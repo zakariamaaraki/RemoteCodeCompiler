@@ -7,6 +7,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * The type Resources default.
+ *
+ * @author Zakaria Maaraki
+ */
 @Component
 public class ResourcesDefault implements Resources {
     
@@ -18,6 +23,12 @@ public class ResourcesDefault implements Resources {
     @Getter
     private final int maxRequests;
     
+    /**
+     * Instantiates a new Resources default.
+     *
+     * @param maxCpus     the max cpus
+     * @param maxRequests the max requests
+     */
     public ResourcesDefault(@Value("${compiler.execution.max-cpus}")float maxCpus,
                             @Value("${compiler.max-requests}")int maxRequests) {
         this.maxCpus = maxCpus;

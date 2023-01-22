@@ -67,8 +67,8 @@ class CompilerServiceDecoratorTests {
             }
         };
     
-        var testCase1 = new ConvertedTestCase("id", file, file);
-        var testCase2 = new ConvertedTestCase("id", file, file);
+        var testCase1 = new ConvertedTestCase("id", file, "test");
+        var testCase2 = new ConvertedTestCase("id", file, "test");
     
         var execution1 =
                 ExecutionFactory.createExecution(file, List.of(testCase1), 10, 100, Language.JAVA);
@@ -127,7 +127,7 @@ class CompilerServiceDecoratorTests {
             }
         };
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
     
         var execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);

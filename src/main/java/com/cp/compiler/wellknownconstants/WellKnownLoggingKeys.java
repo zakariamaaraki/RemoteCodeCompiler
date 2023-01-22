@@ -1,7 +1,9 @@
 package com.cp.compiler.wellknownconstants;
 
 /**
- * The type Well known logging keys.
+ * This class contains all constants related to logging
+ *
+ * @author Zakaria Maaraki
  */
 public abstract class WellKnownLoggingKeys {
     

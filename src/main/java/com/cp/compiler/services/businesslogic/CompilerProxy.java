@@ -23,6 +23,8 @@ import java.util.Optional;
 
 /**
  * The Compiler proxy Service.
+ *
+ * @author Zakaria Maaraki
  */
 @Slf4j
 @Service("proxy")

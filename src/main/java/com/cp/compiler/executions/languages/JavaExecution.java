@@ -1,6 +1,7 @@
 package com.cp.compiler.executions.languages;
 
 import com.cp.compiler.executions.Execution;
+import com.cp.compiler.executions.ExecutionType;
 import com.cp.compiler.models.testcases.ConvertedTestCase;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.utils.FileUtils;
@@ -18,6 +19,8 @@ import java.util.Map;
 
 /**
  * The type Java execution.
+ *
+ * @author Zakaria Maaraki
  */
 @Slf4j
 @Getter
@@ -26,20 +29,18 @@ public class JavaExecution extends Execution {
     /**
      * Instantiates a new Java execution.
      *
-     * @param sourceCode              the source code
-     * @param testCases               the test cases
-     * @param timeLimit               the time limit
-     * @param memoryLimit             the memory limit
-     * @param executionCounter        the execution counter
-     * @param entryPointFileGenerator the entry point file generator
+     * @param sourceCode    the source code
+     * @param testCases     the test cases
+     * @param timeLimit     the time limit
+     * @param memoryLimit   the memory limit
+     * @param executionType the execution type
      */
     public JavaExecution(MultipartFile sourceCode,
                          List<ConvertedTestCase> testCases,
                          int timeLimit,
                          int memoryLimit,
-                         Counter executionCounter,
-                         EntrypointFileGenerator entryPointFileGenerator) {
-        super(sourceCode, testCases, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
+                         ExecutionType executionType) {
+        super(sourceCode, testCases, timeLimit, memoryLimit, executionType);
     }
     
     @Override
@@ -61,7 +62,7 @@ public class JavaExecution extends Execution {
     
     @Override
     protected void copyLanguageSpecificFilesToExecutionDirectory() throws IOException {
-        log.info("Copying Java security policy");
+        log.debug("Copying Java security policy");
         copySecurityPolicyToExecutionDirectory();
     }
     

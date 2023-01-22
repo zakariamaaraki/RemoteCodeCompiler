@@ -5,6 +5,9 @@ import lombok.Getter;
 
 /**
  * The type Monitored exception.
+ * Used to monitor exceptions
+ *
+ * @author Zakaria Maaraki
  */
 @Getter
 public class MonitoredException extends RuntimeException {

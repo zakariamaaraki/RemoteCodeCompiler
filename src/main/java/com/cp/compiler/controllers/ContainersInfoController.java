@@ -44,7 +44,7 @@ public class ContainersInfoController {
     }
     
     /**
-     * Gets images.
+     * Gets container images.
      *
      * @return container images
      */

@@ -1,7 +1,9 @@
 package com.cp.compiler.wellknownconstants;
 
 /**
- * The type Well know headers.
+ * This class contains all constants related to headers
+ *
+ * @author Zakaria Maaraki
  */
 public abstract class WellKnownHeaders {
     

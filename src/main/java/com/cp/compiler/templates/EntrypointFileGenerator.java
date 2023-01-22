@@ -4,6 +4,8 @@ import java.util.Map;
 
 /**
  * The interface Entry point file generator.
+ *
+ * @author Zakaria Maaraki
  */
 public interface EntrypointFileGenerator {
     

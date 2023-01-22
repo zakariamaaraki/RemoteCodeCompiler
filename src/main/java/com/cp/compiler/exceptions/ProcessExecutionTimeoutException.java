@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * The type Process execution timeout exception.
+ *
+ * @author Zakaria Maaraki
  */
 @ResponseStatus(HttpStatus.GATEWAY_TIMEOUT)
 public class ProcessExecutionTimeoutException extends RuntimeException {

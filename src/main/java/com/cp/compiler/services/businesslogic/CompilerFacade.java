@@ -7,6 +7,8 @@ import java.io.IOException;
 
 /**
  * The interface Compiler facade.
+ *
+ * @author Zakaria Maaraki
  */
 public interface CompilerFacade {
     

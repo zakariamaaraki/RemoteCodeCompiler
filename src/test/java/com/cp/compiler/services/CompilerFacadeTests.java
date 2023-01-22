@@ -46,7 +46,7 @@ class CompilerFacadeTests {
     @Test
     void whenItsShortRunningOperationShouldReturnOKStatusCode() throws IOException {
         // Given
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
     
@@ -63,7 +63,7 @@ class CompilerFacadeTests {
     @Test
     void shouldAddUrlToTheRepository() throws IOException {
         // Given
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
         
@@ -81,7 +81,7 @@ class CompilerFacadeTests {
     @Test
     void shouldNotAddUrlToTheRepository() throws IOException {
         // Given
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
         
@@ -99,7 +99,7 @@ class CompilerFacadeTests {
     @Test
     void ifUrlIsNotValidShouldReturnBadRequest() throws IOException {
         // Given
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
     
@@ -117,7 +117,7 @@ class CompilerFacadeTests {
     @Test
     void ifUrlIsNullShouldReturnBadRequest() throws IOException {
         // Given
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
         

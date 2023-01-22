@@ -2,6 +2,9 @@ package com.cp.compiler.repositories;
 
 /**
  * The interface Hooks repository.
+ * This class is used to store urls used for long-running executions.
+ *
+ * @author Zakaria Maaraki
  */
 public interface HooksRepository {
     

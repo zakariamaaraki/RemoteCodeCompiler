@@ -4,7 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Container Build Exception Class
+ * Container Build Exception Class.
+ * It's a monitored exception.
  *
  * @author Zakaria Maaraki
  */

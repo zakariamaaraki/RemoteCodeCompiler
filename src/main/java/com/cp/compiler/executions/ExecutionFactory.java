@@ -13,8 +13,13 @@ import java.util.stream.Collectors;
 
 /**
  * The type Execution factory.
+ * This class contains all factories needed to create an Execution class.
+ *
+ * @author Zakaria Maaraki
  */
 public abstract class ExecutionFactory {
+    
+    private static Map<Language, ExecutionType> registeredExecutionTypes = new EnumMap<>(Language.class);
     
     private static Map<Language, AbstractExecutionFactory> registeredFactories = new EnumMap<>(Language.class);
     
@@ -26,8 +31,28 @@ public abstract class ExecutionFactory {
      * @param language the language
      * @param factory  the factory
      */
-    public static void register(Language language, AbstractExecutionFactory factory) {
+    public static void registerExecution(Language language, AbstractExecutionFactory factory) {
         registeredFactories.putIfAbsent(language, factory);
+    }
+    
+    /**
+     * Register execution type.
+     *
+     * @param language      the language
+     * @param executionType the execution type
+     */
+    public static void registerExecutionType(Language language, ExecutionType executionType) {
+        registeredExecutionTypes.putIfAbsent(language, executionType);
+    }
+    
+    /**
+     * Gets execution type.
+     *
+     * @param language the language
+     * @return the execution type
+     */
+    public static ExecutionType getExecutionType(Language language) {
+        return registeredExecutionTypes.get(language);
     }
     
     /**

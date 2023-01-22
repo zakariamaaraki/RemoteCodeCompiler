@@ -8,6 +8,9 @@ import lombok.Getter;
 
 /**
  * The type Available resources.
+ * Used to know how much CPUs and allowed incoming requests available.
+ *
+ * @author Zakaria Maaraki
  */
 @Builder
 @Getter

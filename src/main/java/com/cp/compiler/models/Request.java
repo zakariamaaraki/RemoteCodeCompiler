@@ -16,6 +16,8 @@ import java.util.List;
 
 /**
  * The type Request.
+ *
+ * @author Zakaria Maaraki
  */
 @Getter
 @NoArgsConstructor

@@ -1,7 +1,9 @@
 package com.cp.compiler.wellknownconstants;
 
 /**
- * The type Well known commands.
+ * This class contains all constants related to cmd.
+ *
+ * @author Zakaria Maaraki
  */
 public abstract class WellKnownCommands {
     

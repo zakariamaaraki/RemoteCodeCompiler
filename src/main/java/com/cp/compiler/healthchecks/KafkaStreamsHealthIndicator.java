@@ -9,9 +9,12 @@ import org.springframework.stereotype.Component;
 
 /**
  * The type Kafka streams health indicator.
+ * Note that class name prefix before `HealthIndicator` will be camel-cased
+ * and used as a health component name, `kafkaStreams` here.
+ *
+ * @author Zakaria Maaraki
  */
-// Note that class name prefix before `HealthIndicator` will be camel-cased
-// and used as a health component name, `kafkaStreams` here
+
 @Profile("kafka")
 @Component
 public class KafkaStreamsHealthIndicator implements HealthIndicator {

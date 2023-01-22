@@ -28,7 +28,7 @@ public class ExecutionFactoryTests {
     void shouldRegisterAProgrammingLanguage() {
         
         // Given
-        ExecutionFactory.register(
+        ExecutionFactory.registerExecution(
                 Language.JAVA,
                 (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
                     return new JavaExecution(
@@ -36,12 +36,11 @@ public class ExecutionFactoryTests {
                             testCases,
                             timeLimit,
                             memoryLimit,
-                            null,
                             null);
         });
         
         // When
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
         // Then
@@ -51,7 +50,7 @@ public class ExecutionFactoryTests {
     
     @Test
     void shouldThrowFactoryNotFoundException() {
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Assertions.assertThrows(
                 FactoryNotFoundException.class,

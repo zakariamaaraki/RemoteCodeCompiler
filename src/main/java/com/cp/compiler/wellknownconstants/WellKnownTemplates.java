@@ -1,7 +1,9 @@
 package com.cp.compiler.wellknownconstants;
 
 /**
- * The type Well known templates.
+ * This class contains all constants related to template files.
+ *
+ * @author Zakaria Maaraki
  */
 public abstract class WellKnownTemplates {
     

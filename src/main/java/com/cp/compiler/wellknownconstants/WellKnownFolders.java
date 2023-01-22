@@ -1,7 +1,9 @@
 package com.cp.compiler.wellknownconstants;
 
 /**
- * The type Well known folders.
+ * This class contains all constants related to folders.
+ *
+ * @author Zakaria Maaraki
  */
 public abstract class WellKnownFolders {
     

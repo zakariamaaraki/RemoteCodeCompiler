@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * The type Container operation timeout exception.
+ *
+ * @author Zakaria Maaraki
  */
 @ResponseStatus(HttpStatus.GATEWAY_TIMEOUT)
 public class ContainerOperationTimeoutException extends ProcessExecutionTimeoutException {

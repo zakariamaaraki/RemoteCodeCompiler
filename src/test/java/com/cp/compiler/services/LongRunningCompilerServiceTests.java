@@ -45,7 +45,7 @@ class LongRunningCompilerServiceTests {
     }
     
     @Test
-    void shouldReturnedAcceptedStatusCode() throws Exception {
+    void shouldReturnedAcceptedStatusCode() {
         // Given
         MultipartFile file = new MockMultipartFile(
                 "test.txt.c",
@@ -53,7 +53,7 @@ class LongRunningCompilerServiceTests {
                 null,
                 (byte[]) null);
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         var execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 100, Language.JAVA);
@@ -90,7 +90,7 @@ class LongRunningCompilerServiceTests {
                 null,
                 (byte[]) null);
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         var execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 100, Language.JAVA);
@@ -133,7 +133,7 @@ class LongRunningCompilerServiceTests {
                 null,
                 (byte[]) null);
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         var execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 100, Language.JAVA);

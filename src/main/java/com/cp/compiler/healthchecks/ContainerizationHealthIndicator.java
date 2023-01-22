@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * The type Container health indicator.
+ *
+ * @author Zakaria Maaraki
  */
 @Component
 public class ContainerizationHealthIndicator implements HealthIndicator {

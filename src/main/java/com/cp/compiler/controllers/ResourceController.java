@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * The type Resource controller.
+ *
+ * @author Zakaria Maaraki
  */
 @RestController
 @RequestMapping("/api")

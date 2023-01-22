@@ -6,6 +6,8 @@ import lombok.Setter;
 
 /**
  * The type Process output.
+ *
+ * @author Zakaria Maaraki
  */
 @Builder
 @Getter

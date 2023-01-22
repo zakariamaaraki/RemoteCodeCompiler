@@ -1,7 +1,9 @@
 package com.cp.compiler.wellknownconstants;
 
 /**
- * The type Well known metrics.
+ * This class contains all constants related to metrics
+ *
+ * @author Zakaria Maaraki
  */
 public abstract class WellKnownMetrics {
     

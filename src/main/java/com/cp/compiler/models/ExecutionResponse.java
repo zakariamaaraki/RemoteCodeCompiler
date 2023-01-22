@@ -8,6 +8,11 @@ import lombok.Getter;
 
 import java.util.LinkedHashMap;
 
+/**
+ * The type Execution response.
+ *
+ * @author Zakaria Maaraki
+ */
 @Getter
 @EqualsAndHashCode
 @Builder

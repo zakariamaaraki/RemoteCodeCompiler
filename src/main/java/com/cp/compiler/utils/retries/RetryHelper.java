@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * The type Retry helper.
+ *
+ * @author Zakaria Maaraki
  */
 @Slf4j
 public abstract class RetryHelper {

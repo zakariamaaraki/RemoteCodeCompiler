@@ -22,6 +22,11 @@ import javax.annotation.PostConstruct;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * The type Compiled languages execution strategy.
+ *
+ * @author Zakaria Maaraki
+ */
 @Slf4j
 @Component("compiled")
 public class CompiledLanguagesExecutionStrategy extends ExecutionStrategy {
@@ -49,6 +54,13 @@ public class CompiledLanguagesExecutionStrategy extends ExecutionStrategy {
      */
     private static final String COMPILATION_CONTAINER_NAME_PREFIX = "compilation-";
     
+    /**
+     * Instantiates a new Compiled languages execution strategy.
+     *
+     * @param containerService the container service
+     * @param meterRegistry    the meter registry
+     * @param resources        the resources
+     */
     public CompiledLanguagesExecutionStrategy(ContainerService containerService,
                                               MeterRegistry meterRegistry,
                                               Resources resources) {
@@ -57,6 +69,9 @@ public class CompiledLanguagesExecutionStrategy extends ExecutionStrategy {
         this.meterRegistry = meterRegistry;
     }
     
+    /**
+     * Init.
+     */
     @PostConstruct
     public void init() {
         compilationTimer = meterRegistry.timer(WellKnownMetrics.COMPILATION_TIMER, "compiler", "compilation");

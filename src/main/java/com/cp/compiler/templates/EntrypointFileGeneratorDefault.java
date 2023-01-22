@@ -9,6 +9,8 @@ import java.util.Map;
 
 /**
  * The type Entry point file generator.
+ *
+ * @author Zakaria Maaraki
  */
 @Component
 @AllArgsConstructor

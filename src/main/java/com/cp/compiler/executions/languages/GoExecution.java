@@ -1,6 +1,7 @@
 package com.cp.compiler.executions.languages;
 
 import com.cp.compiler.executions.Execution;
+import com.cp.compiler.executions.ExecutionType;
 import com.cp.compiler.models.testcases.ConvertedTestCase;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.templates.EntrypointFileGenerator;
@@ -14,26 +15,26 @@ import java.util.Map;
 
 /**
  * The type Go execution.
+ *
+ * @author Zakaria Maaraki
  */
 public class GoExecution extends Execution {
     
     /**
      * Instantiates a new Go Execution.
      *
-     * @param sourceCodeFile          the source code
-     * @param testCases               the test cases
-     * @param timeLimit               the time limit
-     * @param memoryLimit             the memory limit
-     * @param executionCounter        the execution counter
-     * @param entryPointFileGenerator the entry point file generator
+     * @param sourceCodeFile the source code
+     * @param testCases      the test cases
+     * @param timeLimit      the time limit
+     * @param memoryLimit    the memory limit
+     * @param executionType  the execution type
      */
     public GoExecution(MultipartFile sourceCodeFile,
                        List<ConvertedTestCase> testCases,
                        int timeLimit,
                        int memoryLimit,
-                       Counter executionCounter,
-                       EntrypointFileGenerator entryPointFileGenerator) {
-        super(sourceCodeFile, testCases, timeLimit, memoryLimit, executionCounter, entryPointFileGenerator);
+                       ExecutionType executionType) {
+        super(sourceCodeFile, testCases, timeLimit, memoryLimit, executionType);
     }
     
     @Override

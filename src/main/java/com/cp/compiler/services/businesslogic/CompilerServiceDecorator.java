@@ -4,7 +4,9 @@ import lombok.Getter;
 
 /**
  * The type Compiler service decorator.
- * Add behavior to the Compiler service
+ * Add behaviors to the Compiler service
+ *
+ * @author Zakaria Maaraki
  */
 public abstract class CompilerServiceDecorator implements CompilerService {
     

@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * The type Resource limit reached exception.
+ * It's a monitored exception.
+ *
+ * @author Zakaria Maaraki
  */
 @ResponseStatus(HttpStatus.LOOP_DETECTED)
 public class ResourceLimitReachedException extends MonitoredException {

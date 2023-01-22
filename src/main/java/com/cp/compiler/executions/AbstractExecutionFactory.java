@@ -7,6 +7,9 @@ import java.util.List;
 
 /**
  * The interface Abstract execution factory.
+ * It's a functional interface used to create a new Execution.
+ *
+ * @author Zakaria Maaraki
  */
 @FunctionalInterface
 public interface AbstractExecutionFactory {

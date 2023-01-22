@@ -61,7 +61,7 @@ class CompilerServiceTests {
         // Given
         int timeLimit = Integer.MAX_VALUE;
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), timeLimit, 100, Language.JAVA);
@@ -83,7 +83,7 @@ class CompilerServiceTests {
         // Given
         int timeLimit = -1;
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), timeLimit, 100, Language.JAVA);
@@ -105,7 +105,7 @@ class CompilerServiceTests {
         // Given
         int memoryLimit = Integer.MAX_VALUE;
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, memoryLimit, Language.JAVA);
@@ -127,7 +127,7 @@ class CompilerServiceTests {
         // Given
         int memoryLimit = -1;
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, memoryLimit, Language.JAVA);
@@ -152,7 +152,7 @@ class CompilerServiceTests {
                 "Hello, World!".getBytes()
         );
     
-        var testCase = new ConvertedTestCase("id", null, file);
+        var testCase = new ConvertedTestCase("id", null, "test");
     
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -223,7 +223,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenReturn(containerOutput);
     
-        var testCase = new ConvertedTestCase("id", null, file);
+        var testCase = new ConvertedTestCase("id", null, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -259,7 +259,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenItsACorrectAnswerCompileMethodShouldReturnAcceptedVerdict() throws Exception {
+    void WhenItsACorrectAnswerCompileMethodShouldReturnAcceptedVerdict() {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -297,7 +297,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenReturn(containerOutput);
     
-        var testCase = new ConvertedTestCase("id", null, file);
+        var testCase = new ConvertedTestCase("id", null, output);
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -316,7 +316,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenItsAWrongAnswerCompileMethodShouldReturnWrongAnswerVerdict() throws Exception {
+    void WhenItsAWrongAnswerCompileMethodShouldReturnWrongAnswerVerdict() {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -329,13 +329,6 @@ class CompilerServiceTests {
                 "hello.java",
                 MediaType.TEXT_PLAIN_VALUE,
                 output.getBytes()
-        );
-    
-        MockMultipartFile expectedOutputFile = new MockMultipartFile(
-                "file",
-                "hello.java",
-                MediaType.TEXT_PLAIN_VALUE,
-                expectedOutput.getBytes()
         );
     
         ProcessOutput containerOutput = ProcessOutput
@@ -362,7 +355,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenReturn(containerOutput);
     
-        var testCase = new ConvertedTestCase("id", null, expectedOutputFile);
+        var testCase = new ConvertedTestCase("id", null, expectedOutput);
         
         Execution execution =
                 ExecutionFactory.createExecution(sourceCode, List.of(testCase), 10, 100, Language.JAVA);
@@ -381,7 +374,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenTheExecutionTimeExceedTheLimitCompileMethodShouldReturnTimeLimitExceededVerdict() throws Exception {
+    void WhenTheExecutionTimeExceedTheLimitCompileMethodShouldReturnTimeLimitExceededVerdict() {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -428,7 +421,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenReturn(compilationContainerOutput);
     
-        var testCase = new ConvertedTestCase("id", null, file);
+        var testCase = new ConvertedTestCase("id", null, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -494,7 +487,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenReturn(compilationContainerOutput);
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -513,7 +506,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenMemoryLimitExceededCompileMethodShouldReturnOutOfMemoryErrorVerdict() throws Exception {
+    void WhenMemoryLimitExceededCompileMethodShouldReturnOutOfMemoryErrorVerdict() {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -560,7 +553,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenReturn(compilationContainerOutput);
     
-        var testCase = new ConvertedTestCase("id", null, file);
+        var testCase = new ConvertedTestCase("id", null, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -579,7 +572,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenItIsACompilationErrorCompileMethodShouldReturnCompilationErrorVerdict() throws Exception {
+    void WhenItIsACompilationErrorCompileMethodShouldReturnCompilationErrorVerdict() {
         // Given
         Mockito.when(containerService.buildImage(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                 .thenReturn("build log");
@@ -617,7 +610,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenReturn(containerOutput);
     
-        var testCase = new ConvertedTestCase("id", null, file);
+        var testCase = new ConvertedTestCase("id", null, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -662,7 +655,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenThrow(new ContainerFailedDependencyException("Docker engine error"));
     
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -696,7 +689,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString()))
                 .thenReturn(ProcessOutput.builder().stdErr("").status(StatusUtils.TIME_LIMIT_EXCEEDED_STATUS).build());
         
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -730,7 +723,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString()))
                 .thenReturn(ProcessOutput.builder().stdErr("").status(StatusUtils.OUT_OF_MEMORY_STATUS).build());
         
-        var testCase = new ConvertedTestCase("id", file, file);
+        var testCase = new ConvertedTestCase("id", file, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -751,7 +744,7 @@ class CompilerServiceTests {
                 output.getBytes()
         );
     
-        var testCase = new ConvertedTestCase("id", null, file);
+        var testCase = new ConvertedTestCase("id", null, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -783,7 +776,7 @@ class CompilerServiceTests {
                 "output".getBytes()
         );
     
-        var testCase = new ConvertedTestCase("id", null, file);
+        var testCase = new ConvertedTestCase("id", null, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);

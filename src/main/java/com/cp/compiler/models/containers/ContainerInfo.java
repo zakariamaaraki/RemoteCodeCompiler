@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 
 /**
  * The type ContainerInfo.
+ *
+ * @author Zakaria Maaraki
  */
 @Data
 @EqualsAndHashCode
