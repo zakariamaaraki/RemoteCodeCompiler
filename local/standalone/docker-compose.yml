@@ -19,7 +19,7 @@ services:
       MAX_REQUESTS: 1000
       MAX_TEST_CASES: 20
       MAX_EXECUTION_CPUS: 0.1
-      COMPILATION_CONTAINER_VOLUME: 'local_compiler' # volume name = folderName_volumeName
+      COMPILATION_CONTAINER_VOLUME: 'standalone_compiler' # volume name = folderName_volumeName
 
       # Push notifications
       ENABLE_PUSH_NOTIFICATION: 'true'
@@ -41,7 +41,7 @@ services:
       MAX_REQUESTS: 1000
       MAX_TEST_CASES: 20
       MAX_EXECUTION_CPUS: 0.1
-      COMPILATION_CONTAINER_VOLUME: 'local_compiler' # volume name = folderName_volumeName
+      COMPILATION_CONTAINER_VOLUME: 'standalone_compiler' # volume name = folderName_volumeName
 
       # Push notifications
       ENABLE_PUSH_NOTIFICATION: 'true'
@@ -63,7 +63,7 @@ services:
       MAX_REQUESTS: 1000
       MAX_TEST_CASES: 20
       MAX_EXECUTION_CPUS: 0.1
-      COMPILATION_CONTAINER_VOLUME: 'local_compiler' # volume name = folderName_volumeName
+      COMPILATION_CONTAINER_VOLUME: 'standalone_compiler' # volume name = folderName_volumeName
 
       # Push notifications
       ENABLE_PUSH_NOTIFICATION: 'true'
