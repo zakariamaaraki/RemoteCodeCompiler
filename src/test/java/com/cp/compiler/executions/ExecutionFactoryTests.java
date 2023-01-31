@@ -30,14 +30,11 @@ public class ExecutionFactoryTests {
         // Given
         ExecutionFactory.registerExecution(
                 Language.JAVA,
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
-                    return new JavaExecution(
-                            sourceCode,
-                            testCases,
-                            timeLimit,
-                            memoryLimit,
-                            null);
-        });
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new JavaExecution(
+                        sourceCode,
+                        testCases,
+                        timeLimit,
+                        memoryLimit));
         
         // When
         var testCase = new ConvertedTestCase("id", file, "test");

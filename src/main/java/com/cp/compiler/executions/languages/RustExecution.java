@@ -1,6 +1,7 @@
 package com.cp.compiler.executions.languages;
 
 import com.cp.compiler.executions.Execution;
+import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.executions.ExecutionType;
 import com.cp.compiler.models.testcases.ConvertedTestCase;
 import com.cp.compiler.models.Language;
@@ -34,9 +35,8 @@ public class RustExecution extends Execution {
     public RustExecution(MultipartFile sourceCode,
                          List<ConvertedTestCase> testCases,
                          int timeLimit,
-                         int memoryLimit,
-                         ExecutionType executionType) {
-        super(sourceCode, testCases, timeLimit, memoryLimit, executionType);
+                         int memoryLimit) {
+        super(sourceCode, testCases, timeLimit, memoryLimit, ExecutionFactory.getExecutionType(Language.RUST));
     }
     
     @Override

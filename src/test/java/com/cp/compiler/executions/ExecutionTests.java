@@ -76,8 +76,7 @@ class ExecutionTests {
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        new ExecutionType(null, entrypointFileGenerator));
+                        memoryLimit);
     
         var testCase = new ConvertedTestCase("id", file, "test");
         
@@ -111,8 +110,7 @@ class ExecutionTests {
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        new ExecutionType(null, entrypointFileGenerator));
+                        memoryLimit);
         
         var testCase = new ConvertedTestCase("id", file, "test");
         
@@ -146,8 +144,7 @@ class ExecutionTests {
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        new ExecutionType(null, entrypointFileGenerator));
+                        memoryLimit);
     
         var testCase = new ConvertedTestCase("id", file, "test");
         
@@ -181,8 +178,7 @@ class ExecutionTests {
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        new ExecutionType(null, entrypointFileGenerator));
+                        memoryLimit);
     
         var testCase = new ConvertedTestCase("id", file, "test");
         
@@ -216,8 +212,7 @@ class ExecutionTests {
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        new ExecutionType(null, entrypointFileGenerator));
+                        memoryLimit);
     
         var testCase = new ConvertedTestCase("id", file, "test");
         
@@ -251,8 +246,7 @@ class ExecutionTests {
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        new ExecutionType(null, entrypointFileGenerator));
+                        memoryLimit);
     
         var testCase = new ConvertedTestCase("id", file, "test");
         
@@ -286,8 +280,7 @@ class ExecutionTests {
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        new ExecutionType(null, entrypointFileGenerator));
+                        memoryLimit);
     
         var testCase = new ConvertedTestCase("id", file, "test");
         
@@ -321,8 +314,7 @@ class ExecutionTests {
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        new ExecutionType(null, entrypointFileGenerator));
+                        memoryLimit);
     
         var testCase = new ConvertedTestCase("id", file, "test");
         
@@ -356,8 +348,7 @@ class ExecutionTests {
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        new ExecutionType(null, entrypointFileGenerator));
+                        memoryLimit);
     
         var testCase = new ConvertedTestCase("id", file, "test");
         
@@ -391,8 +382,7 @@ class ExecutionTests {
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        new ExecutionType(null, entrypointFileGenerator));
+                        memoryLimit);
     
         var testCase = new ConvertedTestCase("id", file, "test");
         
@@ -426,8 +416,7 @@ class ExecutionTests {
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        new ExecutionType(null, entrypointFileGenerator));
+                        memoryLimit);
     
         var testCase = new ConvertedTestCase("id", file, "test");
         
@@ -457,14 +446,11 @@ class ExecutionTests {
     void shouldCopyExecutionDockerFileToExecutionDirectory() throws IOException {
         // Given
         AbstractExecutionFactory goExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> {
-                    return new GoExecution(
-                            sourceCode,
-                            testCases,
-                            timeLimit,
-                            memoryLimit,
-                            new ExecutionType(null, entrypointFileGenerator));
-                };
+                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new GoExecution(
+                        sourceCode,
+                        testCases,
+                        timeLimit,
+                        memoryLimit);
     
         var testCase = new ConvertedTestCase("id", file, "test");
         
@@ -494,8 +480,7 @@ class ExecutionTests {
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        new ExecutionType(null, entrypointFileGenerator));
+                        memoryLimit);
         
         var testCase = new ConvertedTestCase("id", file, "test");
         

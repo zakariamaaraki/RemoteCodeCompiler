@@ -2,23 +2,20 @@ package com.cp.compiler.amqp;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.cp.compiler.amqp.RabbitConsumer;
 import com.cp.compiler.exceptions.ThrottlingException;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.executions.languages.JavaExecution;
-import com.cp.compiler.mappers.JsonMapper;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.models.Response;
 import com.cp.compiler.models.Verdict;
 import com.cp.compiler.models.testcases.ConvertedTestCase;
 import com.cp.compiler.models.testcases.TestCaseResult;
 import com.cp.compiler.services.businesslogic.CompilerService;
-import com.fasterxml.jackson.core.JsonProcessingException;
+
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.junit.jupiter.api.BeforeEach;
@@ -83,8 +80,7 @@ public class RabbitmqConsumerTests {
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        null));
+                        memoryLimit));
     
         var result =
                 new TestCaseResult(Verdict.ACCEPTED, "aaa", "", "aaa", 100);
@@ -125,8 +121,7 @@ public class RabbitmqConsumerTests {
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        null));
+                        memoryLimit));
     
         var result =
                 new TestCaseResult(Verdict.ACCEPTED, "aaa", "", "aaa", 100);

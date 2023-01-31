@@ -1,6 +1,7 @@
 package com.cp.compiler.executions.languages;
 
 import com.cp.compiler.executions.Execution;
+import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.executions.ExecutionType;
 import com.cp.compiler.models.testcases.ConvertedTestCase;
 import com.cp.compiler.models.Language;
@@ -32,9 +33,8 @@ public class GoExecution extends Execution {
     public GoExecution(MultipartFile sourceCodeFile,
                        List<ConvertedTestCase> testCases,
                        int timeLimit,
-                       int memoryLimit,
-                       ExecutionType executionType) {
-        super(sourceCodeFile, testCases, timeLimit, memoryLimit, executionType);
+                       int memoryLimit) {
+        super(sourceCodeFile, testCases, timeLimit, memoryLimit, ExecutionFactory.getExecutionType(Language.GO));
     }
     
     @Override

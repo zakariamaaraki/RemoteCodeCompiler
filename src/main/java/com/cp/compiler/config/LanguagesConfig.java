@@ -38,13 +38,13 @@ public class LanguagesConfig {
     public LanguagesConfig(MeterRegistry meterRegistry, EntrypointFileGenerator entryPointFileGenerator) {
         this.entrypointFileGenerator = entryPointFileGenerator;
         this.meterRegistry = meterRegistry;
-        configureExecutionTypes(); // Note: configure execution types should come before configure languages!
+        configureExecutionTypes();
         configureLanguages();
     }
     
     private void configureExecutionTypes() {
         for (Language language : Language.values()) {
-            Counter executionsCounter = meterRegistry.counter(Language.JAVA.getExecutionCounter());
+            Counter executionsCounter = meterRegistry.counter(language.getExecutionCounter());
             ExecutionFactory.registerExecutionType(language, new ExecutionType(executionsCounter, entrypointFileGenerator));
         }
     }
@@ -56,88 +56,77 @@ public class LanguagesConfig {
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        ExecutionFactory.getExecutionType(Language.JAVA)));
+                        memoryLimit));
     
         register(Language.PYTHON,
                 (sourceCode, testCases, timeLimit, memoryLimit) -> new PythonExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        ExecutionFactory.getExecutionType(Language.PYTHON)));
+                        memoryLimit));
     
         register(Language.C,
                 (sourceCode, testCases, timeLimit, memoryLimit) -> new CExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        ExecutionFactory.getExecutionType(Language.C)));
+                        memoryLimit));
     
         register(Language.CPP,
                 (sourceCode, testCases, timeLimit, memoryLimit) -> new CPPExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        ExecutionFactory.getExecutionType(Language.CPP)));
+                        memoryLimit));
     
         register(Language.GO,
                 (sourceCode, testCases, timeLimit, memoryLimit) -> new GoExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        ExecutionFactory.getExecutionType(Language.GO)));
+                        memoryLimit));
     
         register(Language.CS,
                 (sourceCode, testCases, timeLimit, memoryLimit) -> new CSExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        ExecutionFactory.getExecutionType(Language.CS)));
+                        memoryLimit));
     
         register(Language.KOTLIN,
                 (sourceCode, testCases, timeLimit, memoryLimit) -> new KotlinExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        ExecutionFactory.getExecutionType(Language.KOTLIN)));
+                        memoryLimit));
     
         register(Language.SCALA,
                 (sourceCode, testCases, timeLimit, memoryLimit) -> new ScalaExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        ExecutionFactory.getExecutionType(Language.SCALA)));
+                        memoryLimit));
     
         register(Language.RUST,
                 (sourceCode, testCases, timeLimit, memoryLimit) -> new RustExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        ExecutionFactory.getExecutionType(Language.RUST)));
+                        memoryLimit));
     
         register(Language.RUBY,
                 (sourceCode, testCases, timeLimit, memoryLimit) -> new RubyExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        ExecutionFactory.getExecutionType(Language.RUBY)));
+                        memoryLimit));
     
         register(Language.HASKELL,
                 (sourceCode, testCases, timeLimit, memoryLimit) -> new HaskellExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
-                        memoryLimit,
-                        ExecutionFactory.getExecutionType(Language.HASKELL)));
+                        memoryLimit));
     }
     
     private void register(Language language, AbstractExecutionFactory executionFactory) {
