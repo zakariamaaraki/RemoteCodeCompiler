@@ -1,0 +1,73 @@
+# Do use it only for development / testing purpose
+version: "3.3"
+services:
+
+  compiler-1:
+    build: ../..
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - compiler:/compiler
+    ports:
+      - 8080:8082
+    restart: "on-failure"
+    environment:
+      DELETE_DOCKER_IMAGE: 'true'
+      EXECUTION_MEMORY_MAX: 10000
+      EXECUTION_MEMORY_MIN: 0
+      EXECUTION_TIME_MAX: 15
+      EXECUTION_TIME_MIN: 0
+      MAX_REQUESTS: 1000
+      MAX_TEST_CASES: 20
+      MAX_EXECUTION_CPUS: 0.1
+      COMPILATION_CONTAINER_VOLUME: 'local_compiler' # volume name = folderName_volumeName
+
+      # Push notifications
+      ENABLE_PUSH_NOTIFICATION: 'true'
+
+  compiler-2:
+    build: ../..
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - compiler:/compiler
+    ports:
+      - 8081:8082
+    restart: "on-failure"
+    environment:
+      DELETE_DOCKER_IMAGE: 'true'
+      EXECUTION_MEMORY_MAX: 10000
+      EXECUTION_MEMORY_MIN: 0
+      EXECUTION_TIME_MAX: 15
+      EXECUTION_TIME_MIN: 0
+      MAX_REQUESTS: 1000
+      MAX_TEST_CASES: 20
+      MAX_EXECUTION_CPUS: 0.1
+      COMPILATION_CONTAINER_VOLUME: 'local_compiler' # volume name = folderName_volumeName
+
+      # Push notifications
+      ENABLE_PUSH_NOTIFICATION: 'true'
+
+  compiler-3:
+    build: ../..
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - compiler:/compiler
+    ports:
+      - 8082:8082
+    restart: "on-failure"
+    environment:
+      DELETE_DOCKER_IMAGE: 'true'
+      EXECUTION_MEMORY_MAX: 10000
+      EXECUTION_MEMORY_MIN: 0
+      EXECUTION_TIME_MAX: 15
+      EXECUTION_TIME_MIN: 0
+      MAX_REQUESTS: 1000
+      MAX_TEST_CASES: 20
+      MAX_EXECUTION_CPUS: 0.1
+      COMPILATION_CONTAINER_VOLUME: 'local_compiler' # volume name = folderName_volumeName
+
+      # Push notifications
+      ENABLE_PUSH_NOTIFICATION: 'true'
+
+volumes:
+  compiler:
+    driver: local
