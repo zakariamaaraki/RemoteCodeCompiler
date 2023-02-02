@@ -16,23 +16,47 @@ public class MonitoredException extends RuntimeException {
     
     private ErrorType errorType;
     
+    private boolean isRetryableError;
+    
+    private int retryIn; // in Milli-seconds.
+    
     /**
      * Instantiates a new Monitored exception and increment the corresponding error counter.
+     *
+     * @param message          the message
+     * @param errorCode        the error code
+     * @param errorType        the error type
+     * @param isRetryableError the is retryable error
+     * @param retryIn          the retry in
+     */
+    public MonitoredException(String message,
+                              ErrorCode errorCode,
+                              ErrorType errorType,
+                              boolean isRetryableError,
+                              int retryIn) {
+        super(message);
+        
+        this.errorCode = errorCode;
+        this.errorType = errorType;
+        this.isRetryableError = isRetryableError;
+        this.retryIn = retryIn;
+        
+        Counter counter = ErrorCounterFactory.getCounter(this.errorCode);
+        if (counter != null) {
+            counter.increment();
+        }
+    }
+    
+    /**
+     * Instantiates a new Monitored exception.
+     * Can be used for non retryable errors.
      *
      * @param message   the message
      * @param errorCode the error code
      * @param errorType the error type
      */
     public MonitoredException(String message, ErrorCode errorCode, ErrorType errorType) {
-        super(message);
-        
-        this.errorCode = errorCode;
-        this.errorType = errorType;
-        
-        Counter counter = ErrorCounterFactory.getCounter(this.errorCode);
-        if (counter != null) {
-            counter.increment();
-        }
+        this(message, errorCode, errorType, false, -1);
     }
     
     /**

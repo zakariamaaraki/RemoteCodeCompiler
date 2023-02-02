@@ -1,5 +1,6 @@
 package com.cp.compiler.services.businesslogic;
 
+import com.cp.compiler.exceptions.CompilerBadRequestException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.wellknownconstants.WellKnownLoggingKeys;
 import com.cp.compiler.wellknownconstants.WellKnownMetrics;
@@ -90,9 +91,9 @@ public class CompilerFacadeDefault implements CompilerFacade {
                 longRunningExecutionCounter.increment();
                 // Check if the url is valid
                 if (!isUrlValid(url)) {
-                    return ResponseEntity
-                            .badRequest()
-                            .body("url " + url  + " not valid");
+                    var errorMessage = "url " + url  + " not valid";
+                    log.warn(errorMessage);
+                    throw new CompilerBadRequestException(errorMessage);
                 }
                 log.info("The execution is long running and the url is valid");
                 hooksRepository.addUrl(execution.getId(), url);

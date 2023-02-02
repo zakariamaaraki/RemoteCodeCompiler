@@ -58,7 +58,7 @@ public class MonitoredExceptionsTypeTests {
     @Test
     void throttlingExceptionTypeShouldBeWarning() {
         // Given
-        MonitoredException monitoredException = new ThrottlingException("message");
+        MonitoredException monitoredException = new CompilerThrottlingException("message");
         
         // When / Then
         Assertions.assertEquals(ErrorType.WARNING, monitoredException.getErrorType());

@@ -1,5 +1,7 @@
 package com.cp.compiler.services.businesslogic;
 
+import com.cp.compiler.exceptions.CompilerBadRequestException;
+import com.cp.compiler.exceptions.CompilerThrottlingException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.Language;
 import com.cp.compiler.services.resources.Resources;
@@ -14,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -108,9 +109,9 @@ public class CompilerProxy implements CompilerService {
         }
         // The request has been throttled
         throttlingCounterMetric.increment();
-        log.info("Request has been throttled, service reached maximum resources usage");
-        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
-                .body("Request has been throttled, service reached maximum resources usage");
+        String errorMessage = "Request has been throttled, service reached maximum resources usage";
+        log.warn(errorMessage);
+        throw new CompilerThrottlingException(errorMessage);
     }
     
     private ResponseEntity<Object> compileAndExecute(Execution execution) {
@@ -169,9 +170,8 @@ public class CompilerProxy implements CompilerService {
     }
     
     private ResponseEntity buildOutputError(String errorMessage) {
-        log.info(errorMessage);
-        return ResponseEntity.badRequest()
-                             .body(errorMessage);
+        log.warn(errorMessage);
+        throw new CompilerBadRequestException(errorMessage);
     }
     
     /**

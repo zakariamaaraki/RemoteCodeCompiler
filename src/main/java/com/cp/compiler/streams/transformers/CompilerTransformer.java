@@ -1,6 +1,6 @@
 package com.cp.compiler.streams.transformers;
 
-import com.cp.compiler.exceptions.ThrottlingException;
+import com.cp.compiler.exceptions.CompilerThrottlingException;
 import com.cp.compiler.mappers.JsonMapper;
 import com.cp.compiler.services.businesslogic.CompilerService;
 import io.micrometer.core.instrument.Counter;
@@ -48,7 +48,7 @@ public class CompilerTransformer implements ValueTransformer<String, String> {
     public String transform(String jsonRequest) {
         try {
             return JsonMapper.transform(jsonRequest, compilerService);
-        } catch (ThrottlingException throttlingException) {
+        } catch (CompilerThrottlingException throttlingException) {
             log.info("Request has been throttled {}, retrying after {}", throttlingException, throttlingDuration);
             return retryAfter(jsonRequest);
         } catch (Exception e) {

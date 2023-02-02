@@ -1,6 +1,6 @@
 package com.cp.compiler.mappers;
 
-import com.cp.compiler.exceptions.ThrottlingException;
+import com.cp.compiler.exceptions.CompilerThrottlingException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.Request;
@@ -74,7 +74,7 @@ public abstract class JsonMapper {
     
             // Throw an exception if the request has been throttled, to keep the request for retries
             if (responseEntity.getStatusCode().equals(HttpStatus.TOO_MANY_REQUESTS)) {
-                throw new ThrottlingException("The request has been throttled, maximum number of requests has been reached");
+                throw new CompilerThrottlingException("The request has been throttled, maximum number of requests has been reached");
             }
     
             Object body = responseEntity.getBody();

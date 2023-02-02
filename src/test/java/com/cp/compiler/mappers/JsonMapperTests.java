@@ -1,6 +1,6 @@
 package com.cp.compiler.mappers;
 
-import com.cp.compiler.exceptions.ThrottlingException;
+import com.cp.compiler.exceptions.CompilerThrottlingException;
 import com.cp.compiler.models.*;
 import com.cp.compiler.models.testcases.TestCase;
 import com.cp.compiler.models.testcases.TestCaseResult;
@@ -155,7 +155,7 @@ class JsonMapperTests {
                 .thenReturn(new ResponseEntity(HttpStatus.TOO_MANY_REQUESTS));
         
         // When / Then
-        Assertions.assertThrows(ThrottlingException.class, () -> JsonMapper.transform(jsonRequest, compilerService));
+        Assertions.assertThrows(CompilerThrottlingException.class, () -> JsonMapper.transform(jsonRequest, compilerService));
     }
     
     @Test

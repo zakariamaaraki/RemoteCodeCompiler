@@ -6,7 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.cp.compiler.exceptions.ThrottlingException;
+import com.cp.compiler.exceptions.CompilerThrottlingException;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.executions.languages.JavaExecution;
 import com.cp.compiler.models.Language;
@@ -140,7 +140,7 @@ public class RabbitmqConsumerTests {
                 LocalDateTime.now());
         
         when(compilerService.execute(any()))
-                .thenThrow(new ThrottlingException("throttling"))
+                .thenThrow(new CompilerThrottlingException("throttling"))
                 .thenReturn(ResponseEntity.ok(response));
         
         // Act

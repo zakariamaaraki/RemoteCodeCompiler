@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * The type Resource limit reached exception.
- * It's a monitored exception.
+ * It's a monitored exception, and it's a retryable error.
  *
  * @author Zakaria Maaraki
  */

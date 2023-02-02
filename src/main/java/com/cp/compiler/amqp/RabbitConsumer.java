@@ -1,6 +1,6 @@
 package com.cp.compiler.amqp;
 
-import com.cp.compiler.exceptions.ThrottlingException;
+import com.cp.compiler.exceptions.CompilerThrottlingException;
 import com.cp.compiler.mappers.JsonMapper;
 import com.cp.compiler.wellknownconstants.WellKnownMetrics;
 import com.cp.compiler.services.businesslogic.CompilerService;
@@ -72,7 +72,7 @@ public class RabbitConsumer {
     private String transform(String jsonRequest) throws Exception {
         try {
             return JsonMapper.transform(jsonRequest, compilerService);
-        } catch (ThrottlingException throttlingException) {
+        } catch (CompilerThrottlingException throttlingException) {
             log.info("Request throttled {}, retrying after {}", throttlingException, throttlingDuration);
             return retryAfter(jsonRequest);
         }
