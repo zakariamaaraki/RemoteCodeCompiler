@@ -10,7 +10,7 @@ import lombok.Getter;
  * @author Zakaria Maaraki
  */
 @Getter
-public class MonitoredException extends RuntimeException {
+public abstract class MonitoredException extends RuntimeException {
     
     private ErrorCode errorCode;
     

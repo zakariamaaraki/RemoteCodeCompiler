@@ -1,5 +1,7 @@
 package com.cp.compiler.services;
 
+import com.cp.compiler.exceptions.CompilerBadRequestException;
+import com.cp.compiler.exceptions.CompilerThrottlingException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.testcases.ConvertedTestCase;
@@ -39,10 +41,9 @@ class ThrottlingTests {
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
     
-        // When
-        ResponseEntity responseEntity = compilerProxy.execute(execution);
-        
-        // Then
-        Assertions.assertEquals(HttpStatus.TOO_MANY_REQUESTS, responseEntity.getStatusCode());
+        // When / Then
+        Assertions.assertThrows(CompilerThrottlingException.class, () -> {
+            compilerProxy.execute(execution);
+        });
     }
 }

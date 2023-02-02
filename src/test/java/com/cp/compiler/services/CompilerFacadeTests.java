@@ -1,5 +1,6 @@
 package com.cp.compiler.services;
 
+import com.cp.compiler.exceptions.CompilerBadRequestException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.testcases.ConvertedTestCase;
@@ -97,7 +98,7 @@ class CompilerFacadeTests {
     }
     
     @Test
-    void ifUrlIsNotValidShouldReturnBadRequest() throws IOException {
+    void ifUrlIsNotValidShouldThrowCompilerBadRequestException() {
         // Given
         var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(
@@ -107,28 +108,24 @@ class CompilerFacadeTests {
     
         Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok("ok test"));
     
-        // When
-        ResponseEntity responseEntity = compilerFacade.compile(execution, true, url, "");
-    
-        // Then
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        // When / Then
+        Assertions.assertThrows(CompilerBadRequestException.class, () -> {
+            compilerFacade.compile(execution, true, url, "");
+        });
     }
     
     @Test
-    void ifUrlIsNullShouldReturnBadRequest() throws IOException {
+    void ifUrlIsNullShouldThrowCompilerBadRequest() {
         // Given
         var testCase = new ConvertedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
         
-        String url = null;
-        
         Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok("ok test"));
         
-        // When
-        ResponseEntity responseEntity = compilerFacade.compile(execution, true, url, "");
-        
-        // Then
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        // When / Then
+        Assertions.assertThrows(CompilerBadRequestException.class, () -> {
+            compilerFacade.compile(execution, true, null, "");
+        });
     }
 }

@@ -1,5 +1,6 @@
 package com.cp.compiler.services;
 
+import com.cp.compiler.exceptions.CompilerBadRequestException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.testcases.ConvertedTestCase;
@@ -62,7 +63,7 @@ class CompilerProxyServiceTests {
     }
     
     @Test
-    void shouldReturnBadRequestIfTheExtensionIsNotValid() {
+    void shouldThrowCompilerBadRequestIfTheExtensionIsNotValid() {
         // Given
         MultipartFile invalidExtension = new MockMultipartFile(
                 "test.c",
@@ -75,15 +76,14 @@ class CompilerProxyServiceTests {
         Execution execution =
                 ExecutionFactory.createExecution(invalidExtension, List.of(testCase), 10, 500, Language.JAVA);
     
-        // When
-        ResponseEntity responseEntity = compilerProxy.execute(execution);
-    
-        // Then
-        Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
+        // When / Then
+        Assertions.assertThrows(CompilerBadRequestException.class, () -> {
+            compilerProxy.execute(execution);
+        });
     }
     
     @Test
-    void shouldReturnBadRequestIfNumberOfTestCasesIsZero() {
+    void shouldThrowCompilerBadRequestIfNumberOfTestCasesIsZero() {
         // Given
         MultipartFile invalidExtension = new MockMultipartFile(
                 "test.c",
@@ -93,26 +93,24 @@ class CompilerProxyServiceTests {
         
         Execution execution =
                 ExecutionFactory.createExecution(invalidExtension, List.of(), 10, 500, Language.C);
-        
-        // When
-        ResponseEntity responseEntity = compilerProxy.execute(execution);
-        
-        // Then
-        Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
+    
+        // When / Then
+        Assertions.assertThrows(CompilerBadRequestException.class, () -> {
+            compilerProxy.execute(execution);
+        });
     }
     
     @Test
-    void WhenSourceCodeFileNameIsInvalidShouldReturnBadRequest() {
+    void WhenSourceCodeFileNameIsInvalidShouldThrowCompilerBadRequest() {
         // Given
         var testCase = new ConvertedTestCase("id", validFileName, "test");
         Execution execution =
                 ExecutionFactory.createExecution(invalidFileName, List.of(testCase), 10, 500, Language.JAVA);
         
-        // When
-        ResponseEntity responseEntity = compilerProxy.execute(execution);
-        
-        // Then
-        Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
+        // When / Then
+        Assertions.assertThrows(CompilerBadRequestException.class, () -> {
+            compilerProxy.execute(execution);
+        });
     }
     
     @Test

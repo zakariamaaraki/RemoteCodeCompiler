@@ -57,7 +57,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenTimeLimitGreaterThanMaxExecutionTimeShouldReturnBadRequest() {
+    void WhenTimeLimitGreaterThanMaxExecutionTimeShouldThrowCompilerBadRequest() {
         // Given
         int timeLimit = Integer.MAX_VALUE;
     
@@ -65,12 +65,11 @@ class CompilerServiceTests {
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), timeLimit, 100, Language.JAVA);
-        
-        // When
-        ResponseEntity responseEntity = compilerService.execute(execution);
-        
-        // Then
-        Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
+    
+        // When / Then
+        Assertions.assertThrows(CompilerBadRequestException.class, () -> {
+            compilerService.execute(execution);
+        });
     }
     
     /**
@@ -79,7 +78,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenTimeLimitLessThanMinExecutionTimeShouldReturnBadRequest() {
+    void WhenTimeLimitLessThanMinExecutionTimeShouldThrowCompilerBadRequest() {
         // Given
         int timeLimit = -1;
     
@@ -87,12 +86,11 @@ class CompilerServiceTests {
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), timeLimit, 100, Language.JAVA);
-        
-        // When
-        ResponseEntity responseEntity = compilerService.execute(execution);
-        
-        // Then
-        Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
+    
+        // When / Then
+        Assertions.assertThrows(CompilerBadRequestException.class, () -> {
+            compilerService.execute(execution);
+        });
     }
     
     /**
@@ -101,7 +99,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenMemoryLimitGreaterThanMaxExecutionMemoryShouldReturnBadRequest() {
+    void WhenMemoryLimitGreaterThanMaxExecutionMemoryShouldThrowBadRequest() {
         // Given
         int memoryLimit = Integer.MAX_VALUE;
     
@@ -109,12 +107,11 @@ class CompilerServiceTests {
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, memoryLimit, Language.JAVA);
-        
-        // When
-        ResponseEntity responseEntity = compilerService.execute(execution);
-        
-        // Then
-        Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
+    
+        // When / Then
+        Assertions.assertThrows(CompilerBadRequestException.class, () -> {
+            compilerService.execute(execution);
+        });
     }
     
     /**
@@ -123,7 +120,7 @@ class CompilerServiceTests {
      * @throws Exception the exception
      */
     @Test
-    void WhenMemoryLimitLessThanMinExecutionMemoryShouldReturnBadRequest() {
+    void WhenMemoryLimitLessThanMinExecutionMemoryShouldThrowCompilerBadRequest() {
         // Given
         int memoryLimit = -1;
     
@@ -131,12 +128,11 @@ class CompilerServiceTests {
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, memoryLimit, Language.JAVA);
-        
-        // When
-        ResponseEntity responseEntity = compilerService.execute(execution);
-        
-        // Then
-        Assertions.assertEquals(BAD_REQUEST, responseEntity.getStatusCodeValue());
+    
+        // When / Then
+        Assertions.assertThrows(CompilerBadRequestException.class, () -> {
+            compilerService.execute(execution);
+        });
     }
     
     /**
