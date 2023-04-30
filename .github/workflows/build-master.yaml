@@ -32,7 +32,7 @@ jobs:
         with:
           java-version: 11
               
-      - run: cd environment && ./build.sh && cd .. && mvn clean && sudo mvn -B verify -P coverage --no-transfer-progress
+      - run: ./environment/build.sh && mvn clean && sudo mvn -B verify -P coverage --no-transfer-progress
       
       - name: jacoco-badge-generator
         uses: cicirello/jacoco-badge-generator@v2.4.1
