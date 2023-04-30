@@ -1,9 +1,7 @@
-name: Build and Test
+name: Build and Test (Merge to Master)
 
 on:
   push:
-    branches: [master]
-  pull_request:
     branches: [master]
 
 jobs:
