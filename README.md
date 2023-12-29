@@ -1,4 +1,4 @@
-[![Build and Test](https://github.com/zakariamaaraki/RemoteCodeCompiler/actions/workflows/build.yaml/badge.svg)](https://github.com/zakariamaaraki/RemoteCodeCompiler/actions/workflows/build.yaml) [![Docker](https://badgen.net/badge/icon/docker?icon=docker&label)](https://https://docker.com/) [![Test Coverage](https://github.com/zakariamaaraki/RemoteCodeCompiler/blob/master/.github/badges/jacoco.svg)](https://github.com/zakariamaaraki/RemoteCodeCompiler/actions/workflows/build.yaml)
+[![Build and Test](https://github.com/zakariamaaraki/RemoteCodeCompiler/actions/workflows/build-master.yaml/badge.svg)](https://github.com/zakariamaaraki/RemoteCodeCompiler/actions/workflows/build.yaml) [![Docker](https://badgen.net/badge/icon/docker?icon=docker&label)](https://https://docker.com/) [![Test Coverage](https://github.com/zakariamaaraki/RemoteCodeCompiler/blob/master/.github/badges/jacoco.svg)](https://github.com/zakariamaaraki/RemoteCodeCompiler/actions/workflows/build.yaml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 # Remote Code Compiler
@@ -36,7 +36,7 @@ Supports **Rest Calls (Long Polling and [Push Notification](https://en.wikipedia
 
 **Example of an ouput**
 
-The compiler cleans up your output, so having extra spaces or line breaks does not affect the status of the response.
+The compiler cleans up your output, which means having extra spaces or line breaks does not affect the status of the response.
 
 ```json
 {
@@ -110,11 +110,11 @@ docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -
 
 ### Push Notifications
 You may want to get the response later and to avoid http timeouts, you can use push notifications,
-to do so you must pass two header values (**url** where you want to get the response and set **preferPush** to prefer-push)
+to do so you should pass two header values (**url** where you want to get the response and set **preferPush** to prefer-push)
 
 ![push-notifications.png](images/webhooks.png)
 
-To enable push notifications you must set **ENABLE_PUSH_NOTIFICATION** to true
+To enable push notifications you should set the environment variable **ENABLE_PUSH_NOTIFICATION** to true
 
 ## Local Run (for dev environment only)
 See the documentation in the [local](https://github.com/zakariamaaraki/RemoteCodeCompiler/tree/master/local) folder, a docker-compose is provided.
@@ -156,6 +156,8 @@ For the documentation visit the swagger page at the following url : http://<IP:P
 ![Compiler swagger doc](images/swagger.png?raw=true "compiler swagger doc")
 
 ### Verdicts
+
+Here is a list of Verdicts that can be returned by the compiler:
 
 :tada: **Accepted**
 ```json
@@ -351,7 +353,7 @@ It is also possible to visualize information about the images and docker contain
 ![remote code compiler kafka mode](images/kafka-streams.png?raw=true "Compiler Kafka Mode")
 
 You can use the compiler with an event driven architecture.
-To enable kafka mode you must pass to the container the following env variables :
+To enable kafka mode you should pass to the container the following env variables :
 * **ENABLE_KAFKA_MODE** : True or False
 * **KAFKA_INPUT_TOPIC** : Input topic, json request
 * **KAFKA_OUTPUT_TOPIC** : Output topic, json response
@@ -361,7 +363,8 @@ To enable kafka mode you must pass to the container the following env variables 
 * **CLUSTER_API_SECRET** : API Secret
 * **KAFKA_THROTTLING_DURATION** : Throttling duration, by default set to 10000ms (when number of docker containers running reach MAX_REQUESTS, this value is used to do not lose the request and retry after this duration)
 
-**More partitions => More Parallelism => Better performance**
+> Note:  
+> Having More partitions => More Parallelism => Better performance
 
 ```shell
 docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -e DELETE_DOCKER_IMAGE=true -e EXECUTION_MEMORY_MAX=10000 -e EXECUTION_MEMORY_MIN=0 -e EXECUTION_TIME_MAX=15 -e EXECUTION_TIME_MIN=0 -e ENABLE_KAFKA_MODE=true -e KAFKA_INPUT_TOPIC=topic.input -e KAFKA_OUTPUT_TOPIC=topic.output -e KAFKA_CONSUMER_GROUP_ID=compilerId -e KAFKA_HOSTS=ip_broker1,ip_broker2,ip_broker3 -e API_KEY=YOUR_API_KEY -e API_SECRET=YOUR_API_SECRET -t compiler
@@ -371,7 +374,7 @@ docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -
 
 ![remote code compiler rabbitMq mode](images/rabbitMq.png?raw=true "Compiler rabbitMq Mode")
 
-To enable Rabbit MQ mode you must pass to the container the following env variables :
+To enable Rabbit MQ mode you should pass to the container the following env variables :
 * **ENABLE_RABBITMQ_MODE** : True or False
 * **RABBIT_QUEUE_INPUT** : Input queue, json request
 * **RABBIT_QUEUE_OUTPUT** : Output queue, json response
