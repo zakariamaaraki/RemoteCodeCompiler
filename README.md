@@ -116,6 +116,13 @@ to do so you should pass two header values (**url** where you want to get the re
 
 To enable push notifications you should set the environment variable **ENABLE_PUSH_NOTIFICATION** to true
 
+### Multipart request
+
+You have also the possibility to use multipart requests, you typically can use these requests for file uploads and for transferring data of several types in a single request.
+The only limitation with that, is that you can specify only one test case.
+
+![multipart-request.png](images/multipart-request.png)
+
 ## Local Run (for dev environment only)
 See the documentation in the [local](https://github.com/zakariamaaraki/RemoteCodeCompiler/tree/master/local) folder, a docker-compose is provided.
 
