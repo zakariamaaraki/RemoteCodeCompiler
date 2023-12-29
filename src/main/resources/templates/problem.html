@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remote Code Compiler</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #1e1e1e;
+            font-family: 'Arial', sans-serif;
+            color: #d4d4d4;
+        }
+
+        #menu-bar {
+            display: flex;
+            justify-content: space-between;
+            width: 95%;
+            max-width: 1600px;
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #333;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        #menu-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .menu-button {
+            font-family: 'Monaco', monospace;
+            font-size: 14px;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .menu-button:hover {
+            background-color: #555;
+        }
+
+        #menu-bar {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #main-container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            /* Align panels at the top */
+            width: 100%;
+            max-width: 1600px;
+            background-color: #333;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 60px;
+            /* Adjust this value to create enough space for breadcrumbs */
+            margin-bottom: 20px;
+        }
+
+        #ide-container {
+            flex: 1.5;
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        #code-editor {
+            width: 99%;
+            /* Full width of its container */
+            height: 500px;
+            /* Fixed height */
+            border: none;
+            outline: none;
+            resize: none;
+            background-color: #282c34;
+            color: #abb2bf;
+        }
+
+        /* Fancy terminal styling for buttons and dropdown */
+        #button-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        #output-button,
+        #toggle-problem-button,
+        #submit-button,
+        #submissions-button,
+        #language-dropdown {
+            background-color: #333;
+            color: #33ff33;
+            border: 1px solid #33ff33;
+            padding: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .submission-timestamp {
+            margin-left: auto;
+            /* Pushes the timestamp to the right */
+            padding: 0 5px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        #language-dropdown {
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        #language-dropdown select {
+            background-color: transparent;
+            color: #33ff33;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            cursor: pointer;
+            appearance: none;
+            /* Remove default arrow icon */
+        }
+
+        #output-button:hover,
+        #toggle-problem-button:hover,
+        #submit-button:hover,
+        #submissions-button:hover {
+            background-color: #444;
+        }
+
+        /* Custom arrow for select dropdown */
+        #language-dropdown::after {
+            content: '▼';
+            position: absolute;
+            right: 15px;
+            top: calc(50% - 7px);
+            pointer-events: none;
+            color: #33ff33;
+        }
+
+        /* Adjustments for the container to include the dropdown arrow */
+        #language-dropdown {
+            position: relative;
+        }
+
+        #output-panel,
+        #problem-panel,
+        #submissions-panel {
+            width: 500px;
+            /* Set width if needed or use existing width styles */
+            height: 750px;
+            /* Set the same height as the code editor */
+            overflow-y: auto;
+            /* Enable vertical scrollbar if content overflows */
+            display: none;
+            /* Start with the panel hidden, toggle display with JavaScript */
+        }
+
+
+        #output-panel {
+            background-color: #000;
+            color: #33ff33;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 10px;
+            display: none;
+            /* Start with the panel hidden */
+            transition: width 0.5s;
+            text-shadow: 0 0 5px #33ff33, 0 0 10px #33ff33, 0 0 20px #33ff33, 0 0 40px #0f0, 0 0 80px #0f0;
+        }
+
+        #output-panel div {
+            /* ... existing styles ... */
+            color: #fff;
+            position: relative;
+        }
+
+        #output-panel div::after {
+            content: attr(data-text);
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            z-index: -1;
+            text-shadow: 1px 1px 2px #000;
+            color: #33ff33;
+            opacity: 0.5;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent;
+            }
+
+            50% {
+                border-color: #fff;
+            }
+        }
+
+        /* Terminal-style submissions panel */
+        #submissions-panel {
+            background-color: #000;
+            color: #33ff33;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 10px;
+        }
+
+        #submissions-header {
+            background-color: #000;
+            color: #33ff33;
+            text-transform: uppercase;
+            padding: 10px;
+            border-bottom: 1px solid #33ff33;
+        }
+
+        #submissions-list {
+            max-height: 500px;
+            /* Adjust the height as needed */
+            overflow-y: auto;
+            /* Show scrollbar when needed */
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .submission-item {
+            background-color: transparent;
+            border: none;
+            padding: 5px 0;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .submission-status {
+            margin-left: 15px;
+            padding: 2px 5px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        .accepted {
+            color: #33ff33;
+        }
+
+        .wrong-answer,
+        .runtime-error {
+            color: #ff3333;
+        }
+
+        .submission-icon {
+            margin-right: 5px;
+        }
+
+        /* Blinking cursor effect */
+        .submission-item::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+            margin-left: 5px;
+        }
+
+        @keyframes blink {
+            50% {
+                visibility: hidden;
+            }
+        }
+
+        /* Hover effect for interaction */
+        .submission-item:hover {
+            background-color: #333333;
+        }
+
+        #problem-panel {
+            background-color: #000;
+            color: #33ff33;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 10px;
+            display: none;
+            /* Start with the panel hidden */
+            transition: width 0.5s;
+        }
+
+        #problem-header,
+        #test-cases-header {
+            background-color: #000;
+            color: #33ff33;
+            text-transform: uppercase;
+            padding: 10px;
+            border-bottom: 1px solid #33ff33;
+        }
+
+        #problem-description {
+            padding: 10px;
+        }
+
+        /* Existing styles... */
+
+        .test-case-item div {
+            padding: 2px 5px;
+            margin: 2px 0;
+        }
+
+        /* New styles for fancy tags */
+        .tag {
+            display: inline-block;
+            padding: 5px 10px;
+            margin-right: 5px;
+            background-color: #ff7f50; /* Coral background */
+            color: #fff; /* White text */
+            border-radius: 4px; /* Rounded corners */
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: bold;
+            box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+            transition: transform 0.2s ease-in-out; /* Smooth transform on hover */
+        }
+
+        .tag:hover {
+            transform: translateY(-2px); /* Slight raise effect on hover */
+            background-color: #e67300; /* Darken background color slightly */
+        }
+
+        #test-cases-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .test-case-item {
+            background-color: transparent;
+            border: none;
+            padding: 5px 0;
+            margin: 5px 0;
+        }
+
+        .test-case-item div {
+            padding: 2px 5px;
+            margin: 2px 0;
+        }
+
+        /* Adjust the toggle button styles if needed */
+        #toggle-problem-button {
+            /* Your styles here */
+        }
+
+
+        /* The scrollbar track (background) */
+        ::-webkit-scrollbar {
+            width: 12px;
+            background-color: #1e1e1e;
+            /* Dark background */
+        }
+
+        /* The scrollbar handle */
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+            /* Dark grey handle */
+            border-radius: 6px;
+            border: 2px solid #1e1e1e;
+            /* Same as track color for seamless design */
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+            /* Slightly lighter grey on hover */
+        }
+
+        /* Handle when being clicked or dragged */
+        ::-webkit-scrollbar-thumb:active {
+            background: #666;
+            /* Even lighter grey for active state */
+        }
+
+        /* The scrollbar corner */
+        ::-webkit-scrollbar-corner {
+            background-color: transparent;
+            /* Hide scrollbar corner */
+        }
+
+        /* Cursor*/
+        /* Cursor styles */
+        .blinking-cursor {
+            font-weight: 100;
+            font-size: 18px;
+            /* Adjust size to match problem text */
+            color: #33ff33;
+            /* Adjust color to match problem text */
+            -webkit-animation: blink 1s infinite;
+            /* Safari 4+ */
+            -moz-animation: blink 1s infinite;
+            /* Fx 5+ */
+            -o-animation: blink 1s infinite;
+            /* Opera 12+ */
+            animation: blink 1s infinite;
+            /* IE 10+, Fx 29+ */
+        }
+
+        @keyframes blink {
+
+            0%,
+            50%,
+            100% {
+                opacity: 1;
+            }
+
+            25%,
+            75% {
+                opacity: 0;
+            }
+        }
+
+        @-webkit-keyframes blink {
+
+            0%,
+            50%,
+            100% {
+                opacity: 1;
+            }
+
+            25%,
+            75% {
+                opacity: 0;
+            }
+        }
+
+        @-moz-keyframes blink {
+
+            0%,
+            50%,
+            100% {
+                opacity: 1;
+            }
+
+            25%,
+            75% {
+                opacity: 0;
+            }
+        }
+
+        @-o-keyframes blink {
+
+            0%,
+            50%,
+            100% {
+                opacity: 1;
+            }
+
+            25%,
+            75% {
+                opacity: 0;
+            }
+        }
+
+        /*VS theme*/
+        #theme-dropdown {
+            margin-right: 10px;
+            background-color: #333;
+            color: #33ff33;
+            border: 1px solid #33ff33;
+            padding: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+            position: relative;
+        }
+
+        #theme-dropdown select {
+            background-color: transparent;
+            color: #33ff33;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            cursor: pointer;
+            appearance: none;
+            /* Remove default arrow icon */
+        }
+
+        #theme-dropdown::after {
+            content: '▼';
+            position: absolute;
+            right: 15px;
+            top: calc(50% - 7px);
+            pointer-events: none;
+            color: #33ff33;
+        }
+
+        /*flush */
+        #flush-indicator {
+            font-family: 'Monaco', monospace;
+            font-size: 14px;
+            color: #fff;
+            animation: flushAnimation 1s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes flushAnimation {
+            0% {
+                content: '$ Remote';
+            }
+
+            50% {
+                content: '$ Code';
+            }
+
+            100% {
+                content: '$ Compiler';
+            }
+        }
+
+        /*terminal output*/
+        #terminal-output-container {
+            width: 95%;
+            max-width: 1600px;
+            background-color: #282c34;
+            /* A terminal-like background color */
+            color: #33ff33;
+            /* A green color for the text */
+            font-family: 'Courier New', Courier, monospace;
+            margin-bottom: 20px;
+            /* Adjust as necessary */
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #terminal-output {
+            white-space: pre-wrap;
+            /* Maintains whitespace */
+            overflow-x: auto;
+            /* Allows horizontal scrolling */
+            margin: 0;
+        }
+
+
+        #resource-limits {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            position: relative;
+            height: 20px;
+            background-color: #444;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+        }
+
+        .progress-fill {
+            display: block;
+            height: 100%;
+            background-color: #33ff33;
+            transition: width 0.3s ease-in-out;
+            border-radius: 10px;
+        }
+
+        .progress-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        /* Modify the progress-fill class based on the percentage used */
+        .progress-fill.warning {
+            background-color: #ffcc00; /* Yellow when warning */
+        }
+
+        .progress-fill.critical {
+            background-color: #ff3333; /* Red when exceeded */
+        }
+
+        #celebration-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .confetti {
+            position: absolute;
+            top: -10px;
+            opacity: 1;
+            animation: confetti-fall 4s linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 10; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #333; /* Match the dark theme of the page */
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #444; /* Slightly lighter border */
+            width: 80%; /* Could be more or less, depending on screen size */
+            max-width: 500px; /* Maximum width */
+            border-radius: 8px; /* Match border radius of the page elements */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+        .modal-close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .modal-close-button:hover,
+        .modal-close-button:focus {
+            color: #ddd; /* Lighter grey on hover */
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .modal-actions button {
+            background-color: #333;
+            color: #33ff33; /* Same green as other buttons for consistency */
+            border: 1px solid #33ff33; /* Same border style as other buttons */
+            padding: 10px;
+            margin: 0 10px;
+            font-family: 'Courier New', Courier, monospace; /* Match the font family */
+            font-size: 16px; /* Match the font size */
+            border-radius: 4px; /* Match the border radius */
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out; /* Smooth background transition */
+        }
+
+        .modal-actions button:hover {
+            background-color: #444; /* Slightly lighter on hover */
+        }
+
+        h2 {
+            color: #d4d4d4; /* Match the text color of the page */
+            margin-bottom: 16px; /* Spacing below the title */
+        }
+
+        p {
+            color: #d4d4d4; /* Match the text color of the page */
+            margin-bottom: 20px; /* Spacing below the paragraph */
+        }
+
+        /*blur the word **hidden***/
+        .hidden-blur {
+            filter: blur(5px);
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs/loader.min.js"></script>
+    <script>
+        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs' } });
+        require(['vs/editor/editor.main'], function () {
+            // Monaco will be available here
+        });
+    </script>
+    <script th:inline="javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const submissionsPanel = document.getElementById('submissions-panel');
+            submissionsPanel.style.width = '0';
+            submissionsPanel.style.display = 'none';
+
+
+            // Get the <span> element that closes the modal
+            var closeModalButton = document.getElementsByClassName('modal-close-button')[0];
+            // When the user clicks on the close button, close the modal
+            closeModalButton.onclick = function() {
+                hideModal();
+            }
+
+            // Get the buttons that handle the confirmation
+            var confirmSubmitButton = document.getElementById('confirm-submit-button');
+            var cancelSubmitButton = document.getElementById('cancel-submit-button');
+
+            // When the user clicks "Yes, Submit", submit the code and close the modal
+            confirmSubmitButton.onclick = function() {
+                submitCode(); // Call the existing function to submit the code
+                hideModal();
+            }
+
+            // When the user clicks "Cancel", just close the modal
+            cancelSubmitButton.onclick = function() {
+                hideModal();
+            }
+        });
+
+        function showModal() {
+            var modal = document.getElementById('submission-confirmation-modal');
+            modal.style.display = 'block';
+        }
+
+        function hideModal() {
+            var modal = document.getElementById('submission-confirmation-modal');
+            modal.style.display = 'none';
+        }
+
+        async function submitCode() {
+            // Jump to the submissions panel
+            toggleSubmissions();
+
+            const editor = monaco.editor.getModels()[0];
+
+            // Retrieve the selected programming language
+            const languageDropdown = document.getElementById('programming-language');
+            const selectedLanguage = languageDropdown.options[languageDropdown.selectedIndex].text;
+
+            // Retrieve the selected language and corresponding snippet
+            const code = editor.getValue();
+
+            const submissionsList = document.getElementById('submissions-list');
+            const submissionItem = document.createElement('li');
+            submissionItem.className = 'submission-item';
+
+            // Create an onclick event for the submission item
+            submissionItem.onclick = function () {
+                // Update the editor with the dummy code for this submission
+                updateEditorCode(code, selectedLanguage);
+            };
+
+            // Add submission text
+            const submissionText = document.createElement('span');
+            submissionText.textContent = 'Submission ' + (submissionsList.childNodes.length - 2) + ' (' + selectedLanguage + ')';
+            submissionItem.appendChild(submissionText);
+
+            // Add submission status with "Running" state
+            const submissionStatus = document.createElement('span');
+            submissionStatus.className = 'submission-status';
+            submissionStatus.textContent = '[Running]'; // Initial status
+            submissionItem.appendChild(submissionStatus);
+
+            submissionsList.appendChild(submissionItem);
+
+            // execute
+            /*<![CDATA[*/
+            const problemId = /*[[${problem.id}]]*/ "";
+            /*]]>*/
+            var executionResult;
+            fetch("/api/execute", {
+                method: "POST",
+                body: JSON.stringify({
+                    problemId: problemId,
+                    sourceCode: editor.getValue(),
+                    language: selectedLanguage.toUpperCase()
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+            .then((response) => response.json())
+            .then((json) => {
+                executionResult = json
+                console.log(json)
+
+                // Update the status
+                submissionStatus.textContent = '[' + executionResult.verdict + ']';
+                if (executionResult.verdict != "Accepted") {
+                    submissionStatus.classList.add('runtime-error'); // Add the error class for styling
+                } else {
+                    submissionStatus.classList.add('accepted');
+                }
+
+                // Write the error message to the output panel
+                const outputContent = document.getElementById('output-content');
+                outputContent.textContent = '';
+
+                // Iterate through test cases
+                if  (executionResult.testCasesResult != null && Object.keys(executionResult.testCasesResult).length > 0) {
+                    for (const testCaseId in executionResult.testCasesResult) {
+                        const testCase = executionResult.testCasesResult[testCaseId];
+                        let resultLine = `Test Case ${testCaseId}: ${testCase.verdict}.<br>`;
+                        resultLine += `Output: "${testCase.output.trim().replace(/\\s+/g, ' ').replace(/\\n/g, '')}" Expected Output: "${testCase.expectedOutput.trim().replace(/\\s+/g, ' ').replace(/\\n/g, '').replace('**Hidden**', '<span class="hidden-blur">**Hidden**</span>')}".<br>`;
+                        resultLine += `Execution Duration: ${testCase.executionDuration} ms<br>`
+
+                        if (testCase.error) {
+                            outputContent.innerHTML += resultLine + `Error: ${testCase.error}<br><br>`;
+                        } else {
+                            outputContent.innerHTML += resultLine + '<br><br>';
+                        }
+                    }
+                } else {
+                    if (executionResult.error != null && executionResult.error != "") {
+                        outputContent.textContent = 'Error: ' + executionResult.error;
+                    }
+                }
+
+                // Open the output panel to show the error
+                toggleOutput();
+
+                if (executionResult.verdict == "Accepted") {
+                    celebrateSuccess();
+                }
+
+                updateProgressBars(executionResult.averageExecutionDuration, executionResult.timeLimit);
+            })
+        }
+
+        function updateProgressBars(timeUsed, timeLimit) {
+            if (!timeUsed) {
+                timeUsed = 0;
+            }
+            // Calculate the percentage of the time and memory used
+            const timePercentage = (timeUsed / timeLimit) * 100;
+
+            // Get the progress bar elements
+            const timeProgressBar = document.getElementById('time-limit-progress').querySelector('.progress-fill');
+            const textProgressBar = document.getElementById('time-limit-progress').querySelector('.progress-text');
+
+            // Update the progress bars' widths and text
+            timeProgressBar.style.width = `${timePercentage}%`;
+            textProgressBar.textContent = `${timeUsed} / ${timeLimit}`;
+
+            // Update the color based on usage
+            timeProgressBar.className = 'progress-fill'; // Reset class
+            if (timePercentage > 80) {
+                timeProgressBar.classList.add(timePercentage >= 90 ? 'critical' : 'warning');
+            }
+        }
+
+        function celebrateSuccess() {
+            // Get the celebration effect container
+            const celebrationContainer = document.getElementById('celebration-effect');
+            celebrationContainer.innerHTML = ''; // Clear previous confetti and messages
+            celebrationContainer.style.display = 'block';
+
+            // Create confetti particles
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                celebrationContainer.appendChild(confetti);
+            }
+
+            // Start animation
+            celebrationContainer.querySelectorAll('.confetti').forEach((confetti, index) => {
+                // Randomize confetti properties
+                const size = Math.floor(Math.random() * 3) + 5; // Size between 5px and 7px
+                const left = Math.floor(Math.random() * 100); // Left position between 0 and 100%
+                const backgroundColor = `hsl(${Math.floor(Math.random() * 360)}, 100%, 50%)`; // Random color
+                const animationDelay = Math.random() * 2; // Random animation delay between 0s and 2s
+
+                // Apply styles to confetti
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.left = `${left}%`;
+                confetti.style.backgroundColor = backgroundColor;
+                confetti.style.animationDelay = `${animationDelay}s`;
+
+                // Remove confetti after animation ends (assuming the animation lasts 4 seconds)
+                setTimeout(() => confetti.remove(), 4000 + animationDelay * 1000);
+            });
+
+            // Create the accepted message element
+            const acceptedMessage = document.createElement('div');
+            acceptedMessage.textContent = 'Accepted! Congratulations!';
+            acceptedMessage.style.position = 'fixed';
+            acceptedMessage.style.top = '50%';
+            acceptedMessage.style.left = '50%';
+            acceptedMessage.style.transform = 'translate(-50%, -50%)';
+            acceptedMessage.style.fontSize = '2em';
+            acceptedMessage.style.color = '#33ff33';
+            acceptedMessage.style.zIndex = '10000'; // Ensure it's on top of the confetti
+            acceptedMessage.style.textShadow = '0 0 5px #33ff33, 0 0 10px #33ff33, 0 0 20px #33ff33, 0 0 40px #0f0, 0 0 80px #0f0';
+
+            // Append the message to the celebration container
+            celebrationContainer.appendChild(acceptedMessage);
+
+            // Optional: Remove the message after some time
+            setTimeout(() => {
+                acceptedMessage.remove();
+                celebrationContainer.style.display = 'none'; // Hide the container
+            }, 5000); // Remove the message after 5 seconds
+        }
+
+        function updateEditorCode(code, language) {
+            const editor = monaco.editor.getModels()[0];
+            const languageDropdown = document.getElementById('programming-language');
+
+            // Update the editor's language
+            monaco.editor.setModelLanguage(editor, language.toLowerCase());
+
+            // Update the language dropdown
+            for (let i = 0; i < languageDropdown.options.length; i++) {
+                if (languageDropdown.options[i].text === language) {
+                    languageDropdown.selectedIndex = i;
+                    break;
+                }
+            }
+
+            // Set the code in the editor
+            editor.setValue(code);
+        }
+
+        function toggleOutput() {
+            const outputPanel = document.getElementById('output-panel');
+            const submissionsPanel = document.getElementById('submissions-panel');
+            const problemPanel = document.getElementById('problem-panel');
+
+            // Close other panels when opening the output panel
+            if (submissionsPanel.style.width !== '0' && submissionsPanel.style.width !== '') {
+                submissionsPanel.style.width = '0';
+                setTimeout(() => {
+                    submissionsPanel.style.display = 'none';
+                }, 500);
+            }
+            if (problemPanel.style.width !== '0' && problemPanel.style.width !== '') {
+                problemPanel.style.width = '0';
+                setTimeout(() => {
+                    problemPanel.style.display = 'none';
+                }, 500);
+            }
+
+            // Toggle the output panel
+            if (outputPanel.style.width === '0px' || outputPanel.style.width === '') {
+                outputPanel.style.width = '500px';
+                outputPanel.style.display = 'block'; // Use 'block' instead of 'flex' since it's not a flex container
+            } else {
+                outputPanel.style.width = '0';
+                setTimeout(() => {
+                    outputPanel.style.display = 'none';
+                }, 500);
+            }
+        }
+
+        function toggleProblem() {
+            const problemPanel = document.getElementById('problem-panel');
+            const submissionsPanel = document.getElementById('submissions-panel');
+            const outputPanel = document.getElementById('output-panel'); // Get the output panel
+
+            // Close the output panels if it's open
+            if (outputPanel.style.width !== '0' && outputPanel.style.width !== '') {
+                outputPanel.style.width = '0';
+                setTimeout(() => {
+                    outputPanel.style.display = 'none';
+                }, 500);
+            }
+
+            // Close the submissions panel when opening the problem panel
+            if (submissionsPanel.style.width !== '0' && submissionsPanel.style.width !== '') {
+                submissionsPanel.style.width = '0';
+                setTimeout(() => {
+                    submissionsPanel.style.display = 'none';
+                }, 500);
+            }
+
+            // Toggle the problem panel
+            if (problemPanel.style.width === '0px' || problemPanel.style.width === '') {
+                problemPanel.style.width = '500px';
+                problemPanel.style.display = 'block'; // Use 'block' instead of 'flex' since it's not a flex container
+            } else {
+                problemPanel.style.width = '0';
+                setTimeout(() => {
+                    problemPanel.style.display = 'none';
+                }, 500);
+            }
+        }
+
+        function toggleSubmissions() {
+            const submissionsPanel = document.getElementById('submissions-panel');
+            const problemPanel = document.getElementById('problem-panel');
+            const outputPanel = document.getElementById('output-panel'); // Get the output panel
+
+            // Close the problem, and output panels if they're open
+            if (problemPanel.style.width !== '0' && problemPanel.style.width !== '') {
+                problemPanel.style.width = '0';
+                setTimeout(() => {
+                    problemPanel.style.display = 'none';
+                }, 500);
+            }
+            if (outputPanel.style.width !== '0' && outputPanel.style.width !== '') {
+                outputPanel.style.width = '0';
+                setTimeout(() => {
+                    outputPanel.style.display = 'none';
+                }, 500);
+            }
+
+            // Toggle the submissions panel
+            if (submissionsPanel.style.width === '0px' || submissionsPanel.style.width === '') {
+                submissionsPanel.style.width = '500px';
+                submissionsPanel.style.display = 'flex';
+            } else {
+                submissionsPanel.style.width = '0';
+                setTimeout(() => {
+                    submissionsPanel.style.display = 'none';
+                }, 500);
+            }
+        }
+    </script>
+</head>
+
+<body>
+<div id="celebration-effect" style="display: none;"></div>
+
+<!-- Modal -->
+<div id="submission-confirmation-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close-button">&times;</span>
+        <h2>Confirm Submission</h2>
+        <p>Are you sure you want to submit your code?</p>
+        <div class="modal-actions">
+            <button id="confirm-submit-button">Yes, Submit</button>
+            <button id="cancel-submit-button">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div id="menu-bar">
+    <div id="menu-buttons">
+        <button class="menu-button" onclick="goHome()">Home</button>
+    </div>
+
+    <!-- Dynamic flushing element -->
+    <div id="flush-indicator">|</div>
+</div>
+
+<div id="main-container">
+    <div id="ide-container">
+        <div id="terminal-output-container">
+            <div data-th-text="${ 'Time Limit: ' + problem.timeLimit + ' Second(s), Memory Limit: ' + problem.memoryLimit  + ' MB'}"></div>
+            <div id="resource-limits">
+                <div id="time-limit-container">
+                    <div id="time-limit-progress" class="progress-bar">
+                        <span class="progress-fill" style="width: 1%;"></span>
+                        <span class="progress-text"></span>
+                    </div>
+                </div>
+            </div>
+            <pre id="terminal-output"></pre>
+        </div>
+        <div id="code-editor"></div>
+        <div id="button-container">
+            <!-- Added: Language Dropdown -->
+            <div id="language-dropdown">
+                <select id="programming-language">
+                    <option value="java">Java</option>
+                    <option value="kotlin">Kotlin</option>
+                    <option value="scala">Scala</option>
+                    <option value="python">Python</option>
+                    <option value="csharp">C#</option>
+                    <option value="c">C</option>
+                    <option value="cpp">C++</option>
+                    <option value="rust">Rust</option>
+                    <option value="haskell">Haskell</option>
+                    <option value="go">Go</option>
+                    <option value="ruby">Ruby</option>
+                </select>
+            </div>
+            <div id="theme-dropdown">
+                <select id="editor-theme">
+                    <option value="vs-dark">Dark</option>
+                    <option value="vs-light">Light</option>
+                    <option value="hc-black">High Contrast</option>
+                </select>
+            </div>
+            <button id="submit-button" onclick="showModal()">Submit Code</button>
+            <button id="output-button" onclick="toggleOutput()">Output</button>
+            <button id="submissions-button" onclick="toggleSubmissions()">Submissions</button>
+            <button id="toggle-problem-button" onclick="toggleProblem()">Problem</button>
+        </div>
+    </div>
+
+    <div id="output-panel">
+        <div id="output-header">Output Log</div>
+        <pre id="output-content"></pre> <!-- This will contain the output messages -->
+    </div>
+
+    <div id="problem-panel">
+        <div id="problem-header">
+            <div data-th-text="${ problem.title + ' (' + problem.difficulty + ')'}"></div>
+        </div>
+        <div id="problem-description">
+            <table>
+                <tr>
+                <th:block th:each="tag : ${problem.tags}">
+                    <td><div class="tag" th:text="${ '#' + tag}"></div></td>
+                </th:block>
+                </tr>
+            </table>
+            <p></p>
+        </div>
+        <div id="test-cases-header">Test Cases</div>
+        <ul id="test-cases-list">
+            <!-- More test cases will be dynamically added here -->
+        </ul>
+    </div>
+
+    <div id="submissions-panel">
+        <div id="submissions-header">Submissions Log</div>
+        <ul id="submissions-list">
+            <!-- Submissions will be dynamically added here -->
+        </ul>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        const flushIndicator = document.getElementById('flush-indicator');
+        const flushChars = ['$ Remote', '$ Code', '$ Compiler'];
+        let flushIndex = 0;
+
+        function flushAnimation() {
+            flushIndicator.textContent = flushChars[flushIndex];
+            flushIndex = (flushIndex + 1) % flushChars.length;
+        }
+
+        // Start the flushing animation with a period of 500 milliseconds
+        setInterval(flushAnimation, 1000);
+    });
+
+    // Function to simulate typing code into the editor
+    function typeCode(editor, code, index = 0) {
+        if (index < code.length) {
+            // Append the next character to the editor
+            editor.setValue(code.substring(0, index + 1));
+            // Schedule the next character to be typed
+            setTimeout(() => typeCode(editor, code, index + 1), 10); // 10ms delay between characters
+        }
+    }
+
+    // Function to simulate typing text into an HTML element
+    function typeText(element, text, index = 0) {
+        if (index < text.length) {
+            // Append the next character to the element's text content
+            element.textContent += text.charAt(index);
+            // Schedule the next character to be typed
+            setTimeout(() => typeText(element, text, index + 1), 20); // 10ms delay between characters
+        }
+    }
+
+    function typeText(element, text, index = 0, callback) {
+        // Create the cursor span if it doesn't exist
+        let cursorSpan = element.querySelector('.blinking-cursor');
+        if (!cursorSpan) {
+            cursorSpan = document.createElement('span');
+            cursorSpan.classList.add('blinking-cursor');
+            cursorSpan.textContent = '|'; // The cursor character
+            element.appendChild(cursorSpan);
+        }
+
+        if (index < text.length) {
+            // Insert text before the cursor
+            cursorSpan.before(text.charAt(index));
+            // Schedule the next character to be typed
+            setTimeout(() => typeText(element, text, index + 1, callback), 50); // 50ms delay between characters
+        } else {
+            // Remove the cursor when typing is complete
+            cursorSpan.remove();
+            // If provided, call the callback function after typing is complete
+            if (callback) callback();
+        }
+    }
+
+
+    // Function to type out all test cases one by one
+    function typeTestCases(testCases, testCaseIndex = 0) {
+        if (testCaseIndex < testCases.length) {
+            const testCase = testCases[testCaseIndex];
+            const testCaseItem = document.createElement('li');
+            testCaseItem.classList.add('test-case-item');
+
+            const testCaseList = document.getElementById('test-cases-list');
+            testCaseList.appendChild(testCaseItem);
+
+            // Type out the test case header (e.g., "Test Case 1")
+            const testCaseHeader = document.createElement('span');
+            testCaseHeader.textContent = `Test Case ${testCaseIndex + 1}`;
+            testCaseItem.appendChild(testCaseHeader);
+
+            // Type out the input and expected output
+            const inputDiv = document.createElement('div');
+            testCaseItem.appendChild(inputDiv);
+            const outputDiv = document.createElement('div');
+            testCaseItem.appendChild(outputDiv);
+
+            typeText(inputDiv, `Input: ${testCase.input}`, 0, () => {
+                typeText(outputDiv, `Expected Output: ${testCase.output}`, 0, () => {
+                    // Move on to the next test case after typing is complete
+                    typeTestCases(testCases, testCaseIndex + 1);
+                });
+            });
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const submissionsPanel = document.getElementById('submissions-panel');
+        submissionsPanel.style.width = '0';
+        submissionsPanel.style.display = 'none';
+
+        // Open the problem panel by default
+        const problemPanel = document.getElementById('problem-panel');
+        problemPanel.style.width = '500px'; // Set the width to the open state
+        problemPanel.style.display = 'block'; // Set the display to block to show it
+
+        // Optionally, update the text of the problem toggle button
+        const toggleProblemButton = document.getElementById('toggle-problem-button');
+        toggleProblemButton.textContent = 'Problem'; // Update the button text to indicate it can be closed
+
+        // Define the problem description text
+        /*<![CDATA[*/
+        const problemDescriptionText = /*[[${problem.description}]]*/ "";
+        /*]]>*/
+
+        // Get the problem description element
+        const problemDescriptionElement = document.getElementById('problem-description');
+
+        // Call the typeText function with the problem description element and text
+        typeText(problemDescriptionElement, problemDescriptionText);
+
+        // Define the test cases
+        /*<![CDATA[*/
+        const testCases = [
+            /*[# th:each="testCase, iterStat : ${problem.testCases}"]*/
+            {
+                input: /*[[${testCase.input}]]*/,
+                output: /*[[${testCase.expectedOutput}]]*/
+            }/*[# th:if="${!iterStat.last}"]*/,/*[/]*/
+            /*[/]*/
+        ];
+        /*]]>*/
+
+        // Start typing out the test cases
+        typeTestCases(testCases);
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        var defaultSnippets = {
+            java: "// Java code here\npublic class main {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");\n    }\n}",
+            kotlin: "// Kotlin code here\n" +
+                "object main {\n" +
+                "    @JvmStatic\n" +
+                "    fun main(args: Array<String>) {\n" +
+                "        println(\"Hello, World!\")\n" +
+                "    }\n" +
+                "}",
+            scala: "// Scala code here\nobject main extends App {\n    println(\"Hello, World!\")\n}",
+            python: "# Python code here\ndef main():\n    print(\"Hello, World!\")\n\nif __name__ == \"__main__\":\n    main()",
+            csharp: "// C# code here\npublic class Program {\n    public static void Main(string[] args) {\n        System.Console.WriteLine(\"Hello, World!\");\n    }\n}",
+            c: "// C code here\n#include <stdio.h>\n\nint main() {\n    printf(\"Hello, World!\\n\");\n    return 0;\n}",
+            cpp: "// C++ code here\n#include <iostream>\n\nint main() {\n    std::cout << \"Hello, World!\" << std::endl;\n    return 0;\n}",
+            rust: "// Rust code here\nfn main() {\n    println!(\"Hello, World!\");\n}",
+            haskell: "-- Haskell code here\nmain :: IO ()\nmain = putStrLn \"Hello, World!\"",
+            go: "// Go code here\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Hello, World!\")\n}",
+            ruby: "# Ruby code here\nputs 'Hello, World!'"
+        };
+
+        // Initialize the Monaco Editor
+        require(['vs/editor/editor.main'], function () {
+            var editor = monaco.editor.create(document.getElementById('code-editor'), {
+                language: 'java', // Set the default language
+                theme: 'vs-dark', // Set the theme to dark (like VS Code)
+                automaticLayout: true, // Automatically adjust the layout
+                value: ''
+                // Other options here...
+            });
+
+            // Function to get the current code from the editor
+            function getCurrentCode() {
+                return editor.getValue();
+            }
+
+            // Function to change the language of the Monaco Editor
+            function changeEditorLanguage(newLanguage) {
+                monaco.editor.setModelLanguage(editor.getModel(), newLanguage);
+                editor.setValue(defaultSnippets[newLanguage] || '');
+            }
+
+            // Function to change the theme of the Monaco Editor
+            function changeEditorTheme(newTheme) {
+                monaco.editor.setTheme(newTheme);
+            }
+
+            // Event listener for the theme dropdown
+            document.getElementById('editor-theme').addEventListener('change', function (event) {
+                changeEditorTheme(event.target.value);
+            });
+
+            // Event listener for the language dropdown
+            document.getElementById('programming-language').addEventListener('change', function (event) {
+                changeEditorLanguage(event.target.value);
+            });
+
+            // Call the typeCode function with the editor instance and the default code for the language
+            typeCode(editor, defaultSnippets['java']);
+        });
+    });
+</script>
+</body>
+
+</html>

@@ -11,6 +11,10 @@ public enum ErrorType {
      */
     ERROR,
     /**
+     * Fatal Error.
+     */
+    FATAL,
+    /**
      * Warning error type.
      */
     WARNING

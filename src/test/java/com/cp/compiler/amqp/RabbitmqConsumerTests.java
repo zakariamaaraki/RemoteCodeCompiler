@@ -9,11 +9,11 @@ import static org.mockito.Mockito.when;
 import com.cp.compiler.exceptions.CompilerThrottlingException;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.executions.languages.JavaExecution;
-import com.cp.compiler.models.Language;
-import com.cp.compiler.models.Response;
+import com.cp.compiler.contract.Language;
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.models.Verdict;
-import com.cp.compiler.models.testcases.ConvertedTestCase;
-import com.cp.compiler.models.testcases.TestCaseResult;
+import com.cp.compiler.models.testcases.TransformedTestCase;
+import com.cp.compiler.contract.testcases.TestCaseResult;
 import com.cp.compiler.services.businesslogic.CompilerService;
 
 import io.micrometer.core.instrument.Counter;
@@ -76,7 +76,7 @@ public class RabbitmqConsumerTests {
     
         ExecutionFactory.registerExecution(
                 Language.JAVA,
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new JavaExecution(
+                (MultipartFile sourceCode, List<TransformedTestCase> testCases, int timeLimit, int memoryLimit) -> new JavaExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
@@ -87,7 +87,7 @@ public class RabbitmqConsumerTests {
         LinkedHashMap<String, TestCaseResult> testCasesResult = new LinkedHashMap<>();
         testCasesResult.put("id", result);
     
-        var response = new Response(
+        var response = new RemoteCodeCompilerResponse(
                 result.getStatusResponse(),
                 result.getVerdict().getStatusCode(),
                 "",
@@ -117,7 +117,7 @@ public class RabbitmqConsumerTests {
     
         ExecutionFactory.registerExecution(
                 Language.JAVA,
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new JavaExecution(
+                (MultipartFile sourceCode, List<TransformedTestCase> testCases, int timeLimit, int memoryLimit) -> new JavaExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
@@ -128,7 +128,7 @@ public class RabbitmqConsumerTests {
         LinkedHashMap<String, TestCaseResult> testCasesResult = new LinkedHashMap<>();
         testCasesResult.put("id", result);
     
-        var response = new Response(
+        var response = new RemoteCodeCompilerResponse(
                 result.getStatusResponse(),
                 result.getVerdict().getStatusCode(),
                 "",

@@ -3,19 +3,10 @@
 
 # Remote Code Compiler
 
-<pre>
-
- ____                               _               ____               _             ____                               _   _
- |  _ \    ___   _ __ ___     ___   | |_    ___     / ___|   ___     __| |   ___     / ___|   ___    _ __ ___    _ __   (_) | |   ___   _ __
- | |_) |  / _ \ | '_ ` _ \   / _ \  | __|  / _ \   | |      / _ \   / _` |  / _ \   | |      / _ \  | '_ ` _ \  | '_ \  | | | |  / _ \ | '__|
- |  _ <  |  __/ | | | | | | | (_) | | |_  |  __/   | |___  | (_) | | (_| | |  __/   | |___  | (_) | | | | | | | | |_) | | | | | |  __/ | |
- |_| \_\  \___| |_| |_| |_|  \___/   \__|  \___|    \____|  \___/   \__,_|  \___|    \____|  \___/  |_| |_| |_| | .__/  |_| |_|  \___| |_|
-                                                                                                                |_|
-
-</pre>
+![UX](images/UX-RemoteCodeCompiler.png?raw=true "User Interface")
 
 An online code compiler supporting 11 languages (**Java**, **Kotlin**, **C**, **C++**, **C#**, **Golang**, **Python**, **Scala**, **Ruby**, **Rust** and **Haskell**) for competitive programming and coding interviews.
-This service execute your code remotely using docker containers to separate environments of execution.
+This tool execute your code remotely using docker containers to separate environments of execution.
 
 ![Supported languages](images/supported-languages.png?raw=true "supported-languages logos")
 
@@ -125,12 +116,6 @@ to do so you must pass two header values (**url** where you want to get the resp
 
 To enable push notifications you must set **ENABLE_PUSH_NOTIFICATION** to true
 
-### Multipart request
-
-You have also the possibility to use multipart requests, you typically can use these requests for file uploads and for transferring data of several types in a single request.
-
-![multipart-request.png](images/multipart-request.png)
-
 ## Local Run (for dev environment only)
 See the documentation in the [local](https://github.com/zakariamaaraki/RemoteCodeCompiler/tree/master/local) folder, a docker-compose is provided.
 
@@ -160,9 +145,10 @@ When a request comes in, the compiler creates a container responsible of compili
 ![Architecture](images/remote_code_compiler_architecture.png?raw=true "Compiler")
 
 <p>
-    Each container running in the execution step has a number of CPUs (the same value for all containers, we recommend to use 0.1 CPUs for each execution), 
-a memory limit and execution time limit, once the memory limit or the maximum time granted to this container is reached 
-the container is destroyed automatically and an error explaining the cause is returned to the user.
+    In the execution step, each container is assigned a set number of CPUs (consistent across all containers,
+with a recommended value of 0.1 CPUs per execution), as well as limits on memory and execution time. 
+When the container hits either the memory threshold or the maximum time allowed, it is automatically terminated, 
+and a user-facing error message is generated to explain the termination cause.
 </p>
 
 For the documentation visit the swagger page at the following url : http://<IP:PORT>/swagger-ui.html

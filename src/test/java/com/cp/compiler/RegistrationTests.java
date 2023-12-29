@@ -2,11 +2,11 @@ package com.cp.compiler;
 
 import com.cp.compiler.controllers.CompilerController;
 import com.cp.compiler.controllers.ContainersInfoController;
-import com.cp.compiler.controllers.IndexController;
+import com.cp.compiler.controllers.ProblemController;
 import com.cp.compiler.repositories.HooksRepository;
-import com.cp.compiler.services.businesslogic.CompilerFacade;
+import com.cp.compiler.services.api.CompilerFacade;
 import com.cp.compiler.services.businesslogic.CompilerService;
-import com.cp.compiler.services.containers.ContainerService;
+import com.cp.compiler.services.platform.containers.ContainerService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ class RegistrationTests {
     private ContainerService containerService;
     
     @Autowired
-    private IndexController indexController;
+    private ProblemController indexController;
     
     @Autowired
     private ContainersInfoController containersInfoController;

@@ -1,8 +1,8 @@
 package com.cp.compiler.e2e.problems;
 
 import com.cp.compiler.controllers.CompilerController;
-import com.cp.compiler.models.Language;
-import com.cp.compiler.models.Response;
+import com.cp.compiler.contract.Language;
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.models.Verdict;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -63,7 +63,7 @@ class AmShZWinsABetTests {
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getVerdict());
+                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
     }
     
     @DisplayName("AmShZ Wins a Bet Problem test case 2")
@@ -103,7 +103,7 @@ class AmShZWinsABetTests {
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getVerdict());
+                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
     }
     
     @DisplayName("AmShZ Wins a Bet Problem test case 3")
@@ -142,6 +142,6 @@ class AmShZWinsABetTests {
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getVerdict());
+                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
     }
 }

@@ -1,8 +1,10 @@
 package com.cp.compiler.models;
 
+import com.cp.compiler.contract.Language;
+import com.cp.compiler.contract.RemoteCodeCompilerRequest;
 import com.cp.compiler.mappers.TestCaseMapper;
-import com.cp.compiler.models.testcases.ConvertedTestCase;
-import com.cp.compiler.models.testcases.TestCase;
+import com.cp.compiler.models.testcases.TransformedTestCase;
+import com.cp.compiler.contract.testcases.TestCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,7 +25,7 @@ public class RequestTests {
             put("test2", new TestCase("input", "expectedOutput"));
         }};
         
-        var request = new Request(
+        var request = new RemoteCodeCompilerRequest(
                 "sourceCode",
                 Language.JAVA,
                 15,
@@ -31,16 +33,16 @@ public class RequestTests {
                 testCases);
         
         // When
-        List<ConvertedTestCase> convertedTestCases = request.getConvertedTestCases();
+        List<TransformedTestCase> convertedTestCases = request.getConvertedTestCases();
         
         // Then
-        List<ConvertedTestCase> expectedConvertedTestCases = TestCaseMapper.toConvertedTestCases(testCases);
+        List<TransformedTestCase> expectedConvertedTestCases = TestCaseMapper.toConvertedTestCases(testCases);
         
         Assertions.assertEquals(expectedConvertedTestCases.size(), convertedTestCases.size());
         
         for (int i = 0; i < convertedTestCases.size(); i++) {
-            ConvertedTestCase expectedConvertedTestCase = expectedConvertedTestCases.get(i);
-            ConvertedTestCase convertedTestCase = convertedTestCases.get(i);
+            TransformedTestCase expectedConvertedTestCase = expectedConvertedTestCases.get(i);
+            TransformedTestCase convertedTestCase = convertedTestCases.get(i);
     
             String expectedInput = readFile(
                     new BufferedReader(
@@ -65,7 +67,7 @@ public class RequestTests {
             put("test1", new TestCase("input", "expectedOutput"));
         }};
     
-        var request = new Request(
+        var request = new RemoteCodeCompilerRequest(
                 "sourceCode",
                 Language.JAVA,
                 15,

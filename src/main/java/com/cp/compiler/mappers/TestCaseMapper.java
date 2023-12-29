@@ -1,7 +1,7 @@
 package com.cp.compiler.mappers;
 
-import com.cp.compiler.models.testcases.ConvertedTestCase;
-import com.cp.compiler.models.testcases.TestCase;
+import com.cp.compiler.models.testcases.TransformedTestCase;
+import com.cp.compiler.contract.testcases.TestCase;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,8 +29,8 @@ public abstract class TestCaseMapper {
      * @return the converted test case
      * @throws IOException the io exception
      */
-    public static ConvertedTestCase toConvertedTestCase(TestCase testCase, String testCaseId) throws IOException {
-        var convertedTestCase = new ConvertedTestCase();
+    public static TransformedTestCase toConvertedTestCase(TestCase testCase, String testCaseId) throws IOException {
+        var convertedTestCase = new TransformedTestCase();
         convertedTestCase.setTestCaseId(testCaseId);
         convertedTestCase.setInputFile(getInput(testCase.getInput(), testCaseId));
         convertedTestCase.setExpectedOutput(testCase.getExpectedOutput());
@@ -44,8 +44,8 @@ public abstract class TestCaseMapper {
      * @return the list
      * @throws IOException the io exception
      */
-    public static List<ConvertedTestCase> toConvertedTestCases(Map<String, TestCase> testCases) throws IOException {
-        List<ConvertedTestCase> convertedTestCases = new ArrayList<>();
+    public static List<TransformedTestCase> toConvertedTestCases(Map<String, TestCase> testCases) throws IOException {
+        List<TransformedTestCase> convertedTestCases = new ArrayList<>();
         for (String id : testCases.keySet()) {
             convertedTestCases.add(toConvertedTestCase(testCases.get(id), id));
         }

@@ -1,8 +1,8 @@
 package com.cp.compiler.executions;
 
 import com.cp.compiler.exceptions.FactoryNotFoundException;
-import com.cp.compiler.models.testcases.ConvertedTestCase;
-import com.cp.compiler.models.Language;
+import com.cp.compiler.models.testcases.TransformedTestCase;
+import com.cp.compiler.contract.Language;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.EnumMap;
@@ -78,7 +78,7 @@ public abstract class ExecutionFactory {
      * @return the execution
      */
     public static Execution createExecution(MultipartFile sourceCode,
-                                            List<ConvertedTestCase> testCases,
+                                            List<TransformedTestCase> testCases,
                                             int timeLimit,
                                             int memoryLimit,
                                             Language language) {

@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "title": "Sample Problem",
+    "description": "This is a sample problem description.",
+    "timeLimit": 5,
+    "memoryLimit": 1024,
+    "testCases": [
+      {
+        "input": "1 2",
+        "expectedOutput": "3"
+      },
+      {
+        "input": "5 7",
+        "expectedOutput": "12"
+      },
+      {
+        "input": "5 6",
+        "expectedOutput": "13"
+      }
+    ],
+    "tags": ["math", "arithmetic"],
+    "difficulty": "MEDIUM"
+  }
+]

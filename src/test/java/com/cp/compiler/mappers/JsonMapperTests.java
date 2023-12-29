@@ -1,9 +1,12 @@
 package com.cp.compiler.mappers;
 
+import com.cp.compiler.contract.Language;
+import com.cp.compiler.contract.RemoteCodeCompilerRequest;
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.exceptions.CompilerThrottlingException;
 import com.cp.compiler.models.*;
-import com.cp.compiler.models.testcases.TestCase;
-import com.cp.compiler.models.testcases.TestCaseResult;
+import com.cp.compiler.contract.testcases.TestCase;
+import com.cp.compiler.contract.testcases.TestCaseResult;
 import com.cp.compiler.services.businesslogic.CompilerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,7 +41,7 @@ class JsonMapperTests {
         testCases.put("test1", new TestCase(null, "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n"));
     }
     
-    private final static Request request = new Request(
+    private final static RemoteCodeCompilerRequest request = new RemoteCodeCompilerRequest(
             "public class Test1 {\npublic static void main(String[] args) {\nint i = 0;\nwhile (i < 10) " +
                     "{\nSystem.out.println(i++);\n}}}",
             Language.JAVA,
@@ -54,7 +57,7 @@ class JsonMapperTests {
     @Test
     void shouldTransformJsonRequestJsonToRequestObject() throws IOException {
         // When
-        Request requestInput = JsonMapper.toRequest(jsonRequest);
+        RemoteCodeCompilerRequest requestInput = JsonMapper.toRequest(jsonRequest);
         
         // Then
         Assertions.assertEquals(request, requestInput);
@@ -73,7 +76,7 @@ class JsonMapperTests {
         LinkedHashMap<String, TestCaseResult> testCasesResult = new LinkedHashMap<>();
         testCasesResult.put("id", result);
     
-        var response = new Response(
+        var response = new RemoteCodeCompilerResponse(
                 result.getVerdict().getStatusResponse(),
                 result.getVerdict().getStatusCode(),
                 "",
@@ -99,7 +102,7 @@ class JsonMapperTests {
         LinkedHashMap<String, TestCaseResult> testCasesResult = new LinkedHashMap<>();
         testCasesResult.put("id", result);
     
-        var response = new Response(
+        var response = new RemoteCodeCompilerResponse(
                 result.getVerdict().getStatusResponse(),
                 result.getVerdict().getStatusCode(),
                 "",
@@ -127,7 +130,7 @@ class JsonMapperTests {
         LinkedHashMap<String, TestCaseResult> testCasesResult = new LinkedHashMap<>();
         testCasesResult.put("id", result);
     
-        var response = new Response(
+        var response = new RemoteCodeCompilerResponse(
                 result.getVerdict().getStatusResponse(),
                 result.getVerdict().getStatusCode(),
                 "",
@@ -172,8 +175,8 @@ class JsonMapperTests {
         Assertions.assertEquals(null, jsonResponse);
     }
     
-    private Response toResponse(String jsonResponse) throws JsonProcessingException {
-        return objectMapper.readValue(jsonResponse, Response.class);
+    private RemoteCodeCompilerResponse toResponse(String jsonResponse) throws JsonProcessingException {
+        return objectMapper.readValue(jsonResponse, RemoteCodeCompilerResponse.class);
     }
 
 }

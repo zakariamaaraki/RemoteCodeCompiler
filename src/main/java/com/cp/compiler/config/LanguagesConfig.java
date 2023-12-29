@@ -12,7 +12,7 @@ import com.cp.compiler.executions.languages.PythonExecution;
 import com.cp.compiler.executions.languages.RubyExecution;
 import com.cp.compiler.executions.languages.RustExecution;
 import com.cp.compiler.executions.languages.ScalaExecution;
-import com.cp.compiler.models.Language;
+import com.cp.compiler.contract.Language;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;

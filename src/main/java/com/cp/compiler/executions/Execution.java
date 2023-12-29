@@ -1,7 +1,7 @@
 package com.cp.compiler.executions;
 
-import com.cp.compiler.models.testcases.ConvertedTestCase;
-import com.cp.compiler.models.Language;
+import com.cp.compiler.models.testcases.TransformedTestCase;
+import com.cp.compiler.contract.Language;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import com.cp.compiler.utils.FileUtils;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
@@ -39,7 +39,7 @@ public abstract class Execution {
     private MultipartFile sourceCodeFile;
     
     @NonNull
-    private List<ConvertedTestCase> testCases;
+    private List<TransformedTestCase> testCases;
     
     @NonNull
     private int timeLimit;
@@ -71,7 +71,7 @@ public abstract class Execution {
      * @param executionType  the execution type
      */
     protected Execution(MultipartFile sourceCodeFile,
-                        List<ConvertedTestCase> testCases,
+                        List<TransformedTestCase> testCases,
                         int timeLimit,
                         int memoryLimit,
                         ExecutionType executionType) {
@@ -118,7 +118,7 @@ public abstract class Execution {
         String sourceCodeFileName = sourceCodeFile.getOriginalFilename();
         FileUtils.saveUploadedFiles(sourceCodeFile, path + "/" + sourceCodeFileName);
         
-        for (ConvertedTestCase testCase : testCases) {
+        for (TransformedTestCase testCase : testCases) {
             if (testCase.getInputFile() != null) {
                 FileUtils.saveUploadedFiles(
                         testCase.getInputFile(),

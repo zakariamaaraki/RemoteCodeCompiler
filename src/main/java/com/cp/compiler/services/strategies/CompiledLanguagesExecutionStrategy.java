@@ -7,9 +7,9 @@ import com.cp.compiler.models.CompilationResponse;
 import com.cp.compiler.models.Verdict;
 import com.cp.compiler.models.containers.ContainerInfo;
 import com.cp.compiler.models.processes.ProcessOutput;
-import com.cp.compiler.services.businesslogic.ContainerHelper;
-import com.cp.compiler.services.containers.ContainerService;
-import com.cp.compiler.services.resources.Resources;
+import com.cp.compiler.services.platform.containers.ContainerHelper;
+import com.cp.compiler.services.platform.containers.ContainerService;
+import com.cp.compiler.services.platform.resources.Resources;
 import com.cp.compiler.utils.StatusUtils;
 import com.cp.compiler.wellknownconstants.WellKnownMetrics;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -115,6 +115,8 @@ public class CompiledLanguagesExecutionStrategy extends ExecutionStrategy {
                                                     compilationDuration);
     
         ContainerHelper.deleteContainer(containerName, containerService, threadPool);
+    
+        ContainerHelper.cleanStdErrOutput(compilationOutput, execution);
         
         return CompilationResponse
                 .builder()

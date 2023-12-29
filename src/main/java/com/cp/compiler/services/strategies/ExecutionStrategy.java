@@ -7,11 +7,11 @@ import com.cp.compiler.models.ExecutionResponse;
 import com.cp.compiler.models.Verdict;
 import com.cp.compiler.models.containers.ContainerInfo;
 import com.cp.compiler.models.processes.ProcessOutput;
-import com.cp.compiler.models.testcases.ConvertedTestCase;
-import com.cp.compiler.models.testcases.TestCaseResult;
-import com.cp.compiler.services.businesslogic.ContainerHelper;
-import com.cp.compiler.services.containers.ContainerService;
-import com.cp.compiler.services.resources.Resources;
+import com.cp.compiler.models.testcases.TransformedTestCase;
+import com.cp.compiler.contract.testcases.TestCaseResult;
+import com.cp.compiler.services.platform.containers.ContainerHelper;
+import com.cp.compiler.services.platform.containers.ContainerService;
+import com.cp.compiler.services.platform.resources.Resources;
 import com.cp.compiler.utils.CmdUtils;
 import com.cp.compiler.utils.StatusUtils;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
@@ -121,7 +121,7 @@ public abstract class ExecutionStrategy {
         Verdict verdict = null;
         String err = "";
     
-        for (ConvertedTestCase testCase : execution.getTestCases()) {
+        for (TransformedTestCase testCase : execution.getTestCases()) {
     
             TestCaseResult testCaseResult = executeTestCase(execution, testCase);
     
@@ -156,7 +156,7 @@ public abstract class ExecutionStrategy {
     }
     
     private TestCaseResult executeTestCase(Execution execution,
-                                           ConvertedTestCase testCase) {
+                                           TransformedTestCase testCase) {
         
         log.info("Start running test case id = {}", testCase.getTestCaseId());
         
@@ -197,19 +197,29 @@ public abstract class ExecutionStrategy {
                         testCaseId,
                         containerOutput.getStdErr());
             }
-            
-            Verdict verdict = getVerdict(containerOutput, expectedOutput);
-            
-            ContainerHelper.cleanStdErrOutput(containerOutput, execution);
-            
+    
             // Inspect the container to get info about it
             ContainerInfo containerInfo =  containerService.inspect(containerName);
             ContainerHelper.logContainerInfo(containerName, containerInfo);
-            
+    
             int executionDuration = ContainerHelper.getExecutionDuration(
                     containerInfo == null ? null : containerInfo.getStartTime(),
                     containerInfo == null ? null : containerInfo.getEndTime(),
                     containerOutput.getExecutionDuration());
+    
+            Verdict verdict = getVerdict(containerOutput, expectedOutput);
+            
+            if (executionDuration > execution.getTimeLimit() * 1000 && verdict == Verdict.RUNTIME_ERROR) {
+                // The verdict should be fixed.
+                log.warn("The execution finished with a status {}, and an execution duration of {} > time limit {}. The verdict will be fixed",
+                        verdict,
+                        executionDuration,
+                        execution.getTimeLimit());
+                verdict = Verdict.TIME_LIMIT_EXCEEDED;
+                containerOutput.setStdErr("Time limit exceeded");
+            }
+            
+            ContainerHelper.cleanStdErrOutput(containerOutput, execution);
             
             return new TestCaseResult(
                     verdict,

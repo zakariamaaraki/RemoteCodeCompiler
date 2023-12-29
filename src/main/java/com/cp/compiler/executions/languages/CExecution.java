@@ -2,11 +2,8 @@ package com.cp.compiler.executions.languages;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
-import com.cp.compiler.executions.ExecutionType;
-import com.cp.compiler.models.testcases.ConvertedTestCase;
-import com.cp.compiler.models.Language;
-import com.cp.compiler.templates.EntrypointFileGenerator;
-import io.micrometer.core.instrument.Counter;
+import com.cp.compiler.models.testcases.TransformedTestCase;
+import com.cp.compiler.contract.Language;
 import lombok.Getter;
 import lombok.val;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,16 +21,15 @@ import java.util.Map;
 public class CExecution extends Execution {
     
     /**
-     * Instantiates a new Execution.
+     * Instantiates a new C execution.
      *
-     * @param sourceCodeFile the source code
+     * @param sourceCodeFile the source code file
      * @param testCases      the test cases
      * @param timeLimit      the time limit
      * @param memoryLimit    the memory limit
-     * @param executionType  the execution type
      */
     public CExecution(MultipartFile sourceCodeFile,
-                      List<ConvertedTestCase> testCases,
+                      List<TransformedTestCase> testCases,
                       int timeLimit,
                       int memoryLimit) {
         super(sourceCodeFile, testCases, timeLimit, memoryLimit, ExecutionFactory.getExecutionType(Language.C));

@@ -1,14 +1,16 @@
 package com.cp.compiler.services;
 
+import com.cp.compiler.contract.Language;
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.exceptions.*;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.*;
 import com.cp.compiler.models.processes.ProcessOutput;
-import com.cp.compiler.models.testcases.ConvertedTestCase;
-import com.cp.compiler.models.testcases.TestCaseResult;
+import com.cp.compiler.models.testcases.TransformedTestCase;
+import com.cp.compiler.contract.testcases.TestCaseResult;
 import com.cp.compiler.services.businesslogic.CompilerService;
-import com.cp.compiler.services.containers.ContainerService;
+import com.cp.compiler.services.platform.containers.ContainerService;
 import com.cp.compiler.utils.StatusUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -61,7 +63,7 @@ class CompilerServiceTests {
         // Given
         int timeLimit = Integer.MAX_VALUE;
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), timeLimit, 100, Language.JAVA);
@@ -82,7 +84,7 @@ class CompilerServiceTests {
         // Given
         int timeLimit = -1;
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), timeLimit, 100, Language.JAVA);
@@ -103,7 +105,7 @@ class CompilerServiceTests {
         // Given
         int memoryLimit = Integer.MAX_VALUE;
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, memoryLimit, Language.JAVA);
@@ -124,7 +126,7 @@ class CompilerServiceTests {
         // Given
         int memoryLimit = -1;
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, memoryLimit, Language.JAVA);
@@ -148,7 +150,7 @@ class CompilerServiceTests {
                 "Hello, World!".getBytes()
         );
     
-        var testCase = new ConvertedTestCase("id", null, "test");
+        var testCase = new TransformedTestCase("id", null, "test");
     
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -219,7 +221,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenReturn(containerOutput);
     
-        var testCase = new ConvertedTestCase("id", null, "test");
+        var testCase = new TransformedTestCase("id", null, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -231,7 +233,7 @@ class CompilerServiceTests {
         LinkedHashMap<String, TestCaseResult> testCasesResult = new LinkedHashMap<>();
         testCasesResult.put("id", result);
         
-        var response = new Response(
+        var response = new RemoteCodeCompilerResponse(
                 result.getVerdict().getStatusResponse(),
                 result.getVerdict().getStatusCode(),
                 "",
@@ -293,7 +295,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenReturn(containerOutput);
     
-        var testCase = new ConvertedTestCase("id", null, output);
+        var testCase = new TransformedTestCase("id", null, output);
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -302,7 +304,7 @@ class CompilerServiceTests {
         ResponseEntity<Object> responseEntity = compilerService.execute(execution);
         
         // Then
-        Response response = (Response) responseEntity.getBody();
+        RemoteCodeCompilerResponse response = (RemoteCodeCompilerResponse) responseEntity.getBody();
         Assertions.assertEquals(Verdict.ACCEPTED.getStatusResponse(), response.getVerdict());
     }
     
@@ -351,7 +353,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenReturn(containerOutput);
     
-        var testCase = new ConvertedTestCase("id", null, expectedOutput);
+        var testCase = new TransformedTestCase("id", null, expectedOutput);
         
         Execution execution =
                 ExecutionFactory.createExecution(sourceCode, List.of(testCase), 10, 100, Language.JAVA);
@@ -360,7 +362,7 @@ class CompilerServiceTests {
         ResponseEntity responseEntity = compilerService.execute(execution);
         
         // Then
-        Response response = (Response) responseEntity.getBody();
+        RemoteCodeCompilerResponse response = (RemoteCodeCompilerResponse) responseEntity.getBody();
         Assertions.assertEquals(Verdict.WRONG_ANSWER.getStatusResponse(), response.getVerdict());
     }
     
@@ -417,7 +419,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenReturn(compilationContainerOutput);
     
-        var testCase = new ConvertedTestCase("id", null, "test");
+        var testCase = new TransformedTestCase("id", null, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -426,7 +428,7 @@ class CompilerServiceTests {
         ResponseEntity<Object> responseEntity = compilerService.execute(execution);
         
         // Then
-        Response response = (Response) responseEntity.getBody();
+        RemoteCodeCompilerResponse response = (RemoteCodeCompilerResponse) responseEntity.getBody();
         Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getStatusResponse(), response.getVerdict());
     }
     
@@ -483,7 +485,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenReturn(compilationContainerOutput);
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -492,7 +494,7 @@ class CompilerServiceTests {
         ResponseEntity<Object> responseEntity = compilerService.execute(execution);
         
         // Then
-        Response response = (Response) responseEntity.getBody();
+        RemoteCodeCompilerResponse response = (RemoteCodeCompilerResponse) responseEntity.getBody();
         Assertions.assertEquals(Verdict.RUNTIME_ERROR.getStatusResponse(), response.getVerdict());
     }
     
@@ -549,7 +551,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenReturn(compilationContainerOutput);
     
-        var testCase = new ConvertedTestCase("id", null, "test");
+        var testCase = new TransformedTestCase("id", null, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -558,7 +560,7 @@ class CompilerServiceTests {
         ResponseEntity<Object> responseEntity = compilerService.execute(execution);
         
         // Then
-        Response response = (Response) responseEntity.getBody();
+        RemoteCodeCompilerResponse response = (RemoteCodeCompilerResponse) responseEntity.getBody();
         Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getStatusResponse(), response.getVerdict());
     }
     
@@ -606,7 +608,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenReturn(containerOutput);
     
-        var testCase = new ConvertedTestCase("id", null, "test");
+        var testCase = new TransformedTestCase("id", null, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -615,7 +617,7 @@ class CompilerServiceTests {
         ResponseEntity<Object> responseEntity = compilerService.execute(execution);
         
         // Then
-        Response response = (Response) responseEntity.getBody();
+        RemoteCodeCompilerResponse response = (RemoteCodeCompilerResponse) responseEntity.getBody();
         Assertions.assertEquals(Verdict.COMPILATION_ERROR.getStatusResponse(), response.getVerdict());
     }
     
@@ -651,7 +653,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.anyString())).thenThrow(new ContainerFailedDependencyException("Docker engine error"));
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -685,7 +687,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString()))
                 .thenReturn(ProcessOutput.builder().stdErr("").status(StatusUtils.TIME_LIMIT_EXCEEDED_STATUS).build());
         
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -719,7 +721,7 @@ class CompilerServiceTests {
                 ArgumentMatchers.anyString()))
                 .thenReturn(ProcessOutput.builder().stdErr("").status(StatusUtils.OUT_OF_MEMORY_STATUS).build());
         
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -740,7 +742,7 @@ class CompilerServiceTests {
                 output.getBytes()
         );
     
-        var testCase = new ConvertedTestCase("id", null, "test");
+        var testCase = new TransformedTestCase("id", null, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -772,7 +774,7 @@ class CompilerServiceTests {
                 "output".getBytes()
         );
     
-        var testCase = new ConvertedTestCase("id", null, "test");
+        var testCase = new TransformedTestCase("id", null, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
@@ -808,10 +810,10 @@ class CompilerServiceTests {
         // Then
         Assertions.assertEquals(
                 "/mockFile",
-                ((Response)response.getBody()).getTestCasesResult().get("id").getError());
+                ((RemoteCodeCompilerResponse)response.getBody()).getTestCasesResult().get("id").getError());
     
         Assertions.assertEquals(
                 "/mockFile",
-                ((Response)response.getBody()).getError());
+                ((RemoteCodeCompilerResponse)response.getBody()).getError());
     }
 }

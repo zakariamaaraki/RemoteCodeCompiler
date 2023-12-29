@@ -1,15 +1,15 @@
 package com.cp.compiler.services;
 
-import com.cp.compiler.exceptions.ContainerBuildException;
+import com.cp.compiler.contract.Language;
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
-import com.cp.compiler.models.*;
 import com.cp.compiler.models.processes.ProcessOutput;
-import com.cp.compiler.models.testcases.ConvertedTestCase;
+import com.cp.compiler.models.testcases.TransformedTestCase;
 import com.cp.compiler.services.businesslogic.CompilerService;
 import com.cp.compiler.services.businesslogic.CompilerServiceDecorator;
-import com.cp.compiler.services.containers.ContainerService;
+import com.cp.compiler.services.platform.containers.ContainerService;
 import com.cp.compiler.utils.StatusUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -67,8 +67,8 @@ class CompilerServiceDecoratorTests {
             }
         };
     
-        var testCase1 = new ConvertedTestCase("id", file, "test");
-        var testCase2 = new ConvertedTestCase("id", file, "test");
+        var testCase1 = new TransformedTestCase("id", file, "test");
+        var testCase2 = new TransformedTestCase("id", file, "test");
     
         var execution1 =
                 ExecutionFactory.createExecution(file, List.of(testCase1), 10, 100, Language.JAVA);
@@ -106,8 +106,8 @@ class CompilerServiceDecoratorTests {
         // Then
         Assertions.assertNotNull(compilationResult);
         Assertions.assertEquals(
-                ((Response)compilerService.execute(execution2).getBody()).getTestCasesResult(),
-                ((Response)compilationResult.getBody()).getTestCasesResult()
+                ((RemoteCodeCompilerResponse)compilerService.execute(execution2).getBody()).getTestCasesResult(),
+                ((RemoteCodeCompilerResponse)compilationResult.getBody()).getTestCasesResult()
         );
     }
     
@@ -127,7 +127,7 @@ class CompilerServiceDecoratorTests {
             }
         };
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
     
         var execution =
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);

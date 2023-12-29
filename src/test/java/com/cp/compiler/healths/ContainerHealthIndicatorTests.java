@@ -1,7 +1,7 @@
 package com.cp.compiler.healths;
 
 import com.cp.compiler.healthchecks.ContainerizationHealthIndicator;
-import com.cp.compiler.services.containers.ContainerService;
+import com.cp.compiler.services.platform.containers.ContainerService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

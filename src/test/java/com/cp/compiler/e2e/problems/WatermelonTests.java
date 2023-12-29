@@ -1,8 +1,8 @@
 package com.cp.compiler.e2e.problems;
 
 import com.cp.compiler.controllers.CompilerController;
-import com.cp.compiler.models.Language;
-import com.cp.compiler.models.Response;
+import com.cp.compiler.contract.Language;
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.models.Verdict;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -64,7 +64,7 @@ class WatermelonTests {
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getVerdict());
+                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
     }
     
     @DisplayName("Watermelon Problem test case 2")
@@ -104,7 +104,7 @@ class WatermelonTests {
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getVerdict());
+                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
     }
     
     @DisplayName("Watermelon Problem test case 3")
@@ -144,6 +144,6 @@ class WatermelonTests {
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getVerdict());
+                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
     }
 }

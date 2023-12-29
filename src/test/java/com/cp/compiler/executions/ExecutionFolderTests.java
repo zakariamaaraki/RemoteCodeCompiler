@@ -1,6 +1,6 @@
 package com.cp.compiler.executions;
 
-import com.cp.compiler.models.Language;
+import com.cp.compiler.contract.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

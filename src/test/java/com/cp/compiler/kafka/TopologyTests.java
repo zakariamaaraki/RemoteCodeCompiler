@@ -1,8 +1,8 @@
 package com.cp.compiler.kafka;
 
-import com.cp.compiler.models.Language;
-import com.cp.compiler.models.Response;
-import com.cp.compiler.models.testcases.TestCaseResult;
+import com.cp.compiler.contract.Language;
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
+import com.cp.compiler.contract.testcases.TestCaseResult;
 import com.cp.compiler.models.Verdict;
 import com.cp.compiler.services.businesslogic.CompilerService;
 
@@ -83,7 +83,7 @@ class TopologyTests {
                 "test expected output",
                 0);
         
-        var response = new Response(
+        var response = new RemoteCodeCompilerResponse(
                 Verdict.ACCEPTED.getStatusResponse(),
                 Verdict.ACCEPTED.getStatusCode(),
                 "",

@@ -1,8 +1,8 @@
 package com.cp.compiler.e2e;
 
 import com.cp.compiler.controllers.CompilerController;
-import com.cp.compiler.models.Language;
-import com.cp.compiler.models.Response;
+import com.cp.compiler.contract.Language;
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.models.Verdict;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -62,7 +62,7 @@ class CppE2ETests {
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getVerdict());
+                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
     }
     
     /**
@@ -101,7 +101,7 @@ class CppE2ETests {
         // Then
         Assertions.assertEquals(
                 Verdict.TIME_LIMIT_EXCEEDED.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getVerdict());
+                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
     }
     
 
@@ -141,7 +141,7 @@ class CppE2ETests {
         // Then
         Assertions.assertEquals(
                 Verdict.COMPILATION_ERROR.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getVerdict());
+                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
     }
     
     /**
@@ -180,7 +180,7 @@ class CppE2ETests {
         // Then
         Assertions.assertEquals(
                 Verdict.WRONG_ANSWER.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getVerdict());
+                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
     }
     
     /**
@@ -219,7 +219,7 @@ class CppE2ETests {
         // Then
         Assertions.assertEquals(
                 Verdict.OUT_OF_MEMORY.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getVerdict());
+                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
     }
     
     /**
@@ -258,6 +258,6 @@ class CppE2ETests {
         // Then
         Assertions.assertEquals(
                 Verdict.RUNTIME_ERROR.getStatusResponse(),
-                ((Response)responseEntity.getBody()).getVerdict());
+                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
     }
 }

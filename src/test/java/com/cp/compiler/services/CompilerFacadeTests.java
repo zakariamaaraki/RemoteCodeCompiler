@@ -3,10 +3,10 @@ package com.cp.compiler.services;
 import com.cp.compiler.exceptions.CompilerBadRequestException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
-import com.cp.compiler.models.testcases.ConvertedTestCase;
-import com.cp.compiler.models.Language;
+import com.cp.compiler.models.testcases.TransformedTestCase;
+import com.cp.compiler.contract.Language;
 import com.cp.compiler.repositories.HooksRepository;
-import com.cp.compiler.services.businesslogic.CompilerFacadeDefault;
+import com.cp.compiler.services.api.CompilerFacadeDefault;
 import com.cp.compiler.services.businesslogic.CompilerService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -47,7 +47,7 @@ class CompilerFacadeTests {
     @Test
     void whenItsShortRunningOperationShouldReturnOKStatusCode() throws IOException {
         // Given
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
     
@@ -64,7 +64,7 @@ class CompilerFacadeTests {
     @Test
     void shouldAddUrlToTheRepository() throws IOException {
         // Given
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
         
@@ -82,7 +82,7 @@ class CompilerFacadeTests {
     @Test
     void shouldNotAddUrlToTheRepository() throws IOException {
         // Given
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
         
@@ -100,7 +100,7 @@ class CompilerFacadeTests {
     @Test
     void ifUrlIsNotValidShouldThrowCompilerBadRequestException() {
         // Given
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
     
@@ -117,7 +117,7 @@ class CompilerFacadeTests {
     @Test
     void ifUrlIsNullShouldThrowCompilerBadRequest() {
         // Given
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
         

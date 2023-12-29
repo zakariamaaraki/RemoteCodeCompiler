@@ -1,5 +1,6 @@
 package com.cp.compiler.services.businesslogic;
 
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.exceptions.*;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.*;
@@ -75,7 +76,7 @@ public class CompilerServiceDefault implements CompilerService {
                         execution.getId(),
                         compilationResponse.getError());
                 
-                var response = new Response(
+                var response = new RemoteCodeCompilerResponse(
                         compilationResponse.getVerdict().getStatusResponse(),
                         compilationResponse.getVerdict().getStatusCode(),
                         compilationResponse.getError(),
@@ -92,7 +93,7 @@ public class CompilerServiceDefault implements CompilerService {
     
             log.info("Execution finished, the verdict is {}", executionResponse.getVerdict().getStatusResponse());
             
-            var response = new Response(
+            var response = new RemoteCodeCompilerResponse(
                     executionResponse.getVerdict().getStatusResponse(),
                     executionResponse.getVerdict().getStatusCode(),
                     executionResponse.getError(),

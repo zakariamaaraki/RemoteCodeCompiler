@@ -2,13 +2,10 @@ package com.cp.compiler.executions.languages;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
-import com.cp.compiler.executions.ExecutionType;
-import com.cp.compiler.models.testcases.ConvertedTestCase;
-import com.cp.compiler.models.Language;
+import com.cp.compiler.models.testcases.TransformedTestCase;
+import com.cp.compiler.contract.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.wellknownconstants.WellKnownTemplates;
-import com.cp.compiler.templates.EntrypointFileGenerator;
-import io.micrometer.core.instrument.Counter;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.val;
@@ -33,14 +30,13 @@ public class ScalaExecution extends Execution {
     /**
      * Instantiates a new Scala execution.
      *
-     * @param sourceCode    the source code
-     * @param testCases     the test cases
-     * @param timeLimit     the time limit
-     * @param memoryLimit   the memory limit
-     * @param executionType the execution type
+     * @param sourceCode  the source code
+     * @param testCases   the test cases
+     * @param timeLimit   the time limit
+     * @param memoryLimit the memory limit
      */
     public ScalaExecution(MultipartFile sourceCode,
-                          List<ConvertedTestCase> testCases,
+                          List<TransformedTestCase> testCases,
                           int timeLimit,
                           int memoryLimit) {
         super(sourceCode, testCases, timeLimit, memoryLimit, ExecutionFactory.getExecutionType(Language.SCALA));

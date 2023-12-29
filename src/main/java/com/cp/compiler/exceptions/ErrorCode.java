@@ -13,5 +13,6 @@ public enum ErrorCode {
     COMPILATION_TIMEOUT_ERROR, // Occurs when the compilation exceed the timeout
     RESOURCE_LIMIT_REACHED_ERROR, // Occurs when memory used during compilation exceed the threshold
     THROTTLING_ERROR, // Occurs when a request should be throttled
-    BAD_REQUEST // Occurs when a user send a bad request
+    BAD_REQUEST, // Occurs when a user send a bad request
+    NOT_FOUND // Not found
 }

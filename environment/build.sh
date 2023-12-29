@@ -31,7 +31,7 @@ echo "Building compilation images..."
 for language in "${!compilationDockerfilesPaths[@]}"
 do
   echo "==> compiler.$language"
-  docker image build -f "dockerfiles/Dockerfile.${compilationDockerfilesPaths[$language]}.compilation" -t "compiler.$language" "dockerfiles"
+  docker image build -f "environment/dockerfiles/Dockerfile.${compilationDockerfilesPaths[$language]}.compilation" -t "compiler.$language" "environment/dockerfiles"
   if [ $? != 0 ]; then
     echo "!!! Error while building compilation images !!!"
     exit 1

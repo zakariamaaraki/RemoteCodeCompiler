@@ -62,11 +62,11 @@ public abstract class CmdUtils {
      * @param text
      * @return cleaned text
      */
-    private static String trimText(String text) {
+    public static String trimText(String text) {
         return text
           .trim()
           .replaceAll("\\s+", " ")
-          .replace("/n","");
+          .replace("\n","");
     }
     
     /**

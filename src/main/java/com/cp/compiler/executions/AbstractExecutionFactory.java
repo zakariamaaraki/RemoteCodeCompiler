@@ -1,6 +1,6 @@
 package com.cp.compiler.executions;
 
-import com.cp.compiler.models.testcases.ConvertedTestCase;
+import com.cp.compiler.models.testcases.TransformedTestCase;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public interface AbstractExecutionFactory {
      * @return the execution
      */
     Execution createExecution(MultipartFile sourceCode,
-                              List<ConvertedTestCase> testCases,
+                              List<TransformedTestCase> testCases,
                               int timeLimit,
                               int memoryLimit);
 }

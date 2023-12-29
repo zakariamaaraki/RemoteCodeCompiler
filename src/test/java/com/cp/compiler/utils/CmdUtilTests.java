@@ -44,7 +44,7 @@ class CmdUtilTests {
     }
     
     @Test
-    void whenCompareExpectedOutputAndContainerOutputShouldRemoveExtraSpacesInBothStrings() {
+    void compareExpectedOutputAndContainerOutputShouldRemoveExtraSpacesInBothStrings() {
         // Given
         String expectedOutput = "abcd c";
         String containerOutput = " abcd  c ";
@@ -57,10 +57,10 @@ class CmdUtilTests {
     }
     
     @Test
-    void whenCompareExpectedOutputAndContainerOutputShouldRemoveNewLineCharInBothStrings() {
+    void comparingExpectedOutputAndContainerOutputShouldRemoveNewLineCharInBothStrings() {
         // Given
         String expectedOutput = "abcd\nc";
-        String containerOutput = " abcd  c\n";
+        String containerOutput = " abcd  \nc\n";
         
         // When
         boolean compareResult = CmdUtils.compareOutput(expectedOutput, containerOutput);

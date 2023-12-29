@@ -3,10 +3,10 @@ package com.cp.compiler.services;
 import com.cp.compiler.exceptions.CompilerBadRequestException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
-import com.cp.compiler.models.testcases.ConvertedTestCase;
-import com.cp.compiler.models.Language;
+import com.cp.compiler.models.testcases.TransformedTestCase;
+import com.cp.compiler.contract.Language;
 import com.cp.compiler.repositories.HooksRepository;
-import com.cp.compiler.services.businesslogic.CompilerProxy;
+import com.cp.compiler.services.api.CompilerProxy;
 import com.cp.compiler.services.businesslogic.CompilerServiceDefault;
 import com.cp.compiler.services.businesslogic.LongRunningCompilerService;
 import org.junit.jupiter.api.Assertions;
@@ -71,7 +71,7 @@ class CompilerProxyServiceTests {
                 null,
                 (byte[]) null);
     
-        var testCase = new ConvertedTestCase("id", validFileName, "test");
+        var testCase = new TransformedTestCase("id", validFileName, "test");
         
         Execution execution =
                 ExecutionFactory.createExecution(invalidExtension, List.of(testCase), 10, 500, Language.JAVA);
@@ -103,7 +103,7 @@ class CompilerProxyServiceTests {
     @Test
     void WhenSourceCodeFileNameIsInvalidShouldThrowCompilerBadRequest() {
         // Given
-        var testCase = new ConvertedTestCase("id", validFileName, "test");
+        var testCase = new TransformedTestCase("id", validFileName, "test");
         Execution execution =
                 ExecutionFactory.createExecution(invalidFileName, List.of(testCase), 10, 500, Language.JAVA);
         
@@ -116,7 +116,7 @@ class CompilerProxyServiceTests {
     @Test
     void shouldCallLongRunningOperation() {
         // Given
-        var testCase = new ConvertedTestCase("id", null, "test");
+        var testCase = new TransformedTestCase("id", null, "test");
         Execution execution =
                 ExecutionFactory.createExecution(validFileName, List.of(testCase), 10, 500, Language.JAVA);
     
@@ -132,7 +132,7 @@ class CompilerProxyServiceTests {
     @Test
     void shouldCallDefaultCompiler() {
         // Given
-        var testCase = new ConvertedTestCase("id", null, "test");
+        var testCase = new TransformedTestCase("id", null, "test");
         Execution execution =
                 ExecutionFactory.createExecution(validFileName, List.of(testCase), 10, 500, Language.JAVA);
         

@@ -3,8 +3,8 @@ package com.cp.compiler.mappers;
 import com.cp.compiler.exceptions.CompilerThrottlingException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
-import com.cp.compiler.models.Request;
-import com.cp.compiler.models.Response;
+import com.cp.compiler.contract.RemoteCodeCompilerRequest;
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.services.businesslogic.CompilerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,7 +36,7 @@ public abstract class JsonMapper {
      * @return the string
      * @throws JsonProcessingException the json processing exception
      */
-    public static String toJson(Response response) throws JsonProcessingException {
+    public static String toJson(RemoteCodeCompilerResponse response) throws JsonProcessingException {
         return objectMapper.writeValueAsString(response);
     }
     
@@ -47,8 +47,8 @@ public abstract class JsonMapper {
      * @return the request
      * @throws IOException the io exception
      */
-    public static Request toRequest(String jsonValue) throws IOException {
-        return objectMapper.readValue(jsonValue, Request.class);
+    public static RemoteCodeCompilerRequest toRequest(String jsonValue) throws IOException {
+        return objectMapper.readValue(jsonValue, RemoteCodeCompilerRequest.class);
     }
     
     /**
@@ -60,7 +60,7 @@ public abstract class JsonMapper {
      * @throws Exception the exception
      */
     public static String transform(String jsonRequest, CompilerService compilerService) throws Exception {
-        Request request = JsonMapper.toRequest(jsonRequest);
+        RemoteCodeCompilerRequest request = JsonMapper.toRequest(jsonRequest);
         
         Execution execution = ExecutionFactory.createExecution(request.getSourcecodeFile(),
                                                                 request.getConvertedTestCases(),
@@ -78,7 +78,7 @@ public abstract class JsonMapper {
             }
     
             Object body = responseEntity.getBody();
-            return body instanceof Response ? JsonMapper.toJson((Response) body) : null;
+            return body instanceof RemoteCodeCompilerResponse ? JsonMapper.toJson((RemoteCodeCompilerResponse) body) : null;
         }
     }
 }

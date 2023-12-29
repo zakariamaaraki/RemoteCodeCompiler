@@ -1,11 +1,13 @@
 package com.cp.compiler.controllers;
 
+import com.cp.compiler.contract.Language;
+import com.cp.compiler.contract.RemoteCodeCompilerRequest;
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.exceptions.CompilerServerInternalException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
-import com.cp.compiler.models.*;
-import com.cp.compiler.models.testcases.ConvertedTestCase;
-import com.cp.compiler.services.businesslogic.CompilerFacade;
+import com.cp.compiler.models.testcases.TransformedTestCase;
+import com.cp.compiler.services.api.CompilerFacade;
 import com.cp.compiler.utils.CmdUtils;
 import com.cp.compiler.wellknownconstants.WellKnownHeaders;
 import com.cp.compiler.wellknownconstants.WellKnownParams;
@@ -56,9 +58,9 @@ public class CompilerController {
     @ApiOperation(
             value = "Json",
             notes = "You should provide outputFile, inputFile (not required), source code, time limit and memory limit",
-            response = Response.class
+            response = RemoteCodeCompilerResponse.class
     )
-    public ResponseEntity<Object> compile(@ApiParam(value = "request") @RequestBody Request request,
+    public ResponseEntity<Object> compile(@ApiParam(value = "request") @RequestBody RemoteCodeCompilerRequest request,
                                           @RequestHeader(value = WellKnownParams.USER_ID, required = false) String userId,
                                           @RequestHeader(value = WellKnownParams.PREFER, required = false) String prefer,
                                           @RequestHeader(value = WellKnownParams.URL, required = false) String url)
@@ -99,7 +101,7 @@ public class CompilerController {
             value = "Multipart request",
             notes = "You should provide outputFile, inputFile (not required), source code, time limit and memory limit "
                     + "and the language",
-            response = Response.class
+            response = RemoteCodeCompilerResponse.class
     )
     public ResponseEntity compile(
             @ApiParam(value = "The language")
@@ -128,8 +130,8 @@ public class CompilerController {
             
             throws IOException {
         
-        ConvertedTestCase testCase =
-                new ConvertedTestCase("defaultTestId", inputs, getExpectedOutput(expectedOutputs));
+        TransformedTestCase testCase =
+                new TransformedTestCase("defaultTestId", inputs, getExpectedOutput(expectedOutputs));
         
         Execution execution = ExecutionFactory.createExecution(
                 sourceCode,

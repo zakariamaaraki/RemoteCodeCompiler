@@ -1,7 +1,7 @@
 package com.cp.compiler.controllers;
 
-import com.cp.compiler.models.Response;
-import com.cp.compiler.services.containers.ContainerService;
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
+import com.cp.compiler.services.platform.containers.ContainerService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +37,7 @@ public class ContainersInfoController {
     @ApiOperation(
             value = "Containers Info",
             notes = "Display list of running containers",
-            response = Response.class
+            response = RemoteCodeCompilerResponse.class
     )
     public ResponseEntity<String> getRunningContainers() {
         return ResponseEntity.ok().body(containerService.getRunningContainers());
@@ -52,7 +52,7 @@ public class ContainersInfoController {
     @ApiOperation(
             value = "Images Info",
             notes = "Display list of images",
-            response = Response.class
+            response = RemoteCodeCompilerResponse.class
     )
     public ResponseEntity<String> getImages() {
         return ResponseEntity.ok().body(containerService.getImages());
@@ -67,7 +67,7 @@ public class ContainersInfoController {
     @ApiOperation(
             value = "Container Stats Memory and CPU Usage",
             notes = "Display Stats about running containers (Memory and CPU usage)",
-            response = Response.class
+            response = RemoteCodeCompilerResponse.class
     )
     public ResponseEntity<String> getRunningContainersStats() {
         return ResponseEntity.ok().body(containerService.getContainersStats());
@@ -82,7 +82,7 @@ public class ContainersInfoController {
     @ApiOperation(
             value = "Stats of Memory and CPU Usage for all containers",
             notes = "Display Stats about all containers (Memory and CPU usage)",
-            response = Response.class
+            response = RemoteCodeCompilerResponse.class
     )
     public ResponseEntity<String> getAllContainersStats() {
         return ResponseEntity.ok().body(containerService.getAllContainersStats());

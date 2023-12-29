@@ -2,11 +2,8 @@ package com.cp.compiler.executions.languages;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
-import com.cp.compiler.executions.ExecutionType;
-import com.cp.compiler.models.testcases.ConvertedTestCase;
-import com.cp.compiler.models.Language;
-import com.cp.compiler.templates.EntrypointFileGenerator;
-import io.micrometer.core.instrument.Counter;
+import com.cp.compiler.models.testcases.TransformedTestCase;
+import com.cp.compiler.contract.Language;
 import lombok.Getter;
 import lombok.val;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,14 +23,13 @@ public class RubyExecution extends Execution {
     /**
      * Instantiates a new Ruby execution.
      *
-     * @param sourceCode    the source code
-     * @param testCases     the test cases
-     * @param timeLimit     the time limit
-     * @param memoryLimit   the memory limit
-     * @param executionType the execution type
+     * @param sourceCode  the source code
+     * @param testCases   the test cases
+     * @param timeLimit   the time limit
+     * @param memoryLimit the memory limit
      */
     public RubyExecution(MultipartFile sourceCode,
-                         List<ConvertedTestCase> testCases,
+                         List<TransformedTestCase> testCases,
                          int timeLimit,
                          int memoryLimit) {
         super(sourceCode, testCases, timeLimit, memoryLimit, ExecutionFactory.getExecutionType(Language.RUBY));
@@ -41,7 +37,7 @@ public class RubyExecution extends Execution {
     
     @Override
     public Map<String, String> getParameters(String inputFileName) {
-        val commandPrefix = Language.RUBY.getCompilationCommand() + " " + getSourceCodeFile().getOriginalFilename();;
+        val commandPrefix = Language.RUBY.getCompilationCommand() + " " + getSourceCodeFile().getOriginalFilename();
         val executionCommand = inputFileName == null
                 ? commandPrefix + "\n"
                 : commandPrefix + " < " + inputFileName + "\n";

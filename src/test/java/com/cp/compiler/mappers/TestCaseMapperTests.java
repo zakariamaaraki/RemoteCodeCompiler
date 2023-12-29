@@ -1,7 +1,7 @@
 package com.cp.compiler.mappers;
 
-import com.cp.compiler.models.testcases.ConvertedTestCase;
-import com.cp.compiler.models.testcases.TestCase;
+import com.cp.compiler.models.testcases.TransformedTestCase;
+import com.cp.compiler.contract.testcases.TestCase;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,7 +22,7 @@ public class TestCaseMapperTests {
         String testCaseId = "id";
         
         // When
-        ConvertedTestCase convertedTestCase = TestCaseMapper.toConvertedTestCase(testCase, testCaseId);
+        TransformedTestCase convertedTestCase = TestCaseMapper.toConvertedTestCase(testCase, testCaseId);
         
         MultipartFile inputFile = convertedTestCase.getInputFile();
         String expectedOutput = convertedTestCase.getExpectedOutput();
@@ -49,10 +49,10 @@ public class TestCaseMapperTests {
         }};
         
         // When
-        List<ConvertedTestCase> convertedTestCases = TestCaseMapper.toConvertedTestCases(testCases);
+        List<TransformedTestCase> convertedTestCases = TestCaseMapper.toConvertedTestCases(testCases);
         
         // Then
-        for (ConvertedTestCase convertedTestCase : convertedTestCases) {
+        for (TransformedTestCase convertedTestCase : convertedTestCases) {
             MultipartFile inputFile = convertedTestCase.getInputFile();
             String expectedOutput = convertedTestCase.getExpectedOutput();
             String input = readFile(new BufferedReader(new InputStreamReader(inputFile.getInputStream())));
@@ -77,7 +77,7 @@ public class TestCaseMapperTests {
         }};
     
         // When
-        List<ConvertedTestCase> convertedTestCases = TestCaseMapper.toConvertedTestCases(testCases);
+        List<TransformedTestCase> convertedTestCases = TestCaseMapper.toConvertedTestCases(testCases);
         
         // Then
         int index = 0;

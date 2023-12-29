@@ -1,8 +1,8 @@
 package com.cp.compiler.executions;
 
 import com.cp.compiler.executions.languages.*;
-import com.cp.compiler.models.testcases.ConvertedTestCase;
-import com.cp.compiler.models.Language;
+import com.cp.compiler.models.testcases.TransformedTestCase;
+import com.cp.compiler.contract.Language;
 import com.cp.compiler.wellknownconstants.WellKnownFiles;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import org.junit.jupiter.api.Assertions;
@@ -35,7 +35,7 @@ class ExecutionTests {
     @Test
     void shouldCreateAnExecutionEnvironment() throws IOException {
         // Given
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
         
@@ -54,7 +54,7 @@ class ExecutionTests {
     @Test
     void shouldDeleteTheExecutionEnvironment() throws IOException {
         // Given
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
         
@@ -72,13 +72,13 @@ class ExecutionTests {
     void javaExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory javaExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new JavaExecution(
+                (MultipartFile sourceCode, List<TransformedTestCase> testCases, int timeLimit, int memoryLimit) -> new JavaExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
                         memoryLimit);
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution = javaExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -106,13 +106,13 @@ class ExecutionTests {
     void pythonExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory pythonExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new PythonExecution(
+                (MultipartFile sourceCode, List<TransformedTestCase> testCases, int timeLimit, int memoryLimit) -> new PythonExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
                         memoryLimit);
         
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution = pythonExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -140,13 +140,13 @@ class ExecutionTests {
     void cExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory cExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new CExecution(
+                (MultipartFile sourceCode, List<TransformedTestCase> testCases, int timeLimit, int memoryLimit) -> new CExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
                         memoryLimit);
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution = cExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -174,13 +174,13 @@ class ExecutionTests {
     void cppExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory cppExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new CPPExecution(
+                (MultipartFile sourceCode, List<TransformedTestCase> testCases, int timeLimit, int memoryLimit) -> new CPPExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
                         memoryLimit);
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution = cppExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -208,13 +208,13 @@ class ExecutionTests {
     void csExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory csExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new CSExecution(
+                (MultipartFile sourceCode, List<TransformedTestCase> testCases, int timeLimit, int memoryLimit) -> new CSExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
                         memoryLimit);
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution = csExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -242,13 +242,13 @@ class ExecutionTests {
     void kotlinExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory kotlinExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new KotlinExecution(
+                (MultipartFile sourceCode, List<TransformedTestCase> testCases, int timeLimit, int memoryLimit) -> new KotlinExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
                         memoryLimit);
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution = kotlinExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -276,13 +276,13 @@ class ExecutionTests {
     void scalaExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory scalaExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new ScalaExecution(
+                (MultipartFile sourceCode, List<TransformedTestCase> testCases, int timeLimit, int memoryLimit) -> new ScalaExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
                         memoryLimit);
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution = scalaExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -310,13 +310,13 @@ class ExecutionTests {
     void goExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory goExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new GoExecution(
+                (MultipartFile sourceCode, List<TransformedTestCase> testCases, int timeLimit, int memoryLimit) -> new GoExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
                         memoryLimit);
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution = goExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -344,13 +344,13 @@ class ExecutionTests {
     void rustExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory rustExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new RustExecution(
+                (MultipartFile sourceCode, List<TransformedTestCase> testCases, int timeLimit, int memoryLimit) -> new RustExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
                         memoryLimit);
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution = rustExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -378,13 +378,13 @@ class ExecutionTests {
     void rubyExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory rubyExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new RubyExecution(
+                (MultipartFile sourceCode, List<TransformedTestCase> testCases, int timeLimit, int memoryLimit) -> new RubyExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
                         memoryLimit);
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution = rubyExecutionFactory.createExecution(
                 file, List.of(testCase) ,10, 500);
@@ -412,13 +412,13 @@ class ExecutionTests {
     void haskellExecutionShouldCreateAnEntrypointFile() throws IOException {
         // Given
         AbstractExecutionFactory haskellExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new HaskellExecution(
+                (MultipartFile sourceCode, List<TransformedTestCase> testCases, int timeLimit, int memoryLimit) -> new HaskellExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
                         memoryLimit);
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution = haskellExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500);
@@ -446,13 +446,13 @@ class ExecutionTests {
     void shouldCopyExecutionDockerFileToExecutionDirectory() throws IOException {
         // Given
         AbstractExecutionFactory goExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new GoExecution(
+                (MultipartFile sourceCode, List<TransformedTestCase> testCases, int timeLimit, int memoryLimit) -> new GoExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
                         memoryLimit);
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution = goExecutionFactory.createExecution(file, List.of(testCase), 10, 500);
         
@@ -476,13 +476,13 @@ class ExecutionTests {
     void shouldCopyJavaSecurityPolicyFileToExecutionDirectory() throws IOException {
         // Given
         AbstractExecutionFactory javaExecutionFactory =
-                (MultipartFile sourceCode, List<ConvertedTestCase> testCases, int timeLimit, int memoryLimit) -> new JavaExecution(
+                (MultipartFile sourceCode, List<TransformedTestCase> testCases, int timeLimit, int memoryLimit) -> new JavaExecution(
                         sourceCode,
                         testCases,
                         timeLimit,
                         memoryLimit);
         
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         Execution execution = javaExecutionFactory.createExecution(file, List.of(testCase), 10, 500);
         

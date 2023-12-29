@@ -1,6 +1,6 @@
 package com.cp.compiler;
 
-import com.cp.compiler.services.resources.Resources;
+import com.cp.compiler.services.platform.resources.Resources;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

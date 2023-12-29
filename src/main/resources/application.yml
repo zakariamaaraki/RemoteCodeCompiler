@@ -38,6 +38,8 @@ spring:
     mode: TEXT
     prefix: classpath:/templates/
     suffix: .sh
+  resources:
+    static-locations: classpath:/static/
 
 management:
   endpoint:

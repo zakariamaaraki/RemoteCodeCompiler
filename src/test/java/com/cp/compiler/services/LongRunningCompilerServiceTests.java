@@ -1,12 +1,12 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.executions.ExecutionFactory;
-import com.cp.compiler.models.testcases.ConvertedTestCase;
+import com.cp.compiler.models.testcases.TransformedTestCase;
 import com.cp.compiler.models.processes.ProcessOutput;
-import com.cp.compiler.models.Language;
+import com.cp.compiler.contract.Language;
 import com.cp.compiler.repositories.HooksRepository;
 import com.cp.compiler.services.businesslogic.LongRunningCompilerService;
-import com.cp.compiler.services.containers.ContainerService;
+import com.cp.compiler.services.platform.containers.ContainerService;
 import com.cp.compiler.utils.StatusUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -53,7 +53,7 @@ class LongRunningCompilerServiceTests {
                 null,
                 (byte[]) null);
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         var execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 100, Language.JAVA);
@@ -90,7 +90,7 @@ class LongRunningCompilerServiceTests {
                 null,
                 (byte[]) null);
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         var execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 100, Language.JAVA);
@@ -133,7 +133,7 @@ class LongRunningCompilerServiceTests {
                 null,
                 (byte[]) null);
     
-        var testCase = new ConvertedTestCase("id", file, "test");
+        var testCase = new TransformedTestCase("id", file, "test");
         
         var execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 100, Language.JAVA);
