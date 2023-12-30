@@ -717,6 +717,33 @@
         .hidden-blur {
             filter: blur(5px);
         }
+
+        .modal-content.modal-warning {
+            border-left: 5px solid #ffcc00; /* Yellow border for warning */
+        }
+
+        .modal-content.modal-error {
+            border-left: 5px solid #dc3545; /* Red border for error */
+        }
+
+        .verdict-detail {
+            font-weight: bold;
+        }
+
+        .verdict-icon {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        /* Shake animation for the warning icon */
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-10px); }
+            40% { transform: translateX(10px); }
+            60% { transform: translateX(-10px); }
+            80% { transform: translateX(10px); }
+            100% { transform: translateX(0); }
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs/loader.min.js"></script>
     <script>
@@ -762,6 +789,44 @@
 
         function hideModal() {
             var modal = document.getElementById('submission-confirmation-modal');
+            modal.style.display = 'none';
+        }
+
+        function showVerdictModal(verdict) {
+            const modal = document.getElementById('execution-verdict-modal');
+            const verdictTextElement = document.getElementById('execution-verdict-text');
+            const modalContent = modal.querySelector('.modal-content');
+
+            // Reset custom classes for modal content
+            modalContent.classList.remove('modal-warning', 'modal-error');
+
+            if (verdict !== "Accepted") {
+                // Add a warning or error class to change the appearance
+                const severityClass = verdict === "Wrong Answer" ? 'modal-error' : 'modal-warning';
+                modalContent.classList.add(severityClass);
+
+                // Set the verdict text with a custom warning message
+                verdictTextElement.innerHTML = `
+                    <span class="verdict-icon">⚠️</span>
+                    <strong>Attention:</strong> Your submission has issues.<br>
+                    Verdict: <span class="verdict-detail">${verdict}</span>
+                `;
+
+                // Optional: Add animation to the warning icon
+                const verdictIcon = verdictTextElement.querySelector('.verdict-icon');
+                verdictIcon.style.animation = 'shake 0.5s infinite';
+            } else {
+                // Set the verdict text for an accepted submission
+                verdictTextElement.textContent = `Congratulations! Your submission is ${verdict}.`;
+            }
+
+            // Display the modal
+            modal.style.display = 'block';
+        }
+
+        function hideVerdictModal() {
+            // Hide the modal
+            var modal = document.getElementById('execution-verdict-modal');
             modal.style.display = 'none';
         }
 
@@ -857,6 +922,8 @@
                 // Open the output panel to show the error
                 toggleOutput();
 
+                showVerdictModal(executionResult.verdict);
+
                 if (executionResult.verdict == "Accepted") {
                     celebrateSuccess();
                 }
@@ -918,21 +985,6 @@
                 // Remove confetti after animation ends (assuming the animation lasts 4 seconds)
                 setTimeout(() => confetti.remove(), 4000 + animationDelay * 1000);
             });
-
-            // Create the accepted message element
-            const acceptedMessage = document.createElement('div');
-            acceptedMessage.textContent = 'Accepted! Congratulations!';
-            acceptedMessage.style.position = 'fixed';
-            acceptedMessage.style.top = '50%';
-            acceptedMessage.style.left = '50%';
-            acceptedMessage.style.transform = 'translate(-50%, -50%)';
-            acceptedMessage.style.fontSize = '2em';
-            acceptedMessage.style.color = '#33ff33';
-            acceptedMessage.style.zIndex = '10000'; // Ensure it's on top of the confetti
-            acceptedMessage.style.textShadow = '0 0 5px #33ff33, 0 0 10px #33ff33, 0 0 20px #33ff33, 0 0 40px #0f0, 0 0 80px #0f0';
-
-            // Append the message to the celebration container
-            celebrationContainer.appendChild(acceptedMessage);
 
             // Optional: Remove the message after some time
             setTimeout(() => {
@@ -1069,6 +1121,18 @@
         <div class="modal-actions">
             <button id="confirm-submit-button">Yes, Submit</button>
             <button id="cancel-submit-button">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- Execution Verdict Modal -->
+<div id="execution-verdict-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close-button" onclick="hideVerdictModal()">&times;</span>
+        <h2>Execution Result</h2>
+        <p id="execution-verdict-text">Your code execution result will appear here.</p>
+        <div class="modal-actions">
+            <button onclick="hideVerdictModal()">Close</button>
         </div>
     </div>
 </div>
