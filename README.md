@@ -108,9 +108,11 @@ docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -
 * **COMPILATION_CONTAINER_VOLUME** It should be the same as the volume created in step 2.
 * **MAX_TEST_CASES** Maximum number of test cases a request should handle (by default it's set to 20)
 
-### How to use it using the UX
+### How to use it using the UI
 
-The compiler is equipped with some problems specified in the problems.json file located in the resource folder. These problem sets are automatically loaded upon project startup, granting you the opportunity to explore and test them through the /problems endpoint.
+The compiler is equipped with some problems specified in the problems.json file located in the resource folder. These problem sets are automatically loaded upon project startup, granting you the opportunity to explore and test them through the **/problems** endpoint.
+
+![UX-problem-page.png](images/problem-page-ux.png)
 
 ### Push Notifications
 You may want to get the response later and to avoid http timeouts, you can use push notifications,
