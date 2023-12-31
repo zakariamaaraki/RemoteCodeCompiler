@@ -3,7 +3,7 @@
 
 # Remote Code Compiler
 
-![UX](images/UX-RemoteCodeCompiler.png?raw=true "User Interface")
+![UX](images/remote-code-compiler-ux.png?raw=true "User Interface")
 
 An online code compiler supporting 11 languages (**Java**, **Kotlin**, **C**, **C++**, **C#**, **Golang**, **Python**, **Scala**, **Ruby**, **Rust** and **Haskell**) for competitive programming and coding interviews.
 This tool execute your code remotely using docker containers to separate environments of execution.
@@ -107,6 +107,10 @@ docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -
 * **MAX_EXECUTION_CPUS** represents the maximum number of cpus to use for each execution (by default the maximum available cpus). If this value is set, then all requests will be throttled when the service reaches the maximum.
 * **COMPILATION_CONTAINER_VOLUME** It should be the same as the volume created in step 2.
 * **MAX_TEST_CASES** Maximum number of test cases a request should handle (by default it's set to 20)
+
+### How to use it using the UX
+
+The compiler is equipped with some problems specified in the problems.json file located in the resource folder. These problem sets are automatically loaded upon project startup, granting you the opportunity to explore and test them through the /problems endpoint.
 
 ### Push Notifications
 You may want to get the response later and to avoid http timeouts, you can use push notifications,
