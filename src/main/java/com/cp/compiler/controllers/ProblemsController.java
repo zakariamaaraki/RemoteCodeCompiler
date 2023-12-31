@@ -8,13 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/")
-public class ProblemController {
+public class ProblemsController {
     
     private ProblemLoader problemLoader;
     
-    public ProblemController(ProblemLoader problemLoader) {
+    public ProblemsController(ProblemLoader problemLoader) {
         this.problemLoader = problemLoader;
     }
     
@@ -23,5 +25,12 @@ public class ProblemController {
         Problem problem = problemLoader.getProblemById(problemId);
         model.addAttribute("problem", problem);
         return "problem.html";
+    }
+    
+    @GetMapping("/problems")
+    public String getProblemListWebPage(Model model) {
+        List<Problem> problems = problemLoader.getAllProblems();
+        model.addAttribute("problems", problems);
+        return "problemList.html";
     }
 }

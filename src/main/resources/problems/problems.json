@@ -1,25 +1,100 @@
 [
   {
     "id": 1,
-    "title": "Sample Problem",
-    "description": "This is a sample problem description.",
-    "timeLimit": 5,
+    "title": "Watermelon",
+    "description": "One hot summer day Pete and his friend Billy decided to buy a watermelon. \n\nThey chose the biggest and the ripest one, in their opinion. After that the watermelon was weighed, and the scales showed w kilos. They rushed home, dying of thirst, and decided to divide the berry, however they faced a hard problem.\n\nPete and Billy are great fans of even numbers, that's why they want to divide the watermelon in such a way that each of the two parts weighs even number of kilos, at the same time it is not obligatory that the parts are equal. The boys are extremely tired and want to start their meal as soon as possible, that's why you should help them and find out, if they can divide the watermelon in the way they want. For sure, each of them should get a part of positive weight.\n\n",
+
+    "timeLimit": 2,
+    "memoryLimit": 512,
+    "testCases": [
+      {
+        "input": "8",
+        "expectedOutput": "YES"
+      },
+      {
+        "input": "5",
+        "expectedOutput": "NO"
+      },
+      {
+        "input": "4",
+        "expectedOutput": "YES"
+      },
+      {
+        "input": "3",
+        "expectedOutput": "NO"
+      },
+      {
+        "input": "2",
+        "expectedOutput": "NO"
+      },
+      {
+        "input": "1",
+        "expectedOutput": "NO"
+      },
+      {
+        "input": "6",
+        "expectedOutput": "YES"
+      },
+      {
+        "input": "10",
+        "expectedOutput": "YES"
+      },
+      {
+        "input": "53",
+        "expectedOutput": "NO"
+      },
+      {
+        "input": "77",
+        "expectedOutput": "NO"
+      }
+    ],
+    "tags": ["brute force", "math"],
+    "difficulty": "EASY"
+  },
+  {
+    "id": 2,
+    "title": "Phys Ed Online (2900 on CodeForces)",
+    "description": "Students of one unknown college don't have PE courses. That's why q of them decided to visit a gym nearby by themselves. The gym is open for n days and has a ticket system. At the i-th day, the cost of one ticket is equal to ai.\n You are free to buy more than one ticket per day.\n\nYou can activate a ticket purchased at day i either at day i or any day later. Each activated ticket is valid only for k days. In other words, if you activate ticket at day t, it will be valid only at days t,t+1,…,t+k−1.\n\nYou know that the j-th student wants to visit the gym at each day from lj to rj inclusive. \n\nEach student will use the following strategy of visiting the gym at any day i (lj≤i≤rj):person comes to a desk selling tickets placed near the entrance and buy several tickets with cost ai apiece (possibly, zero tickets);\nif the person has at least one activated and still valid ticket, they just go in. Otherwise, they activate one of tickets purchased today or earlier and go in.\nNote that each student will visit gym only starting lj, so each student has to buy at least one ticket at day lj.\n\nHelp students to calculate the minimum amount of money they have to spend in order to go to the gym.\n\nFor the inputs, the first line contains three integers n, q and k (1≤n,q≤300000; 1≤k≤n) — the number of days, the number of students and the number of days each ticket is still valid.\n\nThe second line contains n integers a1,a2,…,an (1≤ai≤109) — the cost of one ticket at the corresponding day.\n\nEach of the next q lines contains two integers li and ri (1≤li≤ri≤n) — the segment of days the corresponding student want to visit the gym.\n\nFor each student, print the minimum possible amount of money they have to spend in order to go to the gym at desired days.\n\n",
+    "timeLimit": 3,
     "memoryLimit": 1024,
     "testCases": [
       {
-        "input": "1 2",
-        "expectedOutput": "3"
+        "input": "7 5 2\n2 15 6 3 7 5 6\n1 2\n3 7\n5 5\n7 7\n3 5",
+        "expectedOutput": "2\n12\n7\n6\n9"
       },
       {
-        "input": "5 7",
-        "expectedOutput": "12"
+        "input": "1 1 1\n1\n1 1",
+        "expectedOutput": "1"
       },
       {
-        "input": "5 6",
-        "expectedOutput": "13"
+        "input": "1 1 1\n795728458\n1 1",
+        "expectedOutput": "795728458"
       }
     ],
-    "tags": ["math", "arithmetic"],
-    "difficulty": "MEDIUM"
+    "tags": ["data structures", "dp", "greedy"],
+    "difficulty": "HARD"
+  },
+  {
+    "id": 3,
+    "title": "Two Sum",
+    "description": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.\n\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.\n\nYou can return the answer in any order.",
+    "timeLimit": 2,
+    "memoryLimit": 512,
+    "testCases": [
+      {
+        "input": "2 7 11 15\n9",
+        "expectedOutput": "0 1"
+      },
+      {
+        "input": "3 2 4\n6",
+        "expectedOutput": "1 2"
+      },
+      {
+        "input": "3 3\n6",
+        "expectedOutput": "0 1"
+      }
+    ],
+    "tags": ["data structures", "hashing"],
+    "difficulty": "EASY"
   }
 ]

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem List</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #485563 0%, #29323c 100%);
+            color: #d4d4d4;
+        }
+
+        #menu-bar {
+            width: 100%;
+            padding: 10px 0;
+            background-color: #333;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .menu-button {
+            font-family: 'Monaco', monospace;
+            font-size: 16px;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 10px 15px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .menu-button:hover {
+            background-color: #555;
+            transform: translateY(-2px);
+        }
+
+        #problems-container {
+            width: 85%;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #2b2b2b;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .problem-item {
+            background-color: #1e1e1e;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .problem-item:hover {
+            background-color: #292929;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .problem-title {
+            color: #dcdcaa;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .problem-difficulty {
+            color: #569cd6;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .problem-topics {
+            margin-top: 10px;
+        }
+
+        .topic-tag {
+            display: inline-block;
+            background-color: #ff7f50;
+            color: #fff;
+            border-radius: 4px;
+            padding: 5px 10px;
+            margin-right: 10px;
+            margin-top: 5px;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .topic-tag:hover {
+            background-color: #e67300;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+<div id="menu-bar">
+    <button class="menu-button">Remote Code Compiler</button>
+</div>
+
+<div id="problems-container">
+    <!-- Problems -->
+    <div class="problem-item" th:each="problem: ${problems}">
+        <a th:href="@{/problem/{id}(id=${problem.id})}" style="text-decoration:none;">
+            <div class="problem-title" th:text="${problem.title}"></div>
+            <div class="problem-difficulty" th:text="${problem.difficulty}"></div>
+            <div class="problem-topics">
+                <th:block th:each="tag : ${problem.tags}">
+                    <span class="topic-tag" th:text="${ '#' + tag}"></span>
+                </th:block>
+            </div>
+        </a>
+    </div>
+</div>
+
+<script>
+
+</script>
+</body>
+</html>

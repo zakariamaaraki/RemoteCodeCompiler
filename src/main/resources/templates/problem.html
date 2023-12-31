@@ -792,6 +792,16 @@
             modal.style.display = 'none';
         }
 
+        function showServerBusyModal() {
+            var modal = document.getElementById('server-busy-modal');
+            modal.style.display = 'block';
+        }
+
+        function hideServerBusyModal() {
+            var modal = document.getElementById('server-busy-modal');
+            modal.style.display = 'none';
+        }
+
         function showVerdictModal(verdict) {
             const modal = document.getElementById('execution-verdict-modal');
             const verdictTextElement = document.getElementById('execution-verdict-text');
@@ -882,7 +892,18 @@
                     "Content-type": "application/json; charset=UTF-8"
                 }
             })
-            .then((response) => response.json())
+            .then((response) => {
+                if (response.status === 429) {
+                    // Server is busy, show the server busy modal
+                    showServerBusyModal();
+                    // Instead of throwing an error, return a rejected promise to be caught by the subsequent catch block
+                    return Promise.reject('Server is busy. Please try again later.');
+                } else if (!response.ok) {
+                    // Handle other HTTP errors
+                    return Promise.reject('An error occurred during submission.');
+                }
+                return response.json();
+            })
             .then((json) => {
                 executionResult = json
                 console.log(json)
@@ -930,6 +951,11 @@
 
                 updateProgressBars(executionResult.averageExecutionDuration, executionResult.timeLimit);
             })
+            .catch((error) => {
+                // Set verdict to 'Not Executed' for every error
+                submissionStatus.textContent = '[Not Executed]';
+                submissionStatus.classList.add('runtime-error'); // Add the error class for styling
+            });
         }
 
         function updateProgressBars(timeUsed, timeLimit) {
@@ -1035,11 +1061,6 @@
             if (outputPanel.style.width === '0px' || outputPanel.style.width === '') {
                 outputPanel.style.width = '500px';
                 outputPanel.style.display = 'block'; // Use 'block' instead of 'flex' since it's not a flex container
-            } else {
-                outputPanel.style.width = '0';
-                setTimeout(() => {
-                    outputPanel.style.display = 'none';
-                }, 500);
             }
         }
 
@@ -1068,11 +1089,6 @@
             if (problemPanel.style.width === '0px' || problemPanel.style.width === '') {
                 problemPanel.style.width = '500px';
                 problemPanel.style.display = 'block'; // Use 'block' instead of 'flex' since it's not a flex container
-            } else {
-                problemPanel.style.width = '0';
-                setTimeout(() => {
-                    problemPanel.style.display = 'none';
-                }, 500);
             }
         }
 
@@ -1099,11 +1115,6 @@
             if (submissionsPanel.style.width === '0px' || submissionsPanel.style.width === '') {
                 submissionsPanel.style.width = '500px';
                 submissionsPanel.style.display = 'flex';
-            } else {
-                submissionsPanel.style.width = '0';
-                setTimeout(() => {
-                    submissionsPanel.style.display = 'none';
-                }, 500);
             }
         }
     </script>
@@ -1137,9 +1148,21 @@
     </div>
 </div>
 
+<!-- Server Busy Modal -->
+<div id="server-busy-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close-button" onclick="hideServerBusyModal()">&times;</span>
+        <h2>Server Busy</h2>
+        <p>The server is currently busy. Please try again later.</p>
+        <div class="modal-actions">
+            <button onclick="hideServerBusyModal()">Close</button>
+        </div>
+    </div>
+</div>
+
 <div id="menu-bar">
     <div id="menu-buttons">
-        <button class="menu-button" onclick="goHome()">Home</button>
+        <button class="menu-button" onclick="window.location.href='/problems'">Home</button>
     </div>
 
     <!-- Dynamic flushing element -->
@@ -1169,9 +1192,9 @@
                     <option value="kotlin">Kotlin</option>
                     <option value="scala">Scala</option>
                     <option value="python">Python</option>
-                    <option value="csharp">C#</option>
+                    <option value="csharp">Cs</option>
                     <option value="c">C</option>
-                    <option value="cpp">C++</option>
+                    <option value="cpp">Cpp</option>
                     <option value="rust">Rust</option>
                     <option value="haskell">Haskell</option>
                     <option value="go">Go</option>
@@ -1254,9 +1277,9 @@
     function typeText(element, text, index = 0) {
         if (index < text.length) {
             // Append the next character to the element's text content
-            element.textContent += text.charAt(index);
+            element.InnerHTML += text.charAt(index);
             // Schedule the next character to be typed
-            setTimeout(() => typeText(element, text, index + 1), 20); // 10ms delay between characters
+            setTimeout(() => typeText(element, text, index + 1), 10); // 10ms delay between characters
         }
     }
 
@@ -1270,11 +1293,28 @@
             element.appendChild(cursorSpan);
         }
 
+        // Replace all newline characters with HTML line breaks before typing
+        text = text.replace(/\n/g, '<br>');
+
         if (index < text.length) {
             // Insert text before the cursor
-            cursorSpan.before(text.charAt(index));
+            let nextChar = text.charAt(index);
+
+            // If the next character is the start of a <br> tag, insert the whole tag at once
+            if (nextChar === '<') {
+                // Find the end of the <br> tag
+                const endIndex = text.indexOf('>', index) + 1;
+                nextChar = text.slice(index, endIndex);
+                index = endIndex - 1; // Adjust index to skip the entire tag
+            }
+
+            // Create a temporary span to hold the character or <br> tag
+            const tempSpan = document.createElement('span');
+            tempSpan.innerHTML = nextChar;
+            cursorSpan.before(tempSpan);
+
             // Schedule the next character to be typed
-            setTimeout(() => typeText(element, text, index + 1, callback), 50); // 50ms delay between characters
+            setTimeout(() => typeText(element, text, index + 1, callback), 10); // 10ms delay between characters
         } else {
             // Remove the cursor when typing is complete
             cursorSpan.remove();
@@ -1282,7 +1322,6 @@
             if (callback) callback();
         }
     }
-
 
     // Function to type out all test cases one by one
     function typeTestCases(testCases, testCaseIndex = 0) {

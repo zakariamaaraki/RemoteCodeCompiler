@@ -2,7 +2,7 @@ package com.cp.compiler;
 
 import com.cp.compiler.controllers.CompilerController;
 import com.cp.compiler.controllers.ContainersInfoController;
-import com.cp.compiler.controllers.ProblemController;
+import com.cp.compiler.controllers.ProblemsController;
 import com.cp.compiler.repositories.HooksRepository;
 import com.cp.compiler.services.api.CompilerFacade;
 import com.cp.compiler.services.businesslogic.CompilerService;
@@ -38,7 +38,7 @@ class RegistrationTests {
     private ContainerService containerService;
     
     @Autowired
-    private ProblemController indexController;
+    private ProblemsController indexController;
     
     @Autowired
     private ContainersInfoController containersInfoController;
