@@ -88,6 +88,10 @@ public class DockerContainerService implements ContainerService {
      */
     @Override
     public String buildImage(String contextPath, String imageName, String dockerfileName) {
+        return buildImage(contextPath, imageName, dockerfileName, true);
+    }
+    
+    public String buildImage(String contextPath, String imageName, String dockerfileName, boolean continueOnError) {
         return buildTimer.record(() -> {
             String dockerfilePath = contextPath + "/" + dockerfileName;
             String[] buildCommand =
@@ -98,7 +102,7 @@ public class DockerContainerService implements ContainerService {
                             "-f", dockerfilePath,
                             "-t", imageName,
                             contextPath};
-            return executeContainerCommand(buildCommand, BUILD_TIMEOUT);
+            return executeContainerCommand(buildCommand, BUILD_TIMEOUT, continueOnError);
         });
     }
     
@@ -135,7 +139,7 @@ public class DockerContainerService implements ContainerService {
     @Override
     public ContainerInfo inspect(String containerName) {
         String[] command = {"docker", "container", "inspect", CONTAINER_INFO_FORMAT, containerName};
-        String containerInfo = executeContainerCommand(command, COMMAND_TIMEOUT);
+        String containerInfo = executeContainerCommand(command, COMMAND_TIMEOUT, true);
         ContainerInfo ci = null;
         try {
              ci = ContainerInfoMapper.toContainerInfo(containerInfo);
@@ -148,7 +152,7 @@ public class DockerContainerService implements ContainerService {
     @Override
     public void deleteContainer(String containerName) {
         String[] command = {"docker", "container", "rm", "-f", containerName};
-        executeContainerCommand(command, COMMAND_TIMEOUT);
+        executeContainerCommand(command, COMMAND_TIMEOUT, true);
     }
     
     @Override
@@ -181,19 +185,19 @@ public class DockerContainerService implements ContainerService {
     @Override
     public String getRunningContainers() {
         String[] command = {"docker", "ps"};
-        return executeContainerCommand(command, COMMAND_TIMEOUT);
+        return executeContainerCommand(command, COMMAND_TIMEOUT, true);
     }
     
     @Override
     public String getContainersStats() {
         String[] command = {"docker", "stats", "--no-stream"};
-        return executeContainerCommand(command, COMMAND_TIMEOUT);
+        return executeContainerCommand(command, COMMAND_TIMEOUT, true);
     }
     
     @Override
     public String getAllContainersStats() {
         String[] command = {"docker", "stats", "--no-stream", "--all"};
-        return executeContainerCommand(command, COMMAND_TIMEOUT);
+        return executeContainerCommand(command, COMMAND_TIMEOUT, true);
     }
     
     /**
@@ -202,13 +206,13 @@ public class DockerContainerService implements ContainerService {
     @Override
     public String getImages() {
         String[] command = {"docker", "images"};
-        return executeContainerCommand(command, COMMAND_TIMEOUT);
+        return executeContainerCommand(command, COMMAND_TIMEOUT, true);
     }
     
     @Override
     public void deleteImage(String imageName) {
         String[] command = {"docker", "rmi", "-f", imageName};
-        executeContainerCommand(command, COMMAND_TIMEOUT);
+        executeContainerCommand(command, COMMAND_TIMEOUT, true);
     }
     
     @Override
@@ -224,10 +228,17 @@ public class DockerContainerService implements ContainerService {
     }
     
     private String executeContainerCommand(String[] command, long timeout) {
+        return executeContainerCommand(command, timeout, false);
+    }
+    
+    private String executeContainerCommand(String[] command, long timeout, boolean continueOnError) {
         try {
             ProcessOutput processOutput = CmdUtils.executeProcess(command, timeout);
             if (!processOutput.getStdErr().isEmpty()) {
-                throw new ContainerFailedDependencyException("Error: " + processOutput.getStdErr());
+                if (!continueOnError) {
+                    throw new ContainerFailedDependencyException("Error: " + processOutput.getStdErr());
+                }
+                log.warn(processOutput.getStdErr());
             }
             return processOutput.getStdOut();
         } catch (ProcessExecutionException e) {

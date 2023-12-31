@@ -20,7 +20,11 @@ class DockerServiceTests {
         // When / Then
         Assertions.assertThrows(
                 ContainerFailedDependencyException.class,
-                () -> containerService.buildImage("test", "does not exists", "test"));
+                () -> containerService.buildImage(
+                        "test",
+                        "does not exists",
+                        "test",
+                        false));
     }
     
     @Test

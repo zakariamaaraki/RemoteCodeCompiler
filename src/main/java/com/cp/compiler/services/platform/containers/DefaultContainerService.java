@@ -87,7 +87,7 @@ public class DefaultContainerService extends ContainerServiceDecorator {
                     MAX_RETRIES,
                     DURATION_BETWEEN_EACH_RETRY);
         } catch(Exception processExecutionException) {
-            log.error("Error: {}", processExecutionException);
+            log.error("Error: ", processExecutionException);
             if (processExecutionException instanceof ProcessExecutionTimeoutException) {
                 throw new ContainerOperationTimeoutException(processExecutionException.getMessage());
             }
