@@ -20,25 +20,18 @@
         }
 
         #menu-bar {
-            display: flex;
-            justify-content: space-between;
-            width: 95%;
-            max-width: 1600px;
-            margin: 20px 0;
-            padding: 10px;
+            width: 100%;
+            padding: 10px 0;
             background-color: #333;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            text-align: center;
         }
 
         #menu-buttons {
             display: flex;
-            gap: 20px;
+            flex-wrap: wrap; /* Allow buttons to wrap onto the next line */
+            gap: 10px; /* Keep a consistent gap between buttons */
+            margin-bottom: 10px; /* Add a margin at the bottom */
         }
 
         .menu-button {
@@ -55,6 +48,7 @@
 
         .menu-button:hover {
             background-color: #555;
+            transform: translateY(-2px);
         }
 
         #menu-bar {
@@ -84,10 +78,15 @@
             padding: 20px;
         }
 
+        #ide-container, #output-panel, #problem-panel, #submissions-panel {
+            width: 100%; /* Full width on small screens */
+            padding: 10px; /* Add padding */
+        }
+
         #code-editor {
             width: 99%;
-            /* Full width of its container */
-            height: 500px;
+            height: auto; /* Adjust height to be more flexible */
+            min-height: 500px; /* Set a minimum height */
             /* Fixed height */
             border: none;
             outline: none;
@@ -96,11 +95,18 @@
             color: #abb2bf;
         }
 
-        /* Fancy terminal styling for buttons and dropdown */
         #button-container {
             display: flex;
             gap: 10px;
             margin-top: 10px;
+            align-items: center; /* Align buttons vertically */
+            gap: 10px; /* Add gap between buttons */
+        }
+
+        /* Adjust language and theme dropdowns to be full width */
+        #language-dropdown, #theme-dropdown {
+            width: 100%; /* Full width */
+            box-sizing: border-box; /* Include padding and border in the width */
         }
 
         #output-button,
@@ -108,6 +114,10 @@
         #submit-button,
         #submissions-button,
         #language-dropdown {
+            padding: 10px 15px; /* Slightly larger padding for easier touch */
+            font-size: 14px; /* Ensure text is readable */
+            white-space: nowrap; /* Prevent text from wrapping */
+            margin: 0 5px 5px 0; /* Add margins for spacing between buttons */
             background-color: #333;
             color: #33ff33;
             border: 1px solid #33ff33;
@@ -179,7 +189,6 @@
             display: none;
             /* Start with the panel hidden, toggle display with JavaScript */
         }
-
 
         #output-panel {
             background-color: #000;
@@ -525,32 +534,6 @@
             color: #33ff33;
         }
 
-        /*flush */
-        #flush-indicator {
-            font-family: 'Monaco', monospace;
-            font-size: 14px;
-            color: #fff;
-            animation: flushAnimation 1s linear infinite;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        @keyframes flushAnimation {
-            0% {
-                content: '$ Remote';
-            }
-
-            50% {
-                content: '$ Code';
-            }
-
-            100% {
-                content: '$ Compiler';
-            }
-        }
-
         /*terminal output*/
         #terminal-output-container {
             width: 95%;
@@ -744,6 +727,74 @@
             80% { transform: translateX(10px); }
             100% { transform: translateX(0); }
         }
+
+
+        /* Media query for tablets and smaller devices */
+        @media (max-width: 768px) {
+            /* Adjust the main container padding and flex direction */
+            #main-container {
+                padding: 0; /* Remove padding */
+                flex-direction: column; /* Stack children vertically */
+            }
+
+            /* Panels should take full width and adjust their layout */
+            #output-panel, #problem-panel, #submissions-panel {
+                width: 100%; /* Full width */
+            }
+        }
+
+        /* Media query for mobile devices */
+        @media (max-width: 480px) {
+            /* Adjust menu bar spacing and layout */
+            #menu-bar {
+                padding: 5px 10px; /* Less padding on small screens */
+            }
+
+            /* Adjust the size and layout of buttons */
+            .menu-button {
+                font-size: 12px; /* Smaller text */
+                padding: 5px; /* Less padding */
+            }
+
+            .menu-button,
+            #submit-button,
+            #output-button,
+            #toggle-problem-button,
+            #submissions-button {
+                font-size: 12px; /* Smaller font size for smaller screens */
+                padding: 8px 12px; /* Adjust padding to maintain touchability */
+                margin: 0; /* Remove margins */
+                flex-direction: column; /* Stack buttons vertically */
+                align-items: stretch; /* Stretch buttons to full width */
+            }
+
+            /* Ensure button container doesn't have any gaps on mobile */
+            #button-container {
+                gap: 5px; /* Smaller gap between buttons */
+            }
+
+            /* Adjust the terminal output container for smaller screens */
+            #terminal-output-container {
+                padding: 5px; /* Less padding for terminal output */
+            }
+            /* Adjust font sizes and layout for modal content */
+            .modal-content {
+                width: 90%; /* Make modals narrower to fit the screen */
+                /* Other styles as needed */
+            }
+
+            /* Adjust the resource limits display for smaller screens */
+            #resource-limits {
+                flex-direction: row; /* Display limits side by side */
+                align-items: center; /* Center items vertically */
+                justify-content: space-between; /* Space out items */
+            }
+            .progress-bar {
+                width: 45%; /* Adjust width of progress bars */
+                /* Other styles as needed */
+            }
+        }
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs/loader.min.js"></script>
     <script>
@@ -1164,9 +1215,7 @@
     <div id="menu-buttons">
         <button class="menu-button" onclick="window.location.href='/problems'">Home</button>
     </div>
-
-    <!-- Dynamic flushing element -->
-    <div id="flush-indicator">|</div>
+    <button class="menu-button" style="margin: auto;">Remote Code Compiler</button>
 </div>
 
 <div id="main-container">
@@ -1249,20 +1298,6 @@
 </div>
 
 <script th:inline="javascript">
-    document.addEventListener('DOMContentLoaded', function () {
-        const flushIndicator = document.getElementById('flush-indicator');
-        const flushChars = ['$ Remote', '$ Code', '$ Compiler'];
-        let flushIndex = 0;
-
-        function flushAnimation() {
-            flushIndicator.textContent = flushChars[flushIndex];
-            flushIndex = (flushIndex + 1) % flushChars.length;
-        }
-
-        // Start the flushing animation with a period of 500 milliseconds
-        setInterval(flushAnimation, 1000);
-    });
-
     // Function to simulate typing code into the editor
     function typeCode(editor, code, index = 0) {
         if (index < code.length) {
