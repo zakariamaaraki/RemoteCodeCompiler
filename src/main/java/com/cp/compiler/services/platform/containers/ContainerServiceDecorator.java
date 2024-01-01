@@ -61,13 +61,13 @@ public abstract class ContainerServiceDecorator implements ContainerService {
     
     @Override
     public String buildImage(String contextPath, String imageName, String dockerfileName) {
-        log.info("Start building the docker image: {}", imageName);
+        log.info("Start building the docker image: ", imageName);
         String buildLogs = "";
         try {
             buildLogs = buildContainerImageInternal(contextPath, imageName, dockerfileName);
             log.debug("Build logs: {}", buildLogs);
         } catch(Exception exception) {
-            log.error("Error while building container image: {}", exception);
+            log.error("Error while building container image: ", exception);
             throw new ContainerBuildException("Error while building compilation image: " + exception.getMessage());
         }
         return buildLogs;
@@ -101,7 +101,7 @@ public abstract class ContainerServiceDecorator implements ContainerService {
                 log.warn("Timeout, didn't get the response at time from container engine if the image {} was deleted",
                         imageName);
             } else {
-                log.warn("Error, can't delete image {} : {}", imageName, e);
+                log.warn("Error, can't delete image {} : ", imageName, e);
             }
         }
     }
@@ -122,7 +122,7 @@ public abstract class ContainerServiceDecorator implements ContainerService {
         try {
             containerInfo = containerService.inspect(containerName);
         } catch (Exception e) {
-            log.warn("Unexpected error occurred during container inspection ex: {}", e);
+            log.warn("Unexpected error occurred during container inspection: ", e);
         }
         return containerInfo;
     }
@@ -133,7 +133,7 @@ public abstract class ContainerServiceDecorator implements ContainerService {
             containerService.deleteContainer(containerName);
             log.info("Container {} has been deleted", containerName);
         } catch(Exception e) {
-            log.warn("Unexpected error occurred while deleting the container {}: {}", containerName, e);
+            log.warn("Unexpected error occurred while deleting the container {}: ", containerName, e);
         }
     }
 }

@@ -97,11 +97,46 @@
             background-color: #e67300;
             transform: translateY(-2px);
         }
+
+        /* Search bar styling */
+        #search-container {
+            width: 85%;
+            max-width: 1200px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        #search-bar {
+            font-size: 16px;
+            padding: 10px 20px;
+            width: 50%;
+            max-width: 600px;
+            border: 2px solid #555;
+            border-radius: 25px;
+            outline: none;
+            color: #d4d4d4;
+            background-color: #2b2b2b;
+            transition: all 0.3s ease;
+        }
+
+        #search-bar::placeholder {
+            color: #d4d4d4;
+        }
+
+        #search-bar:focus {
+            background-color: #1e1e1e;
+            border-color: #569cd6;
+        }
     </style>
 </head>
 <body>
 <div id="menu-bar">
     <button class="menu-button">Remote Code Compiler</button>
+</div>
+
+<!-- Search Section -->
+<div id="search-container">
+    <input type="text" id="search-bar" placeholder="Search problems by name, tags, or difficulty" onkeyup="filterProblems()">
 </div>
 
 <div id="problems-container">
@@ -120,7 +155,31 @@
 </div>
 
 <script>
+    function filterProblems() {
+        var input, filter, problemsContainer, problems, title, difficulty, tags, i, txtValue;
+        input = document.getElementById('search-bar');
+        filter = input.value.toUpperCase();
+        problemsContainer = document.getElementById('problems-container');
+        problems = problemsContainer.getElementsByClassName('problem-item');
 
+        for (i = 0; i < problems.length; i++) {
+            title = problems[i].getElementsByClassName('problem-title')[0];
+            difficulty = problems[i].getElementsByClassName('problem-difficulty')[0];
+            tags = problems[i].getElementsByClassName('topic-tag');
+            if (title || difficulty || tags.length) {
+                txtValue = title.textContent || title.innerText;
+                txtValue += difficulty.textContent || difficulty.innerText;
+                for (var j = 0; j < tags.length; j++) {
+                    txtValue += tags[j].textContent || tags[j].innerText;
+                }
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    problems[i].style.display = "";
+                } else {
+                    problems[i].style.display = "none";
+                }
+            }
+        }
+    }
 </script>
 </body>
 </html>
