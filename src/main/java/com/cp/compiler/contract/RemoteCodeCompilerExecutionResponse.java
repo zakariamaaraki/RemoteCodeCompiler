@@ -3,8 +3,8 @@ package com.cp.compiler.contract;
 import com.cp.compiler.contract.testcases.TestCaseResult;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -19,7 +19,7 @@ import java.util.Map;
  *
  * @author Zakaria Maaraki
  */
-@Getter
+@Data
 @NoArgsConstructor
 @EqualsAndHashCode
 @ApiModel(description = "The returned response")
