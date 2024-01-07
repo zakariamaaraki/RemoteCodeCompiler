@@ -1,10 +1,10 @@
 package com.cp.compiler.mappers;
 
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.exceptions.CompilerThrottlingException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.contract.RemoteCodeCompilerRequest;
-import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.services.businesslogic.CompilerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -70,15 +70,14 @@ public abstract class JsonMapper {
     
         try(MDC.MDCCloseable mdc = MDC.putCloseable("compiler.language", execution.getLanguage().toString())) {
             
-            ResponseEntity<Object> responseEntity = compilerService.execute(execution);
+            ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerService.execute(execution);
     
             // Throw an exception if the request has been throttled, to keep the request for retries
             if (responseEntity.getStatusCode().equals(HttpStatus.TOO_MANY_REQUESTS)) {
                 throw new CompilerThrottlingException("The request has been throttled, maximum number of requests has been reached");
             }
-    
-            Object body = responseEntity.getBody();
-            return body instanceof RemoteCodeCompilerResponse ? JsonMapper.toJson((RemoteCodeCompilerResponse) body) : null;
+            // TODO: add error handling
+            return JsonMapper.toJson(responseEntity.getBody());
         }
     }
 }

@@ -1,8 +1,9 @@
 package com.cp.compiler.e2e.problems;
 
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.controllers.CompilerController;
 import com.cp.compiler.contract.Language;
-import com.cp.compiler.contract.RemoteCodeCompilerResponse;
+import com.cp.compiler.contract.RemoteCodeCompilerExecutionResponse;
 import com.cp.compiler.models.Verdict;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -49,7 +50,7 @@ class AmShZWinsABetTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compile(
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerController.compile(
                 Language.C,
                 sourceCode,
                 inputs,
@@ -63,7 +64,10 @@ class AmShZWinsABetTests {
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
+                responseEntity
+                        .getBody()
+                        .getExecution()
+                        .getVerdict());
     }
     
     @DisplayName("AmShZ Wins a Bet Problem test case 2")
@@ -89,7 +93,7 @@ class AmShZWinsABetTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compile(
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerController.compile(
                 Language.C,
                 sourceCode,
                 inputs,
@@ -103,7 +107,10 @@ class AmShZWinsABetTests {
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
+                responseEntity
+                        .getBody()
+                        .getExecution()
+                        .getVerdict());
     }
     
     @DisplayName("AmShZ Wins a Bet Problem test case 3")
@@ -128,7 +135,7 @@ class AmShZWinsABetTests {
                                                      null, new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compile(
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerController.compile(
                 Language.C,
                 sourceCode,
                 inputs,
@@ -142,6 +149,9 @@ class AmShZWinsABetTests {
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
+                responseEntity
+                        .getBody()
+                        .getExecution()
+                        .getVerdict());
     }
 }

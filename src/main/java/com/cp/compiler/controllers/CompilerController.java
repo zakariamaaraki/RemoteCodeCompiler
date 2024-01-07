@@ -2,6 +2,7 @@ package com.cp.compiler.controllers;
 
 import com.cp.compiler.contract.Language;
 import com.cp.compiler.contract.RemoteCodeCompilerRequest;
+import com.cp.compiler.contract.RemoteCodeCompilerExecutionResponse;
 import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.exceptions.CompilerServerInternalException;
 import com.cp.compiler.executions.Execution;
@@ -58,12 +59,12 @@ public class CompilerController {
     @ApiOperation(
             value = "Json",
             notes = "You should provide outputFile, inputFile (not required), source code, time limit and memory limit",
-            response = RemoteCodeCompilerResponse.class
+            response = RemoteCodeCompilerExecutionResponse.class
     )
-    public ResponseEntity<Object> compile(@ApiParam(value = "request") @RequestBody RemoteCodeCompilerRequest request,
-                                          @RequestHeader(value = WellKnownParams.USER_ID, required = false) String userId,
-                                          @RequestHeader(value = WellKnownParams.PREFER, required = false) String prefer,
-                                          @RequestHeader(value = WellKnownParams.URL, required = false) String url)
+    public ResponseEntity<RemoteCodeCompilerResponse> compile(@ApiParam(value = "request") @RequestBody RemoteCodeCompilerRequest request,
+                                                              @RequestHeader(value = WellKnownParams.USER_ID, required = false) String userId,
+                                                              @RequestHeader(value = WellKnownParams.PREFER, required = false) String prefer,
+                                                              @RequestHeader(value = WellKnownParams.URL, required = false) String url)
             throws IOException {
         
         Execution execution = ExecutionFactory.createExecution(
@@ -101,9 +102,9 @@ public class CompilerController {
             value = "Multipart request",
             notes = "You should provide outputFile, inputFile (not required), source code, time limit and memory limit "
                     + "and the language",
-            response = RemoteCodeCompilerResponse.class
+            response = RemoteCodeCompilerExecutionResponse.class
     )
-    public ResponseEntity compile(
+    public ResponseEntity<RemoteCodeCompilerResponse> compile(
             @ApiParam(value = "The language")
             @RequestParam(value = WellKnownParams.LANGUAGE) Language language,
         

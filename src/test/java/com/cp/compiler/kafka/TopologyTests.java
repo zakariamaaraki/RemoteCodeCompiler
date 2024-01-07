@@ -1,6 +1,7 @@
 package com.cp.compiler.kafka;
 
 import com.cp.compiler.contract.Language;
+import com.cp.compiler.contract.RemoteCodeCompilerExecutionResponse;
 import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.contract.testcases.TestCaseResult;
 import com.cp.compiler.models.Verdict;
@@ -83,7 +84,7 @@ class TopologyTests {
                 "test expected output",
                 0);
         
-        var response = new RemoteCodeCompilerResponse(
+        var response = new RemoteCodeCompilerExecutionResponse(
                 Verdict.ACCEPTED.getStatusResponse(),
                 Verdict.ACCEPTED.getStatusCode(),
                 "",
@@ -99,7 +100,7 @@ class TopologyTests {
         Mockito.when(compilerService.execute(Mockito.any()))
                 .thenReturn(ResponseEntity
                         .status(HttpStatus.OK)
-                        .body(response));
+                        .body(new RemoteCodeCompilerResponse(response)));
                 
         // When
         inputTopic.pipeInput(jsonRequest);

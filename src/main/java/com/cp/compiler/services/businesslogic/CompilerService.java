@@ -1,5 +1,6 @@
 package com.cp.compiler.services.businesslogic;
 
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.executions.Execution;
 import org.springframework.http.ResponseEntity;
 
@@ -16,5 +17,5 @@ public interface CompilerService {
      * @param execution the execution
      * @return a ResponseEntity containing the result of the execution
      */
-    ResponseEntity<Object> execute(Execution execution);
+    ResponseEntity<RemoteCodeCompilerResponse> execute(Execution execution);
 }

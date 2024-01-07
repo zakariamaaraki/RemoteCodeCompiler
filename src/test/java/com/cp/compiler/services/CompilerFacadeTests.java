@@ -1,5 +1,7 @@
 package com.cp.compiler.services;
 
+import com.cp.compiler.contract.RemoteCodeCompilerExecutionResponse;
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.exceptions.CompilerBadRequestException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
@@ -51,10 +53,10 @@ class CompilerFacadeTests {
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
     
-        Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok("ok test"));
+        Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok(new RemoteCodeCompilerResponse()));
     
         // When
-        ResponseEntity responseEntity =
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity =
                 compilerFacade.compile(execution, false, null, "");
         
         // Then
@@ -70,10 +72,10 @@ class CompilerFacadeTests {
         
         String url = "http://localhost";
     
-        Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok("ok test"));
+        Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok(new RemoteCodeCompilerResponse()));
     
         // When
-        ResponseEntity responseEntity = compilerFacade.compile(execution, true, url, "");
+        compilerFacade.compile(execution, true, url, "");
     
         // Then
         Assertions.assertEquals(url, hooksRepository.get(execution.getId()));
@@ -88,10 +90,10 @@ class CompilerFacadeTests {
         
         String url = "http://localhost";
         
-        Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok("ok test"));
+        Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok(new RemoteCodeCompilerResponse()));
         
         // When
-        ResponseEntity responseEntity = compilerFacade.compile(execution, false, url, "");
+        compilerFacade.compile(execution, false, url, "");
         
         // Then
         Assertions.assertNull(hooksRepository.get(execution.getId()));
@@ -106,7 +108,7 @@ class CompilerFacadeTests {
     
         String url = "bad-url";
     
-        Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok("ok test"));
+        Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok(new RemoteCodeCompilerResponse()));
     
         // When / Then
         Assertions.assertThrows(CompilerBadRequestException.class, () -> {
@@ -121,7 +123,7 @@ class CompilerFacadeTests {
         Execution execution = ExecutionFactory.createExecution(
                 file, List.of(testCase), 10, 500, Language.JAVA);
         
-        Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok("ok test"));
+        Mockito.when(compilerService.execute(execution)).thenReturn(ResponseEntity.ok(new RemoteCodeCompilerResponse()));
         
         // When / Then
         Assertions.assertThrows(CompilerBadRequestException.class, () -> {

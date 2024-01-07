@@ -6,11 +6,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.exceptions.CompilerThrottlingException;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.executions.languages.JavaExecution;
 import com.cp.compiler.contract.Language;
-import com.cp.compiler.contract.RemoteCodeCompilerResponse;
+import com.cp.compiler.contract.RemoteCodeCompilerExecutionResponse;
 import com.cp.compiler.models.Verdict;
 import com.cp.compiler.models.testcases.TransformedTestCase;
 import com.cp.compiler.contract.testcases.TestCaseResult;
@@ -87,7 +88,7 @@ public class RabbitmqConsumerTests {
         LinkedHashMap<String, TestCaseResult> testCasesResult = new LinkedHashMap<>();
         testCasesResult.put("id", result);
     
-        var response = new RemoteCodeCompilerResponse(
+        var response = new RemoteCodeCompilerExecutionResponse(
                 result.getStatusResponse(),
                 result.getVerdict().getStatusCode(),
                 "",
@@ -98,7 +99,7 @@ public class RabbitmqConsumerTests {
                 Language.JAVA,
                 LocalDateTime.now());
         
-        when(compilerService.execute(any())).thenReturn(ResponseEntity.ok(response));
+        when(compilerService.execute(any())).thenReturn(ResponseEntity.ok(new RemoteCodeCompilerResponse(response)));
         
         // Act
         rabbitConsumer.listen(jsonRequest);
@@ -128,7 +129,7 @@ public class RabbitmqConsumerTests {
         LinkedHashMap<String, TestCaseResult> testCasesResult = new LinkedHashMap<>();
         testCasesResult.put("id", result);
     
-        var response = new RemoteCodeCompilerResponse(
+        var response = new RemoteCodeCompilerExecutionResponse(
                 result.getStatusResponse(),
                 result.getVerdict().getStatusCode(),
                 "",
@@ -141,7 +142,7 @@ public class RabbitmqConsumerTests {
         
         when(compilerService.execute(any()))
                 .thenThrow(new CompilerThrottlingException("throttling"))
-                .thenReturn(ResponseEntity.ok(response));
+                .thenReturn(ResponseEntity.ok(new RemoteCodeCompilerResponse(response)));
         
         // Act
         rabbitConsumer.listen(jsonRequest);

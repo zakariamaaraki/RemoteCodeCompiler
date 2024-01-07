@@ -1,5 +1,6 @@
 package com.cp.compiler.services.businesslogic;
 
+import com.cp.compiler.contract.RemoteCodeCompilerExecutionResponse;
 import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.exceptions.*;
 import com.cp.compiler.executions.Execution;
@@ -53,7 +54,7 @@ public class CompilerServiceDefault implements CompilerService {
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity execute(Execution execution) {
+    public ResponseEntity<RemoteCodeCompilerResponse> execute(Execution execution) {
         
         LocalDateTime dateTime = LocalDateTime.now();
         
@@ -76,7 +77,7 @@ public class CompilerServiceDefault implements CompilerService {
                         execution.getId(),
                         compilationResponse.getError());
                 
-                var response = new RemoteCodeCompilerResponse(
+                var response = new RemoteCodeCompilerExecutionResponse(
                         compilationResponse.getVerdict().getStatusResponse(),
                         compilationResponse.getVerdict().getStatusCode(),
                         compilationResponse.getError(),
@@ -86,14 +87,14 @@ public class CompilerServiceDefault implements CompilerService {
                         execution.getMemoryLimit(),
                         execution.getLanguage(),
                         dateTime);
-                return ResponseEntity.ok(response);
+                return ResponseEntity.ok(new RemoteCodeCompilerResponse(response));
             }
             
             ExecutionResponse executionResponse = executionStrategy.run(execution, deleteDockerImage);
     
             log.info("Execution finished, the verdict is {}", executionResponse.getVerdict().getStatusResponse());
             
-            var response = new RemoteCodeCompilerResponse(
+            var response = new RemoteCodeCompilerExecutionResponse(
                     executionResponse.getVerdict().getStatusResponse(),
                     executionResponse.getVerdict().getStatusCode(),
                     executionResponse.getError(),
@@ -106,7 +107,7 @@ public class CompilerServiceDefault implements CompilerService {
     
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(response);
+                    .body(new RemoteCodeCompilerResponse(response));
         } finally {
             // Clean up asynchronously
             threadPool.execute(() -> deleteExecutionEnvironment(execution));

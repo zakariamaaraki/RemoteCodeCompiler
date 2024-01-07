@@ -1,5 +1,6 @@
 package com.cp.compiler.services.api;
 
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.exceptions.CompilerBadRequestException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.services.businesslogic.CompilerService;
@@ -70,8 +71,11 @@ public class CompilerFacadeDefault implements CompilerFacade {
     }
     
     @Override
-    public ResponseEntity compile(Execution execution, boolean isLongRunning, String url, String userId)
-            throws IOException {
+    public ResponseEntity<RemoteCodeCompilerResponse> compile(
+            Execution execution,
+            boolean isLongRunning,
+            String url,
+            String userId) throws IOException {
         
         if (userId == null) {
             userId = "null";

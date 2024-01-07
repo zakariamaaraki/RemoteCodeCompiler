@@ -1,5 +1,6 @@
 package com.cp.compiler.services.api;
 
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.executions.Execution;
 import org.springframework.http.ResponseEntity;
 
@@ -22,5 +23,5 @@ public interface CompilerFacade {
      * @return the response entity
      * @throws IOException the io exception
      */
-    ResponseEntity compile(Execution execution, boolean isLongRunning, String url, String userId) throws IOException;
+    ResponseEntity<RemoteCodeCompilerResponse> compile(Execution execution, boolean isLongRunning, String url, String userId) throws IOException;
 }

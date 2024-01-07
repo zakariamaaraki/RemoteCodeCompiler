@@ -1,6 +1,7 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.contract.Language;
+import com.cp.compiler.contract.RemoteCodeCompilerExecutionResponse;
 import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
 import com.cp.compiler.executions.Execution;
@@ -42,7 +43,7 @@ class CompilerServiceDecoratorTests {
         // When
         var compilerServiceDecorator = new CompilerServiceDecorator(compilerService) {
             @Override
-            public ResponseEntity execute(Execution execution) {
+            public ResponseEntity<RemoteCodeCompilerResponse> execute(Execution execution) {
                 return compilerService.execute(execution);
             }
         };
@@ -52,7 +53,7 @@ class CompilerServiceDecoratorTests {
     }
     
     @Test
-    void shouldHaveTheSameBehaviorAsTheCompilerClient() throws Exception {
+    void shouldHaveTheSameBehaviorAsTheCompilerClient() {
         // Given
         MultipartFile file = new MockMultipartFile(
                 "test.java",
@@ -62,7 +63,7 @@ class CompilerServiceDecoratorTests {
         
         var compilerServiceDecorator = new CompilerServiceDecorator(compilerService) {
             @Override
-            public ResponseEntity execute(Execution execution) {
+            public ResponseEntity<RemoteCodeCompilerResponse> execute(Execution execution) {
                 return compilerService.execute(execution);
             }
         };
@@ -106,8 +107,15 @@ class CompilerServiceDecoratorTests {
         // Then
         Assertions.assertNotNull(compilationResult);
         Assertions.assertEquals(
-                ((RemoteCodeCompilerResponse)compilerService.execute(execution2).getBody()).getTestCasesResult(),
-                ((RemoteCodeCompilerResponse)compilationResult.getBody()).getTestCasesResult()
+                compilerService
+                        .execute(execution2)
+                        .getBody()
+                        .getExecution()
+                        .getTestCasesResult(),
+                compilationResult
+                        .getBody()
+                        .getExecution()
+                        .getTestCasesResult()
         );
     }
     
@@ -122,7 +130,7 @@ class CompilerServiceDecoratorTests {
     
         var compilerServiceDecorator = new CompilerServiceDecorator(compilerService) {
             @Override
-            public ResponseEntity execute(Execution execution) {
+            public ResponseEntity<RemoteCodeCompilerResponse> execute(Execution execution) {
                 return compilerService.execute(execution);
             }
         };

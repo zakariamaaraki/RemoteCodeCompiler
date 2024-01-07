@@ -1,5 +1,6 @@
 package com.cp.compiler.services.businesslogic;
 
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.repositories.HooksRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +43,7 @@ public class LongRunningCompilerService extends CompilerServiceDecorator {
     }
     
     @Override
-    public ResponseEntity execute(Execution execution) {
+    public ResponseEntity<RemoteCodeCompilerResponse> execute(Execution execution) {
         String url = hooksRepository.get(execution.getId());
         new Thread(() -> {
             try {
@@ -55,16 +56,17 @@ public class LongRunningCompilerService extends CompilerServiceDecorator {
         }).start();
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
-                .body("Executing the request, you'll get the response in the following url : " + url);
+                .header("url", url)
+                .body(new RemoteCodeCompilerResponse());
     }
     
     // The check of URI syntax is done before the compilation.
-    private void sendResponse(String url, ResponseEntity<Object> responseEntity) throws URISyntaxException {
+    private void sendResponse(String url, ResponseEntity<RemoteCodeCompilerResponse> responseEntity) throws URISyntaxException {
         restTemplate.postForEntity(new URI(url), responseEntity, Object.class);
     }
     
     private void run(Execution execution, String url) throws URISyntaxException {
-        ResponseEntity<Object> response = getCompilerService().execute(execution);
+        ResponseEntity<RemoteCodeCompilerResponse> response = getCompilerService().execute(execution);
         log.info("Sending response to {}", url);
         sendResponse(url, response);
     }

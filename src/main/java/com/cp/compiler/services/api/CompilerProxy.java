@@ -1,5 +1,6 @@
 package com.cp.compiler.services.api;
 
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.exceptions.CompilerBadRequestException;
 import com.cp.compiler.exceptions.CompilerThrottlingException;
 import com.cp.compiler.executions.Execution;
@@ -21,7 +22,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.Optional;
 
 /**
  * The Compiler proxy Service.
@@ -88,18 +88,15 @@ public class CompilerProxy implements CompilerService {
     }
     
     @Override
-    public ResponseEntity execute(Execution execution) {
-        Optional<ResponseEntity<Object>> requestValidationError = validateRequest(execution);
-        if (requestValidationError.isPresent()) {
-            // The request is not valid
-            log.info("Invalid input data: '{}'", requestValidationError.get().getBody());
-            return requestValidationError.get();
-        }
+    public ResponseEntity<RemoteCodeCompilerResponse> execute(Execution execution) {
+        
+        validateRequest(execution);
+        
         if (resources.allowNewExecution()) {
             int counter = resources.reserveResources();
             log.info("New request, total: {}, maxRequests: {}", counter, resources.getMaxRequests());
             
-            ResponseEntity<Object> response;
+            ResponseEntity<RemoteCodeCompilerResponse> response;
             
             try {
                 response = compileAndExecute(execution);
@@ -115,36 +112,34 @@ public class CompilerProxy implements CompilerService {
         throw new CompilerThrottlingException(errorMessage);
     }
     
-    private ResponseEntity<Object> compileAndExecute(Execution execution) {
+    private ResponseEntity<RemoteCodeCompilerResponse> compileAndExecute(Execution execution) {
         // If the storage contains the id, it means we registered the url before and the client wants a push notification.
         if (hooksRepository.contains(execution.getId())) {
-            log.info("Start long running execution, the result will be pushed to : {}", hooksRepository.get(execution.getId()));
+            log.info("Start long running execution, the result will be pushed to : {}",
+                    hooksRepository.get(execution.getId()));
             return longRunningCompilerService.execute(execution);
         }
         log.info("Start short running execution");
         return compilerService.execute(execution);
     }
     
-    private Optional<ResponseEntity<Object>> validateRequest(Execution execution) {
+    private void validateRequest(Execution execution) {
         
         int numberOfTestCases = execution.getTestCases().size();
         
         if (numberOfTestCases == 0 || numberOfTestCases > maxNumberOfTestCases) {
-            return Optional.of(buildOutputError(
-                    "Number of test cases should be between 1 and " + maxNumberOfTestCases));
+            buildOutputError("Number of test cases should be between 1 and " + maxNumberOfTestCases);
         }
         
         if (!checkFileName(execution.getSourceCodeFile().getOriginalFilename())) {
-            return Optional.of(buildOutputError(
-                    "Bad request, sourcecode file must match the following regex "
-                            + WellKnownFiles.FILE_NAME_REGEX));
+            buildOutputError("Bad request, sourcecode file must match the following regex "
+                    + WellKnownFiles.FILE_NAME_REGEX);
         }
         
         // Lets check the extension
         if (!checkFileExtension(execution.getSourceCodeFile().getOriginalFilename(), execution.getLanguage())) {
-            return Optional.of(buildOutputError(
-                    "Bad request, sourcecode file extension is not correct, it should be: "
-                            + execution.getLanguage().getSourcecodeExtension()));
+            buildOutputError("Bad request, sourcecode file extension is not correct, it should be: "
+                            + execution.getLanguage().getSourcecodeExtension());
         }
         
         if (execution.getTimeLimit() < minExecutionTime || execution.getTimeLimit() > maxExecutionTime) {
@@ -152,7 +147,7 @@ public class CompilerProxy implements CompilerService {
                     + minExecutionTime + " Sec and " + maxExecutionTime + " Sec, provided : "
                     + execution.getTimeLimit();
     
-            return Optional.of(buildOutputError(errorMessage));
+            buildOutputError(errorMessage);
         }
     
         if (execution.getMemoryLimit() < minExecutionMemory || execution.getMemoryLimit() > maxExecutionMemory) {
@@ -160,17 +155,15 @@ public class CompilerProxy implements CompilerService {
                     + minExecutionMemory + " MB and " + maxExecutionMemory + " MB, provided : "
                     + execution.getMemoryLimit();
     
-            return Optional.of(buildOutputError(errorMessage));
+            buildOutputError(errorMessage);
         }
-        
-        return Optional.ofNullable(null);
     }
     
     private boolean checkFileExtension(String originalFilename, Language language) {
         return originalFilename.endsWith(language.getSourcecodeExtension());
     }
     
-    private ResponseEntity buildOutputError(String errorMessage) {
+    private void buildOutputError(String errorMessage) {
         log.warn(errorMessage);
         throw new CompilerBadRequestException(errorMessage);
     }

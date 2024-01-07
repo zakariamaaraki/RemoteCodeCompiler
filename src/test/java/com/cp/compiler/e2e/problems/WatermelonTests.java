@@ -1,8 +1,9 @@
 package com.cp.compiler.e2e.problems;
 
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.controllers.CompilerController;
 import com.cp.compiler.contract.Language;
-import com.cp.compiler.contract.RemoteCodeCompilerResponse;
+import com.cp.compiler.contract.RemoteCodeCompilerExecutionResponse;
 import com.cp.compiler.models.Verdict;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -50,7 +51,7 @@ class WatermelonTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compile(
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerController.compile(
                 Language.JAVA,
                 sourceCode,
                 inputs,
@@ -64,7 +65,10 @@ class WatermelonTests {
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
+                responseEntity
+                        .getBody()
+                        .getExecution()
+                        .getVerdict());
     }
     
     @DisplayName("Watermelon Problem test case 2")
@@ -90,7 +94,7 @@ class WatermelonTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compile(
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerController.compile(
                 Language.JAVA,
                 sourceCode,
                 inputs,
@@ -104,7 +108,10 @@ class WatermelonTests {
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
+                responseEntity
+                        .getBody()
+                        .getExecution()
+                        .getVerdict());
     }
     
     @DisplayName("Watermelon Problem test case 3")
@@ -130,7 +137,7 @@ class WatermelonTests {
                                                      new FileInputStream(inputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compile(
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerController.compile(
                 Language.JAVA,
                 sourceCode,
                 inputs,
@@ -144,6 +151,9 @@ class WatermelonTests {
         // Then
         Assertions.assertEquals(
                 Verdict.ACCEPTED.getStatusResponse(),
-                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
+                responseEntity
+                        .getBody()
+                        .getExecution()
+                        .getVerdict());
     }
 }

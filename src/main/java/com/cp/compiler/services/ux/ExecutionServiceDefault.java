@@ -11,6 +11,7 @@ import com.cp.compiler.contract.testcases.TestCase;
 import com.cp.compiler.models.Verdict;
 import com.cp.compiler.repositories.problems.ProblemsRepository;
 import com.cp.compiler.services.api.CompilerFacade;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class ExecutionServiceDefault implements ExecutionService {
     }
     
     @Override
-    public ResponseEntity execute(ProblemExecution problemExecution) throws IOException {
+    public ResponseEntity<RemoteCodeCompilerResponse> execute(ProblemExecution problemExecution) throws IOException {
     
         Problem problem = problemsRepository.getProblemById(problemExecution.getProblemId());
         
@@ -42,16 +43,16 @@ public class ExecutionServiceDefault implements ExecutionService {
                 request.getMemoryLimit(),
                 request.getLanguage());
     
-        ResponseEntity responseEntity = compiler.compile(execution, false, null, null);
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compiler.compile(execution, false, null, null);
     
         makeExpectedOutputHiddenIfTheResponseWasNotAccepted(responseEntity);
         
         return responseEntity;
     }
     
-    private void makeExpectedOutputHiddenIfTheResponseWasNotAccepted(ResponseEntity responseEntity) {
-        if (responseEntity.getBody() instanceof RemoteCodeCompilerResponse) {
-            var response = (RemoteCodeCompilerResponse) responseEntity.getBody();
+    private void makeExpectedOutputHiddenIfTheResponseWasNotAccepted(ResponseEntity<RemoteCodeCompilerResponse> responseEntity) {
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+            var response = responseEntity.getBody().getExecution();
             
             if (response.getVerdict().equals(Verdict.ACCEPTED.getStatusResponse())) {
                 return;

@@ -1,8 +1,9 @@
 package com.cp.compiler.e2e;
 
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.controllers.CompilerController;
 import com.cp.compiler.contract.Language;
-import com.cp.compiler.contract.RemoteCodeCompilerResponse;
+import com.cp.compiler.contract.RemoteCodeCompilerExecutionResponse;
 import com.cp.compiler.models.Verdict;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -48,7 +49,7 @@ class RubyE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compile(
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerController.compile(
                 Language.RUBY,
                 sourceCode,
                 null,
@@ -61,7 +62,11 @@ class RubyE2ETests {
         
         // Then
         Assertions.assertEquals(
-                Verdict.ACCEPTED.getStatusResponse(), ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
+                Verdict.ACCEPTED.getStatusResponse(),
+                responseEntity
+                        .getBody()
+                        .getExecution()
+                        .getVerdict());
     }
     
     /**
@@ -86,7 +91,7 @@ class RubyE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compile(
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerController.compile(
                 Language.RUBY,
                 sourceCode,
                 null,
@@ -100,7 +105,10 @@ class RubyE2ETests {
         // Then
         Assertions.assertEquals(
                 Verdict.TIME_LIMIT_EXCEEDED.getStatusResponse(),
-                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
+                responseEntity
+                        .getBody()
+                        .getExecution()
+                        .getVerdict());
     }
     
     /**
@@ -125,7 +133,7 @@ class RubyE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compile(
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerController.compile(
                 Language.RUBY,
                 sourceCode,
                 null,
@@ -139,7 +147,10 @@ class RubyE2ETests {
         // Then
         Assertions.assertEquals(
                 Verdict.WRONG_ANSWER.getStatusResponse(),
-                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
+                responseEntity
+                        .getBody()
+                        .getExecution()
+                        .getVerdict());
     }
     
     /**
@@ -164,7 +175,7 @@ class RubyE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compile(
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerController.compile(
                 Language.RUBY,
                 sourceCode,
                 null,
@@ -178,7 +189,10 @@ class RubyE2ETests {
         // Then
         Assertions.assertEquals(
                 Verdict.OUT_OF_MEMORY.getStatusResponse(),
-                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
+                responseEntity
+                        .getBody()
+                        .getExecution()
+                        .getVerdict());
     }
     
     /**
@@ -203,7 +217,7 @@ class RubyE2ETests {
                                                              new FileInputStream(expectedOutputFile));
         
         // When
-        ResponseEntity<Object> responseEntity = compilerController.compile(
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerController.compile(
                 Language.RUBY,
                 sourceCode,
                 null,
@@ -217,7 +231,10 @@ class RubyE2ETests {
         // Then
         Assertions.assertEquals(
                 Verdict.RUNTIME_ERROR.getStatusResponse(),
-                ((RemoteCodeCompilerResponse)responseEntity.getBody()).getVerdict());
+                responseEntity
+                        .getBody()
+                        .getExecution()
+                        .getVerdict());
     }
     
 }

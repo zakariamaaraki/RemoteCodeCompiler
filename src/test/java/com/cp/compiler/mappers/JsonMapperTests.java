@@ -2,6 +2,7 @@ package com.cp.compiler.mappers;
 
 import com.cp.compiler.contract.Language;
 import com.cp.compiler.contract.RemoteCodeCompilerRequest;
+import com.cp.compiler.contract.RemoteCodeCompilerExecutionResponse;
 import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.exceptions.CompilerThrottlingException;
 import com.cp.compiler.models.*;
@@ -76,7 +77,7 @@ class JsonMapperTests {
         LinkedHashMap<String, TestCaseResult> testCasesResult = new LinkedHashMap<>();
         testCasesResult.put("id", result);
     
-        var response = new RemoteCodeCompilerResponse(
+        var response = new RemoteCodeCompilerExecutionResponse(
                 result.getVerdict().getStatusResponse(),
                 result.getVerdict().getStatusCode(),
                 "",
@@ -88,7 +89,7 @@ class JsonMapperTests {
                 LocalDateTime.now());
         
         // When
-        String responseOutput = JsonMapper.toJson(response);
+        String responseOutput = JsonMapper.toJson(new RemoteCodeCompilerResponse(response));
         
         // Then
         Assertions.assertNotNull(responseOutput);
@@ -102,7 +103,7 @@ class JsonMapperTests {
         LinkedHashMap<String, TestCaseResult> testCasesResult = new LinkedHashMap<>();
         testCasesResult.put("id", result);
     
-        var response = new RemoteCodeCompilerResponse(
+        var response = new RemoteCodeCompilerExecutionResponse(
                 result.getVerdict().getStatusResponse(),
                 result.getVerdict().getStatusCode(),
                 "",
@@ -113,7 +114,8 @@ class JsonMapperTests {
                 Language.JAVA,
                 LocalDateTime.now());
         
-        Mockito.when(compilerService.execute(ArgumentMatchers.any())).thenReturn(ResponseEntity.ok(response));
+        Mockito.when(compilerService.execute(ArgumentMatchers.any()))
+                .thenReturn(ResponseEntity.ok(new RemoteCodeCompilerResponse(response)));
         
         // When
         String jsonResponse = JsonMapper.transform(jsonRequest, compilerService);
@@ -130,7 +132,7 @@ class JsonMapperTests {
         LinkedHashMap<String, TestCaseResult> testCasesResult = new LinkedHashMap<>();
         testCasesResult.put("id", result);
     
-        var response = new RemoteCodeCompilerResponse(
+        var response = new RemoteCodeCompilerExecutionResponse(
                 result.getVerdict().getStatusResponse(),
                 result.getVerdict().getStatusCode(),
                 "",
@@ -142,13 +144,13 @@ class JsonMapperTests {
                 LocalDateTime.now());
     
         Mockito.when(compilerService.execute(ArgumentMatchers.any()))
-                .thenReturn(ResponseEntity.ok(response));
+                .thenReturn(ResponseEntity.ok(new RemoteCodeCompilerResponse(response)));
         
         // When
         String jsonResponse = JsonMapper.transform(jsonRequest, compilerService);
         
         // Then
-        Assertions.assertEquals(response, toResponse(jsonResponse));
+        Assertions.assertEquals(response, toResponse(jsonResponse).getExecution());
     }
     
     @Test
@@ -161,22 +163,7 @@ class JsonMapperTests {
         Assertions.assertThrows(CompilerThrottlingException.class, () -> JsonMapper.transform(jsonRequest, compilerService));
     }
     
-    @Test
-    void shouldReturnNullValueIfTheReturnedObjectIsNotAnInstanceOfResponseClass() throws Exception {
-
-        // Given
-        Mockito.when(compilerService.execute(ArgumentMatchers.any()))
-                .thenReturn(ResponseEntity.ok("test"));
-    
-        // When
-        var jsonResponse = JsonMapper.transform(jsonRequest, compilerService);
-        
-        // Then
-        Assertions.assertEquals(null, jsonResponse);
-    }
-    
     private RemoteCodeCompilerResponse toResponse(String jsonResponse) throws JsonProcessingException {
         return objectMapper.readValue(jsonResponse, RemoteCodeCompilerResponse.class);
     }
-
 }

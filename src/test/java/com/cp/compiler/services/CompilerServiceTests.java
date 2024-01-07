@@ -1,6 +1,7 @@
 package com.cp.compiler.services;
 
 import com.cp.compiler.contract.Language;
+import com.cp.compiler.contract.RemoteCodeCompilerExecutionResponse;
 import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.exceptions.*;
 import com.cp.compiler.executions.Execution;
@@ -227,13 +228,13 @@ class CompilerServiceTests {
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
         
         // When
-        ResponseEntity<Object> responseEntity = compilerService.execute(execution);
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerService.execute(execution);
 
         // Then
         LinkedHashMap<String, TestCaseResult> testCasesResult = new LinkedHashMap<>();
         testCasesResult.put("id", result);
         
-        var response = new RemoteCodeCompilerResponse(
+        var response = new RemoteCodeCompilerExecutionResponse(
                 result.getVerdict().getStatusResponse(),
                 result.getVerdict().getStatusCode(),
                 "",
@@ -301,10 +302,14 @@ class CompilerServiceTests {
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
     
         // When
-        ResponseEntity<Object> responseEntity = compilerService.execute(execution);
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerService.execute(execution);
         
         // Then
-        RemoteCodeCompilerResponse response = (RemoteCodeCompilerResponse) responseEntity.getBody();
+        RemoteCodeCompilerExecutionResponse response =
+                responseEntity
+                        .getBody()
+                        .getExecution();
+        
         Assertions.assertEquals(Verdict.ACCEPTED.getStatusResponse(), response.getVerdict());
     }
     
@@ -359,10 +364,14 @@ class CompilerServiceTests {
                 ExecutionFactory.createExecution(sourceCode, List.of(testCase), 10, 100, Language.JAVA);
     
         // When
-        ResponseEntity responseEntity = compilerService.execute(execution);
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerService.execute(execution);
         
         // Then
-        RemoteCodeCompilerResponse response = (RemoteCodeCompilerResponse) responseEntity.getBody();
+        RemoteCodeCompilerExecutionResponse response =
+                responseEntity
+                        .getBody()
+                        .getExecution();
+        
         Assertions.assertEquals(Verdict.WRONG_ANSWER.getStatusResponse(), response.getVerdict());
     }
     
@@ -425,10 +434,14 @@ class CompilerServiceTests {
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
     
         // When
-        ResponseEntity<Object> responseEntity = compilerService.execute(execution);
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerService.execute(execution);
         
         // Then
-        RemoteCodeCompilerResponse response = (RemoteCodeCompilerResponse) responseEntity.getBody();
+        RemoteCodeCompilerExecutionResponse response =
+                responseEntity
+                        .getBody()
+                        .getExecution();
+        
         Assertions.assertEquals(Verdict.TIME_LIMIT_EXCEEDED.getStatusResponse(), response.getVerdict());
     }
     
@@ -491,10 +504,14 @@ class CompilerServiceTests {
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
     
         // When
-        ResponseEntity<Object> responseEntity = compilerService.execute(execution);
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerService.execute(execution);
         
         // Then
-        RemoteCodeCompilerResponse response = (RemoteCodeCompilerResponse) responseEntity.getBody();
+        RemoteCodeCompilerExecutionResponse response =
+                responseEntity
+                        .getBody()
+                        .getExecution();
+        
         Assertions.assertEquals(Verdict.RUNTIME_ERROR.getStatusResponse(), response.getVerdict());
     }
     
@@ -511,8 +528,6 @@ class CompilerServiceTests {
     
         String output = "test";
         String expectedOutput = "not a test";
-    
-        TestCaseResult result = new TestCaseResult(Verdict.ACCEPTED, output, "", expectedOutput, 0);
     
         MockMultipartFile file = new MockMultipartFile(
                 "file",
@@ -557,10 +572,14 @@ class CompilerServiceTests {
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
     
         // When
-        ResponseEntity<Object> responseEntity = compilerService.execute(execution);
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerService.execute(execution);
         
         // Then
-        RemoteCodeCompilerResponse response = (RemoteCodeCompilerResponse) responseEntity.getBody();
+        RemoteCodeCompilerExecutionResponse response =
+                responseEntity
+                        .getBody()
+                        .getExecution();
+        
         Assertions.assertEquals(Verdict.OUT_OF_MEMORY.getStatusResponse(), response.getVerdict());
     }
     
@@ -614,10 +633,14 @@ class CompilerServiceTests {
                 ExecutionFactory.createExecution(file, List.of(testCase), 10, 100, Language.JAVA);
     
         // When
-        ResponseEntity<Object> responseEntity = compilerService.execute(execution);
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compilerService.execute(execution);
         
         // Then
-        RemoteCodeCompilerResponse response = (RemoteCodeCompilerResponse) responseEntity.getBody();
+        RemoteCodeCompilerExecutionResponse response =
+                responseEntity
+                        .getBody()
+                        .getExecution();
+        
         Assertions.assertEquals(Verdict.COMPILATION_ERROR.getStatusResponse(), response.getVerdict());
     }
     
@@ -805,15 +828,23 @@ class CompilerServiceTests {
                 .thenReturn(ProcessOutput.builder().status(StatusUtils.ACCEPTED_OR_WRONG_ANSWER_STATUS).build());
         
         // When
-        ResponseEntity<Object> response = compilerService.execute(execution);
+        ResponseEntity<RemoteCodeCompilerResponse> response = compilerService.execute(execution);
         
         // Then
         Assertions.assertEquals(
                 "/mockFile",
-                ((RemoteCodeCompilerResponse)response.getBody()).getTestCasesResult().get("id").getError());
+                response
+                        .getBody()
+                        .getExecution()
+                        .getTestCasesResult()
+                        .get("id")
+                        .getError());
     
         Assertions.assertEquals(
                 "/mockFile",
-                ((RemoteCodeCompilerResponse)response.getBody()).getError());
+                response
+                        .getBody()
+                        .getExecution()
+                        .getError());
     }
 }

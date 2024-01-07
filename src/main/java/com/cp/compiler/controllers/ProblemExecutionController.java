@@ -1,5 +1,6 @@
 package com.cp.compiler.controllers;
 
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.contract.problems.ProblemExecution;
 import com.cp.compiler.services.ux.ExecutionService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,7 @@ public class ProblemExecutionController {
     }
     
     @PostMapping("/execute")
-    public ResponseEntity<Object> execute(@RequestBody ProblemExecution problemExecution) throws IOException {
+    public ResponseEntity<RemoteCodeCompilerResponse> execute(@RequestBody ProblemExecution problemExecution) throws IOException {
         log.info("new request, problemId = {}, language = {}, sourceCode = {}",
                 problemExecution.getProblemId(),
                 problemExecution.getLanguage(),

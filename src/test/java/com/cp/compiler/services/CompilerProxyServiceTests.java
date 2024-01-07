@@ -123,7 +123,7 @@ class CompilerProxyServiceTests {
         hooksRepository.addUrl(execution.getId(), "http://localhost");
         
         // When
-        ResponseEntity responseEntity = compilerProxy.execute(execution);
+        compilerProxy.execute(execution);
     
         // Then
         Mockito.verify(longRunningCompilerService, Mockito.times(1)).execute(execution);
