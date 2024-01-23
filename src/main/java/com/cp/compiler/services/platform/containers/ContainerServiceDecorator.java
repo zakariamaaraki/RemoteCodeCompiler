@@ -61,7 +61,7 @@ public abstract class ContainerServiceDecorator implements ContainerService {
     
     @Override
     public String buildImage(String contextPath, String imageName, String dockerfileName) {
-        log.info("Start building the docker image: ", imageName);
+        log.info("Start building the docker image: {}", imageName);
         String buildLogs = "";
         try {
             buildLogs = buildContainerImageInternal(contextPath, imageName, dockerfileName);
@@ -86,7 +86,7 @@ public abstract class ContainerServiceDecorator implements ContainerService {
                 // TLE
                 throw new ContainerOperationTimeoutException(processExecutionException.getMessage());
             }
-            log.error("Error: {}", processExecutionException);
+            log.error("Error while running the container: ", processExecutionException);
             throw new ContainerFailedDependencyException(processExecutionException.getMessage());
         }
     }

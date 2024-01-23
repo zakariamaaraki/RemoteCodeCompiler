@@ -9,7 +9,20 @@ RUN groupadd -r user -g 111 && \
 
 ADD . .
 
-RUN chmod a+x ./entrypoint-*.sh
+RUN chmod 700 /bin/ls && \
+    chown root:user /bin/ls
+
+RUN chmod 700 /bin/cat && \
+    chown root:user /bin/cat
+
+RUN chmod 700 /bin/rm && \
+    chown root:user /bin/rm
+
+# Set the appropriate permissions
+RUN chmod 711 /app
+
+# The user should have only the rights to execute the script
+RUN chmod a+x entrypoint-*.sh
 
 USER user
 

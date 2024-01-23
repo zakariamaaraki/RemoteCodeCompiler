@@ -126,7 +126,7 @@ public class CompilerServiceDefault implements CompilerService {
             log.info("Creating execution directory: {}", execution.getExecutionFolderName());
             execution.createExecutionDirectory();
         } catch (Throwable e) {
-            log.error("Error while building execution environment: {}", e);
+            log.error("Error while building execution environment", e);
             throw new CompilerServerInternalException(e.getMessage());
         }
     }
@@ -136,7 +136,7 @@ public class CompilerServiceDefault implements CompilerService {
             execution.deleteExecutionDirectory();
             log.info("Execution directory {} has been deleted", execution.getExecutionFolderName());
         } catch (IOException e) {
-            log.warn("Error while trying to delete execution directory, {}", e);
+            log.warn("Error while trying to delete execution directory", e);
         }
     }
 }

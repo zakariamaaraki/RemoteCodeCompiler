@@ -97,5 +97,5 @@ public abstract class WellKnownFiles {
     /**
      * The constant EXECUTION_DOCKERFILE_NAME.
      */
-    public static final String EXECUTION_DOCKERFILE_NAME ="Dockerfile.execution";
+    public static final String EXECUTION_DOCKERFILE_NAME = "Dockerfile.execution";
 }

@@ -123,13 +123,32 @@ public class DockerContainerService implements ContainerService {
                                         float cpus,
                                         String imageName) {
         /**
-         * docker run --name [containerName] (-e [envKey=envValue])* --cpus=[cpu] [imageName]
+         * docker run --read only --name [containerName] (-e [envKey=envValue])* --cpus=[cpu] [imageName]
+         *
+         * When running the Docker container, we can use security-related options to further restrict the container's capabilities.
+         * For example, we can use the --read-only flag to make the container's filesystem read-only.
+         *
+         *  To completely disable the networking stack on a container, we can use the --network none flag when starting the container.
+         *  Within the container, only the loopback device is created. This effectively isolates the container from any network,
+         *  including the host and the internet.
+         *
+         *  Docker allows you to drop certain capabilities within a container to reduce the set of permissions available to processes inside the container.
+         *  This is achieved using the --cap-drop option.
          */
-        List<String> dockerCommandList = new ArrayList<>(Arrays.asList("docker", "run", "--name", containerName));
+        List<String> dockerCommandList = new ArrayList<>(Arrays.asList(
+                "docker",
+                "run",
+                "--read-only",
+                "--cap-drop=ALL",
+                "--network=none", // The container doesn't need network access, let's disable it:
+                "--name",
+                containerName));
+        
         for (String key : envVariables.keySet()) {
             dockerCommandList.add("-e");
             dockerCommandList.add(key + "=" + envVariables.get(key));
         }
+        
         var cpuParam = "--cpus=" + cpus;
         dockerCommandList.add(cpuParam);
         dockerCommandList.add(imageName);
@@ -144,7 +163,7 @@ public class DockerContainerService implements ContainerService {
         try {
              ci = ContainerInfoMapper.toContainerInfo(containerInfo);
         } catch (JsonProcessingException e) {
-            log.warn("Error during json deserialization, while trying to retrieve container info, ex: {}", e);
+            log.warn("Error during json deserialization, while trying to retrieve container info", e);
         }
         return ci;
     }
