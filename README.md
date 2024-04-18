@@ -18,6 +18,8 @@ The compiler ensures the security of user code execution by sandboxing the execu
 ## Scalability
 The compiler can scale horizontally to handle increased load by deploying multiple instances behind a load balancer. Each instance is stateless and can independently process incoming requests, ensuring high availability and performance.
 
+## Sample input / output
+
 **Example of an input**
 
 ```json
