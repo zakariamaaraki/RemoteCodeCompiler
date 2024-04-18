@@ -416,14 +416,6 @@ docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -
 
 Check out exposed prometheus metrics using the following url : http://<IP:PORT>/prometheus
 
-![Java execution counter](images/executions_metrics.png?raw=true "Executions counter")
-
-![Parallel executions](images/parallel-executions-metrics.png?raw=true "Parallel Executions Metrics")
-
-![Throttling counter](images/throttling-counter-metrics.png?raw=true "Throttling Counter Metrics")
-
-Other metrics are available.
-
 ## Logging
 
 <p>By default, only console logging is enabled.</p>
@@ -437,6 +429,12 @@ All logs will be kept for 7 days with a maximum size of 1 GB.
 
 You can also send logs to logstash pipeline by setting these environment variables **LOGSTASH_LOGGING** to true and 
 **LOGSTASH_SERVER_HOST**, **LOGSTASH_SERVER_PORT** to logstash and port values respectively. 
+
+## Getting Help
+
+If you encounter any issues or need assistance with the Remote Code Compiler, feel free to reach out for support. You can:
+- Open an issue on GitHub: [Issues](https://github.com/zakariamaaraki/RemoteCodeCompiler/issues)
+- Contact the project maintainers directly.
 
 ## Author
 
