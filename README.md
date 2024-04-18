@@ -15,6 +15,15 @@ Supports **Rest Calls (Long Polling and [Push Notification](https://en.wikipedia
 ## Security Considerations
 The compiler ensures the security of user code execution by sandboxing the execution environment and applying strict resource limits. Additionally, input sanitization and validation are performed to prevent code injection attacks.
 
+#### Sandboxing
+The Remote Code Compiler employs sandboxing techniques to isolate user code executions from the underlying system. Each code execution occurs within a dedicated Docker container, providing a secure and contained environment. This isolation prevents unauthorized access to system resources and protects against potential security vulnerabilities.
+
+#### Resource Limits
+Strict resource limits are enforced to prevent resource exhaustion attacks and ensure fair resource allocation. The compiler sets limits on CPU usage, memory consumption, and execution time for each code execution. These limits mitigate the risk of denial-of-service (DoS) attacks and ensure the stability and reliability of the compiler platform.
+
+#### Input Sanitization
+Input sanitization measures are implemented to validate and sanitize user inputs before execution. This helps prevent code injection attacks and ensures that only safe and trusted inputs are processed by the compiler. By sanitizing inputs, the compiler reduces the risk of executing malicious code and maintains the integrity of the execution environment.
+
 ## Scalability
 The compiler can scale horizontally to handle increased load by deploying multiple instances behind a load balancer. Each instance is stateless and can independently process incoming requests, ensuring high availability and performance.
 
