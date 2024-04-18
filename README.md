@@ -10,7 +10,13 @@ This tool execute your code remotely using docker containers to separate environ
 
 ![Supported languages](images/supported-languages.png?raw=true "supported-languages logos")
 
-Supports **Rest Calls (Long Polling and [Push Notification](https://en.wikipedia.org/wiki/Push_technology))**, **Apache Kafka** and **Rabbit MQ Messages**.
+Supports **Rest Calls (Long Polling and [Push Notification](https://en.wikipedia.org/wiki/Push_technology))**, **Apache Kafka** and **Rabbit MQ Messages**, and **gRPC**.
+
+## Security Considerations
+The compiler ensures the security of user code execution by sandboxing the execution environment and applying strict resource limits. Additionally, input sanitization and validation are performed to prevent code injection attacks.
+
+## Scalability
+The compiler can scale horizontally to handle increased load by deploying multiple instances behind a load balancer. Each instance is stateless and can independently process incoming requests, ensuring high availability and performance.
 
 **Example of an input**
 
