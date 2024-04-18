@@ -170,7 +170,7 @@ We provide you with a script to provision an AKS cluster to ease your deployment
 
 ## How It Works
 
-When a request comes in, the compiler creates a container responsible of compiling the given sourcecode (this container shares the same volume with the main application). After a successful compilation, an execution container (with it's own execution environment and totally isolated from other containers) is created for each test case.
+When a request arrives, the compiler gets to work by creating a special container just for compiling the code you sent. This container works closely with the main application, sharing its storage space for easy access to files. Once the code is compiled successfully, the compiler sets up separate containers for running each test. These containers work independently, each having its own space to run the code without being affected by others.
 
 ![Architecture](images/remote_code_compiler_architecture.png?raw=true "Compiler")
 
