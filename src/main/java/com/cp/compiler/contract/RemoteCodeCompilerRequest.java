@@ -20,7 +20,8 @@ import java.util.List;
  * @author Zakaria Maaraki
  */
 @Getter
-@NoArgsConstructor
+@Setter // used by mapstruct
+@NoArgsConstructor(force = true)
 @EqualsAndHashCode
 @AllArgsConstructor
 public class RemoteCodeCompilerRequest {

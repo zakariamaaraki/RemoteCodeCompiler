@@ -2,7 +2,7 @@ package com.cp.compiler.amqp;
 
 import com.cp.compiler.exceptions.CompilerThrottlingException;
 import com.cp.compiler.mappers.JsonMapper;
-import com.cp.compiler.wellknownconstants.WellKnownMetrics;
+import com.cp.compiler.consts.WellKnownMetrics;
 import com.cp.compiler.services.businesslogic.CompilerService;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;

@@ -5,7 +5,7 @@ import com.cp.compiler.models.CompilationResponse;
 import com.cp.compiler.models.Verdict;
 import com.cp.compiler.services.platform.containers.ContainerService;
 import com.cp.compiler.services.platform.resources.Resources;
-import com.cp.compiler.wellknownconstants.WellKnownMetrics;
+import com.cp.compiler.consts.WellKnownMetrics;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

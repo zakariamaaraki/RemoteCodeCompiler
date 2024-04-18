@@ -1,8 +1,8 @@
 package com.cp.compiler;
 
-import com.cp.compiler.controllers.CompilerController;
-import com.cp.compiler.controllers.ContainersInfoController;
-import com.cp.compiler.controllers.ProblemsController;
+import com.cp.compiler.api.controllers.CompilerController;
+import com.cp.compiler.api.controllers.ContainersInfoController;
+import com.cp.compiler.api.controllers.ProblemsController;
 import com.cp.compiler.repositories.HooksRepository;
 import com.cp.compiler.services.api.CompilerFacade;
 import com.cp.compiler.services.businesslogic.CompilerService;

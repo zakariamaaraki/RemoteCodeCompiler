@@ -1,6 +1,7 @@
 package com.cp.compiler.contract;
 
 import com.cp.compiler.contract.testcases.TestCaseResult;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -90,7 +91,7 @@ public class RemoteCodeCompilerExecutionResponse
     @EqualsAndHashCode.Exclude
     @ApiModelProperty(notes = "The dateTime of the execution")
     private LocalDateTime dateTime;
-    
+
     private float computeTheAverageExecutionDuration(Map<String, TestCaseResult> testCasesResult) {
         float sum = 0;
         for (TestCaseResult testCaseResult : testCasesResult.values()) {

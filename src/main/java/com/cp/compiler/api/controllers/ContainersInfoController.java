@@ -1,4 +1,4 @@
-package com.cp.compiler.controllers;
+package com.cp.compiler.api.controllers;
 
 import com.cp.compiler.contract.RemoteCodeCompilerExecutionResponse;
 import com.cp.compiler.services.platform.containers.ContainerService;

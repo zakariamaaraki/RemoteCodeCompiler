@@ -5,7 +5,7 @@ import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.testcases.TransformedTestCase;
 import com.cp.compiler.contract.Language;
 import com.cp.compiler.utils.FileUtils;
-import com.cp.compiler.wellknownconstants.WellKnownFiles;
+import com.cp.compiler.consts.WellKnownFiles;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;

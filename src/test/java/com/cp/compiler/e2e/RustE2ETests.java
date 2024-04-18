@@ -1,9 +1,8 @@
 package com.cp.compiler.e2e;
 
 import com.cp.compiler.contract.RemoteCodeCompilerResponse;
-import com.cp.compiler.controllers.CompilerController;
+import com.cp.compiler.api.controllers.CompilerController;
 import com.cp.compiler.contract.Language;
-import com.cp.compiler.contract.RemoteCodeCompilerExecutionResponse;
 import com.cp.compiler.models.Verdict;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;

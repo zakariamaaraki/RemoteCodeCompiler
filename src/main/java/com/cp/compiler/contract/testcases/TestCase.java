@@ -11,7 +11,7 @@ import lombok.*;
  */
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @EqualsAndHashCode
 public class TestCase {
     

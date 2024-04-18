@@ -1,6 +1,6 @@
 package com.cp.compiler.streams;
 
-import com.cp.compiler.wellknownconstants.WellKnownMetrics;
+import com.cp.compiler.consts.WellKnownMetrics;
 import com.cp.compiler.services.businesslogic.CompilerService;
 import com.cp.compiler.streams.transformers.CompilerTransformer;
 import io.micrometer.core.instrument.Counter;
@@ -75,9 +75,7 @@ public class KafkaStreamsTopologyConfig {
                              @Qualifier("proxy") @Autowired CompilerService compilerService) {
         
         builder.stream(inputTopic, Consumed.with(stringSerde, stringSerde))
-                .transformValues((ValueTransformerSupplier) () -> {
-                    return new CompilerTransformer(compilerService, throttlingDuration, throttlingRetriesCounter);
-                })
+                .transformValues((ValueTransformerSupplier) () -> new CompilerTransformer(compilerService, throttlingDuration, throttlingRetriesCounter))
                 .to(outputTopic, Produced.with(stringSerde, stringSerde));
     
         Topology topology = builder.build();

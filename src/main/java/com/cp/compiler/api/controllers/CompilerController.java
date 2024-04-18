@@ -1,4 +1,4 @@
-package com.cp.compiler.controllers;
+package com.cp.compiler.api.controllers;
 
 import com.cp.compiler.contract.Language;
 import com.cp.compiler.contract.RemoteCodeCompilerRequest;
@@ -10,8 +10,8 @@ import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.testcases.TransformedTestCase;
 import com.cp.compiler.services.api.CompilerFacade;
 import com.cp.compiler.utils.CmdUtils;
-import com.cp.compiler.wellknownconstants.WellKnownHeaders;
-import com.cp.compiler.wellknownconstants.WellKnownParams;
+import com.cp.compiler.consts.WellKnownHeaders;
+import com.cp.compiler.consts.WellKnownParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;

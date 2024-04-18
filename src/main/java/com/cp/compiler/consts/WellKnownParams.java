@@ -1,4 +1,4 @@
-package com.cp.compiler.wellknownconstants;
+package com.cp.compiler.consts;
 
 /**
  * This class contains all constants related to request body parameters.

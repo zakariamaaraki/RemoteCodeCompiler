@@ -1,8 +1,7 @@
 package com.cp.compiler.models;
 
-import com.cp.compiler.wellknownconstants.WellKnownMetrics;
+import com.cp.compiler.consts.WellKnownMetrics;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**

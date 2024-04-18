@@ -3,7 +3,7 @@ package com.cp.compiler.executions;
 import com.cp.compiler.executions.languages.*;
 import com.cp.compiler.models.testcases.TransformedTestCase;
 import com.cp.compiler.contract.Language;
-import com.cp.compiler.wellknownconstants.WellKnownFiles;
+import com.cp.compiler.consts.WellKnownFiles;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

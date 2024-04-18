@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package contract;
+
+option java_package = "com.cp.compiler.contract";
+option java_outer_classname = "CompilerProto";
+
+import "google/protobuf/timestamp.proto";
+
+service CompilerService {
+  rpc Compile(RemoteCodeCompilerRequest) returns (RemoteCodeCompilerResponse) {}
+}
+
+message RemoteCodeCompilerResponse {
+  RemoteCodeCompilerExecutionResponse execution = 1;
+  string error = 2;
+}
+
+message RemoteCodeCompilerExecutionResponse {
+  string verdict = 1;
+  int32 statusCode = 2;
+  string error = 3;
+  map<string, TestCaseResult> testCasesResult = 4;
+  int32 compilationDuration = 5;
+  int32 timeLimit = 6;
+  int32 memoryLimit = 7;
+  Language language = 8;
+  google.protobuf.Timestamp localDateTime = 9;
+
+  enum Language {
+    PYTHON = 0;
+    C = 1;
+    CPP = 2;
+    JAVA = 3;
+    GO = 4;
+    CS = 5;
+    KOTLIN = 6;
+    SCALA = 7;
+    RUST = 8;
+    RUBY = 9;
+    HASKELL = 10;
+  }
+
+  message TestCaseResult {
+    string verdict = 1;
+    int32 verdictStatusCode = 2;
+    string output = 3;
+    string error = 4;
+    string expectedOutput = 5;
+    int32 executionDuration = 6;
+  }
+}
+
+message RemoteCodeCompilerRequest {
+  string sourcecode = 1;
+  Language language = 2;
+  int32 timeLimit = 3;
+  int32 memoryLimit = 4;
+  map<string, TestCase> testCases = 5;
+
+  enum Language {
+    PYTHON = 0;
+    C = 1;
+    CPP = 2;
+    JAVA = 3;
+    GO = 4;
+    CS = 5;
+    KOTLIN = 6;
+    SCALA = 7;
+    RUST = 8;
+    RUBY = 9;
+    HASKELL = 10;
+  }
+
+  message TestCase {
+    string input = 1;
+    string expectedOutput = 2;
+  }
+}

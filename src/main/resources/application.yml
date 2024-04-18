@@ -65,6 +65,10 @@ info:
     description: "Remote Code Compiler Supports 11 languages: Java, Kotlin, Scala, C, C++, C#, Golang, Python, Ruby, Rust and Haskell"
     version: "1.0.0"
 
+grpc:
+  server:
+    port: 9090
+
 ---
 # kafka profile
 spring:

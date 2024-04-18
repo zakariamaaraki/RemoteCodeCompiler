@@ -2,7 +2,7 @@ package com.cp.compiler.mappers;
 
 import com.cp.compiler.models.testcases.TransformedTestCase;
 import com.cp.compiler.contract.testcases.TestCase;
-import com.cp.compiler.wellknownconstants.WellKnownFiles;
+import com.cp.compiler.consts.WellKnownFiles;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 

@@ -1,9 +1,9 @@
 package com.cp.compiler.contract;
 
-import com.cp.compiler.wellknownconstants.WellKnownCommands;
-import com.cp.compiler.wellknownconstants.WellKnownFiles;
-import com.cp.compiler.wellknownconstants.WellKnownFolders;
-import com.cp.compiler.wellknownconstants.WellKnownMetrics;
+import com.cp.compiler.consts.WellKnownCommands;
+import com.cp.compiler.consts.WellKnownFiles;
+import com.cp.compiler.consts.WellKnownFolders;
+import com.cp.compiler.consts.WellKnownMetrics;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
