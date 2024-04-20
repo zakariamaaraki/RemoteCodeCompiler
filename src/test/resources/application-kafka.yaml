@@ -1,0 +1,3 @@
+grpc:
+  server:
+    port: 9099 # default gRPC server port is used by embedded kafka
