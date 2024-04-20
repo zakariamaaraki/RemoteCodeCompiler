@@ -10,7 +10,24 @@ This tool execute your code remotely using docker containers to separate environ
 
 ![Supported languages](images/supported-languages.png?raw=true "supported-languages logos")
 
-Supports **Rest Calls (Long Polling and [Push Notification](https://en.wikipedia.org/wiki/Push_technology))**, **Apache Kafka** and **Rabbit MQ Messages**.
+Supports **Rest Calls (Long Polling and [Push Notification](https://en.wikipedia.org/wiki/Push_technology))**, **Apache Kafka** and **Rabbit MQ Messages**, and **gRPC**.
+
+## Security Considerations
+The compiler ensures the security of user code execution by sandboxing the execution environment and applying strict resource limits. Additionally, input sanitization and validation are performed to prevent code injection attacks.
+
+#### Sandboxing
+The Remote Code Compiler employs sandboxing techniques to isolate user code executions from the underlying system. Each code execution occurs within a dedicated Docker container, providing a secure and contained environment. This isolation prevents unauthorized access to system resources and protects against potential security vulnerabilities.
+
+#### Resource Limits
+Strict resource limits are enforced to prevent resource exhaustion attacks and ensure fair resource allocation. The compiler sets limits on CPU usage, memory consumption, and execution time for each code execution. These limits mitigate the risk of denial-of-service (DoS) attacks and ensure the stability and reliability of the compiler platform.
+
+#### Input Sanitization
+Input sanitization measures are implemented to validate and sanitize user inputs before execution. This helps prevent code injection attacks and ensures that only safe and trusted inputs are processed by the compiler. By sanitizing inputs, the compiler reduces the risk of executing malicious code and maintains the integrity of the execution environment.
+
+## Scalability
+The compiler can scale horizontally to handle increased load by deploying multiple instances behind a load balancer. Each instance is stateless and can independently process incoming requests, ensuring high availability and performance.
+
+## Sample input / output
 
 **Example of an input**
 
@@ -153,7 +170,7 @@ We provide you with a script to provision an AKS cluster to ease your deployment
 
 ## How It Works
 
-When a request comes in, the compiler creates a container responsible of compiling the given sourcecode (this container shares the same volume with the main application). After a successful compilation, an execution container (with it's own execution environment and totally isolated from other containers) is created for each test case.
+When a request arrives, the compiler gets to work by creating a special container just for compiling the code you sent. This container works closely with the main application, sharing its storage space for easy access to files. Once the code is compiled successfully, the compiler sets up separate containers for running each test. These containers work independently, each having its own space to run the code without being affected by others.
 
 ![Architecture](images/remote_code_compiler_architecture.png?raw=true "Compiler")
 
@@ -408,14 +425,6 @@ docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -
 
 Check out exposed prometheus metrics using the following url : http://<IP:PORT>/prometheus
 
-![Java execution counter](images/executions_metrics.png?raw=true "Executions counter")
-
-![Parallel executions](images/parallel-executions-metrics.png?raw=true "Parallel Executions Metrics")
-
-![Throttling counter](images/throttling-counter-metrics.png?raw=true "Throttling Counter Metrics")
-
-Other metrics are available.
-
 ## Logging
 
 <p>By default, only console logging is enabled.</p>
@@ -429,6 +438,12 @@ All logs will be kept for 7 days with a maximum size of 1 GB.
 
 You can also send logs to logstash pipeline by setting these environment variables **LOGSTASH_LOGGING** to true and 
 **LOGSTASH_SERVER_HOST**, **LOGSTASH_SERVER_PORT** to logstash and port values respectively. 
+
+## Getting Help
+
+If you encounter any issues or need assistance with the Remote Code Compiler, feel free to reach out for support. You can:
+- Open an issue on GitHub: [Issues](https://github.com/zakariamaaraki/RemoteCodeCompiler/issues)
+- Contact the project maintainers directly.
 
 ## Author
 

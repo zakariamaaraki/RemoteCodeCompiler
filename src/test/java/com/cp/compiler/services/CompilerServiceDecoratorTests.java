@@ -37,7 +37,8 @@ class CompilerServiceDecoratorTests {
     
     @MockBean
     private ContainerService containerService;
-    
+
+    @DirtiesContext
     @Test
     void registrationTest() {
         // When
@@ -51,7 +52,8 @@ class CompilerServiceDecoratorTests {
         // Then
         Assertions.assertNotNull(compilerServiceDecorator.getCompilerService());
     }
-    
+
+    @DirtiesContext
     @Test
     void shouldHaveTheSameBehaviorAsTheCompilerClient() {
         // Given
@@ -118,7 +120,8 @@ class CompilerServiceDecoratorTests {
                         .getTestCasesResult()
         );
     }
-    
+
+    @DirtiesContext
     @Test
     void compilerDecoratorShouldThrowContainerOperationTimeoutException() {
         // Given
