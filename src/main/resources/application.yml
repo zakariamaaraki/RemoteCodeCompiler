@@ -67,7 +67,7 @@ info:
 
 grpc:
   server:
-    port: 9090
+    port: ${GRPC_PORT:-1}
 
 ---
 # kafka profile
