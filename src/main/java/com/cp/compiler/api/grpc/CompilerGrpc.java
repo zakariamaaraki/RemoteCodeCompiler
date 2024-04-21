@@ -61,9 +61,9 @@ public class CompilerGrpc extends CompilerServiceGrpc.CompilerServiceImplBase {
             responseObserver.onNext(compilerResponseMapper.ToCompilerResponseProto(responseEntity.getBody()));
             responseObserver.onCompleted();
 
-        } catch (IOException e) {
-            // TODO: handle error
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            log.error("Error occurred", e);
+            responseObserver.onError(e);
         }
     }
 }
