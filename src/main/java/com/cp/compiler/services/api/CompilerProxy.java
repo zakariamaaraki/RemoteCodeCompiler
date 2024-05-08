@@ -9,7 +9,7 @@ import com.cp.compiler.services.businesslogic.CompilerService;
 import com.cp.compiler.services.platform.resources.Resources;
 import com.cp.compiler.consts.WellKnownFiles;
 import com.cp.compiler.consts.WellKnownMetrics;
-import com.cp.compiler.repositories.HooksRepository;
+import com.cp.compiler.repositories.hooks.HooksRepository;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;

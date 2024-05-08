@@ -2,6 +2,7 @@ package com.cp.compiler.services.strategies;
 
 import com.cp.compiler.exceptions.ContainerOperationTimeoutException;
 import com.cp.compiler.executions.Execution;
+import com.cp.compiler.executions.ExecutionState;
 import com.cp.compiler.models.CompilationResponse;
 import com.cp.compiler.models.ExecutionResponse;
 import com.cp.compiler.models.Verdict;
@@ -57,11 +58,6 @@ public abstract class ExecutionStrategy {
     private static final String TEST_CASE_ID_ENV_VARIABLE = "TEST_CASE_ID";
     
     /**
-     * The execution container name prefix
-     */
-    private static final String EXECUTION_CONTAINER_NAME_PREFIX = "execution-";
-    
-    /**
      * Instantiates a new Execution strategy.
      *
      * @param containerService the container service
@@ -97,13 +93,15 @@ public abstract class ExecutionStrategy {
      * @param execution the execution
      */
     protected void buildContainerImage(Execution execution) {
-        
+        execution.setExecutionState(ExecutionState.CreatingExecutionContainer);
         execution.createEntrypointFiles(); // Creates an entrypoint file for each test case
 
         containerService.buildImage(
                 execution.getPath(),
                 execution.getImageName(),
                 WellKnownFiles.EXECUTION_DOCKERFILE_NAME);
+
+        execution.setExecutionState(ExecutionState.ReadyForExecution);
     }
     
     /**
@@ -114,13 +112,15 @@ public abstract class ExecutionStrategy {
      * @return the execution response
      */
     public ExecutionResponse run(Execution execution, boolean deleteImageAfterExecution) {
-        
+
         buildContainerImage(execution);
     
         var testCasesResult = new LinkedHashMap<String, TestCaseResult>();
         Verdict verdict = null;
         String err = "";
-    
+
+        execution.setExecutionState(ExecutionState.Running);
+
         for (TransformedTestCase testCase : execution.getTestCases()) {
     
             TestCaseResult testCaseResult = executeTestCase(execution, testCase);
@@ -141,6 +141,8 @@ public abstract class ExecutionStrategy {
                 break;
             }
         }
+
+        execution.setExecutionState(ExecutionState.Finished);
     
         // Delete container image asynchronously
         if (deleteImageAfterExecution) {
@@ -177,7 +179,7 @@ public abstract class ExecutionStrategy {
     
     private TestCaseResult runContainer(Execution execution, String testCaseId, String expectedOutput) {
         
-        String containerName = getExecutionContainerName(execution.getImageName(), testCaseId);
+        String containerName = execution.getTestCaseContainerName(testCaseId);
         
         Map<String, String> envVariables = new HashMap<>() {{
             put(TEST_CASE_ID_ENV_VARIABLE, testCaseId);
@@ -245,11 +247,7 @@ public abstract class ExecutionStrategy {
             ContainerHelper.deleteContainer(containerName, containerService, threadPool);
         }
     }
-    
-    private String getExecutionContainerName(String imageName, String testCaseId) {
-        return EXECUTION_CONTAINER_NAME_PREFIX + testCaseId + "-" + imageName;
-    }
-    
+
     private Verdict getVerdict(ProcessOutput containerOutput, String expectedOutput) {
         boolean result = CmdUtils.compareOutput(containerOutput.getStdOut(), expectedOutput);
         return StatusUtils.statusResponse(containerOutput.getStatus(), result);

@@ -1,4 +1,4 @@
-package com.cp.compiler.repositories;
+package com.cp.compiler.repositories.hooks;
 
 /**
  * The interface Hooks repository.

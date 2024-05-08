@@ -4,7 +4,7 @@ import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.testcases.TransformedTestCase;
 import com.cp.compiler.models.processes.ProcessOutput;
 import com.cp.compiler.contract.Language;
-import com.cp.compiler.repositories.HooksRepository;
+import com.cp.compiler.repositories.hooks.HooksRepository;
 import com.cp.compiler.services.businesslogic.LongRunningCompilerService;
 import com.cp.compiler.services.platform.containers.ContainerService;
 import com.cp.compiler.utils.StatusUtils;

@@ -1,6 +1,6 @@
 package com.cp.compiler.services;
 
-import com.cp.compiler.repositories.HooksRepository;
+import com.cp.compiler.repositories.hooks.HooksRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

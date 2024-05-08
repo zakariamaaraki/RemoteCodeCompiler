@@ -2,7 +2,7 @@ package com.cp.compiler.services.businesslogic;
 
 import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.executions.Execution;
-import com.cp.compiler.repositories.HooksRepository;
+import com.cp.compiler.repositories.hooks.HooksRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;

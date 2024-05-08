@@ -13,6 +13,7 @@ import com.cp.compiler.executions.languages.RubyExecution;
 import com.cp.compiler.executions.languages.RustExecution;
 import com.cp.compiler.executions.languages.ScalaExecution;
 import com.cp.compiler.contract.Language;
+import com.cp.compiler.repositories.executions.ExecutionRepository;
 import com.cp.compiler.templates.EntrypointFileGenerator;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -28,16 +29,22 @@ public class LanguagesConfig {
     private EntrypointFileGenerator entrypointFileGenerator;
     
     private MeterRegistry meterRegistry;
+
+    private ExecutionRepository executionRepository;
     
     /**
      * Instantiates a new Configure languages.
      *
      * @param meterRegistry           the meter registry for monitoring
      * @param entryPointFileGenerator the entry point file generator
+     * @param executionRepository the execution repository
      */
-    public LanguagesConfig(MeterRegistry meterRegistry, EntrypointFileGenerator entryPointFileGenerator) {
+    public LanguagesConfig(MeterRegistry meterRegistry,
+                           EntrypointFileGenerator entryPointFileGenerator,
+                           ExecutionRepository executionRepository) {
         this.entrypointFileGenerator = entryPointFileGenerator;
         this.meterRegistry = meterRegistry;
+        this.executionRepository = executionRepository;
         configureExecutionTypes();
         configureLanguages();
     }
@@ -45,7 +52,7 @@ public class LanguagesConfig {
     private void configureExecutionTypes() {
         for (Language language : Language.values()) {
             Counter executionsCounter = meterRegistry.counter(language.getExecutionCounter());
-            ExecutionFactory.registerExecutionType(language, new ExecutionType(executionsCounter, entrypointFileGenerator));
+            ExecutionFactory.registerExecutionType(language, new ExecutionType(executionsCounter, entrypointFileGenerator, executionRepository));
         }
     }
     

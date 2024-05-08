@@ -1,13 +1,12 @@
 package com.cp.compiler.services;
 
-import com.cp.compiler.contract.RemoteCodeCompilerExecutionResponse;
 import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.exceptions.CompilerBadRequestException;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
 import com.cp.compiler.models.testcases.TransformedTestCase;
 import com.cp.compiler.contract.Language;
-import com.cp.compiler.repositories.HooksRepository;
+import com.cp.compiler.repositories.hooks.HooksRepository;
 import com.cp.compiler.services.api.CompilerFacadeDefault;
 import com.cp.compiler.services.businesslogic.CompilerService;
 import org.junit.jupiter.api.Assertions;

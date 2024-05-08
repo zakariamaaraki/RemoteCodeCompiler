@@ -4,6 +4,7 @@ import com.cp.compiler.contract.RemoteCodeCompilerExecutionResponse;
 import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.exceptions.*;
 import com.cp.compiler.executions.Execution;
+import com.cp.compiler.executions.ExecutionState;
 import com.cp.compiler.models.*;
 import com.cp.compiler.services.strategies.ExecutionStrategy;
 import lombok.extern.slf4j.Slf4j;
@@ -68,11 +69,13 @@ public class CompilerServiceDefault implements CompilerService {
             
             // Choose which strategy to apply
             executionStrategy = getExecutionStrategy(execution.getLanguage().isCompiled());
-    
+
             compilationResponse = executionStrategy.compile(execution);
     
             if (compilationResponse.getVerdict().equals(Verdict.COMPILATION_ERROR)) {
-                
+
+                execution.setExecutionState(ExecutionState.Error);
+
                 log.warn("Potential error occurred during compilation of execution id = {}, error = {}",
                         execution.getId(),
                         compilationResponse.getError());
@@ -89,6 +92,8 @@ public class CompilerServiceDefault implements CompilerService {
                         dateTime);
                 return ResponseEntity.ok(new RemoteCodeCompilerResponse(response));
             }
+
+            execution.setExecutionState(ExecutionState.BinariesReady);
             
             ExecutionResponse executionResponse = executionStrategy.run(execution, deleteDockerImage);
     

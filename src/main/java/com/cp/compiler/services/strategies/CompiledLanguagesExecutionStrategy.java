@@ -3,6 +3,7 @@ package com.cp.compiler.services.strategies;
 import com.cp.compiler.exceptions.CompilationTimeoutException;
 import com.cp.compiler.exceptions.ResourceLimitReachedException;
 import com.cp.compiler.executions.Execution;
+import com.cp.compiler.executions.ExecutionState;
 import com.cp.compiler.models.CompilationResponse;
 import com.cp.compiler.models.Verdict;
 import com.cp.compiler.models.containers.ContainerInfo;
@@ -80,7 +81,9 @@ public class CompiledLanguagesExecutionStrategy extends ExecutionStrategy {
     
     @Override
     public CompilationResponse compile(Execution execution) {
-        
+
+        execution.setExecutionState(ExecutionState.Compiling);
+
         // repository name must be lowercase
         String compilationImageName = IMAGE_PREFIX_NAME + execution.getLanguage().toString().toLowerCase();
     
@@ -92,7 +95,7 @@ public class CompiledLanguagesExecutionStrategy extends ExecutionStrategy {
         String sourceCodeFileName = execution.getSourceCodeFile().getOriginalFilename();
     
         String containerName = COMPILATION_CONTAINER_NAME_PREFIX + execution.getImageName();
-    
+
         var processOutput = new AtomicReference<ProcessOutput>();
         compilationTimer.record(() -> {
             processOutput.set(

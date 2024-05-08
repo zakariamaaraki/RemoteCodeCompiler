@@ -7,7 +7,7 @@ import com.cp.compiler.services.businesslogic.CompilerService;
 import com.cp.compiler.consts.WellKnownLoggingKeys;
 import com.cp.compiler.consts.WellKnownMetrics;
 import com.cp.compiler.consts.WellKnownUrls;
-import com.cp.compiler.repositories.HooksRepository;
+import com.cp.compiler.repositories.hooks.HooksRepository;
 import com.google.common.io.Closer;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -44,8 +44,7 @@ public class CompilerFacadeDefault implements CompilerFacade {
     private Counter shortRunningExecutionCounter;
     
     private Counter longRunningExecutionCounter;
-    
-    
+
     /**
      * Init.
      */

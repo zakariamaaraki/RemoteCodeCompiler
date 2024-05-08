@@ -6,6 +6,7 @@ import com.cp.compiler.templates.EntrypointFileGenerator;
 import com.cp.compiler.utils.FileUtils;
 import com.cp.compiler.consts.WellKnownFiles;
 import com.cp.compiler.consts.WellKnownTemplates;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.micrometer.core.instrument.Counter;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -30,15 +32,19 @@ import java.util.UUID;
 @Getter
 @EqualsAndHashCode
 public abstract class Execution {
-    
+
     private static final String IMAGE_PREFIX_NAME = "image-";
-    
+
     private static final String EXECUTION_FOLDER_PREFIX_NAME = "execution-";
+
+    public static final String EXECUTION_CONTAINER_NAME_PREFIX = "execution-";
     
     @NonNull
+    @JsonIgnore
     private MultipartFile sourceCodeFile;
     
     @NonNull
+    @JsonIgnore
     private List<TransformedTestCase> testCases;
     
     @NonNull
@@ -52,14 +58,22 @@ public abstract class Execution {
     private String id;
     
     @NonNull
+    @JsonIgnore
     private ExecutionType executionType;
+
+    @Setter
+    @Getter
+    @NonNull
+    private ExecutionState executionState;
     
     @Getter
     /**
      * The Path of the execution directory
      */
     private String path;
-    
+
+    @Getter
+    private LocalDateTime dateTime;
     
     /**
      * Instantiates a new Execution.
@@ -82,6 +96,11 @@ public abstract class Execution {
         this.executionType = executionType;
         this.id = UUID.randomUUID().toString();
         this.path = getLanguage().getFolderName() + "/" + getExecutionFolderName(); // this should come after the id inits
+        this.executionState = ExecutionState.NotStarted;
+        this.dateTime = LocalDateTime.now();
+
+        // register the execution
+        this.executionType.getExecutionRepository().addExecution(this);
     }
     
     /**
@@ -90,6 +109,7 @@ public abstract class Execution {
      * @throws IOException the io exception
      */
     public void createExecutionDirectory() throws IOException {
+        this.executionState = ExecutionState.CreatingExecutionEnvironment;
         getExecutionCounter().increment();
         Files.createDirectory(Path.of(path));
         log.debug("Saving uploaded files");
@@ -98,6 +118,7 @@ public abstract class Execution {
         copyDockerFilesToExecutionDirectory();
         log.debug("Copying " + getLanguage() + " specific files");
         copyLanguageSpecificFilesToExecutionDirectory();
+        this.executionState = ExecutionState.ExecutionEnvironmentReady;
     }
     
     /**
@@ -202,6 +223,7 @@ public abstract class Execution {
      *
      * @return the counter
      */
+    @JsonIgnore
     public Counter getExecutionCounter() {
         return executionType.getExecutionCounter();
     }
@@ -211,10 +233,18 @@ public abstract class Execution {
      *
      * @return the entrypoint file generator
      */
+    @JsonIgnore
     public EntrypointFileGenerator getEntrypointFileGenerator() {
         return executionType.getEntrypointFileGenerator();
     }
-    
+
+    public String getTestCaseContainerName(String testCaseId) {
+        return EXECUTION_CONTAINER_NAME_PREFIX
+                .concat("-")
+                .concat(testCaseId)
+                .concat(this.getImageName());
+    }
+
     /**
      * Get the language represented by the class
      *
