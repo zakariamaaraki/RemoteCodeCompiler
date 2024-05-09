@@ -240,8 +240,8 @@ public abstract class Execution {
 
     public String getTestCaseContainerName(String testCaseId) {
         return EXECUTION_CONTAINER_NAME_PREFIX
-                .concat("-")
                 .concat(testCaseId)
+                .concat("-")
                 .concat(this.getImageName());
     }
 

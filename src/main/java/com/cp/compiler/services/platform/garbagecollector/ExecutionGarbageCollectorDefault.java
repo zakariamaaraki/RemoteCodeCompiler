@@ -50,6 +50,6 @@ public class ExecutionGarbageCollectorDefault implements ExecutionGarbageCollect
     }
 
     private boolean shouldBeDeleted(Execution execution) {
-        return execution.getDateTime().plusMinutes(10).compareTo(LocalDateTime.now()) >= 0;
+        return execution.getDateTime().plusMinutes(10).compareTo(LocalDateTime.now()) <= 0;
     }
 }

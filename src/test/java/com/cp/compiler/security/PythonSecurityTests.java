@@ -1,9 +1,9 @@
 package com.cp.compiler.security;
 
+import com.cp.compiler.api.controllers.CompilerController;
 import com.cp.compiler.contract.Language;
 import com.cp.compiler.contract.RemoteCodeCompilerResponse;
 import com.cp.compiler.contract.testcases.TestCaseResult;
-import com.cp.compiler.api.controllers.CompilerController;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +21,7 @@ import java.io.FileInputStream;
 @Slf4j
 @DirtiesContext
 @SpringBootTest
-class CSecurityTests {
+class PythonSecurityTests {
     
     @Autowired
     private CompilerController compilerController;
@@ -31,11 +31,11 @@ class CSecurityTests {
      *
      * @throws Exception the exception
      */
-    @DisplayName("C Security Command Line execution Should Return an Error")
+    @DisplayName("Python Security Command Line execution Should Return an Error")
     @Test
     void RunningASystemCommandShouldReturnRuntimeErrorVerdict() throws Exception {
         // Given
-        File sourceCodeFile = new File("src/test/resources/sources/security/c/CommandLine.c");
+        File sourceCodeFile = new File("src/test/resources/sources/security/py/CommandLine.py");
         MultipartFile sourceCode = new MockMultipartFile(
                 "Test1.c",
                 "Test1.c",
