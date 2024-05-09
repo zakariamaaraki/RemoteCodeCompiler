@@ -24,6 +24,9 @@ Strict resource limits are enforced to prevent resource exhaustion attacks and e
 #### Input Sanitization
 Input sanitization measures are implemented to validate and sanitize user inputs before execution. This helps prevent code injection attacks and ensures that only safe and trusted inputs are processed by the compiler. By sanitizing inputs, the compiler reduces the risk of executing malicious code and maintains the integrity of the execution environment.
 
+## Garbage Collector
+A garbage collector runs periodically to clean up any stuck executions and their associated resources, ensuring efficient resource utilization and preventing resource leaks.
+
 ## Scalability
 The compiler can scale horizontally to handle increased load by deploying multiple instances behind a load balancer. Each instance is stateless and can independently process incoming requests, ensuring high availability and performance.
 
