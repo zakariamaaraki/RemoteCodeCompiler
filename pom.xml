@@ -342,6 +342,7 @@
 				<configuration>
 					<excludes>
 						<exclude>**/config/SwaggerConfig.class</exclude>
+						<exclude>**/generated/*</exclude>
 						<exclude>**/api/*</exclude>
 					</excludes>
 				</configuration>
