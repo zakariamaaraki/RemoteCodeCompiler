@@ -26,7 +26,7 @@ class ProblemsRepositoryTests {
     private TypeReference<ArrayList<Problem>> typeReference;
     
     @InjectMocks
-    private ProblemsRepository problemsRepository;
+    private ProblemsRepositoryDefault problemsRepository;
     
     @BeforeEach
     void setUp() {
