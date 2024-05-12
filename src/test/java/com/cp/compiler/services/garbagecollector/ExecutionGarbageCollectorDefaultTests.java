@@ -4,6 +4,7 @@ import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.testcases.TransformedTestCase;
 import com.cp.compiler.repositories.executions.ExecutionRepository;
 import com.cp.compiler.services.platform.containers.ContainerService;
+import com.cp.compiler.services.platform.garbagecollector.ExecutionGarbageCollector;
 import com.cp.compiler.services.platform.garbagecollector.ExecutionGarbageCollectorDefault;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ class ExecutionGarbageCollectorDefaultTests {
 
     private ExecutionRepository executionRepository;
     private ContainerService containerService;
-    private ExecutionGarbageCollectorDefault garbageCollector;
+    private ExecutionGarbageCollector garbageCollector;
 
     @BeforeEach
     void setUp() {

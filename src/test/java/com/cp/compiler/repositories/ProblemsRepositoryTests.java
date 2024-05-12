@@ -4,6 +4,7 @@ import com.cp.compiler.contract.problems.Difficulty;
 import com.cp.compiler.contract.problems.Problem;
 import com.cp.compiler.exceptions.problems.InvalidProblemException;
 import com.cp.compiler.exceptions.problems.ProblemNotFoundException;
+import com.cp.compiler.repositories.problems.ProblemsRepository;
 import com.cp.compiler.repositories.problems.ProblemsRepositoryDefault;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +26,7 @@ class ProblemsRepositoryTests {
     private TypeReference<ArrayList<Problem>> typeReference;
     
     @InjectMocks
-    private ProblemsRepositoryDefault problemsRepository;
+    private ProblemsRepository problemsRepository;
     
     @BeforeEach
     void setUp() {

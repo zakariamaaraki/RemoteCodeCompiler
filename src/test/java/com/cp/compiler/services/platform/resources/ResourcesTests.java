@@ -25,7 +25,7 @@ public class ResourcesTests {
     @Test
     void allowNewExecutionShouldReturnTrue() {
         // Given
-        var resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
+        Resources resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
         
         // When
         boolean allowNewExecution = resources.allowNewExecution();
@@ -37,7 +37,7 @@ public class ResourcesTests {
     @Test
     void reserveResourcesShouldIncrementTheCounter() {
         // Given
-        var resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
+        Resources resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
         
         // When
         int counter = resources.reserveResources();
@@ -49,7 +49,7 @@ public class ResourcesTests {
     @Test
     void cleanupShouldDecrementTheCounter() {
         // Given
-        var resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
+        Resources resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
         resources.reserveResources();
         
         // When
@@ -62,7 +62,7 @@ public class ResourcesTests {
     @Test
     void cleanupShouldReturnZero() {
         // Given
-        var resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
+        Resources resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
         
         // When
         int counter = resources.cleanup();
@@ -74,7 +74,7 @@ public class ResourcesTests {
     @Test
     void shouldReturnNumberOfExecutions() {
         // Given
-        var resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
+        Resources resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
         
         // When
         boolean allow = resources.allowNewExecution();
@@ -88,7 +88,7 @@ public class ResourcesTests {
     @Test
     void shouldReturnMaxNumberOfRequests() {
         // Given
-        var resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
+        Resources resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
         
         // When
         int maxRequests = resources.getMaxRequests();
@@ -100,7 +100,7 @@ public class ResourcesTests {
     @Test
     void getAvailableResourcesShouldReturnTheRightValue() {
         // Given
-        var resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
+        Resources resources = new ResourcesDefault(MAX_CPUS, MAX_REQUESTS);
         
         // When
         AvailableResources availableResources = resources.getAvailableResources();
