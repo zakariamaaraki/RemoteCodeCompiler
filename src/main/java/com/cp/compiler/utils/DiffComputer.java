@@ -13,6 +13,15 @@ public abstract class DiffComputer {
     private DiffComputer() {}
 
     public static String diff(String output, String expectedOutput) {
+
+        if (expectedOutput == null) {
+            throw new IllegalArgumentException("expectedOutput can not be null");
+        }
+
+        if (output == null) {
+            throw new IllegalArgumentException("output can not be null");
+        }
+
         LinkedList<DiffMatchPatch.Diff> computedDiff =
                 diffMatchPatch.diffMain(CmdUtils.trimText(output), CmdUtils.trimText(expectedOutput));
 
