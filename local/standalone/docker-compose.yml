@@ -16,7 +16,8 @@ services:
       EXECUTION_MEMORY_MIN: 1
       EXECUTION_TIME_MAX: 15
       EXECUTION_TIME_MIN: 1
-      MAX_REQUESTS: 20
+      MAX_REQUESTS: 10
+      MAX_EXECUTION_CPUS: 0.2
       COMPILATION_CONTAINER_VOLUME: 'local_compiler' # volume name = folderName_volumeName
       GRPC_PORT: 9092
 
