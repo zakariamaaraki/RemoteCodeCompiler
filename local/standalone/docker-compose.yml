@@ -2,71 +2,51 @@
 version: "3.3"
 services:
 
-  compiler-1:
-    build: ../..
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - compiler:/compiler
-    ports:
-      - 8080:8082
-    restart: "on-failure"
-    environment:
-      DELETE_DOCKER_IMAGE: 'true'
-      EXECUTION_MEMORY_MAX: 10000
-      EXECUTION_MEMORY_MIN: 0
-      EXECUTION_TIME_MAX: 15
-      EXECUTION_TIME_MIN: 0
-      MAX_REQUESTS: 1000
-      MAX_TEST_CASES: 20
-      MAX_EXECUTION_CPUS: 0.1
-      COMPILATION_CONTAINER_VOLUME: 'standalone_compiler' # volume name = folderName_volumeName
-
-      # Push notifications
-      ENABLE_PUSH_NOTIFICATION: 'true'
-
-  compiler-2:
-    build: ../..
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - compiler:/compiler
-    ports:
-      - 8081:8082
-    restart: "on-failure"
-    environment:
-      DELETE_DOCKER_IMAGE: 'true'
-      EXECUTION_MEMORY_MAX: 10000
-      EXECUTION_MEMORY_MIN: 0
-      EXECUTION_TIME_MAX: 15
-      EXECUTION_TIME_MIN: 0
-      MAX_REQUESTS: 1000
-      MAX_TEST_CASES: 20
-      MAX_EXECUTION_CPUS: 0.1
-      COMPILATION_CONTAINER_VOLUME: 'standalone_compiler' # volume name = folderName_volumeName
-
-      # Push notifications
-      ENABLE_PUSH_NOTIFICATION: 'true'
-
-  compiler-3:
+  compiler:
     build: ../..
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - compiler:/compiler
     ports:
       - 8082:8082
-    restart: "on-failure"
+      - 9092:9092
     environment:
       DELETE_DOCKER_IMAGE: 'true'
       EXECUTION_MEMORY_MAX: 10000
-      EXECUTION_MEMORY_MIN: 0
+      EXECUTION_MEMORY_MIN: 1
       EXECUTION_TIME_MAX: 15
-      EXECUTION_TIME_MIN: 0
-      MAX_REQUESTS: 1000
-      MAX_TEST_CASES: 20
-      MAX_EXECUTION_CPUS: 0.1
-      COMPILATION_CONTAINER_VOLUME: 'standalone_compiler' # volume name = folderName_volumeName
+      EXECUTION_TIME_MIN: 1
+      MAX_REQUESTS: 20
+      COMPILATION_CONTAINER_VOLUME: 'local_compiler' # volume name = folderName_volumeName
+      GRPC_PORT: 9092
 
       # Push notifications
       ENABLE_PUSH_NOTIFICATION: 'true'
+
+  prometheus:
+    image: prom/prometheus:latest
+    depends_on:
+      - compiler
+    volumes:
+      - ../prometheus_conf/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+
+  grafana:
+    image: grafana/grafana:latest
+    depends_on:
+      - prometheus
+    volumes:
+      - ../grafana_conf/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml
+    ports:
+      - 3000:3000
+
+  portainer:
+    image: portainer/portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 9000:9000
 
 volumes:
   compiler:
