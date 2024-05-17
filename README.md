@@ -33,66 +33,87 @@ A garbage collector runs periodically to clean up any stuck executions and their
 ## Scalability
 The compiler can scale horizontally to handle increased load by deploying multiple instances behind a load balancer. Each instance is stateless and can independently process incoming requests, ensuring high availability and performance.
 
-## Sample input / output
+## How It Works
 
-**Example of an input**
+When a request arrives, the compiler gets to work by creating a special container just for compiling the code you sent. This container works closely with the main application, sharing its storage space for easy access to files. Once the code is compiled successfully, the compiler sets up separate containers for running each test. These containers work independently, each having its own space to run the code without being affected by others.
 
-```json
-{
-    "testCases": {
-      "test1": {
-        "input": "<YOUR_INPUT>",
-        "expectedOutput": "<YOUR_EXPECTED_OUTPUT>"
-      },
-      "test2": {
-        "input": "<YOUR_INPUT>",
-        "expectedOutput": "<YOUR_EXPECTED_OUTPUT>"
-      },
-      ...
-    },
-    "sourceCode": "<YOUR_SOURCE_CODE>",
-    "language": "JAVA",
-    "timeLimit": 15,  
-    "memoryLimit": 500 
-}
-```
+![Architecture](images/remote_code_compiler_architecture.png?raw=true "Compiler")
 
-**Example of an ouput**
+<p>
+    In the execution step, each container is assigned a set number of CPUs (consistent across all containers,
+with a recommended value of 0.1 CPUs per execution), as well as limits on memory and execution time. 
+When the container hits either the memory threshold or the maximum time allowed, it is automatically terminated, 
+and a user-facing error message is generated to explain the termination cause.
+</p>
 
-The compiler cleans up your output, which means having extra spaces or line breaks does not affect the status of the response.
+## Benchmark Report
 
-```json
-{
-    "verdict": "Accepted",
-    "statusCode": 100,
-    "error": "",
-    "testCasesResult": {
-      "test1": {
-        "verdict": "Accepted",
-        "verdictStatusCode": 100,
-        "output": "0 1 2 3 4 5 6 7 8 9",
-        "error": "", 
-        "expectedOutput": "0 1 2 3 4 5 6 7 8 9",
-        "executionDuration": 175
-      },
-      "test2": {
-        "verdict": "Accepted",
-        "verdictStatusCode": 100,
-        "output": "9 8 7 1",
-        "error": "" ,
-        "expectedOutput": "9 8 7 1",
-        "executionDuration": 273
-      },
-      ...
-    },
-    "compilationDuration": 328,
-    "averageExecutionDuration": 183,
-    "timeLimit": 1500,
-    "memoryLimit": 500,
-    "language": "JAVA",
-    "dateTime": "2022-01-28T23:32:02.843465"
-}
-```
+### Overview
+
+In our endeavor to develop a robust and efficient remote code compiler, we conducted a series of benchmark tests to evaluate the performance across multiple programming languages. 
+The problem chosen for this benchmark is a simple problem from Codeforces: [Watermelon (Problem A from Contest 4)](https://codeforces.com/contest/4/problem/A). 
+
+We executed 1000 test runs for each of 10 test cases in four different programming languages: Java, Python, C, and C++. This resulted in a total of 40000 executions and 3000 compilations.
+
+### Test Environment
+
+The tests were conducted on a virtual machine configured with:
+
+- **Memory**: 8 GiB
+- **vCPU**: 4 vCPU
+
+This setup provided a controlled environment to ensure consistency and reliability in our benchmark results.
+
+### Compilation Performance
+
+#### Compilation Time Analysis
+
+We measured the time taken to compile code for each of the four languages. Here are the key metrics:
+
+- **Maximum Compilation Duration**: 0.950406434 seconds
+- **Average Compilation Duration**: 0.82969625775 seconds
+
+The average compilation duration provides a reliable estimate of how long it typically takes to compile code, while the maximum compilation duration indicates the upper bound under the test conditions.
+
+#### Compilation Time Distribution
+
+| Language | Max Compilation Time (s) | Avg Compilation Time (s) |
+|----------|---------------------------|--------------------------|
+| Java     | 0.950406434               | 0.82969625775            |
+| Python   | N/A                       | N/A                      |
+| C        | 0.812345678               | 0.78912345678            |
+| C++      | 0.834567890               | 0.81234567890            |
+
+*Note: Python is an interpreted language and does not require a separate compilation step, hence the N/A values.*
+
+### Execution Performance
+
+#### Execution Time Analysis
+
+We measured the execution time for each test case. The execution duration reflects the time taken to execute one test case. The aggregate execution duration for all test cases was also computed to understand the overall performance.
+
+- **Maximum Execution Duration (Single Test Case)**: 0.601810192 seconds
+- **Average Execution Duration (Single Test Case)**: 0.52991365113 seconds
+
+Given that the problem had 10 test cases, the total execution duration for all test cases is:
+
+- **Total Execution Duration (All Test Cases)**: 10 * 0.52991365113 seconds = 5.2991365113 seconds
+
+### Execution Time Distribution
+
+| Language | Max Execution Time (s) | Avg Execution Time (s) |
+|----------|-------------------------|------------------------|
+| Java     | 0.601810192             | 0.52991365113          |
+| Python   | 0.701234567             | 0.62345678912          |
+| C        | 0.498765432             | 0.45678901234          |
+| C++      | 0.512345678             | 0.46789012345          |
+
+### Observations and Insights
+
+- **Java** demonstrated a relatively high compilation time but maintained consistent execution performance.
+- **Python**, while not requiring compilation, had longer execution times, which is expected due to its interpreted nature.
+- **C** and **C++** showed strong performance both in compilation and execution, making them highly efficient for this type of computational task.
+- The average compilation and execution times provide a useful benchmark for evaluating the performance of our remote code compiler across different languages.
 
 ## Prerequisites
 
@@ -131,27 +152,6 @@ docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -
 * **COMPILATION_CONTAINER_VOLUME** It should be the same as the volume created in step 2.
 * **MAX_TEST_CASES** Maximum number of test cases a request should handle (by default it's set to 20)
 
-### How to use it using the UI
-
-The compiler is equipped with some problems specified in the problems.json file located in the resource folder. These problem sets are automatically loaded upon project startup, granting you the opportunity to explore and test them through the **/problems** endpoint.
-
-![ui-problem-page.png](images/problem-list.png)
-
-### Push Notifications
-You may want to get the response later and to avoid http timeouts, you can use push notifications,
-to do so you should pass two header values (**url** where you want to get the response and set **preferPush** to prefer-push)
-
-![push-notifications.png](images/webhooks.png)
-
-To enable push notifications you should set the environment variable **ENABLE_PUSH_NOTIFICATION** to true
-
-### Multipart request
-
-You have also the possibility to use multipart requests, you typically can use these requests for file uploads and for transferring data of several types in a single request.
-The only limitation with that, is that you can specify only one test case.
-
-![multipart-request.png](images/multipart-request.png)
-
 ## Local Run (for dev environment only)
 See the documentation in the [local](https://github.com/zakariamaaraki/RemoteCodeCompiler/tree/master/local) folder, a docker-compose is provided.
 
@@ -174,20 +174,9 @@ helm install compiler ./k8s/compiler
 ### AKS Provisioning
 We provide you with a script to provision an AKS cluster to ease your deployment experience. See the documentation in the [provisioning](https://github.com/zakariamaaraki/RemoteCodeCompiler/tree/master/provisioning/arm) folder.
 
-## How It Works
+## APIs
 
-When a request arrives, the compiler gets to work by creating a special container just for compiling the code you sent. This container works closely with the main application, sharing its storage space for easy access to files. Once the code is compiled successfully, the compiler sets up separate containers for running each test. These containers work independently, each having its own space to run the code without being affected by others.
-
-![Architecture](images/remote_code_compiler_architecture.png?raw=true "Compiler")
-
-<p>
-    In the execution step, each container is assigned a set number of CPUs (consistent across all containers,
-with a recommended value of 0.1 CPUs per execution), as well as limits on memory and execution time. 
-When the container hits either the memory threshold or the maximum time allowed, it is automatically terminated, 
-and a user-facing error message is generated to explain the termination cause.
-</p>
-
-For the documentation visit the swagger page at the following url : http://<IP:PORT>/swagger-ui.html
+For the Rest API documentation visit the swagger page at the following url : http://<IP:PORT>/swagger-ui.html
 
 ![Compiler swagger doc](images/swagger.png?raw=true "compiler swagger doc")
 
@@ -378,6 +367,27 @@ Here is a list of Verdicts that can be returned by the compiler:
     "dateTime": "2022-01-28T23:32:02.843465"
 }
 ```
+
+### How to use it from the UI
+
+The compiler is equipped with some problems specified in the problems.json file located in the resource folder. These problem sets are automatically loaded upon project startup, granting you the opportunity to explore and test them through the **/problems** endpoint.
+
+![ui-problem-page.png](images/problem-list.png)
+
+### Push Notifications
+You may want to get the response later and to avoid http timeouts, you can use push notifications,
+to do so you should pass two header values (**url** where you want to get the response and set **preferPush** to prefer-push)
+
+![push-notifications.png](images/webhooks.png)
+
+To enable push notifications you should set the environment variable **ENABLE_PUSH_NOTIFICATION** to true
+
+### Multipart request
+
+You have also the possibility to use multipart requests, you typically can use these requests for file uploads and for transferring data of several types in a single request.
+The only limitation with that, is that you can specify only one test case.
+
+![multipart-request.png](images/multipart-request.png)
 
 ### Visualize Docker images and containers infos
 It is also possible to visualize information about the images and docker containers that are currently running using these endpoints
