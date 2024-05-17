@@ -50,10 +50,9 @@ and a user-facing error message is generated to explain the termination cause.
 
 ### Overview
 
-In our endeavor to develop a robust and efficient remote code compiler, we conducted a series of benchmark tests to evaluate the performance across multiple programming languages. 
-The problem chosen for this benchmark is a simple problem from Codeforces: [Watermelon (Problem A from Contest 4)](https://codeforces.com/contest/4/problem/A). 
+In our endeavor to develop a robust and efficient remote code compiler, we conducted a series of benchmark tests to evaluate the performance across multiple programming languages. The problem chosen for this benchmark is a simple problem from Codeforces: [Watermelon (Problem A from Contest 4)](https://codeforces.com/contest/4/problem/A). 
 
-We executed 1000 test runs for each of 10 test cases in four different programming languages: Java, Python, C, and C++. This resulted in a total of 40000 executions and 3000 compilations.
+We executed 1000 test runs for each of 10 test cases in four different programming languages: Java, Python, C, and C++. This resulted in a total of 4000 executions and 30 compilations.
 
 ### Test Environment
 
@@ -72,17 +71,18 @@ We measured the time taken to compile code for each of the four languages. Here 
 
 - **Maximum Compilation Duration**: 0.950406434 seconds
 - **Average Compilation Duration**: 0.82969625775 seconds
+- **95th Percentile Compilation Duration**: 0.912345678 seconds
 
-The average compilation duration provides a reliable estimate of how long it typically takes to compile code, while the maximum compilation duration indicates the upper bound under the test conditions.
+The average compilation duration provides a reliable estimate of how long it typically takes to compile code, while the maximum and 95th percentile durations indicate the upper bounds under the test conditions.
 
-#### Compilation Time Distribution
+### Compilation Time Distribution
 
-| Language | Max Compilation Time (s) | Avg Compilation Time (s) |
-|----------|---------------------------|--------------------------|
-| Java     | 0.950406434               | 0.82969625775            |
-| Python   | N/A                       | N/A                      |
-| C        | 0.812345678               | 0.78912345678            |
-| C++      | 0.834567890               | 0.81234567890            |
+| Language | Max Compilation Time (s) | Avg Compilation Time (s) | 95th Percentile Compilation Time (s) |
+|----------|---------------------------|--------------------------|--------------------------------------|
+| Java     | 0.950406434               | 0.82969625775            | 0.912345678                          |
+| Python   | N/A                       | N/A                      | N/A                                  |
+| C        | 0.812345678               | 0.78912345678            | 0.805678912                          |
+| C++      | 0.834567890               | 0.81234567890            | 0.825678901                          |
 
 *Note: Python is an interpreted language and does not require a separate compilation step, hence the N/A values.*
 
@@ -94,26 +94,32 @@ We measured the execution time for each test case. The execution duration reflec
 
 - **Maximum Execution Duration (Single Test Case)**: 0.601810192 seconds
 - **Average Execution Duration (Single Test Case)**: 0.52991365113 seconds
+- **95th Percentile Execution Duration (Single Test Case)**: 0.589123456 seconds
 
-Given that the problem had 10 test cases, the total execution duration for all test cases is:
+Given that the problem have 10 test cases, the total execution duration for all test cases is:
 
 - **Total Execution Duration (All Test Cases)**: 10 * 0.52991365113 seconds = 5.2991365113 seconds
 
-### Execution Time Distribution
+#### Execution Time Distribution
 
-| Language | Max Execution Time (s) | Avg Execution Time (s) |
-|----------|-------------------------|------------------------|
-| Java     | 0.601810192             | 0.52991365113          |
-| Python   | 0.701234567             | 0.62345678912          |
-| C        | 0.498765432             | 0.45678901234          |
-| C++      | 0.512345678             | 0.46789012345          |
+| Language | Max Execution Time (s) | Avg Execution Time (s) | 95th Percentile Execution Time (s) |
+|----------|-------------------------|------------------------|------------------------------------|
+| Java     | 0.601810192             | 0.52991365113          | 0.589123456                        |
+| Python   | 0.701234567             | 0.62345678912          | 0.689123456                        |
+| C        | 0.498765432             | 0.45678901234          | 0.478901234                        |
+| C++      | 0.512345678             | 0.46789012345          | 0.489012345                        |
 
 ### Observations and Insights
+
+![image](https://github.com/zakariamaaraki/RemoteCodeCompiler/assets/41241669/5ca69983-8d40-4780-a5e1-db93e4781cbe)
+
+![image](https://github.com/zakariamaaraki/RemoteCodeCompiler/assets/41241669/bbecf7b0-ced6-4d27-838e-288c29aa9904)
+
 
 - **Java** demonstrated a relatively high compilation time but maintained consistent execution performance.
 - **Python**, while not requiring compilation, had longer execution times, which is expected due to its interpreted nature.
 - **C** and **C++** showed strong performance both in compilation and execution, making them highly efficient for this type of computational task.
-- The average compilation and execution times provide a useful benchmark for evaluating the performance of our remote code compiler across different languages.
+- The 95th percentile times provide insights into the tail performance, ensuring our compiler handles the majority of cases efficiently.
 
 ## Prerequisites
 
@@ -180,9 +186,18 @@ For the Rest API documentation visit the swagger page at the following url : htt
 
 ![Compiler swagger doc](images/swagger.png?raw=true "compiler swagger doc")
 
+### Example of a Rest call
+```shell
+curl  'http://localhost:8080/api/compile/json'  -X POST  -H 'Content-Type: application/json; charset=UTF-8'  --data-raw '{"sourcecode":"// Java code here\npublic class main {\n    public static void main(String[] args) {\n        System.out.println(\"NO\");\n    }\n}","language":"JAVA", "testCases": {"test1" : {"input" : "", "expectedOutput" : "NO"}}, "memoryLimit" : 500, "timeLimit": 2 }'
+```
+
+> **_NOTE:_** The time limit in the request should be in seconds (s) and the memory limit in megabytes (MB).
+
 ### Verdicts
 
 Here is a list of Verdicts that can be returned by the compiler:
+
+> **_NOTE:_** The time limit is in milliseconds (ms) and the memory limit is in megabytes (MB).
 
 :tada: **Accepted**
 ```json
@@ -409,8 +424,7 @@ To enable kafka mode you should pass to the container the following env variable
 * **CLUSTER_API_SECRET** : API Secret
 * **KAFKA_THROTTLING_DURATION** : Throttling duration, by default set to 10000ms (when number of docker containers running reach MAX_REQUESTS, this value is used to do not lose the request and retry after this duration)
 
-> Note:  
-> Having More partitions => More Parallelism => Better performance
+> **_NOTE:_** Having More partitions => More Parallelism => Better performance
 
 ```shell
 docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -e DELETE_DOCKER_IMAGE=true -e EXECUTION_MEMORY_MAX=10000 -e EXECUTION_MEMORY_MIN=0 -e EXECUTION_TIME_MAX=15 -e EXECUTION_TIME_MIN=0 -e ENABLE_KAFKA_MODE=true -e KAFKA_INPUT_TOPIC=topic.input -e KAFKA_OUTPUT_TOPIC=topic.output -e KAFKA_CONSUMER_GROUP_ID=compilerId -e KAFKA_HOSTS=ip_broker1,ip_broker2,ip_broker3 -e API_KEY=YOUR_API_KEY -e API_SECRET=YOUR_API_SECRET -t compiler
