@@ -3,14 +3,15 @@ package com.cp.compiler.repositories.executions;
 import com.cp.compiler.executions.Execution;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Repository
 public class ExecutionRepositoryDefault implements ExecutionRepository {
 
-    private HashMap<String, Execution> executions = new HashMap<>();
+    private Map<String, Execution> executions = new ConcurrentHashMap<>();
 
     /**
      * @return List<Execution> list of executions
