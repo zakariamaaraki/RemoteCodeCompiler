@@ -75,6 +75,8 @@ We measured the time taken to compile code for each of the four languages. Here 
 
 The average compilation duration provides a reliable estimate of how long it typically takes to compile code, while the maximum and 95th percentile durations indicate the upper bounds under the test conditions.
 
+> *Remark: The compilation time includes the time taken for the creation of the container.*
+
 ### Compilation Time Distribution
 
 | Language | Max Compilation Time (s) | Avg Compilation Time (s) | 95th Percentile Compilation Time (s) |
@@ -99,6 +101,8 @@ We measured the execution time for each test case. The execution duration reflec
 Given that the problem have 10 test cases, the total execution duration for all test cases is:
 
 - **Total Execution Duration (All Test Cases)**: 10 * 0.52991365113 seconds = 5.2991365113 seconds
+
+> *Remark: The execution time includes the time taken for the creation of the container and running it.*
 
 #### Execution Time Distribution
 
