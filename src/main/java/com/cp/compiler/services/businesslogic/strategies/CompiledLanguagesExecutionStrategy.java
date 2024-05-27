@@ -1,4 +1,4 @@
-package com.cp.compiler.services.strategies;
+package com.cp.compiler.services.businesslogic.strategies;
 
 import com.cp.compiler.exceptions.CompilationTimeoutException;
 import com.cp.compiler.exceptions.ResourceLimitReachedException;

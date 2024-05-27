@@ -1,4 +1,4 @@
-package com.cp.compiler.services.strategies;
+package com.cp.compiler.services.businesslogic.strategies;
 
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.models.CompilationResponse;

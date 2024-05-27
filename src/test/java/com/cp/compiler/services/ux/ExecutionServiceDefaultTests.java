@@ -9,18 +9,20 @@ import com.cp.compiler.contract.problems.Problem;
 import com.cp.compiler.contract.problems.ProblemExecution;
 import com.cp.compiler.contract.testcases.TestCase;
 import com.cp.compiler.contract.testcases.TestCaseResult;
-import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionFactory;
+import com.cp.compiler.executions.ExecutionType;
 import com.cp.compiler.executions.languages.JavaExecution;
 import com.cp.compiler.models.Verdict;
 import com.cp.compiler.models.testcases.TransformedTestCase;
+import com.cp.compiler.repositories.executions.ExecutionRepositoryDefault;
 import com.cp.compiler.repositories.problems.ProblemsRepository;
 import com.cp.compiler.services.api.CompilerFacade;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,6 +39,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class ExecutionServiceDefaultTests {
     
     @Mock
@@ -47,11 +50,9 @@ public class ExecutionServiceDefaultTests {
     
     @InjectMocks
     private ExecutionServiceDefault executionService;
-    
+
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.initMocks(this);
-    
         ExecutionFactory.registerExecution(
                 Language.JAVA,
                 (MultipartFile sourceCode, List<TransformedTestCase> testCases, int timeLimit, int memoryLimit) -> new JavaExecution(
@@ -59,24 +60,26 @@ public class ExecutionServiceDefaultTests {
                         testCases,
                         timeLimit,
                         memoryLimit));
+
+        ExecutionFactory.registerExecutionType(Language.JAVA, new ExecutionType(null, null, new ExecutionRepositoryDefault()));
     }
     
     @Test
     void execute_ValidProblem_ReturnsCompilerResponse() throws IOException {
-        // Arrange
+        // Given
         long problemId = 1L;
         Problem problem = createSampleProblem(problemId);
         ProblemExecution problemExecution = createSampleProblemExecution(problemId);
         RemoteCodeCompilerRequest expectedRequest = createSampleCompilerRequest(problem, problemExecution);
-        Execution expectedExecution = createSampleExecution(expectedRequest);
         
         when(problemsRepository.getProblemById(problemId)).thenReturn(problem);
-        when(compiler.compile(any(), eq(false), eq(null), eq(null))).thenReturn(createSampleCompilerResponse(expectedRequest));
+        when(compiler.compile(any(JavaExecution.class), eq(false), eq(null), eq("rcc-ux")))
+                .thenReturn(createSampleCompilerResponse(expectedRequest));
         
-        // Act
+        // When
         ResponseEntity<RemoteCodeCompilerResponse> responseEntity = executionService.execute(problemExecution);
         
-        // Assert
+        // Then
         assertNotNull(responseEntity);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         RemoteCodeCompilerResponse compilerResponse = responseEntity.getBody();
@@ -139,15 +142,6 @@ public class ExecutionServiceDefaultTests {
                 problem.getTimeLimit(),
                 problem.getMemoryLimit(),
                 testCases);
-    }
-    
-    private Execution createSampleExecution(RemoteCodeCompilerRequest compilerRequest) throws IOException {
-        return ExecutionFactory.createExecution(
-                compilerRequest.getSourcecodeFile(),
-                compilerRequest.getConvertedTestCases(),
-                compilerRequest.getTimeLimit(),
-                compilerRequest.getMemoryLimit(),
-                compilerRequest.getLanguage());
     }
     
     private ResponseEntity<RemoteCodeCompilerResponse> createSampleCompilerResponse(RemoteCodeCompilerRequest compilerRequest) {

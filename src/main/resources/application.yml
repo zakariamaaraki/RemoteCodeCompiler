@@ -5,6 +5,8 @@ server:
     include-stacktrace: never
 
 compiler:
+  rate:
+    limit: ${MAX_USER_REQUESTS:5} # rate limiting per user
   max-test-cases: ${MAX_TEST_CASES:20} # maximum number of test cases a request should handle
   compilation-container:
     volume: ${COMPILATION_CONTAINER_VOLUME:} # only when running the app inside a container

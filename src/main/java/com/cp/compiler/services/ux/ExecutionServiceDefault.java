@@ -43,7 +43,7 @@ public class ExecutionServiceDefault implements ExecutionService {
                 request.getMemoryLimit(),
                 request.getLanguage());
     
-        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compiler.compile(execution, false, null, null);
+        ResponseEntity<RemoteCodeCompilerResponse> responseEntity = compiler.compile(execution, false, null, "rcc-ux");
     
         makeExpectedOutputHiddenIfTheResponseWasNotAccepted(responseEntity);
         

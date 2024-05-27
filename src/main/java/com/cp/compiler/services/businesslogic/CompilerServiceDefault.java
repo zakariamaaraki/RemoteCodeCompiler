@@ -6,7 +6,7 @@ import com.cp.compiler.exceptions.*;
 import com.cp.compiler.executions.Execution;
 import com.cp.compiler.executions.ExecutionState;
 import com.cp.compiler.models.*;
-import com.cp.compiler.services.strategies.ExecutionStrategy;
+import com.cp.compiler.services.businesslogic.strategies.ExecutionStrategy;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Qualifier;
