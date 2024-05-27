@@ -7,6 +7,7 @@ import com.cp.compiler.contract.testcases.TestCaseResult;
 import com.cp.compiler.models.Verdict;
 import com.cp.compiler.services.businesslogic.CompilerService;
 
+import com.cp.compiler.streams.KafkaStreamsTopologyConfig;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.*;
@@ -15,7 +16,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -28,16 +33,16 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Properties;
 
+import static org.mockito.ArgumentMatchers.any;
+
 @ActiveProfiles("kafka")
 @EmbeddedKafka(bootstrapServersProperty = "localhost:9092")
 @DirtiesContext
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class TopologyTests {
+    private KafkaStreamsTopologyConfig topology;
     
-    @Autowired
-    private Topology topology;
-    
-    @MockBean(name = "client")
+    @Mock
     private CompilerService compilerService;
 
     private TopologyTestDriver streamTest;
@@ -55,16 +60,53 @@ class TopologyTests {
         props.setProperty(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.setProperty(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
         props.setProperty(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
-        streamTest = new TopologyTestDriver(topology, props);
+
+        String inputTopicName = "kafka.topic.input";
+        String outputTopicName = "kafka.topic.output";
+
+        topology = new KafkaStreamsTopologyConfig(null);
+
+        streamTest = new TopologyTestDriver(
+                topology.topology(
+                    inputTopicName,
+                    outputTopicName,
+                    1000,
+                        new StreamsBuilder(),
+                    compilerService),
+                props);
         
         // setup test topics
-        inputTopic = streamTest.createInputTopic("kafka.topic.input",
+        inputTopic = streamTest.createInputTopic(inputTopicName,
                                                  stringSerde.serializer(),
                                                  stringSerde.serializer());
         
-        outputTopic = streamTest.createOutputTopic("kafka.topic.output",
+        outputTopic = streamTest.createOutputTopic(outputTopicName,
                                                    stringSerde.deserializer(),
                                                    stringSerde.deserializer());
+
+        var testCaseResult = new TestCaseResult(Verdict.ACCEPTED,
+                "test output",
+                "",
+                "test expected output",
+                0);
+
+        var response = new RemoteCodeCompilerExecutionResponse(
+                Verdict.ACCEPTED.getStatusResponse(),
+                Verdict.ACCEPTED.getStatusCode(),
+                "",
+                new LinkedHashMap<>() {{
+                    put("test1", testCaseResult);
+                }},
+                0,
+                15,
+                500,
+                Language.JAVA,
+                LocalDateTime.now());
+
+        Mockito.lenient().when(compilerService.execute(any()))
+                .thenReturn(ResponseEntity
+                        .status(HttpStatus.OK)
+                        .body(new RemoteCodeCompilerResponse(response)));
     }
     
     @AfterEach
@@ -77,30 +119,6 @@ class TopologyTests {
 
         // Given
         String jsonRequest = "{}";
-    
-        var testCaseResult = new TestCaseResult(Verdict.ACCEPTED,
-                "test output",
-                "",
-                "test expected output",
-                0);
-        
-        var response = new RemoteCodeCompilerExecutionResponse(
-                Verdict.ACCEPTED.getStatusResponse(),
-                Verdict.ACCEPTED.getStatusCode(),
-                "",
-                new LinkedHashMap<String, TestCaseResult>() {{
-                    put("test1", testCaseResult);
-                }},
-                0,
-                15,
-                500,
-                Language.JAVA,
-                LocalDateTime.now());
-        
-        Mockito.when(compilerService.execute(Mockito.any()))
-                .thenReturn(ResponseEntity
-                        .status(HttpStatus.OK)
-                        .body(new RemoteCodeCompilerResponse(response)));
                 
         // When
         inputTopic.pipeInput(jsonRequest);
