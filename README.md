@@ -37,9 +37,9 @@ Supports **Rest Calls (Long Polling and [Push Notification](https://en.wikipedia
 - [APIs](#apis)
   - [Example of a REST call](#example-of-a-rest-call)
   - [Verdicts](#verdicts)
-- [How to Use It from the UI](#how-to-use-it-from-the-ui)
-- [Push Notifications](#push-notifications)
-- [Multipart Request](#multipart-request)
+  - [How to Use It from the UI](#how-to-use-it-from-the-ui)
+  - [Push Notifications](#push-notifications)
+  - [Multipart Request](#multipart-request)
 - [Visualize Docker Images and Containers Infos](#visualize-docker-images-and-containers-infos)
 - [Stream Processing with Kafka Streams](#stream-processing-with-kafka-streams)
 - [Queueing System with RabbitMQ](#queueing-system-with-rabbitmq)
@@ -420,7 +420,7 @@ Here is a list of Verdicts that can be returned by the compiler:
 }
 ```
 
-### How to use it from the UI
+#### How to use it from the UI
 
 The compiler is equipped with some problems specified in the problems.json file located in the resource folder. These problem sets are automatically loaded upon project startup, granting you the opportunity to explore and test them through the **/problems** endpoint.
 
@@ -434,7 +434,7 @@ to do so you should pass two header values (**url** where you want to get the re
 
 To enable push notifications you should set the environment variable **ENABLE_PUSH_NOTIFICATION** to true
 
-### Multipart request
+#### Multipart request
 
 You have also the possibility to use multipart requests, you typically can use these requests for file uploads and for transferring data of several types in a single request.
 The only limitation with that, is that you can specify only one test case.
