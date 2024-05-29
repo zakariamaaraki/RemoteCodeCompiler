@@ -40,6 +40,7 @@ Supports **Rest Calls (Long Polling and [Push Notification](https://en.wikipedia
   - [How to Use It from the UI](#how-to-use-it-from-the-ui)
   - [Push Notifications](#push-notifications)
   - [Multipart Request](#multipart-request)
+  - [With gRPC](#with-grpc)
 - [Visualize Docker Images and Containers Infos](#visualize-docker-images-and-containers-infos)
 - [Stream Processing with Kafka Streams](#stream-processing-with-kafka-streams)
 - [Queueing System with RabbitMQ](#queueing-system-with-rabbitmq)
@@ -440,6 +441,62 @@ You have also the possibility to use multipart requests, you typically can use t
 The only limitation with that, is that you can specify only one test case.
 
 ![multipart-request.png](images/multipart-request.png)
+
+#### With gRPC
+
+You should first set the gRPC server port number of the Remote Code Compiler using the `GRPC_PORT` environment variable. This ensures that the server listens on the correct port.
+
+To interact with the Remote Code Compiler using gRPC, follow these steps:
+
+##### Step 1: Install gRPC and Protocol Buffers
+Ensure you have gRPC and Protocol Buffers installed in your development environment. Instructions can be found on the official gRPC website.
+
+##### Step 2: Generate gRPC Client Code
+Generate the gRPC client code from the provided compiler.proto file. This can be done using the protoc compiler.
+```shell
+protoc --java_out=src/main/java --grpc-java_out=src/main/java -I=src/main/proto src/main/proto/compiler.proto
+```
+##### Step 3: Implement the gRPC Client
+Here is an example of how to implement a gRPC client in Java to consume the CompilerService:
+
+```java
+import com.cp.compiler.contract.CompilerServiceGrpc;
+import com.cp.compiler.contract.RemoteCodeCompilerRequest;
+import com.cp.compiler.contract.RemoteCodeCompilerResponse;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+
+public class CompilerClient {
+    public static void main(String[] args) {
+        // Create a channel to connect to the server
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051)
+                .usePlaintext()
+                .build();
+
+        // Create a blocking stub to interact with the service
+        CompilerServiceGrpc.CompilerServiceBlockingStub stub = CompilerServiceGrpc.newBlockingStub(channel);
+
+        // Create a request
+        RemoteCodeCompilerRequest request = RemoteCodeCompilerRequest.newBuilder()
+                .setSourcecode("public class Main { public static void main(String[] args) { System.out.println(\"Hello, World!\"); } }")
+                .setLanguage(RemoteCodeCompilerRequest.Language.JAVA)
+                .setExpectedOutput("Hello, World!")
+                .setTimeLimit(5)
+                .setMemoryLimit(512)
+                .build();
+
+        // Call the service and get the response
+        RemoteCodeCompilerResponse response = stub.compile(request);
+
+        // Handle the response
+        System.out.println("Verdict: " + response.getExecution().getVerdict());
+        System.out.println("Status Code: " + response.getExecution().getStatusCode());
+
+        // Close the channel
+        channel.shutdown();
+    }
+}
+```
 
 ### Visualize Docker images and containers infos
 It is also possible to visualize information about the images and docker containers that are currently running using these endpoints
