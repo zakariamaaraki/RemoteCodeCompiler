@@ -15,6 +15,36 @@ This tool execute your code remotely using docker containers to separate environ
 
 Supports **Rest Calls (Long Polling and [Push Notification](https://en.wikipedia.org/wiki/Push_technology))**, **Apache Kafka** and **Rabbit MQ Messages**, and **gRPC**.
 
+## Table of Contents
+- [Security Considerations](#security-considerations)
+  - [Sandboxing](#sandboxing)
+  - [Resource Limits](#resource-limits)
+  - [Input Sanitization](#input-sanitization)
+  - [Rate Limiting](#rate-limiting)
+- [Garbage Collection](#garbage-collection)
+- [Scalability](#scalability)
+- [How It Works](#how-it-works)
+- [Benchmark Report](#benchmark-report)
+  - [Overview](#overview)
+  - [Test Environment](#test-environment)
+  - [Compilation Performance](#compilation-performance)
+  - [Execution Performance](#execution-performance)
+  - [Observations and Insights](#observations-and-insights)
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+- [Local Run (for dev environment only)](#local-run-for-dev-environment-only)
+- [On K8s](#on-k8s)
+- [APIs](#apis)
+  - [Example of a REST call](#example-of-a-rest-call)
+  - [Verdicts](#verdicts)
+- [How to Use It from the UI](#how-to-use-it-from-the-ui)
+- [Push Notifications](#push-notifications)
+- [Multipart Request](#multipart-request)
+- [Visualize Docker Images and Containers Infos](#visualize-docker-images-and-containers-infos)
+- [Stream Processing with Kafka Streams](#stream-processing-with-kafka-streams)
+- [Queueing System with RabbitMQ](#queueing-system-with-rabbitmq)
+- [Monitoring](#monitoring)
+
 ## Security Considerations
 The compiler ensures the security of user code execution by sandboxing the execution environment and applying strict resource limits. Additionally, input sanitization and validation are performed to prevent code injection attacks.
 
@@ -26,6 +56,9 @@ Strict resource limits are enforced to prevent resource exhaustion attacks and e
 
 #### Input Sanitization
 Input sanitization measures are implemented to validate and sanitize user inputs before execution. This helps prevent code injection attacks and ensures that only safe and trusted inputs are processed by the compiler. By sanitizing inputs, the compiler reduces the risk of executing malicious code and maintains the integrity of the execution environment.
+
+#### Rate Limiting
+To ensure fair usage and protect the system from abuse, a rate limit of **5 requests per second (RPS) per user ID** is enforced. This rate limit can be overridden by setting the `MAX_USER_REQUESTS` environment variable to a different value. This flexibility allows you to adjust the rate limits based on specific needs or usage patterns.
 
 ## Garbage Collection
 A garbage collector runs periodically to clean up any stuck executions and their associated resources, ensuring efficient resource utilization and preventing resource leaks.
@@ -415,6 +448,8 @@ It is also possible to visualize information about the images and docker contain
 
 ## Stream processing with Kafka Streams
 
+The Remote Code Compiler integrates with Apache Kafka for stream processing. This allows for efficient handling of high-throughput data streams and real-time analytics.
+
 ![remote code compiler kafka mode](images/kafka-streams.png?raw=true "Compiler Kafka Mode")
 
 You can use the compiler with an event driven architecture.
@@ -436,6 +471,8 @@ docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -
 
 ## Queueing system with RabbitMq
 
+The Remote Code Compiler integrates with RabbitMq for queueing. This allows for efficient handling of high-throughput data.
+
 ![remote code compiler rabbitMq mode](images/rabbitMq.png?raw=true "Compiler rabbitMq Mode")
 
 To enable Rabbit MQ mode you should pass to the container the following env variables :
@@ -456,6 +493,8 @@ docker container run -p 8080:8082 -v /var/run/docker.sock:/var/run/docker.sock -
 <p align="center">
 <img height="100px" width="100px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Prometheus_software_logo.svg/1200px-Prometheus_software_logo.svg.png" alt="prometheus logo"/>
 </p>
+
+Monitoring is crucial for maintaining the health and performance of the Remote Code Compiler. The application includes monitoring tools to track resource usage, execution metrics, and system logs. Use tools like Prometheus and Grafana for comprehensive monitoring and visualization.
 
 Check out exposed prometheus metrics using the following url : http://<IP:PORT>/prometheus
 
