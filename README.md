@@ -509,7 +509,10 @@ The Remote Code Compiler integrates with Apache Kafka for stream processing. Thi
 
 ![remote code compiler kafka mode](images/kafka-streams.png?raw=true "Compiler Kafka Mode")
 
-You can use the compiler with an event driven architecture.
+### Kafka Streams Toplogy
+
+![image](https://github.com/zakariamaaraki/RemoteCodeCompiler/assets/41241669/c156119e-7710-4bd9-a2d1-ae60fe31bde8)
+
 To enable kafka mode you should pass to the container the following env variables :
 * **ENABLE_KAFKA_MODE** : True or False
 * **KAFKA_INPUT_TOPIC** : Input topic, json request
