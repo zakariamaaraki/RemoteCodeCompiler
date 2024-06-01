@@ -41,7 +41,7 @@ Supports **Rest Calls (Long Polling and [Push Notification](https://en.wikipedia
   - [Push Notifications](#push-notifications)
   - [Multipart Request](#multipart-request)
   - [With gRPC](#with-grpc)
-- [Visualize Docker Images and Containers Infos](#visualize-docker-images-and-containers-infos)
+- [Visualize Docker Images and Containers Informatn](#visualize-docker-images-and-containers-information)
 - [Stream Processing with Kafka Streams](#stream-processing-with-kafka-streams)
 - [Queueing System with RabbitMQ](#queueing-system-with-rabbitmq)
 - [Monitoring](#monitoring)
@@ -498,7 +498,7 @@ public class CompilerClient {
 }
 ```
 
-### Visualize Docker images and containers infos
+### Visualize Docker images and containers information
 It is also possible to visualize information about the images and docker containers that are currently running using these endpoints
 
 ![Docker info](images/swagger-docker-infos.png?raw=true "Docker info Swagger")
