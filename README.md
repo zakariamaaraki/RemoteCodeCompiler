@@ -41,7 +41,7 @@ Supports **Rest Calls (Long Polling and [Push Notification](https://en.wikipedia
   - [Push Notifications](#push-notifications)
   - [Multipart Request](#multipart-request)
   - [With gRPC](#with-grpc)
-- [Visualize Docker Images and Containers Informatn](#visualize-docker-images-and-containers-information)
+- [Visualize Docker Images and Containers Information](#visualize-docker-images-and-containers-information)
 - [Stream Processing with Kafka Streams](#stream-processing-with-kafka-streams)
 - [Queueing System with RabbitMQ](#queueing-system-with-rabbitmq)
 - [Monitoring](#monitoring)
