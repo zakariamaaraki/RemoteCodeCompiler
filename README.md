@@ -86,7 +86,7 @@ and a user-facing error message is generated to explain the termination cause.
 
 In our endeavor to develop a robust and efficient remote code compiler, we conducted a series of benchmark tests to evaluate the performance across multiple programming languages. The problem chosen for this benchmark is a simple problem from Codeforces: [Watermelon (Problem A from Contest 4)](https://codeforces.com/contest/4/problem/A). 
 
-We executed 1000 test runs for each of 10 test cases in four different programming languages: Java, Python, C, and C++. This resulted in a total of 4000 executions and 30 compilations.
+We executed 4000 test runs for each of 10 test cases in four different programming languages: Java, Python, C, and C++. This resulted in a total of 40000 executions and 3000 compilations.
 
 ### Test Environment
 
