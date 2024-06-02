@@ -22,4 +22,8 @@ public class CompilerThrottlingException extends MonitoredException {
     public CompilerThrottlingException(String message) {
         super(message, ErrorCode.THROTTLING_ERROR, ErrorType.WARNING, true, RETRY_IN);
     }
+
+    public CompilerThrottlingException(String message, int retryIn ) {
+        super(message, ErrorCode.THROTTLING_ERROR, ErrorType.WARNING, true, retryIn);
+    }
 }

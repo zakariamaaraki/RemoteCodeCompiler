@@ -1,6 +1,7 @@
 package com.cp.compiler.services.platform.resources;
 
 import com.cp.compiler.contract.resources.AvailableResources;
+import com.google.common.util.concurrent.AtomicDouble;
 
 /**
  * The interface Cpu resources.
@@ -8,7 +9,12 @@ import com.cp.compiler.contract.resources.AvailableResources;
  * @author Zakaria Maaraki
  */
 public interface Resources {
-    
+
+    /**
+     * Used for retry after.
+     */
+    AtomicDouble lastExecutionDuration = new AtomicDouble(-1);
+
     /**
      * Gets max cpus.
      *

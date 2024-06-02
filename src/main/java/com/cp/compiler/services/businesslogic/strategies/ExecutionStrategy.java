@@ -53,7 +53,7 @@ public abstract class ExecutionStrategy {
     
     private static final long EXECUTION_TIME_OUT = 20000; // in ms
     
-    private final Resources resources;
+    protected final Resources resources;
     
     private static final String TEST_CASE_ID_ENV_VARIABLE = "TEST_CASE_ID";
     

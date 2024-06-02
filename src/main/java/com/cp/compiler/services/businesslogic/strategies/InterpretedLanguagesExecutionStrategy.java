@@ -19,7 +19,7 @@ import javax.annotation.PostConstruct;
  */
 @Slf4j
 @Component("interpreted")
-public class InterpretedLanguagesExecutionStrategy extends ExecutionStrategy {
+public class InterpretedLanguagesExecutionStrategy extends ExecutionStrategyDecorator {
     
     private final MeterRegistry meterRegistry;
     

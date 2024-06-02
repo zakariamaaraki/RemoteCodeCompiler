@@ -109,7 +109,7 @@ public class CompilerProxy implements CompilerService {
         throttlingCounterMetric.increment();
         String errorMessage = "Request has been throttled, service reached maximum resources usage";
         log.warn(errorMessage);
-        throw new CompilerThrottlingException(errorMessage);
+        throw new CompilerThrottlingException(errorMessage, resources.lastExecutionDuration.intValue());
     }
     
     private ResponseEntity<RemoteCodeCompilerResponse> compileAndExecute(Execution execution) {

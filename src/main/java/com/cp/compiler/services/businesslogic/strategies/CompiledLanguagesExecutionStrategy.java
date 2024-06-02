@@ -30,7 +30,7 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 @Slf4j
 @Component("compiled")
-public class CompiledLanguagesExecutionStrategy extends ExecutionStrategy {
+public class CompiledLanguagesExecutionStrategy extends ExecutionStrategyDecorator {
     
     // Note: this value should not be updated, once update don't forget to update build.sh script used to build these images.
     private static final String IMAGE_PREFIX_NAME = "compiler.";
